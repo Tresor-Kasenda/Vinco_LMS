@@ -8,7 +8,10 @@ use App\Http\Controllers\App\HomeFrontendController;
 use App\Http\Controllers\App\LibraryAppController;
 use App\Http\Controllers\App\ShortCoursesAppController;
 use App\Http\Controllers\Backend\HomeBackendController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+Auth::routes();
 
 Route::group([
     'prefix' => 'admins',

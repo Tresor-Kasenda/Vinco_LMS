@@ -21,23 +21,23 @@ class StudentsMiddleware
         }
 
         if (Auth::user()->role_id == RoleEnum::PROFESSOR) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::CHEF_COURSES) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::DEPARTMENT) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::CAMPUS) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::ADMIN){
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('admins.backend.home');
         }
     }
 }

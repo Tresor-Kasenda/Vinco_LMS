@@ -17,7 +17,7 @@ class ProfessorsMiddleware
         }
 
         if (Auth::user()->role_id == RoleEnum::STUDENT) {
-            return redirect()->route('users.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::PROFESSOR) {
@@ -25,19 +25,19 @@ class ProfessorsMiddleware
         }
 
         if (Auth::user()->role_id == RoleEnum::CHEF_COURSES) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::DEPARTMENT) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::CAMPUS) {
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('');
         }
 
         if (Auth::user()->role_id == RoleEnum::ADMIN){
-            return redirect()->route('commissioner.backend.index');
+            return redirect()->route('admins.backend.home');
         }
     }
 }
