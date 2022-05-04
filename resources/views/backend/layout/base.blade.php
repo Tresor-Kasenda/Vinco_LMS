@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="">
     <title>LMS | VINCO | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
+    @yield('styles')
 </head>
 <body class="nk-body bg-lighter npc-general has-sidebar">
     <div class="nk-app-root">

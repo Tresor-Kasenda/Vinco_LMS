@@ -36,12 +36,12 @@
                         'icon' => "ni-user-c"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.professors.index'),
                         'name' => "Professors",
                         'icon' => "ni-user-circle"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.campus.index'),
                         'name' => "Campus",
                         'icon' => "ni-book"
                     ])
