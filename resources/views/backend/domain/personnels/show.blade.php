@@ -22,8 +22,8 @@
                                                 <div class="form-control-wrap">
                                                     <select name="status" id="status" class="form-select form-control form-control-lg">
                                                         <option value="default_option">Select Status</option>
-                                                        <option value="1">Activated</option>
-                                                        <option value="0">Deactivated</option>
+                                                        <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
+                                                        <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -62,7 +62,7 @@
                                         <div class="nk-block">
                                             <div class="nk-data data-list">
                                                 <div class="data-head">
-                                                    <h6 class="overline-title">Basics</h6>
+                                                    <h6 class="overline-title">Role : {{ strtoupper($employee->user->role->name) }}</h6>
                                                 </div>
                                                 <div class="data-item">
                                                     <div class="data-col">
@@ -181,14 +181,6 @@
                                                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->endDate)->format('Y') }}
                                                                     </small>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-inner">
-                                                            <div class="user-account-info py-0">
-                                                                <h6 class="overline-title-alt">Last Login</h6>
-                                                                <p>06-29-2020 02:39pm</p>
-                                                                <h6 class="overline-title-alt">Login IP</h6>
-                                                                <p>192.129.243.28</p>
                                                             </div>
                                                         </div>
                                                     </div>

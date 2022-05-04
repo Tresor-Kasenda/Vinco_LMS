@@ -43,7 +43,7 @@
                                                     class="form-control date-picker-alt @error('startDate') error @enderror"
                                                     id="startDate"
                                                     name="startDate"
-                                                    value="{{ old('startDate' ?? $academic->startDate ) }}"
+                                                    value="{{ old('startDate' ) ?? $academic->startDate }}"
                                                     data-date-format="yyyy-mm-dd"
                                                     placeholder="Saisir le debut de l'annee"
                                                     required>
@@ -59,7 +59,7 @@
                                                     class="form-control date-picker-alt @error('endDate') error @enderror"
                                                     id="endDate"
                                                     name="endDate"
-                                                    value="{{ old('endDate' ?? $academic->endDate ) }}"
+                                                    value="{{ old('endDate' ) ?? $academic->endDate }}"
                                                     data-date-format="yyyy-mm-dd"
                                                     placeholder="Saisir la fin de l'annee"
                                                     required>

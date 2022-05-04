@@ -60,7 +60,6 @@ class PersonnelRepository implements PersonnelRepositoryInterface
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
-        $this->removePathOfImages(model: $personnel);
         $personnel->update([
             'username' => $attributes->input('name'),
             'firstname' => $attributes->input('firstName'),
@@ -68,7 +67,6 @@ class PersonnelRepository implements PersonnelRepositoryInterface
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
             'nationality' => $attributes->input('nationality'),
-            'images' => self::uploadFiles($attributes),
             'location' => $attributes->input('address'),
             'identityCard' => $attributes->input('identityCard'),
             'gender' => $attributes->input('gender'),
@@ -86,6 +84,17 @@ class PersonnelRepository implements PersonnelRepositoryInterface
         $personnel->delete();
         $factory->addSuccess('Personnel modifier avec succes');
         return back();
+    }
+
+    public function changeStatus($attributes): bool|int
+    {
+        $personnel = $this->showPersonnelContent(key: $attributes->input('key'));
+        if ($personnel != null){
+            return $personnel->update([
+                'status' => $attributes->input('status')
+            ]);
+        }
+        return false;
     }
 
     /**
