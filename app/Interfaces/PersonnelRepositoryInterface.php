@@ -9,12 +9,10 @@ interface PersonnelRepositoryInterface
 
     public function showPersonnelContent(string $key);
 
-    public function stored($attributes);
+    public function stored($attributes, $factory);
 
-    public function edited(string $key);
+    public function updated(string $key, $attributes, $factory);
 
-    public function updated(string $key, $attributes);
-
-    public function deleted(string $key);
+    public function deleted(string $key, $factory);
 
 }

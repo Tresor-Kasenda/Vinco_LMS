@@ -6,22 +6,32 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PersonnelRequest;
 use App\Interfaces\PersonnelRepositoryInterface;
+use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 final class PersonnelBackendController extends Controller
 {
-    public function __construct(public PersonnelRepositoryInterface $repository){}
+    public function __construct(
+        public PersonnelRepositoryInterface $repository,
+        public SweetAlertFactory $factory
+    ){}
 
     public function index(): Renderable
     {
         return view('backend.domain.personnels.index', [
-            'personnels' => $this->repository->getPersonnelContent()
+            'employees' => $this->repository->getPersonnelContent()
         ]);
     }
 
-    public function show(string $key)
+    public function show(string $key): Factory|View|Application
     {
-
+        return view('backend.domain.personnels.show', [
+            'employee' => $this->repository->showPersonnelContent(key:  $key)
+        ]);
     }
 
     public function create(): Renderable
@@ -29,8 +39,9 @@ final class PersonnelBackendController extends Controller
         return view('backend.domain.personnels.create');
     }
 
-    public function store(PersonnelRequest $attributes)
+    public function store(PersonnelRequest $attributes): RedirectResponse
     {
-        dd($attributes->all());
+        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        return to_route('admins.professors.index');
     }
 }
