@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('personnelEmail')->unique();
             $table->string('phoneNumber')->unique();
-            $table->string('nationality');
+            $table->string('matriculate')->unique();
+            $table->string('country');
             $table->string('images');
             $table->string('location');
             $table->string('identityCard')->unique();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->date('birthdays');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

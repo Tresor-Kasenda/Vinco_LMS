@@ -18,8 +18,10 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('name');
             $table->string('files');
+            $table->string('path');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

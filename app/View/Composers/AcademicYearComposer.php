@@ -12,8 +12,9 @@ class AcademicYearComposer
 {
     public function compose(View $view): void
     {
-        $view->with('academicYear', AcademicYear::query()
-            ->get()
-        );
+        $view
+            ->with('academicYear', AcademicYear::query()
+                ->get()
+            );
     }
 }

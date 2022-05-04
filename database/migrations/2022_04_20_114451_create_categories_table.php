@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

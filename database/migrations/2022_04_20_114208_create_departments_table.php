@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('images');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,10 +18,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('username');
+            $table->string('matriculate')->unique();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('personnelEmail')->unique();
-            $table->string('phoneNumber')->unique();
+            $table->string('email')->unique();
+            $table->string('phones')->unique();
             $table->string('nationality');
             $table->string('images');
             $table->string('location');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->date('birthdays');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

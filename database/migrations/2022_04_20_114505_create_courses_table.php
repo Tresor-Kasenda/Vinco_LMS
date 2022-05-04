@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('endDate');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

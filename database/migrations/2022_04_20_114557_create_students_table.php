@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('phoneNumber')->unique();
+            $table->string('matriculate')->unique();
             $table->string('images');
             $table->string('nationality');
             $table->string('location');
@@ -50,6 +51,7 @@ return new class extends Migration
             $table->string('address');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
