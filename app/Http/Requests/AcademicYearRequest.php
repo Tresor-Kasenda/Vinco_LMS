@@ -8,8 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class AcademicYearRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
      * @return bool
      */
     public function authorize(): bool
@@ -18,15 +16,13 @@ class AcademicYearRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
      */
     public function rules(): array
     {
         return [
-            'startDate' => ['required', 'date'],
-            'endDate' => ['required', 'date']
+            'startDate' => ['required', 'date', 'date_format:m/d/Y', 'before:endDate'],
+            'endDate' => ['required', 'date', 'date_format:m/d/Y', 'after:startDate']
         ];
     }
 }
