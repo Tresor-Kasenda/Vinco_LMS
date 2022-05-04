@@ -5,8 +5,8 @@ namespace App\Enums;
 
 class GenderEnum
 {
-    const MALE = 'Monsieur';
-    const FEMALE = 'femme';
+    const MALE = 'masculin';
+    const FEMALE = 'feminin';
 
     public static array $genders = [self::MALE, self::FEMALE];
 }

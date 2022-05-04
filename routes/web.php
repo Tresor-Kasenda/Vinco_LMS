@@ -8,8 +8,10 @@ use App\Http\Controllers\App\HomeFrontendController;
 use App\Http\Controllers\App\LibraryAppController;
 use App\Http\Controllers\App\ShortCoursesAppController;
 use App\Http\Controllers\Backend\AcademicYearBackendController;
+use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
+use App\Http\Controllers\Backend\ProfessorBackendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,9 @@ Route::group([
 ], function(){
     Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
     Route::resource('personnel', PersonnelBackendController::class);
+    Route::resource('professors', ProfessorBackendController::class);
     Route::resource('academic-years', AcademicYearBackendController::class);
+    Route::resource('campus', CampusBackendController::class);
 });
 
 Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');
