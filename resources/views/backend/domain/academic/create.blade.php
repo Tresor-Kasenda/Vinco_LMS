@@ -43,6 +43,7 @@
                                                     id="startDate"
                                                     name="startDate"
                                                     value="{{ old('startDate') }}"
+                                                    data-date-format="yyyy-mm-dd"
                                                     placeholder="Saisir le debut de l'annee"
                                                     required>
                                             </div>
@@ -58,6 +59,7 @@
                                                     id="endDate"
                                                     name="endDate"
                                                     value="{{ old('endDate') }}"
+                                                    data-date-format="yyyy-mm-dd"
                                                     placeholder="Saisir la fin de l'annee"
                                                     required>
                                             </div>

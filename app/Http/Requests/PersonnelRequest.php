@@ -25,16 +25,16 @@ class PersonnelRequest extends FormRequest
             "name" => ['required', 'string', 'min:4', 'max:255'],
             "firstName" => ['required', 'string', 'min:4', 'max:255'],
             "lastName" => ['required', 'string', 'min:4', 'max:255'],
-            "personnelEmail" => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', 'unique:personnels'],
-            "phone" => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            "email" => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', 'unique:personnels'],
+            "phones" => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             "nationality" => ['required', 'string', 'min:4', 'max:255'],
             "address" => ['required', 'string', 'min:7', 'max:255'],
             "identityCard" => ['required', 'string', 'min:10', 'max:255', 'unique:personnels'],
             "role_id" => ['required', Rule::exists('roles', 'id')],
-            "birthdays" => ['required', 'date', 'date_format:m/d/Y',],
+            "birthdays" => ['required', 'date', 'date_format:Y-m-d',],
             "gender" => ['required'],
             'academic' => ['required', Rule::exists('academic_years', 'id')],
-            "image" => ['nullable']
+            "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg']
         ];
     }
 }

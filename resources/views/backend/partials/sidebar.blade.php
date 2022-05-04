@@ -46,7 +46,7 @@
                         'icon' => "ni-book"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.departments.index'),
                         'name' => "Departments",
                         'icon' => "ni-layers"
                     ])

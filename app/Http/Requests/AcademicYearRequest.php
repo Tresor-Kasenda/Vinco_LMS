@@ -21,8 +21,8 @@ class AcademicYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'startDate' => ['required', 'date', 'date_format:m/d/Y', 'before:endDate'],
-            'endDate' => ['required', 'date', 'date_format:m/d/Y', 'after:startDate']
+            'startDate' => ['required', 'date', 'date_format:Y-m-d', 'before:endDate'],
+            'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate']
         ];
     }
 }

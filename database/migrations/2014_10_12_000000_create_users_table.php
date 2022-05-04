@@ -12,6 +12,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
             $table->string('name');
             $table->string('firstName')->nullable();
             $table->string('email')->unique();
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->integer('role_id')->default(RoleEnum::STUDENT);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

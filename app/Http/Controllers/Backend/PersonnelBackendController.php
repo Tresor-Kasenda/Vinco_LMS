@@ -12,6 +12,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 final class PersonnelBackendController extends Controller
 {
@@ -42,6 +43,11 @@ final class PersonnelBackendController extends Controller
     public function store(PersonnelRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
-        return to_route('admins.professors.index');
+        return to_route('admins.personnel.index');
+    }
+
+    public function active(Request $request)
+    {
+        dd($request);
     }
 }

@@ -5,10 +5,12 @@ namespace App\Providers;
 
 use App\Interfaces\AcademicYearRepositoryInterface;
 use App\Interfaces\CampusRepositoryInterface;
+use App\Interfaces\DepartmentRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
 use App\Repositories\Backend\AcademicYearRepository;
 use App\Repositories\Backend\CampusRepository;
+use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
 use Illuminate\Support\ServiceProvider;
@@ -19,7 +21,8 @@ class RepositoryServiceProvider extends ServiceProvider
         PersonnelRepositoryInterface::class => PersonnelRepository::class,
         AcademicYearRepositoryInterface::class => AcademicYearRepository::class,
         ProfessorRepositoryInterface::class => ProfessorRepository::class,
-        CampusRepositoryInterface::class => CampusRepository::class
+        CampusRepositoryInterface::class => CampusRepository::class,
+        DepartmentRepositoryInterface::class => DepartmentRepository::class
     ];
 
     /**

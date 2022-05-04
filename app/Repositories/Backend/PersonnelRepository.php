@@ -7,6 +7,7 @@ use App\Interfaces\PersonnelRepositoryInterface;
 use App\Models\Personnel;
 use App\Models\User;
 use App\Traits\ImageUploader;
+use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PersonnelRepository implements PersonnelRepositoryInterface
 {
-    use ImageUploader;
+    use ImageUploader, RandomValues;
 
     public function getPersonnelContent(): Collection|array
     {
@@ -28,15 +29,15 @@ class PersonnelRepository implements PersonnelRepositoryInterface
     public function showPersonnelContent(string $key): Model|Builder|null
     {
         $personnel = Personnel::query()
-            ->where('id', '=', $key)
+            ->where('key', '=', $key)
             ->first();
-        return $personnel->load('user');
+        return $personnel->load(['user', 'academic']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
         $campus = User::query()
-            ->where('email', '=', $attributes->input('personnelEmail'))
+            ->where('email', '=', $attributes->input('email'))
             ->first();
         if ($campus) {
             $factory->addError("Email deja utiliser par un autre compte");
@@ -46,7 +47,7 @@ class PersonnelRepository implements PersonnelRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'firstName' => $attributes->input('firstname'),
-                'email' => $attributes->input('personnelEmail'),
+                'email' => $attributes->input('email'),
                 'password' => Hash::make($attributes->input('identityCard')),
                 'role_id' => $attributes->input('role_id'),
             ]);
@@ -64,13 +65,13 @@ class PersonnelRepository implements PersonnelRepositoryInterface
             'username' => $attributes->input('name'),
             'firstname' => $attributes->input('firstName'),
             'lastname' => $attributes->input('lastName'),
-            'personnelEmail' => $attributes->input('personnelEmail'),
-            'phoneNumber' => $attributes->input('phone'),
+            'email' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
             'nationality' => $attributes->input('nationality'),
             'images' => self::uploadFiles($attributes),
             'location' => $attributes->input('address'),
             'identityCard' => $attributes->input('identityCard'),
-            'gender' => $attributes->input('birthdays'),
+            'gender' => $attributes->input('gender'),
             'birthdays' => $attributes->input('birthdays'),
             'academic_year_id' => $attributes->input('academic'),
         ]);
@@ -99,16 +100,17 @@ class PersonnelRepository implements PersonnelRepositoryInterface
                 'username' => $attributes->input('name'),
                 'firstname' => $attributes->input('firstName'),
                 'lastname' => $attributes->input('lastName'),
-                'personnelEmail' => $attributes->input('personnelEmail'),
-                'phoneNumber' => $attributes->input('phone'),
+                'email' => $attributes->input('email'),
+                'phones' => $attributes->input('phones'),
                 'nationality' => $attributes->input('nationality'),
                 'images' => self::uploadFiles($attributes),
                 'location' => $attributes->input('address'),
                 'identityCard' => $attributes->input('identityCard'),
-                'gender' => $attributes->input('birthdays'),
+                'gender' => $attributes->input('gender'),
                 'birthdays' => $attributes->input('birthdays'),
                 'academic_year_id' => $attributes->input('academic'),
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'matriculate' => $this->generateRandomTransaction(10)
             ]);
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
             $table->foreignIdFor(Lesson::class)
                 ->constrained()
                 ->cascadeOnDelete();

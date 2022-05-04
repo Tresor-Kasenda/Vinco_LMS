@@ -21,7 +21,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     public function showAcademicYear(string $key): Model|Builder|null
     {
         return AcademicYear::query()
-            ->where('id', '=', $key)
+            ->where('key', '=', $key)
             ->first();
     }
 
