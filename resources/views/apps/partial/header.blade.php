@@ -4,7 +4,10 @@
             <div class="pull-left logo-box">
                 <div class="logo">
                     <a href="{{ route('home.index') }}">
-                        <img src="{{ asset('assets/apps/images/logo-2.png') }}" alt="" title="">
+                        <img
+                            class="img-fluid"
+                            style="height: 40px; width:90px; margin: 0; padding: 0; "
+                            src="{{ asset('assets/apps/images/VincoWhite/SVG/Vinco color French.svg') }}" alt="" title="">
                     </a>
                 </div>
             </div>

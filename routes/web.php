@@ -7,7 +7,9 @@ use App\Http\Controllers\App\FeesAppController;
 use App\Http\Controllers\App\HomeFrontendController;
 use App\Http\Controllers\App\LibraryAppController;
 use App\Http\Controllers\App\ShortCoursesAppController;
+use App\Http\Controllers\Backend\AcademicYearBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
+use App\Http\Controllers\Backend\PersonnelBackendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,8 @@ Route::group([
     'middleware' => ['admins', 'auth']
 ], function(){
     Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
+    Route::resource('personnel', PersonnelBackendController::class);
+    Route::resource('academic-years', AcademicYearBackendController::class);
 });
 
 Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');

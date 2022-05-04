@@ -27,8 +27,7 @@
     </div>
     <script src="{{ asset('assets/admins/js/bundle41fe.js') }}"></script>
     <script src="{{ asset('assets/admins/js/scripts41fe.js') }}"></script>
-    <script src="{{ asset('assets/admins/js/demo-settings41fe.js') }}"></script>
-    <script src="{{ asset('assets/admins/js/apps/chats41fe.js') }}"></script>
     @yield('scripts')
+    @flasher_render
 </body>
 </html>

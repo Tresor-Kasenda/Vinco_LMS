@@ -16,7 +16,7 @@ trait RedirectRoute
     {
         switch(Auth::user()->role_id){
             case RoleEnum::ADMIN:
-                $this->redirectTo = route('');
+                $this->redirectTo = route('admins.backend.home');
                 return $this->redirectTo;
                 break;
             case RoleEnum::CAMPUS:

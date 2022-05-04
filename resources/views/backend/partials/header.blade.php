@@ -8,75 +8,12 @@
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="{{ route('admins.backend.home') }}" class="logo-link">
-                    <img class="logo-light logo-img" src="" srcset=" 2x" alt="logo">
-                    <img class="logo-dark logo-img" src="" srcset=" 2x" alt="logo-dark">
+                    <img class="logo-light logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo">
+                    <img class="logo-dark logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo-dark">
                 </a>
             </div>
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
-                    <li class="dropdown chats-dropdown hide-mb-xs">
-                        <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
-                            <div class="icon-status icon-status-na">
-                                <em class="icon ni ni-comments"></em>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end">
-                            <div class="dropdown-head">
-                                <span class="sub-title nk-dropdown-title">Recent Chats</span>
-                                <a href="#">Setting</a>
-                            </div>
-                            <div class="dropdown-body">
-                                <ul class="chat-list">
-                                    <li class="chat-item">
-                                        <a class="chat-link" href="message.html">
-                                            <div class="chat-media user-avatar">
-                                                <span>IH</span>
-                                                <span class="status dot dot-lg dot-gray"></span>
-                                            </div>
-                                            <div class="chat-info">
-                                                <div class="chat-from">
-                                                    <div class="name">Iliash Hossain</div>
-                                                    <span class="time">Now</span></div>
-                                                <div class="chat-context">
-                                                    <div class="text">
-                                                        You: Please confrim if you got my last messages.
-                                                    </div>
-                                                    <div class="status delivered">
-                                                        <em class="icon ni ni-check-circle-fill"></em>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="chat-item is-unread">
-                                        <a class="chat-link" href="message.html">
-                                            <div class="chat-media user-avatar bg-pink">
-                                                <span>AB</span>
-                                                <span class="status dot dot-lg dot-success"></span>
-                                            </div>
-                                            <div class="chat-info">
-                                                <div class="chat-from">
-                                                    <div class="name">Abu Bin Ishtiyak</div>
-                                                    <span class="time">4:49 AM</span>
-                                                </div>
-                                                <div class="chat-context">
-                                                    <div class="text">Hi, I am Ishtiyak, can you help me
-                                                        with this problem ?
-                                                    </div>
-                                                    <div class="status unread">
-                                                        <em class="icon ni ni-bullet-fill"></em>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown-foot center">
-                                <a href="message.html">View All</a>
-                            </div>
-                        </div>
-                    </li>
                     <li class="dropdown notification-dropdown">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                             <div class="icon-status icon-status-info">
@@ -115,8 +52,8 @@
                                     <em class="icon ni ni-user-alt"></em>
                                 </div>
                                 <div class="user-info d-none d-xl-block">
-                                    <div class="user-status user-status-active">Administator</div>
-                                    <div class="user-name dropdown-indicator">Abu Bin Ishityak</div>
+                                    <div class="user-status user-status-active">{{ auth()->user()->name }}</div>
+                                    <div class="user-name dropdown-indicator">{{ auth()->user()->email }}</div>
                                 </div>
                             </div>
                         </a>
@@ -124,24 +61,24 @@
                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                 <div class="user-card">
                                     <div class="user-avatar">
-                                        <span>AB</span>
+                                        <span>{{ substr(auth()->user()->name, 0,2) }}</span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                        <span class="sub-text">info@softnio.com</span>
+                                        <span class="lead-text">{{ auth()->user()->name }}</span>
+                                        <span class="sub-text">{{ auth()->user()->email }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="admin-profile.html">
+                                        <a href="">
                                             <em class="icon ni ni-user-alt"></em>
                                             <span>View Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin-profile-setting.html">
+                                        <a href="">
                                             <em class="icon ni ni-setting-alt"></em>
                                             <span>Account Setting</span>
                                         </a>
@@ -151,10 +88,13 @@
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <em class="icon ni ni-signout"></em>
                                             <span>Sign out</span>
                                         </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </div>

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Enums\GenderEnum;
 use App\Enums\StatusEnum;
 use App\Models\Department;
 use App\Models\Promotion;
@@ -20,12 +21,15 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Promotion::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Department::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Subsidiary::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('firstname');
@@ -42,6 +46,8 @@ return new class extends Migration
             $table->string('bornTown');
             $table->string('responsibleName');
             $table->string('responsiblePhone');
+            $table->enum('gender', [GenderEnum::$genders]);
+            $table->string('address');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
         });
