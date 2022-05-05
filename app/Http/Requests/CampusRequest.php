@@ -28,7 +28,7 @@ class CampusRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4', 'unique:campuses'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
-            'description' => ['nullable', 'string', 'min:50'],
+            'description' => ['nullable'],
             'user_id' => ['required', Rule::exists('users', 'id')]
         ];
     }

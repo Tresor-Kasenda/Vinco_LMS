@@ -25,6 +25,9 @@
                         'name' => "Accueil",
                         'icon' => "ni-dashboard-fill"
                     ])
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Administration</h6>
+                    </li>
                     @include('backend.components._link', [
                         'route' => route('admins.academic-years.index'),
                         'name' => "Annee academique",
@@ -36,11 +39,6 @@
                         'icon' => "ni-user-c"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.professors.index'),
-                        'name' => "Professors",
-                        'icon' => "ni-user-circle"
-                    ])
-                    @include('backend.components._link', [
                         'route' => route('admins.campus.index'),
                         'name' => "Campus",
                         'icon' => "ni-book"
@@ -49,6 +47,14 @@
                         'route' => route('admins.departments.index'),
                         'name' => "Departments",
                         'icon' => "ni-layers"
+                    ])
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Professeurs</h6>
+                    </li>
+                    @include('backend.components._link', [
+                        'route' => route('admins.professors.index'),
+                        'name' => "Professors",
+                        'icon' => "ni-user-circle"
                     ])
                     @include('backend.components._link', [
                         'route' => route('admins.personnel.index'),
@@ -62,9 +68,25 @@
                     ])
                     @include('backend.components._link', [
                         'route' => route('admins.personnel.index'),
+                        'name' => "Horaire",
+                        'icon' => "ni-calendar-check"
+                    ])
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Etudiant</h6>
+                    </li>
+                    @include('backend.components._link', [
+                        'route' => route('admins.personnel.index'),
                         'name' => "Students",
                         'icon' => "ni-users"
                     ])
+                    @include('backend.components._link', [
+                        'route' => route('admins.personnel.index'),
+                        'name' => "Etat de compte",
+                        'icon' => "ni-coin-alt"
+                    ])
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Parametre</h6>
+                    </li>
                     @include('backend.components._link', [
                         'route' => route('admins.personnel.index'),
                         'name' => "Events",
@@ -72,18 +94,8 @@
                     ])
                     @include('backend.components._link', [
                         'route' => route('admins.personnel.index'),
-                        'name' => "Horaire",
-                        'icon' => "ni-calendar-check"
-                    ])
-                    @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
                         'name' => "Notifications",
                         'icon' => "ni-notice"
-                    ])
-                    @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
-                        'name' => "Etat de compte",
-                        'icon' => "ni-coin-alt"
                     ])
                     @include('backend.components._link', [
                         'route' => route('admins.personnel.index'),

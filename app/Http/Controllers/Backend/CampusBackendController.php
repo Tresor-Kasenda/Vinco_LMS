@@ -4,16 +4,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonnelRequest;
-use App\Http\Requests\ProfessorRequest;
+use App\Http\Requests\CampusRequest;
 use App\Interfaces\CampusRepositoryInterface;
-use App\Interfaces\ProfessorRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Response as HttpResponse;
 
 class CampusBackendController extends Controller
 {
@@ -41,9 +42,33 @@ class CampusBackendController extends Controller
         return view('backend.domain.campus.create');
     }
 
-    public function store(ProfessorRequest $attributes): RedirectResponse
+    public function store(CampusRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
         return to_route('admins.campus.index');
+    }
+
+    public function edit(string $key): HttpResponse
+    {
+        return Response::view('backend.domain.campus.edit', [
+            'campus' => $this->repository->showCampus(key: $key)
+        ]);
+    }
+
+    public function update(string $key, CampusRequest $attributes): RedirectResponse
+    {
+        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        return Response::redirectToRoute('admins.campus.index');
+    }
+
+    public function destroy(string $key): RedirectResponse
+    {
+        $this->repository->deleted(key: $key, factory: $this->factory);
+        return Response::redirectToRoute('admins.campus.index');
+    }
+
+    public function activate(Request $request)
+    {
+
     }
 }

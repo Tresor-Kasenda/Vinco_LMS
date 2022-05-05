@@ -29,14 +29,11 @@
                 </div>
                 <div class="nk-block">
                     <div class="card">
-                        @if (session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                        @endif
                         <div class="card-inner">
                             <form action="{{ route('admins.campus.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-gs">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="name">Nom du campus</label>
                                             <div class="form-control-wrap">
@@ -51,7 +48,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="images">Logo du campus</label>
                                             <div class="form-control-wrap">
@@ -66,10 +63,35 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="quill-basic" name="description">
-                                            <p></p>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="user_id">Choisir le responsable</label>
+                                            <select
+                                                class="form-control js-select2 @error('user_id') error @enderror"
+                                                id="user_id"
+                                                name="user_id"
+                                                data-placeholder="Select a responsable"
+                                                required>
+                                                <option label="role" value=""></option>
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="description">Message</label>
+                                            <div class="form-control-wrap">
+                                                <textarea
+                                                    class="form-control form-control-sm"
+                                                    id="description"
+                                                    name="description"
+                                                    placeholder="Write the description"
+                                                >{{ old('description') }}</textarea>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
