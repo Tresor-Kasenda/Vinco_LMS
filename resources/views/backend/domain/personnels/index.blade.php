@@ -21,6 +21,12 @@
                                                 <span>Add</span>
                                             </a>
                                         </li>
+                                        <li class="nk-block-tools-opt">
+                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.personnel.history') }}">
+                                                <em class="icon ni ni-histroy"></em>
+                                                <span>Corbeille</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

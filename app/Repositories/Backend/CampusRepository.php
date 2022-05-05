@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
+use App\Enums\StatusEnum;
 use App\Interfaces\CampusRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
@@ -77,6 +78,10 @@ class CampusRepository implements CampusRepositoryInterface
     public function deleted(string $key, $factory): RedirectResponse
     {
         $campus = $this->showCampus(key: $key);
+        if ($campus->status !== StatusEnum::FALSE){
+            $factory->addError("Veillez desactiver le campus avant de le mettre dans la corbeille");
+            return back();
+        }
         $campus->delete();
         $factory->addSuccess('Un campus a ete modifier');
         return back();

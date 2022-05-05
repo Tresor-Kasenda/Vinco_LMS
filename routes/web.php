@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
 use App\Http\Controllers\Backend\ProfessorBackendController;
+use App\Http\Controllers\Backend\TrashedCampusBackendController;
+use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,18 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('academic-years', AcademicYearBackendController::class);
         Route::resource('campus', CampusBackendController::class);
         Route::resource('departments', DepartmentBackendController::class);
+
+        Route::controller(TrashedCampusBackendController::class)->group(function (){
+            Route::get('historiques', 'index')->name('campus.history');
+            Route::put('restoreCampus/{key}', 'restore')->name('campus.restore');
+            Route::delete('deleteCampus/{key}', 'destroy')->name('campus.remove');
+        });
+
+        Route::controller(TrashedPersonnelBackendController::class)->group(function (){
+            Route::get('history', 'index')->name('personnel.history');
+            Route::put('restorePersonnel/{key}', 'restore')->name('personnel.restore');
+            Route::delete('deletePersonnel/{key}', 'destroy')->name('personnel.remove');
+        });
 
         Route::put('changeStatus/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
     });

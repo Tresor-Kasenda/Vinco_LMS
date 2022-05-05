@@ -24,7 +24,7 @@
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.campus.history') }}">
                                                 <em class="icon ni ni-histroy"></em>
-                                                <span>Historique</span>
+                                                <span>Corbeille</span>
                                             </a>
                                         </li>
                                     </ul>

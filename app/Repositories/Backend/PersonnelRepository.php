@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
+use App\Enums\StatusEnum;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Models\Personnel;
 use App\Models\User;
@@ -14,7 +15,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
-class PersonnelRepository implements PersonnelRepositoryInterface
+/**
+ * class PersonnelRepository
+ */
+final class PersonnelRepository implements PersonnelRepositoryInterface
 {
     use ImageUploader, RandomValues;
 
@@ -80,7 +84,10 @@ class PersonnelRepository implements PersonnelRepositoryInterface
     public function deleted(string $key, $factory): RedirectResponse
     {
         $personnel = $this->showPersonnelContent(key: $key);
-        $this->removePathOfImages(model: $personnel);
+        if ($personnel->status !== StatusEnum::FALSE){
+            $factory->addError("Veillez desactiver le personnel avant de le mettre dans la corbeille");
+            return back();
+        }
         $personnel->delete();
         $factory->addSuccess('Personnel modifier avec succes');
         return back();
@@ -97,11 +104,6 @@ class PersonnelRepository implements PersonnelRepositoryInterface
         return false;
     }
 
-    /**
-     * @param $attributes
-     * @param Model|Builder $user
-     * @return Builder|Model
-     */
     public function createPersonnel($attributes, Model|Builder $user): Builder|Model
     {
         return Personnel::query()
