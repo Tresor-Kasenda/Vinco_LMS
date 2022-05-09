@@ -47,7 +47,11 @@
                     @endif
                         <div class="justify-content text-center p-2">
                             <img
-                                src="{{ asset('storage/'.$campus->images) }}"
+                                @if($campus->images)
+                                    src="{{ asset('storage/'.$campus->images) }}"
+                                @else
+
+                                @endif
                                 alt="{{ $campus->name }}"
                                 class="img-fluid img-thumbnail rounded-circle"
                                 height="15%"
