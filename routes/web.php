@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function (){
         });
 
         Route::put('changeStatus/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
+        Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
     });
 });
 

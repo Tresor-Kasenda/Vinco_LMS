@@ -5,19 +5,12 @@ namespace App\Repositories\Backend;
 
 use App\Enums\StatusEnum;
 use App\Interfaces\CampusRepositoryInterface;
-use App\Interfaces\PersonnelRepositoryInterface;
-use App\Interfaces\ProfessorRepositoryInterface;
 use App\Models\Campus;
-use App\Models\Personnel;
-use App\Models\Professor;
-use App\Models\User;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Response;
 
 class CampusRepository implements CampusRepositoryInterface
 {
@@ -85,5 +78,16 @@ class CampusRepository implements CampusRepositoryInterface
         $campus->delete();
         $factory->addSuccess('Un campus a ete modifier');
         return back();
+    }
+
+    public function changeStatus($attributes): bool|int
+    {
+        $personnel = $this->showCampus(key: $attributes->input('key'));
+        if ($personnel != null){
+            return $personnel->update([
+                'status' => $attributes->input('status')
+            ]);
+        }
+        return false;
     }
 }

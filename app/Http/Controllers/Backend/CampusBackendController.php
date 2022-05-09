@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CampusRequest;
+use App\Http\Requests\CampusStatusRequest;
 use App\Interfaces\CampusRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -67,8 +69,16 @@ class CampusBackendController extends Controller
         return Response::redirectToRoute('admins.campus.index');
     }
 
-    public function activate(Request $request)
+    public function activate(CampusStatusRequest $request): JsonResponse
     {
-
+        $employee = $this->repository->changeStatus(attributes: $request);
+        if ($employee){
+            return response()->json([
+                'message' => "The status has been successfully updated"
+            ]);
+        }
+        return response()->json([
+            'message' => "Desoler"
+        ]);
     }
 }

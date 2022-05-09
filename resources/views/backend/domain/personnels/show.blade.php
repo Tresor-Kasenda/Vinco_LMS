@@ -51,7 +51,7 @@
                         <div class="card-aside-wrap">
                             <div class="card-inner card-inner-lg">
                                 <div class="tab-content">
-                                    <div class="tab-pan active" id="personal">
+                                    <div class="tab-pan active" >
                                         <div class="nk-block-head">
                                             <div class="nk-block-between d-flex justify-content-between">
                                                 <div class="nk-block-head-content">
