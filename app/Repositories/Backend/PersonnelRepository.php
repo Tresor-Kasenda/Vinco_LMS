@@ -64,6 +64,9 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
+        $personnel->user->update([
+            'role_id' => $attributes->input('role_id')
+        ]);
         $personnel->update([
             'username' => $attributes->input('name'),
             'firstname' => $attributes->input('firstName'),

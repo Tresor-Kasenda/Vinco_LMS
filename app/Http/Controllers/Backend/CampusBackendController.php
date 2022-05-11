@@ -27,9 +27,8 @@ class CampusBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.campus.index', [
-            'campuses' => $this->repository->getCampuses()
-        ]);
+        $faculties = $this->repository->getCampuses();
+        return view('backend.domain.campus.index', compact('faculties'));
     }
 
     public function show(string $key): Factory|View|Application

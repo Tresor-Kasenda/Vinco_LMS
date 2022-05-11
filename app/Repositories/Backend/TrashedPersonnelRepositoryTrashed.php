@@ -33,11 +33,11 @@ class TrashedPersonnelRepositoryTrashed implements TrashedPersonnelRepositoryInt
     {
         $campus = $this->getTrashedCampus($key);
         $this->removePathOfImages(model: $campus);
+        $campus->user->forceDelete();
         $campus->forceDelete();
         $alert->addInfo("Personnel supprimer definivement avec succes");
         return back();
     }
-
 
     public function getTrashedCampus(string $key): mixed
     {

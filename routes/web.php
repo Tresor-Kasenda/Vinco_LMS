@@ -35,24 +35,24 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('departments', DepartmentBackendController::class);
 
         Route::controller(TrashedCampusBackendController::class)->group(function (){
-            Route::get('historiques', 'index')->name('campus.history');
+            Route::get('historyCampus/', 'index')->name('campus.history');
             Route::put('restoreCampus/{key}', 'restore')->name('campus.restore');
             Route::delete('deleteCampus/{key}', 'destroy')->name('campus.remove');
         });
 
         Route::controller(TrashedPersonnelBackendController::class)->group(function (){
-            Route::get('history', 'index')->name('personnel.history');
+            Route::get('historyPersonnel/', 'index')->name('personnel.history');
             Route::put('restorePersonnel/{key}', 'restore')->name('personnel.restore');
             Route::delete('deletePersonnel/{key}', 'destroy')->name('personnel.remove');
         });
 
         Route::controller(TrashedDepartmentBackendController::class)->group(function (){
-            Route::get('history', 'index')->name('departments.history');
+            Route::get('historyDepartment/', 'index')->name('departments.history');
             Route::put('restoreDepartment/{key}', 'restore')->name('departments.restore');
             Route::delete('deleteDepartment/{key}', 'destroy')->name('departments.remove');
         });
 
-        Route::put('changeStatus/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
+        Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
     });
 });

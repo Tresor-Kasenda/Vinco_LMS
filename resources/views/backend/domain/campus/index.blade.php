@@ -63,7 +63,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($campuses as $campus)
+                            @foreach($faculties as $campus)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
                                     <span class="tb-product">

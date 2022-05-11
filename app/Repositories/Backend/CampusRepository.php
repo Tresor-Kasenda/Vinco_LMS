@@ -29,7 +29,7 @@ class CampusRepository implements CampusRepositoryInterface
         $campus = Campus::query()
             ->where('key', '=', $key)
             ->first();
-        return $campus->load(['user', 'departments']);
+        return $campus->load(['user']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
@@ -39,19 +39,19 @@ class CampusRepository implements CampusRepositoryInterface
                 $query->where('user_id', $attributes->input('user_id'));
             })
             ->first();
-        if ($campus->exists()) {
-            $factory->addError("Le responsable choisie a ete deja affecter dans un autre campus");
-            return back();
+        if (!$campus) {
+            $faculty = Campus::query()
+                ->create([
+                    'user_id' => $attributes->input('user_id'),
+                    'name' => $attributes->input('name'),
+                    'description' => $attributes->input('description'),
+                    'images' => self::uploadFiles($attributes)
+                ]);
+            $factory->addSuccess('Un nouvaux campus a ete ajouter');
+            return $faculty;
         }
-        $campus = Campus::query()
-            ->create([
-                'user_id' => $attributes->input('user_id'),
-                'name' => $attributes->input('name'),
-                'description' => $attributes->input('description'),
-                'images' => self::uploadFiles($attributes)
-            ]);
-        $factory->addSuccess('Un nouvaux campus a ete ajouter');
-        return $campus;
+        $factory->addError("Le responsable choisie a ete deja affecter dans un autre campus");
+        return back();
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|null
