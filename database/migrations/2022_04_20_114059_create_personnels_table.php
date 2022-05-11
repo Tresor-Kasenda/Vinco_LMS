@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('username');
+            $table->string('username', '30');
             $table->string('matriculate')->unique();
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('firstname', '30');
+            $table->string('lastname', '30');
             $table->string('email')->unique();
             $table->string('phones')->unique();
             $table->string('nationality');

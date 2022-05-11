@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('username');
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('username', '30');
+            $table->string('firstname', '30');
+            $table->string('lastname', '30');
             $table->string('personnelEmail')->unique();
             $table->string('phoneNumber')->unique();
             $table->string('matriculate')->unique();

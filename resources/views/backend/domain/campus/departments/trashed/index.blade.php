@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Administration du departement")
 
 @section('content')
     <div class="container-fluid">
@@ -9,22 +9,16 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Departements</h3>
+                            <h3 class="nk-block-title page-title">Historique des departements</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.departments.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Add</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.departments.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.departments.index') }}">
+                                                <em class="icon ni ni-arrow-left"></em>
+                                                <span>Back</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -69,12 +63,12 @@
                             @foreach($departments as $department)
                                 <tr class="nk-tb-item">
                                     <td class="nk-tb-col tb-col-sm">
-                                    <span class="tb-product">
-                                        <img
-                                            src="{{ asset('storage/'. $department->images) }}"
-                                            alt="{{ $department->name }}"
-                                            class="thumb">
-                                    </span>
+                                        <span class="tb-product">
+                                            <img
+                                                src="{{ asset('storage/'. $department->images) }}"
+                                                alt="{{ $department->name }}"
+                                                class="thumb">
+                                        </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-sub">{{ $department->name }}</span>

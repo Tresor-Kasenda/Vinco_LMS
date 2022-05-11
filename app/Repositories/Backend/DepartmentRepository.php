@@ -8,6 +8,7 @@ use App\Interfaces\DepartmentRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
 use App\Models\Campus;
+use App\Models\Department;
 use App\Models\Personnel;
 use App\Models\Professor;
 use App\Models\User;
@@ -22,9 +23,12 @@ class DepartmentRepository implements DepartmentRepositoryInterface
 {
     use ImageUploader;
 
-    public function getDepartments()
+    public function getDepartments(): Collection|array
     {
-        // TODO: Implement getDepartments() method.
+        return Department::query()
+            ->with(['campus', 'subdsidiaries', 'users'])
+            ->latest()
+            ->get();
     }
 
     public function showDepartment(string $key)
@@ -45,5 +49,10 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function deleted(string $key, $factory)
     {
         // TODO: Implement deleted() method.
+    }
+
+    public function changeStatus($attributes)
+    {
+        // TODO: Implement changeStatus() method.
     }
 }

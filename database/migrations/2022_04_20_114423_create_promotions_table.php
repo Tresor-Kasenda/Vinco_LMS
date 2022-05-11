@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Subsidiary::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('name')->unique();
+            $table->string('name', '30')->unique();
             $table->text('description')->nullable();
             $table->string('images');
             $table->boolean('status')->default(StatusEnum::FALSE);

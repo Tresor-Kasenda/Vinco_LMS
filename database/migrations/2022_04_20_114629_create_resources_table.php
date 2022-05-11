@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Lesson::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('name');
+            $table->string('name', '30');
             $table->string('files');
             $table->string('path');
             $table->boolean('status')->default(StatusEnum::FALSE);

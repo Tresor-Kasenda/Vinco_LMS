@@ -15,4 +15,6 @@ interface DepartmentRepositoryInterface
 
     public function deleted(string $key, $factory);
 
+    public function changeStatus($attributes);
+
 }

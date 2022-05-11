@@ -33,9 +33,9 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('firstname');
-            $table->string('middlename');
-            $table->string('lastname');
+            $table->string('firstname', '30');
+            $table->string('middlename', '30');
+            $table->string('lastname', '30');
             $table->string('email')->unique();
             $table->string('phoneNumber')->unique();
             $table->string('matriculate')->unique();
