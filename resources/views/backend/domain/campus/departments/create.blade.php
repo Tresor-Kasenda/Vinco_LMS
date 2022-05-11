@@ -73,7 +73,7 @@
                                                 data-placeholder="Choisir le chef de department"
                                                 required>
                                                 <option label="Choisir le chef de department" value=""></option>
-                                                @foreach($users as $user)
+                                                @foreach($departmentHead as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach
                                             </select>

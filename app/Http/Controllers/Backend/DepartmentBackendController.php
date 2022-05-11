@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
+use function Pest\Laravel\delete;
 
 class DepartmentBackendController extends Controller
 {
@@ -33,7 +34,7 @@ class DepartmentBackendController extends Controller
     public function show(string $key): Factory|View|Application
     {
         return view('backend.domain.campus.departments.show', [
-            'campus' => $this->repository->showDepartment(key:  $key)
+            'department' => $this->repository->showDepartment(key:  $key)
         ]);
     }
 
@@ -50,7 +51,7 @@ class DepartmentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.campus.departments.departments.edit', [
+        return view('backend.domain.campus.departments.edit', [
             'department' => $this->repository->showDepartment(key:  $key)
         ]);
     }

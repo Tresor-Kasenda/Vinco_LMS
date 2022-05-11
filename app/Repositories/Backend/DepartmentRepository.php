@@ -3,21 +3,14 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\CampusRepositoryInterface;
+use App\Enums\StatusEnum;
 use App\Interfaces\DepartmentRepositoryInterface;
-use App\Interfaces\PersonnelRepositoryInterface;
-use App\Interfaces\ProfessorRepositoryInterface;
-use App\Models\Campus;
 use App\Models\Department;
-use App\Models\Personnel;
-use App\Models\Professor;
-use App\Models\User;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
 
 class DepartmentRepository implements DepartmentRepositoryInterface
 {
@@ -26,33 +19,78 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function getDepartments(): Collection|array
     {
         return Department::query()
-            ->with(['campus', 'subdsidiaries', 'users'])
+            ->with(['campus','users'])
             ->latest()
             ->get();
     }
 
-    public function showDepartment(string $key)
+    public function showDepartment(string $key): Model|Department|Builder|null
     {
-        // TODO: Implement showDepartment() method.
+        $department  = Department::query()
+            ->where('key', '=', $key)
+            ->first();
+        return $department->load(['campus', 'users', 'professors']);
     }
 
-    public function stored($attributes, $factory)
+    public function stored($attributes, $factory): Model|Department|Builder|RedirectResponse
     {
-        // TODO: Implement stored() method.
+        $department = Department::query()
+            ->when('name', function ($query) use ($attributes){
+                $query->where('name', $attributes->input('name'));
+            })
+            ->first();
+        if (!$department) {
+            $faculty = Department::query()
+                ->create([
+                    'name' => $attributes->input('name'),
+                    'description' => $attributes->input('description'),
+                    'images' => self::uploadFiles($attributes),
+                    'campus_id' => $attributes->input('campus_id')
+                ]);
+            $faculty->users()->attach($attributes->input('user_id'));
+            $factory->addSuccess('Un nouvaux campus a ete ajouter');
+            return $faculty;
+        }
+        $factory->addError("Le responsable choisie a ete deja affecter dans un autre campus");
+        return back();
     }
 
-    public function updated(string $key, $attributes, $factory)
+    public function updated(string $key, $attributes, $factory): Model|Department|Builder|null
     {
-        // TODO: Implement updated() method.
+        $department  = $this->showDepartment(key: $key);
+        $this->removePathOfImages($department);
+        $department->users()->detach();
+        $department->update([
+            'name' => $attributes->input('name'),
+            'description' => $attributes->input('description'),
+            'images' => self::uploadFiles($attributes),
+            'campus_id' => $attributes->input('campus_id')
+        ]);
+        $department->users()->attach($attributes->input('user_id'));
+        $factory->addSuccess('Un campus a ete modifier');
+        return $department;
     }
 
-    public function deleted(string $key, $factory)
+    public function deleted(string $key, $factory): RedirectResponse
     {
-        // TODO: Implement deleted() method.
+        $department = $this->showDepartment(key: $key);
+        if ($department->status !== StatusEnum::FALSE){
+            $factory->addError("Veillez desactiver le departement avant de le mettre dans la corbeille");
+            return back();
+        }
+        $department->delete();
+        $factory->addSuccess('Un campus a ete modifier');
+        return back();
     }
 
-    public function changeStatus($attributes)
+    public function changeStatus($attributes): bool|int
     {
-        // TODO: Implement changeStatus() method.
+        $department = $this->showDepartment(key: $attributes->input('key'));
+        if ($department != null){
+            return $department->update([
+                'status' => $attributes->input('status')
+            ]);
+        }
+        return false;
     }
 }

@@ -169,6 +169,7 @@ return [
          */
 
         Flasher\Laravel\FlasherServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...

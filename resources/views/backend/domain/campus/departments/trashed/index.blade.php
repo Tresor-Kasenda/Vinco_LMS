@@ -61,31 +61,33 @@
                         </thead>
                         <tbody>
                             @foreach($departments as $department)
-                                <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-sm">
-                                        <span class="tb-product">
-                                            <img
-                                                src="{{ asset('storage/'. $department->images) }}"
-                                                alt="{{ $department->name }}"
-                                                class="thumb">
-                                        </span>
+                                <tr class="nk-tb-item text-center">
+                                    <td class="nk-tb-col">
+                                            <span class="tb-product">
+                                                <img
+                                                    src="{{ asset('storage/'. $department->images) }}"
+                                                    alt="{{ $department->name }}"
+                                                    class="thumb">
+                                            </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-sub">{{ $department->name }}</span>
+                                        <span class="tb-lead">{{ $department->name ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-sub">{{ $department->campus->name }}</span>
+                                        <span class="tb-lead">{{ $department->campus->name ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-sub">{{ strtoupper($department->user->name) }}-{{ strtoupper($department->user->firstname) }}</span>
+                                        @foreach($department->users as $user)
+                                            <span class="tb-lead">{{ strtoupper($user->name) }}</span>
+                                        @endforeach
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
                                         @if($department->status)
-                                            <span class="dot bg-success d-mb-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg badge-success d-none d-mb-inline-flex">Confirmer</span>
+                                            <span class="dot bg-success d-sm-none"></span>
+                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
                                         @else
-                                            <span class="dot bg-warning d-mb-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg badge-warning d-none d-mb-inline-flex">En attente</span>
+                                            <span class="dot bg-warning d-sm-none"></span>
+                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
                                         @endif
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
@@ -98,23 +100,21 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.departments.edit', $department->key) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.departments.show', $department->key) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.departments.destroy', $professor->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
+                                                                <form action="{{ route('admins.departments.restore', $department->key) }}" method="POST">
+                                                                    @method('PUT')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
+                                                                        <em class="icon ni ni-check-circle"></em>
+                                                                        <span>Restore</span>
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ route('admins.departments.remove', $department->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                    @method('DELETE')
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                    <button type="submit" class="btn btn-dim text-danger">
+                                                                        <em class="icon ni ni-delete"></em>
                                                                         <span>Remove</span>
                                                                     </button>
                                                                 </form>

@@ -10,6 +10,44 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Chapter
+ *
+ * @property int $id
+ * @property string $key
+ * @property int $course_id
+ * @property string $name
+ * @property string|null $description
+ * @property string $displayType
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Course $course
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercice[] $exercises
+ * @property-read int|null $exercises_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lesson[] $lessons
+ * @property-read int|null $lessons_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
+ * @property-read int|null $questions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Chapter onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDisplayType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Chapter withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Chapter withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Chapter extends Model
 {
     use HasFactory, SoftDeletes, HasKeyTrait;

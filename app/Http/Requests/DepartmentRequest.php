@@ -1,8 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Campus;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -11,9 +15,9 @@ class DepartmentRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +28,11 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => ['required', 'string'],
+            'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
+            "user_id" => ['required', Rule::exists(User::class, 'id')],
+            "campus_id" => ['required', Rule::exists(Campus::class, 'id')],
+            "description" => ['nullable'],
         ];
     }
 }

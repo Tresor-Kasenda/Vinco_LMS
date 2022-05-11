@@ -66,12 +66,12 @@
                             @foreach($faculties as $campus)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
-                                    <span class="tb-product">
-                                        <img
-                                            src="{{ asset('storage/'. $campus->images) }}"
-                                            alt="{{ $campus->name }}"
-                                            class="thumb">
-                                    </span>
+                                        <span class="tb-product">
+                                            <img
+                                                src="{{ asset('storage/'. $campus->images) }}"
+                                                alt="{{ $campus->name }}"
+                                                class="thumb">
+                                        </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $campus->name }}</span>

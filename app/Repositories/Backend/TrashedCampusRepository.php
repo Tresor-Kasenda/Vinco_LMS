@@ -3,43 +3,44 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\TrashedDepartmentRepositoryInterface;
+use App\Interfaces\TrashedCampusRepositoryInterface;
+use App\Models\Campus;
 use App\Models\Department;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 
-class TrashedDepartmentRepository implements TrashedDepartmentRepositoryInterface
+class TrashedCampusRepository implements TrashedCampusRepositoryInterface
 {
     use ImageUploader;
 
     public function getTrashes(): array|Collection
     {
-        return Department::onlyTrashed()
+        return Campus::onlyTrashed()
             ->orderByDesc('created_at', 'desc')
             ->get();
     }
 
     public function restore(string $key, $alert)
     {
-        $department = $this->getTrashedDepartment(key: $key);
-        $department->restore();
-        $alert->addSuccess("Le departement a ete restorer avec success");
-        return $department;
+        $campus = $this->getTrashedDepartment(key: $key);
+        $campus->restore();
+        $alert->addSuccess("La campus a ete restorer avec success");
+        return $campus;
     }
 
     public function deleted(string $key, $alert): RedirectResponse
     {
-        $department = $this->getTrashedDepartment(key: $key);
-        $this->removePathOfImages(model: $department);
-        $department->forceDelete();
-        $alert->addInfo("Departement supprimer definivement avec succes");
+        $campus = $this->getTrashedDepartment(key: $key);
+        $this->removePathOfImages(model: $campus);
+        $campus->forceDelete();
+        $alert->addInfo("campus supprimer definivement avec succes");
         return back();
     }
 
     public function getTrashedDepartment(string $key): mixed
     {
-        return Department::withTrashed()
+        return Campus::withTrashed()
             ->when('key', function ($query) use ($key) {
                 $query->where('key', $key);
             })

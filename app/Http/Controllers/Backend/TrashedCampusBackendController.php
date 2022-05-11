@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\TrashedCampusRepositoryInterface;
 use App\Interfaces\TrashedPersonnelRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
@@ -14,13 +15,13 @@ class TrashedCampusBackendController extends Controller
 {
     public function __construct(
         public SweetAlertFactory $alertFactory,
-        public TrashedPersonnelRepositoryInterface $repository
+        public TrashedCampusRepositoryInterface $repository
     ){}
 
     public function index(): Renderable
     {
         return view('backend.domain.campus.trashed.index', [
-            'campuses' => $this->repository->getTrashes()
+            'faculties' => $this->repository->getTrashes()
         ]);
     }
 

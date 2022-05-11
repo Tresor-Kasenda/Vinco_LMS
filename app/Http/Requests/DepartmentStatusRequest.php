@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Department;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentStatusRequest extends FormRequest
 {
@@ -11,9 +14,9 @@ class DepartmentStatusRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +24,11 @@ class DepartmentStatusRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            "status" => ['required'],
+            "key" => ['required', Rule::exists(Department::class, 'key')]
         ];
     }
 }
