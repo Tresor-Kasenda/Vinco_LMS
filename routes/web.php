@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\ProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedDepartmentBackendController;
 use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
+use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,9 +53,16 @@ Route::group(['middleware' => 'auth'], function (){
             Route::delete('deleteDepartment/{key}', 'destroy')->name('departments.remove');
         });
 
+        Route::controller(TrashedProfessorBackendController::class)->group(function (){
+            Route::get('historyProfessors/', 'index')->name('professors.history');
+            Route::put('restoreProfessors/{key}', 'restore')->name('professors.restore');
+            Route::delete('deleteProfessors/{key}', 'destroy')->name('professors.remove');
+        });
+
         Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
         Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])->name('department.active');
+        Route::put('activeProfessor/{key}/update', [ProfessorBackendController::class, 'activate'])->name('professors.active');
     });
 });
 

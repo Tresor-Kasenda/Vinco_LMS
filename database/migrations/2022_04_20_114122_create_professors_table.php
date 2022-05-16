@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('username', '30');
             $table->string('firstname', '30');
             $table->string('lastname', '30');
-            $table->string('personnelEmail')->unique();
-            $table->string('phoneNumber')->unique();
+            $table->string('email')->unique();
+            $table->string('phones')->unique();
             $table->string('matriculate')->unique();
             $table->string('country');
             $table->string('images');

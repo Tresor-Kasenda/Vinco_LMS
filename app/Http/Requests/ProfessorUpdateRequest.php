@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class ProfessorRequest extends FormRequest
+class ProfessorUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,11 +28,11 @@ class ProfessorRequest extends FormRequest
             "name" => ['required', 'string', 'min:4', 'max:255'],
             "firstName" => ['required', 'string', 'min:4', 'max:255'],
             "lastName" => ['required', 'string', 'min:4', 'max:255'],
-            "email" => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', 'unique:professors'],
+            "email" => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             "phones" => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             "nationality" => ['required', 'string', 'min:4', 'max:255'],
             "address" => ['required', 'string', 'min:7', 'max:255'],
-            "identityCard" => ['required', 'string', 'min:10', 'max:255', 'unique:professors'],
+            "identityCard" => ['required', 'string', 'min:10', 'max:255'],
             "birthdays" => ['required', 'date', 'date_format:Y-m-d'],
             "gender" => ['required'],
             "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg']

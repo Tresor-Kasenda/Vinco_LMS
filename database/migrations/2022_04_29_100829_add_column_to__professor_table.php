@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::table('professors', function (Blueprint $table) {
             $table->foreignIdFor(Department::class)
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignIdFor(AcademicYear::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
         });

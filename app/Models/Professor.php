@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Professor
@@ -28,38 +30,38 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $gender
  * @property string $birthdays
  * @property int $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property int $department_id
  * @property int $academic_year_id
- * @property-read \App\Models\Department $department
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Professor newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Professor newQuery()
+ * @property-read Department $department
+ * @property-read User $user
+ * @method static Builder|Professor newModelQuery()
+ * @method static Builder|Professor newQuery()
  * @method static \Illuminate\Database\Query\Builder|Professor onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Professor query()
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereAcademicYearId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereBirthdays($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereDepartmentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereFirstname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereGender($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereIdentityCard($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereImages($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereLastname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereMatriculate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor wherePersonnelEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor wherePhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Professor whereUsername($value)
+ * @method static Builder|Professor query()
+ * @method static Builder|Professor whereAcademicYearId($value)
+ * @method static Builder|Professor whereBirthdays($value)
+ * @method static Builder|Professor whereCountry($value)
+ * @method static Builder|Professor whereCreatedAt($value)
+ * @method static Builder|Professor whereDeletedAt($value)
+ * @method static Builder|Professor whereDepartmentId($value)
+ * @method static Builder|Professor whereFirstname($value)
+ * @method static Builder|Professor whereGender($value)
+ * @method static Builder|Professor whereId($value)
+ * @method static Builder|Professor whereIdentityCard($value)
+ * @method static Builder|Professor whereImages($value)
+ * @method static Builder|Professor whereKey($value)
+ * @method static Builder|Professor whereLastname($value)
+ * @method static Builder|Professor whereLocation($value)
+ * @method static Builder|Professor whereMatriculate($value)
+ * @method static Builder|Professor wherePersonnelEmail($value)
+ * @method static Builder|Professor wherePhoneNumber($value)
+ * @method static Builder|Professor whereStatus($value)
+ * @method static Builder|Professor whereUpdatedAt($value)
+ * @method static Builder|Professor whereUserId($value)
+ * @method static Builder|Professor whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|Professor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Professor withoutTrashed()
  * @mixin \Eloquent
