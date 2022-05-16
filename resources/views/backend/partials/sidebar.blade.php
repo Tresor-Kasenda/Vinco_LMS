@@ -57,7 +57,7 @@
                         'icon' => "ni-user-circle"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.categories.index'),
                         'name' => "Categories",
                         'icon' => "ni-copy"
                     ])
