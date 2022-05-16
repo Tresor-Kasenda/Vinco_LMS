@@ -103,7 +103,9 @@
                                 <x-statistic
                                     name="Professor"
                                     number="{{ \App\Models\Professor::all()->count() }}"
+                                    route="{{ route('admins.professors.index') }}"
                                 />
+
                             </div>
                         </div>
                     </div>
