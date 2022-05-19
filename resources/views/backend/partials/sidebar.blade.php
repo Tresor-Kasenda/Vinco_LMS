@@ -2,9 +2,9 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo-dark">
-                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo-small">
+                <img class="logo-light logo-img" src="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo-dark">
+                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }}" srcset="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco color Frenchmdpi.png') }} 3x" alt="logo-small">
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
@@ -72,7 +72,7 @@
                         'icon' => "ni-copy"
                     ])
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.course.index'),
                         'name' => "Cours",
                         'icon' => "ni-book-read"
                     ])

@@ -14,6 +14,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('apps.index');
+        return view('frontend.index');
     }
 }

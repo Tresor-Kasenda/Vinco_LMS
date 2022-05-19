@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -39,28 +40,30 @@ class CreateUserCommand extends Command
                 ]
             );
         }
+        if ($this->confirm("Voulez vous creer un administrateur")){
+            if (!$validator->fails()) {
+                try {
+                    $password = Hash::make($password);
+                    $role = Role::query()
+                        ->where('id', '=', RoleEnum::ADMIN)
+                        ->first();
+                    $role_id = $role->id;
+                    $status = StatusEnum::TRUE;
+                    $user = User::query()
+                        ->create(compact('name', 'email', 'password', 'role_id', 'status'));
 
-        if (!$validator->fails()) {
-            try {
-                $password = Hash::make($password);
-                $role = Role::query()
-                    ->where('id', '=', RoleEnum::ADMIN)
-                    ->first();
-                $role_id = $role->id;
-                $user = User::query()
-                    ->create(compact('name', 'email', 'password', 'role_id'));
-
-                $user->save();
-                $this->info(sprintf('User %s with email <%s> as created', $name, $email));
-                exit();
-            } catch (\Exception $exception) {
-                $this->error('Something went wrong run the command with -v for more details');
-                dd($exception);
+                    $user->save();
+                    $this->info(sprintf('User %s with email <%s> as created', $name, $email));
+                    exit();
+                } catch (\Exception $exception) {
+                    $this->error('Something went wrong run the command with -v for more details');
+                    dd($exception);
+                }
+            } else {
+                $this->error("some values are wrong !");
+                $this->table(['Errors'], $validator->errors()->messages());
+                goto process;
             }
-        } else {
-            $this->error("some values are wrong !");
-            $this->table(['Errors'], $validator->errors()->messages());
-            goto process;
         }
     }
 }

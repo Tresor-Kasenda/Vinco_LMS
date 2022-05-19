@@ -27,12 +27,12 @@ class TrashedUsersBackendController extends Controller
     public function restore(string $key): RedirectResponse
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
-        return Response::redirectToRoute('backend.administrator.index');
+        return Response::redirectToRoute('admins.administrator.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
-        return Response::redirectToRoute('backend.administrator.index');
+        return Response::redirectToRoute('admins.administrator.index');
     }
 }

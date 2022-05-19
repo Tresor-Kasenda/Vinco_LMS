@@ -8,8 +8,8 @@
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="{{ route('admins.backend.home') }}" class="logo-link">
-                    <img class="logo-light logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo">
-                    <img class="logo-dark logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo-dark">
+                    <img class="logo-light logo-img" src="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo">
+                    <img class="logo-dark logo-img" src="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/frontend/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo-dark">
                 </a>
             </div>
             <div class="nk-header-tools">

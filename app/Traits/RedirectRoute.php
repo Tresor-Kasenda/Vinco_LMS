@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Traits;
 
 use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 

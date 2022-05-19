@@ -6,11 +6,13 @@ namespace App\Providers;
 use App\Interfaces\AcademicYearRepositoryInterface;
 use App\Interfaces\CampusRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
+use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\DepartmentRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
 use App\Interfaces\TrashedCampusRepositoryInterface;
 use App\Interfaces\TrashedCategoryRepositoryInterface;
+use App\Interfaces\TrashedCourseRepositoryInterface;
 use App\Interfaces\TrashedDepartmentRepositoryInterface;
 use App\Interfaces\TrashedPersonnelRepositoryInterface;
 use App\Interfaces\TrashedProfessorRepositoryInterface;
@@ -19,11 +21,13 @@ use App\Interfaces\UsersRepositoryInterface;
 use App\Repositories\Backend\AcademicYearRepository;
 use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
+use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
 use App\Repositories\Backend\TrashedCategoryRepository;
+use App\Repositories\Backend\TrashedCourseRepository;
 use App\Repositories\Backend\TrashedDepartmentRepository;
 use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
@@ -47,6 +51,8 @@ class RepositoryServiceProvider extends ServiceProvider
         TrashedCategoryRepositoryInterface::class => TrashedCategoryRepository::class,
         UsersRepositoryInterface::class => UsersRepository::class,
         TrashedUsersRepositoryInterface::class => TrashedUsersRepository::class,
+        CourseRepositoryInterface::class => CourseRepository::class,
+        TrashedCourseRepositoryInterface::class => TrashedCourseRepository::class
     ];
 
     /**

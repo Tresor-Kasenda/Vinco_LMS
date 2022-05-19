@@ -3,9 +3,14 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
+use App\Enums\StatusEnum;
 use App\Interfaces\UsersRepositoryInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 
 class UsersRepository implements UsersRepositoryInterface
 {
@@ -17,28 +22,70 @@ class UsersRepository implements UsersRepositoryInterface
             ->get();
     }
 
-    public function showUser(string $key)
+    public function showUser(string $key): Model|Builder|User|null
     {
-        // TODO: Implement showCourse() method.
+        $user = User::query()
+            ->where('key', '=', $key)
+            ->first();
+        return $user->load('role');
     }
 
-    public function stored($attributes, $flash)
+    public function stored($attributes, $flash): Model|Builder|User|RedirectResponse
     {
-        // TODO: Implement stored() method.
+        $user = User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+        if ($user) {
+            $flash->addError("Email deja utiliser par un autre compte");
+            return back();
+        }
+        $user = User::query()
+            ->create([
+                "name" => $attributes->input('name'),
+                "firstName" => $attributes->input('firstName'),
+                "email" => $attributes->input('email'),
+                "role_id" => $attributes->input('role_id'),
+                'status' => StatusEnum::TRUE,
+                "password" => Hash::make($attributes->input('password')),
+            ]);
+        $flash->addSuccess("Utilisateur ajouter avec succes");
+        return $user;
     }
 
-    public function updated(string $key, $attributes, $flash)
+    public function updated(string $key, $attributes, $flash): Model|Builder|User|null
     {
-        // TODO: Implement updated() method.
+        $user = $this->showUser(key: $key);
+        $user->update([
+            "name" => $attributes->input('name'),
+            "firstName" => $attributes->input('firstName'),
+            "email" => $attributes->input('email'),
+            "role_id" => $attributes->input('role_id'),
+            "password" => Hash::make($attributes->input('password')),
+        ]);
+        $flash->addSuccess("Utilisateur mise a jours avec succes");
+        return $user;
     }
 
-    public function deleted(string $key, $flash)
+    public function deleted(string $key, $flash): Model|Builder|User|RedirectResponse|null
     {
-        // TODO: Implement deleted() method.
+        $user = $this->showUser(key: $key);
+        if ($user->status !== StatusEnum::FALSE){
+            $flash->addError("Veillez desactiver le users avant de le mettre dans la corbeille");
+            return back();
+        }
+        $user->delete();
+        $flash->addSuccess("Utilisateur supprimer avec succes");
+        return $user;
     }
 
-    public function changeStatus($attributes)
+    public function changeStatus($attributes): bool|int
     {
-        // TODO: Implement changeStatus() method.
+        $user = $this->showUser(key: $attributes->input('key'));
+        if ($user != null){
+            return $user->update([
+                'status' => $attributes->input('status')
+            ]);
+        }
+        return false;
     }
 }

@@ -44,7 +44,7 @@ final class UsersBackendController extends Controller
     public function store(UserRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, flash: $this->factory);
-        return to_route('backend.administrator.index');
+        return to_route('admins.administrator.index');
     }
 
     public function edit(string $key): Factory|\Illuminate\Contracts\View\View|Application
@@ -57,13 +57,13 @@ final class UsersBackendController extends Controller
     public function update(UserRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated( key: $key, attributes: $attributes, flash: $this->factory);
-        return to_route('backend.administrator.index');
+        return to_route('admins.administrator.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, flash: $this->factory);
-        return to_route('backend.administrator.index');
+        return to_route('admins.administrator.index');
     }
 
     public function activate(ConfirmUserRequest $request): JsonResponse
