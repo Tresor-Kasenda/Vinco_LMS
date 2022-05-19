@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('duration');
             $table->string('images');
             $table->date('startDate');
-            $table->string('endDate');
+            $table->date('endDate');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

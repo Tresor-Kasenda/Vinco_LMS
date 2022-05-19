@@ -19,6 +19,8 @@ use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedDepartmentBackendController;
 use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
+use App\Http\Controllers\Backend\TrashedUsersBackendController;
+use App\Http\Controllers\Backend\UsersBackendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +39,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('campus', CampusBackendController::class);
         Route::resource('departments', DepartmentBackendController::class);
         Route::resource('categories', CategoryBackendController::class);
+        Route::resource('administrator', UsersBackendController::class);
 
         Route::controller(TrashedCampusBackendController::class)->group(function (){
             Route::get('historyCampus/', 'index')->name('campus.history');
@@ -68,11 +71,18 @@ Route::group(['middleware' => 'auth'], function (){
             Route::delete('deleteCategories/{key}', 'destroy')->name('categories.remove');
         });
 
+        Route::controller(TrashedUsersBackendController::class)->group(function (){
+            Route::get('historyUsers/', 'index')->name('administrator.history');
+            Route::put('restoreUsers/{key}', 'restore')->name('administrator.restore');
+            Route::delete('deleteUsers/{key}', 'destroy')->name('administrator.remove');
+        });
+
         Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
         Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])->name('department.active');
         Route::put('activeProfessor/{key}/update', [ProfessorBackendController::class, 'activate'])->name('professors.active');
         Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])->name('categories.active');
+        Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])->name('administrator.active');
     });
 });
 

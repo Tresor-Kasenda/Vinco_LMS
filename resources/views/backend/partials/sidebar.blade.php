@@ -26,6 +26,16 @@
                         'icon' => "ni-dashboard-fill"
                     ])
                     <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Administrateurs</h6>
+                    </li>
+
+                    @include('backend.components._link', [
+                        'route' => route('admins.administrator.index'),
+                        'name' => "Administrateur",
+                        'icon' => "ni-user-alt"
+                    ])
+
+                    <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
                     @include('backend.components._link', [

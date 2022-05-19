@@ -14,6 +14,8 @@ use App\Interfaces\TrashedCategoryRepositoryInterface;
 use App\Interfaces\TrashedDepartmentRepositoryInterface;
 use App\Interfaces\TrashedPersonnelRepositoryInterface;
 use App\Interfaces\TrashedProfessorRepositoryInterface;
+use App\Interfaces\TrashedUsersRepositoryInterface;
+use App\Interfaces\UsersRepositoryInterface;
 use App\Repositories\Backend\AcademicYearRepository;
 use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
@@ -25,6 +27,8 @@ use App\Repositories\Backend\TrashedCategoryRepository;
 use App\Repositories\Backend\TrashedDepartmentRepository;
 use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
+use App\Repositories\Backend\TrashedUsersRepository;
+use App\Repositories\Backend\UsersRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -40,7 +44,9 @@ class RepositoryServiceProvider extends ServiceProvider
         TrashedCampusRepositoryInterface::class => TrashedCampusRepository::class,
         TrashedProfessorRepositoryInterface::class => TrashedProfessorRepository::class,
         CategoryRepositoryInterface::class => CategoryRepository::class,
-        TrashedCategoryRepositoryInterface::class => TrashedCategoryRepository::class
+        TrashedCategoryRepositoryInterface::class => TrashedCategoryRepository::class,
+        UsersRepositoryInterface::class => UsersRepository::class,
+        TrashedUsersRepositoryInterface::class => TrashedUsersRepository::class,
     ];
 
     /**
