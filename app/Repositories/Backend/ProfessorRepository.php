@@ -38,22 +38,14 @@ class ProfessorRepository implements ProfessorRepositoryInterface
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
-        $user = User::query()
+        $professor = Professor::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if ($user) {
+        if ($professor) {
             $factory->addError("Email deja utiliser par un autre compte");
             return back();
         }
-        $user = User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'firstName' => $attributes->input('lastName'),
-                'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('identityCard')),
-                'role_id' => RoleEnum::PROFESSOR,
-            ]);
-        $professor = $this->createProfessor($attributes, $user);
+        $professor = $this->createProfessor($attributes);
         $factory->addSuccess('Un professeur a ete ajouter');
         return $professor;
     }
@@ -102,7 +94,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         return false;
     }
 
-    private function createProfessor($attributes, Model|Builder $user): Model|Builder
+    private function createProfessor($attributes): Model|Builder
     {
         return Professor::query()
             ->create([
@@ -117,7 +109,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'identityCard' => $attributes->input('identityCard'),
                 'gender' => $attributes->input('gender'),
                 'birthdays' => $attributes->input('birthdays'),
-                'user_id' => $user->id,
+                'user_id' => $attributes->input('user'),
                 'matriculate' => $this->generateRandomTransaction(10)
             ]);
     }

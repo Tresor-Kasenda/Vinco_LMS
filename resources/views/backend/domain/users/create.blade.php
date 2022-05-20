@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.administrator.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.administrator.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -117,7 +117,7 @@
                                             <label class="form-label" for="password-confirmation">Mot de passe (confirmation)</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="password-confirmation"
+                                                    type="password"
                                                     class="form-control @error('password_confirmation') error @enderror"
                                                     id="password"
                                                     name="password_confirmation"
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Create admin</button>
                                         </div>
                                     </div>
                                 </div>

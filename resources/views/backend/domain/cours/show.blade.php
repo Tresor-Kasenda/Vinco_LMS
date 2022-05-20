@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Categorie ({{ strtoupper($course->name) }})</h3>
+                            <h3 class="nk-block-title page-title">Cours ({{ strtoupper($course->name) }})</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -27,7 +27,7 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.categories.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.categories.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>

@@ -38,17 +38,16 @@ class CourseRepository implements CourseRepositoryInterface
     {
         $course = Course::query()
             ->create([
-                'category_id' => $attributes->input(''),
-                'user_id' => $attributes->input(''),
-                'name' => $attributes->input(''),
-                'subDescription' => $attributes->input(''),
-                'description' => $attributes->input(''),
+                'category_id' => $attributes->input('category'),
+                'user_id' => $attributes->input('professor'),
+                'name' => $attributes->input('name'),
+                'subDescription' => $attributes->input('subDescription'),
+                'description' => $attributes->input('description'),
                 'images' => self::uploadFiles($attributes),
-                'startDate' => $attributes->input(''),
-                'endDate' => $attributes->input(''),
-                'duration' => $attributes->input(''),
-                'status' => StatusEnum::FALSE,
-                'academic_year_id' => $attributes->input('')
+                'startDate' => $attributes->input('startDate'),
+                'endDate' => $attributes->input('endDate'),
+                'duration' => $attributes->input('duration'),
+                'status' => StatusEnum::FALSE
             ]);
         $flash->addSuccess("Un nouveau cours a ete ajouter");
         return $course;
@@ -58,15 +57,15 @@ class CourseRepository implements CourseRepositoryInterface
     {
         $course = $this->showCourse(key: $key);
         $course->update([
-            'category_id' => $attributes->input(''),
-            'user_id' => $attributes->input(''),
-            'name' => $attributes->input(''),
-            'subDescription' => $attributes->input(''),
-            'description' => $attributes->input(''),
-            'startDate' => $attributes->input(''),
-            'endDate' => $attributes->input(''),
-            'duration' => $attributes->input(''),
-            'academic_year_id' => $attributes->input('')
+            'category_id' => $attributes->input('category'),
+            'user_id' => $attributes->input('professor'),
+            'name' => $attributes->input('name'),
+            'subDescription' => $attributes->input('subDescription'),
+            'description' => $attributes->input('description'),
+            'images' => self::uploadFiles($attributes),
+            'startDate' => $attributes->input('startDate'),
+            'endDate' => $attributes->input('endDate'),
+            'duration' => $attributes->input('duration'),
         ]);
         $flash->addSuccess("Un nouveau cours a ete ajouter");
         return $course;

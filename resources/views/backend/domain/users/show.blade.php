@@ -29,7 +29,7 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.administrator.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.administrator.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>

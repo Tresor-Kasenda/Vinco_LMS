@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,7 +65,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Professor whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|Professor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Professor withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property string $email
+ * @property string $phones
+ * @method static Builder|Professor whereEmail($value)
+ * @method static Builder|Professor wherePhones($value)
  */
 class Professor extends Model
 {

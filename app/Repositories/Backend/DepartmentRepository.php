@@ -45,7 +45,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
-                    'campus_id' => $attributes->input('campus_id')
+                    'campus_id' => $attributes->input('campus_id'),
                 ]);
             $faculty->users()->attach($attributes->input('user_id'));
             $factory->addSuccess('Un nouvaux campus a ete ajouter');

@@ -13,8 +13,12 @@ class DepartmentComposer
     public function compose(View $view): void
     {
         $view->with('departmentHead', User::query()
-            ->when('role_id', fn ($builder)=> $builder->where('role_id', RoleEnum::DEPARTMENT))
-            ->when('deleted_at', fn ($query) => $query->where('deleted_at', null))
+            ->when('role_id', function ($query){
+                $query->where('role_id', RoleEnum::DEPARTMENT);
+            })
+            ->when('deleted_at', function ($query){
+                $query->where('deleted_at', null);
+            })
             ->get()
         );
     }

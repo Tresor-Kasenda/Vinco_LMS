@@ -9,14 +9,14 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Annee academique</h3>
+                            <h3 class="nk-block-title page-title">Creation des cours</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.course.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -45,7 +45,7 @@
                                                     data-placeholder="Select a category"
                                                     required>
                                                     <option label="Choisir une categorie" value=""></option>
-                                                    @foreach(\App\Models\Category::all() as $category)
+                                                    @foreach(\App\Models\Category::query()->where('status', '=', \App\Enums\StatusEnum::TRUE)->get() as $category)
                                                         <option value="{{ $category->id }}">
                                                             {{ $category->name ?? "" }}
                                                         </option>
@@ -66,7 +66,7 @@
                                                     data-placeholder="Select a professor"
                                                     required>
                                                     <option label="Choisir un professeur" value=""></option>
-                                                    @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR) as $professor)
+                                                    @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR)->get() as $professor)
                                                         <option value="{{ $professor->id }}">
                                                             {{ $professor->name ?? "" }}-{{ $professor->firstName ?? "" }}
                                                         </option>
@@ -152,7 +152,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="subDescription">Sous description</label>
                                             <div class="form-control-wrap">
@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="description">Description</label>
                                             <div class="form-control-wrap">
@@ -180,7 +180,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Create course</button>
                                         </div>
                                     </div>
                                 </div>

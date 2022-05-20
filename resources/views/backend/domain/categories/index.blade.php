@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-primary d-none d-md-inline-flex" href="{{ route('admins.categories.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.categories.create') }}">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Add</span>
                                             </a>

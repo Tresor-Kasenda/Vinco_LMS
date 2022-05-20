@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Mise a jours du cours")
 
 @section('content')
     <div class="container-fluid">
@@ -9,14 +9,14 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Categorie ({{ $category->name }} )</h3>
+                            <h3 class="nk-block-title page-title">Modification du cours ({{ $course->name }} )</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.categories.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -30,7 +30,7 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <form action="{{ route('admins.categories.update', $category->key) }}" method="post" class="form-validate" novalidate="novalidate">
+                            <form action="{{ route('admins.course.update', $course->key) }}" method="post" class="form-validate" novalidate="novalidate">
                                 @csrf
                                 @method('PUT')
                                 <div class="row g-gs">
@@ -45,7 +45,7 @@
                                                     name="category"
                                                     data-placeholder="Select a category"
                                                     required>
-                                                    <option label="Categorie" value=""></option>
+                                                    <option label="Choisir une categorie" value=""></option>
                                                     @foreach(\App\Models\Category::all() as $category)
                                                         <option value="{{ $category->id }}">
                                                             {{ $category->name ?? "" }}
@@ -66,7 +66,7 @@
                                                     name="professor"
                                                     data-placeholder="Select a professor"
                                                     required>
-                                                    <option label="professor" value=""></option>
+                                                    <option label="Choisir un professeur" value=""></option>
                                                     @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR) as $professor)
                                                         <option value="{{ $professor->id }}">
                                                             {{ $professor->name ?? "" }}-{{ $professor->firstName ?? "" }}
@@ -93,6 +93,21 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label class="form-label" for="images">Image du cours</label>
+                                            <div class="form-control-wrap">
+                                                <input
+                                                    type="file"
+                                                    class="form-control @error('images') error @enderror"
+                                                    id="images"
+                                                    name="images"
+                                                    value="{{ old('images') ?? $course->images }}"
+                                                    placeholder="Selectionner la photo du cours"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label class="form-label" for="duration">Duree du cours</label>
                                             <div class="form-control-wrap">
                                                 <input
@@ -106,7 +121,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="startDate">Date de debut</label>
                                             <div class="form-control-wrap">
@@ -122,7 +137,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="endDate">Date de fin</label>
                                             <div class="form-control-wrap">
@@ -166,7 +181,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Update course</button>
                                         </div>
                                     </div>
                                 </div>
