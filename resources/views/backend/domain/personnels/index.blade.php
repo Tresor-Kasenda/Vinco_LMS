@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Gestion des personnelles")
 
 @section('content')
     <div class="container-fluid">

@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Gestion des personnelles")
 
 @section('content')
     <div class="container-fluid">
@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.professors.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.professors.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -29,11 +29,6 @@
                 </div>
                 <div class="nk-block">
                     <div class="card">
-                        @if($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div>{{ $error }}</div>
-                            @endforeach
-                        @endif
                         <div class="card-inner">
                             <form action="{{ route('admins.personnel.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                 @csrf
@@ -181,17 +176,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label" for="role_id">Select Role</label>
+                                            <label class="form-label" for="user">Select gestionnaire</label>
                                             <div class="form-control-wrap">
                                                 <select
-                                                    class="form-control js-select2 @error('role_id') error @enderror"
-                                                    id="role_id"
-                                                    name="role_id"
-                                                    data-placeholder="Select a role"
+                                                    class="form-control js-select2 @error('user') error @enderror"
+                                                    id="user"
+                                                    name="user"
+                                                    data-placeholder="Choisir le gestionnaire"
                                                     required>
                                                     <option label="role" value=""></option>
-                                                    @foreach($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    @foreach(\App\Models\User::query()->where('role_id', '!=', \App\Enums\RoleEnum::STUDENT)->get() as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }} {{ $user->firstName }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -241,7 +236,13 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="gender">Genre</label>
                                                 <div class="form-control-wrap">
-                                                    <select class="form-control js-select2 @error('gender') error @enderror" data-value="{{ old('gender') }}" id="gender" name="gender" data-placeholder="Select a gender" required>
+                                                    <select
+                                                        class="form-control js-select2 @error('gender') error @enderror"
+                                                        data-value="{{ old('gender') }}"
+                                                        id="gender"
+                                                        name="gender"
+                                                        data-placeholder="Select a gender"
+                                                        required>
                                                         <option label="genre" value=""></option>
                                                         <option value="masculin">Masculin</option>
                                                         <option value="feminin">Feminin</option>
@@ -252,7 +253,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Create personnel</button>
                                         </div>
                                     </div>
                                 </div>

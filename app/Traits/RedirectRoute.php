@@ -15,7 +15,7 @@ trait RedirectRoute
 
     public function redirectTo(): string
     {
-        switch(Auth::user()->role_id){
+        switch(Auth::user()->role_id && Auth::user()->status === StatusEnum::TRUE){
             case RoleEnum::ADMIN:
                 $this->redirectTo = route('admins.backend.home');
                 return $this->redirectTo;

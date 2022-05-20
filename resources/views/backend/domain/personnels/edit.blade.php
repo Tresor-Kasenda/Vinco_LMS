@@ -165,17 +165,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label" for="role_id">Select Role</label>
+                                            <label class="form-label" for="user">Gestionnaire</label>
                                             <div class="form-control-wrap">
                                                 <select
-                                                    class="form-control js-select2 @error('role_id') error @enderror"
-                                                    id="role_id"
-                                                    name="role_id"
-                                                    data-placeholder="Select a role"
+                                                    class="form-control js-select2 @error('user') error @enderror"
+                                                    id="user"
+                                                    name="user"
+                                                    data-placeholder="Choisir le gestionnaire"
                                                     required>
-                                                    <option label="role" value="{{ $employee->user->role_id }}">{{ $employee->user->role->name }}</option>
-                                                    @foreach($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option label="role" value="{{ $employee->user->id }}">{{ $employee->user->name }}</option>
+                                                    @foreach(\App\Models\User::query()->where('role_id', '!=', \App\Enums\RoleEnum::STUDENT)->get() as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }} {{ $user->firstName }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

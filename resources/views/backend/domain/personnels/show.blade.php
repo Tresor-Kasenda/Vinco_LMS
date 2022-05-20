@@ -108,12 +108,6 @@
                                                 </div>
                                                 <div class="data-item">
                                                     <div class="data-col">
-                                                        <span class="data-label">Numero Identite</span>
-                                                        <span class="data-value">{{ $employee->identityCard ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
                                                         <span class="data-label">Nationality</span>
                                                         <span class="data-value">{{ $employee->nationality ?? "" }}</span>
                                                     </div>
