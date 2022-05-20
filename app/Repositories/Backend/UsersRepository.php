@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
+use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Interfaces\UsersRepositoryInterface;
 use App\Models\User;

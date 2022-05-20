@@ -40,33 +40,21 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
-        $campus = User::query()
+        $personnel = Personnel::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if ($campus) {
+        if ($personnel) {
             $factory->addError("Email deja utiliser par un autre compte");
             return back();
         }
-        $user = User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'firstName' => $attributes->input('firstname'),
-                'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('identityCard')),
-                'role_id' => $attributes->input('role_id'),
-            ]);
-        $personnel = $this->createPersonnel($attributes, $user);
+        $personnel = $this->createPersonnel($attributes);
         $factory->addSuccess('Un personnel a ete ajouter');
         return $personnel;
     }
 
-
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
-        $personnel->user->update([
-            'role_id' => $attributes->input('role_id')
-        ]);
         $personnel->update([
             'username' => $attributes->input('name'),
             'firstname' => $attributes->input('firstName'),
@@ -79,6 +67,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             'gender' => $attributes->input('gender'),
             'birthdays' => $attributes->input('birthdays'),
             'academic_year_id' => $attributes->input('academic'),
+            'user_id' => $attributes->input("user"),
         ]);
         $factory->addSuccess('Personnel modifier avec succes');
         return $personnel;
@@ -107,7 +96,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         return false;
     }
 
-    public function createPersonnel($attributes, Model|Builder $user): Builder|Model
+    public function createPersonnel($attributes): Builder|Model
     {
         return Personnel::query()
             ->create([
@@ -123,7 +112,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'birthdays' => $attributes->input('birthdays'),
                 'academic_year_id' => $attributes->input('academic'),
-                'user_id' => $user->id,
+                'user_id' => $attributes->input("user"),
                 'matriculate' => $this->generateRandomTransaction(10)
             ]);
     }

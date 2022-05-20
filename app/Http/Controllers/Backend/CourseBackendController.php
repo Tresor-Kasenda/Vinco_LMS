@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CampusRequest;
-use App\Http\Requests\CampusStatusRequest;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\StatusCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
@@ -22,7 +20,10 @@ use Illuminate\Support\Facades\Response;
 
 class CourseBackendController extends Controller
 {
-    public function __construct(public CourseRepositoryInterface $repository, public SweetAlertFactory $factory){}
+    public function __construct(
+        private readonly CourseRepositoryInterface $repository,
+        private readonly SweetAlertFactory $factory
+    ){}
 
     public function index(): Renderable
     {
@@ -51,7 +52,7 @@ class CourseBackendController extends Controller
     public function edit(string $key): HttpResponse
     {
         return Response::view('backend.domain.cours.edit', [
-            'campus' => $this->repository->showCourse(key: $key)
+            'course' => $this->repository->showCourse(key: $key)
         ]);
     }
 

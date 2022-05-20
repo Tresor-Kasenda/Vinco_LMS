@@ -30,7 +30,7 @@ class PersonnelRequest extends FormRequest
             "nationality" => ['required', 'string', 'min:4', 'max:255'],
             "address" => ['required', 'string', 'min:7', 'max:255'],
             "identityCard" => ['required', 'string', 'min:10', 'max:255', 'unique:personnels'],
-            "role_id" => ['required', Rule::exists('roles', 'id')],
+            "user" => ['required', Rule::exists('users', 'id')],
             "birthdays" => ['required', 'date', 'date_format:Y-m-d',],
             "gender" => ['required'],
             'academic' => ['required', Rule::exists('academic_years', 'id')],

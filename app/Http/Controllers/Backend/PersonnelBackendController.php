@@ -15,13 +15,12 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 final class PersonnelBackendController extends Controller
 {
     public function __construct(
-        public PersonnelRepositoryInterface $repository,
-        public SweetAlertFactory $factory
+        private readonly PersonnelRepositoryInterface $repository,
+        private readonly SweetAlertFactory $factory
     ){}
 
     public function index(): Renderable

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Traits\HasKeyTrait;
 use Database\Factories\UserFactory;
+use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,7 +71,9 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property int $status
+ * @method static Builder|User whereStatus($value)
  */
 class User extends Authenticatable
 {
