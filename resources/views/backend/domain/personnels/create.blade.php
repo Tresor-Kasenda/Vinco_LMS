@@ -185,7 +185,7 @@
                                                     data-placeholder="Choisir le gestionnaire"
                                                     required>
                                                     <option label="role" value=""></option>
-                                                    @foreach(\App\Models\User::query()->where('role_id', '!=', \App\Enums\RoleEnum::STUDENT)->get() as $user)
+                                                    @foreach(\App\Models\User::query()->where('role_id', '!=', \App\Enums\RoleEnum::STUDENT)->where('status', '=', \App\Enums\StatusEnum::TRUE)->get() as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }} {{ $user->firstName }}</option>
                                                     @endforeach
                                                 </select>

@@ -36,7 +36,8 @@ class ProfessorRequest extends FormRequest
             "identityCard" => ['required', 'string', 'min:10', 'max:255', 'unique:professors'],
             "birthdays" => ['required', 'date', 'date_format:Y-m-d'],
             "gender" => ['required'],
-            "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg']
+            "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
+            "user" => ['required', Rule::exists('users', 'id')],
         ];
     }
 }

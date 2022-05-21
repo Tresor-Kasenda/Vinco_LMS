@@ -128,7 +128,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="address">Adresse</label>
                                             <div class="form-control-wrap">
@@ -145,7 +145,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label" for="identityCard">N Identite (carte ou passposrt)</label>
                                             <div class="form-control-wrap">
@@ -157,6 +157,29 @@
                                                     value="{{ old('identityCard') }}"
                                                     placeholder="Saisir votre numero de carte d'identite"
                                                     required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @php
+                                        $users = \App\Models\User::query()
+                                            ->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR)
+                                            ->where('status', '=', \App\Enums\StatusEnum::TRUE)->get()
+                                    @endphp
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label" for="user">Select Professeur</label>
+                                            <div class="form-control-wrap">
+                                                <select
+                                                    class="form-control js-select2 @error('user') error @enderror"
+                                                    id="user"
+                                                    name="user"
+                                                    data-placeholder="Choisir le professeur"
+                                                    required>
+                                                    <option label="role" value=""></option>
+                                                    @foreach($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }} {{ $user->firstName }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +227,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Create Professors</button>
                                         </div>
                                     </div>
                                 </div>

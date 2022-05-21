@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateUserCommand extends Command
 {
-    protected $signature = 'vinco:add-user';
+    protected $signature = 'vinco:add-user {user : The ID of the user}';
 
     protected $description = 'Creates admins and stored them in the database';
 
