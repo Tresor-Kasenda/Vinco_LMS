@@ -27,14 +27,14 @@ class CourseRequest extends FormRequest
     {
         return [
             'category' => ['required', Rule::exists('categories', 'id')],
-            'professor' => ['nullable', Rule::exists('courses', 'id')],
+            'professor' => ['nullable', Rule::exists('users', 'id')],
             'name' => ['required', 'string', 'min:4'],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
             'duration' => ['required', 'string', 'min:3'],
             'startDate' => ['required', 'date', 'date_format:Y-m-d', 'before:endDate'],
             'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate'],
             'subDescription' => ['required', 'string', 'min:20'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ];
     }
 }

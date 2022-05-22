@@ -20,7 +20,7 @@ class TrashedCourseBackendController extends Controller
     public function index(): Renderable
     {
         return view('backend.domain.cours.trashed.index', [
-            'administrators' => $this->repository->getTrashes()
+            'courses' => $this->repository->getTrashes()
         ]);
     }
 

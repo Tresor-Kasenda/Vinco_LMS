@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProfessorUpdateRequest extends FormRequest
 {
@@ -35,7 +36,8 @@ class ProfessorUpdateRequest extends FormRequest
             "identityCard" => ['required', 'string', 'min:10', 'max:255'],
             "birthdays" => ['required', 'date', 'date_format:Y-m-d'],
             "gender" => ['required'],
-            "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg']
+            "images" => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
+            "user" => ['required', Rule::exists('users', 'id')]
         ];
     }
 }

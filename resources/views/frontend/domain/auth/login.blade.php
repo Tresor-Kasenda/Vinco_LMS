@@ -10,12 +10,12 @@
                     <div class="brand-logo pb-5 text-center justify-center">
                         <a href="{{ route('home.index') }}" class="logo-link">
                             <img class="logo-light logo-img logo-img-lg"
-                                 src="{{ asset('assets/frontend/images/VincoWhite/1.5x/Vinco color Frenchhdpi.png') }}"
-                                 srcset="{{ asset('assets/frontend/images/VincoWhite/1.5x/Vinco color Frenchhdpi.png') }}"
+                                 src="{{ asset('assets/apps/images/VincoWhite/SVG/Vinco color Eng.svg') }}"
+                                 srcset="{{ asset('assets/apps/images/VincoWhite/SVG/Vinco color Eng.svg') }}"
                                  alt="logo">
                             <img class="logo-dark logo-img logo-img-lg"
-                                 src="{{ asset('assets/frontend/images/VincoWhite/1.5x/Vinco color Frenchhdpi.png') }}"
-                                 srcset="{{ asset('assets/frontend/images/VincoWhite/1.5x/Vinco color Frenchhdpi.png') }}"
+                                 src="{{ asset('assets/apps/images/VincoWhite/SVG/Vinco color Eng.svg') }}"
+                                 srcset="{{ asset('assets/apps/images/VincoWhite/SVG/Vinco color Eng.svg') }}"
                                  alt="logo-dark">
                         </a>
                     </div>

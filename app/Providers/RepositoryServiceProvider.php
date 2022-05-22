@@ -37,6 +37,9 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array|string[]
+     */
     protected array $repositories = [
         PersonnelRepositoryInterface::class => PersonnelRepository::class,
         AcademicYearRepositoryInterface::class => AcademicYearRepository::class,

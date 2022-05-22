@@ -20,14 +20,17 @@
                                                 <div class="form-control-wrap">
                                                     <select name="status" id="status" class="form-select form-control form-control-lg">
                                                         <option value="default_option">Select Status</option>
-                                                        <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
-                                                        <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
+                                                        @if($course->status == \App\Enums\StatusEnum::FALSE)
+                                                            <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
+                                                        @else
+                                                            <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.categories.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -42,7 +45,7 @@
                     @if($course->status == \App\Enums\StatusEnum::FALSE)
                         <div class="alert alert-danger alert-icon " role="alert">
                             <em class="icon ni ni-bell"></em>
-                            Le departement n'est pas encore confirmer
+                            Le cours n'est pas encore confirmer
                         </div>
                     @endif
                     <div class="card">
@@ -60,14 +63,32 @@
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Annee academique</span>
-                                                        <span class="profile-ud-value">
-                                                            <span class="tb-lead">
-                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $course->academic->startDate)->format('Y') }}
-                                                                -
-                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->academic->endDate)->format('Y') }}
-                                                            </span>
-                                                        </span>
+                                                        <span class="profile-ud-label">Duree</span>
+                                                        <span class="profile-ud-value">{{ ucfirst($course->duration) ?? "" }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Date de debut</span>
+                                                        <span class="profile-ud-value">{{ $course->startDate ?? "" }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Date de fin</span>
+                                                        <span class="profile-ud-value">{{ $course->endDate ?? "" }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Categorie</span>
+                                                        <span class="profile-ud-value">{{ strtoupper($course->category->name) ?? "" }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Professeur</span>
+                                                        <span class="profile-ud-value">{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,7 +133,6 @@
                     success: function(response){
                         if (response){
                             Swal.fire(`${response.message}`, "update", "success");
-                            console.log(response.message)
                         }
                     }
                 })

@@ -38,10 +38,22 @@
                         <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
                                 <th class="nk-tb-col">
-                                    <span>Nom du categorie</span>
+                                    <span>Images</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Annee academique</span>
+                                    <span>Nom du cours</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>Categorie</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>Professeur</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>Duree</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>Date de debut</span>
                                 </th>
                                 <th class="nk-tb-col">
                                     <span>Status</span>
@@ -63,14 +75,38 @@
                             @foreach($courses as $course)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <img
+                                                src="{{ asset('storage/'.$course->images) }}"
+                                                alt="{{ $course->name }}"
+                                                class="img-fluid rounded-circle"
+                                                width="20%"
+                                                height="20%"
+                                            >
+                                        </span>
+                                    </td>
+                                    <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $course->name ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $course->academic->startDate)->format('Y') }}
-                                            -
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->academic->endDate)->format('Y') }}
-                                        </span>
+                                        @if($course->category->name === "Litterature")
+                                            <span class="tb-lead bg-success-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Mathematique")
+                                            <span class="tb-lead bg-primary-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Sciences")
+                                            <span class="tb-lead bg-danger-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Technologie")
+                                            <span class="tb-lead bg-secondary-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ ucfirst($course->duration) ?? "" }} </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $course->startDate ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @if($course->status)

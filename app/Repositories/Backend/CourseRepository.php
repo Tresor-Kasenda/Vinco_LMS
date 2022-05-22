@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use function PHPUnit\Framework\assertTrue;
 
 class CourseRepository implements CourseRepositoryInterface
 {
@@ -19,7 +20,7 @@ class CourseRepository implements CourseRepositoryInterface
     public function getCourses(): array|Collection
     {
         return Course::query()
-            ->with('category')
+            ->with(['category', 'user'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -31,31 +32,41 @@ class CourseRepository implements CourseRepositoryInterface
                 $query->where('key', $key);
             })
             ->first();
-        return $course->load('category');
+        return $course->load(['category', 'user']);
     }
 
-    public function stored($attributes, $flash): Model|Builder|Course
+    public function stored($attributes, $flash): Model|Builder|Course|RedirectResponse
     {
         $course = Course::query()
-            ->create([
-                'category_id' => $attributes->input('category'),
-                'user_id' => $attributes->input('professor'),
-                'name' => $attributes->input('name'),
-                'subDescription' => $attributes->input('subDescription'),
-                'description' => $attributes->input('description'),
-                'images' => self::uploadFiles($attributes),
-                'startDate' => $attributes->input('startDate'),
-                'endDate' => $attributes->input('endDate'),
-                'duration' => $attributes->input('duration'),
-                'status' => StatusEnum::FALSE
-            ]);
-        $flash->addSuccess("Un nouveau cours a ete ajouter");
-        return $course;
+            ->where('name', '=', $attributes->input('name'))
+            ->first();
+
+        if (!$course) {
+            $course = Course::query()
+                ->create([
+                    'category_id' => $attributes->input('category'),
+                    'user_id' => $attributes->input('professor'),
+                    'name' => $attributes->input('name'),
+                    'subDescription' => $attributes->input('subDescription'),
+                    'description' => $attributes->input('description'),
+                    'images' => self::uploadFiles($attributes),
+                    'startDate' => $attributes->input('startDate'),
+                    'endDate' => $attributes->input('endDate'),
+                    'duration' => $attributes->input('duration'),
+                    'status' => StatusEnum::FALSE,
+                ]);
+            $flash->addSuccess("Un nouveau cours a ete ajouter");
+            return $course;
+        }
+        $flash->addError("Nom du cours ou le professeur a existe deja pour ce cours");
+        return back();
+
     }
 
     public function updated(string $key, $attributes, $flash)
     {
         $course = $this->showCourse(key: $key);
+        $this->removePathOfImages($course);
         $course->update([
             'category_id' => $attributes->input('category'),
             'user_id' => $attributes->input('professor'),

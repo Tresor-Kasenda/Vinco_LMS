@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\StatusCourseRequest;

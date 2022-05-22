@@ -22,18 +22,17 @@ class TrashedCourseRepository implements TrashedCourseRepositoryInterface
 
     public function restore(string $key, $alert)
     {
-        $campus = $this->getTrashedProfessor($key);
-        $campus->restore();
+        $course = $this->getTrashedProfessor($key);
+        $course->restore();
         $alert->addSuccess("Le cours a ete restorer avec success");
-        return $campus;
+        return $course;
     }
 
     public function deleted(string $key, $alert): RedirectResponse
     {
-        $professor = $this->getTrashedProfessor($key);
-        $this->removePathOfImages(model: $professor);
-        $professor->user->forceDelete();
-        $professor->forceDelete();
+        $course = $this->getTrashedProfessor($key);
+        $this->removePathOfImages(model: $course);
+        $course->forceDelete();
         $alert->addInfo("Cours supprimer definivement avec succes");
         return back();
     }

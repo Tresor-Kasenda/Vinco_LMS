@@ -92,7 +92,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('activeProfessor/{key}/update', [ProfessorBackendController::class, 'activate'])->name('professors.active');
         Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])->name('categories.active');
         Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])->name('administrator.active');
-        Route::put('activeCourse/{key}/update', [UsersBackendController::class, 'activate'])->name('course.active');
+        Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
     });
 });
 

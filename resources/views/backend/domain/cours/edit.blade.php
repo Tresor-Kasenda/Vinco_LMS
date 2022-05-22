@@ -30,7 +30,7 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <form action="{{ route('admins.course.update', $course->key) }}" method="post" class="form-validate" novalidate="novalidate">
+                            <form action="{{ route('admins.course.update', $course->key) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row g-gs">
@@ -67,7 +67,7 @@
                                                     data-placeholder="Select a professor"
                                                     required>
                                                     <option label="Choisir un professeur" value=""></option>
-                                                    @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR) as $professor)
+                                                    @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR)->get() as $professor)
                                                         <option value="{{ $professor->id }}">
                                                             {{ $professor->name ?? "" }}-{{ $professor->firstName ?? "" }}
                                                         </option>
@@ -100,7 +100,7 @@
                                                     class="form-control @error('images') error @enderror"
                                                     id="images"
                                                     name="images"
-                                                    value="{{ old('images') ?? $course->images }}"
+                                                    value="{{ old('images') }}"
                                                     placeholder="Selectionner la photo du cours"
                                                     required>
                                             </div>
