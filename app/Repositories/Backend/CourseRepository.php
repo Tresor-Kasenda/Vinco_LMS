@@ -21,6 +21,7 @@ class CourseRepository implements CourseRepositoryInterface
     {
         return Course::query()
             ->with(['category', 'user'])
+            ->withCount('chapters')
             ->orderByDesc('created_at')
             ->get();
     }

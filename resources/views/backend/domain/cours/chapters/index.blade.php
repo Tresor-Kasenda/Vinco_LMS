@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des cours")
+@section('title', "Gestion des chaptires des cours")
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Cours</h3>
+                            <h3 class="nk-block-title page-title">Chapitres</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -50,13 +50,13 @@
                                     <span>Professeur</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nombre des chapitres</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    <span>Status</span>
+                                    <span>Duree</span>
                                 </th>
                                 <th class="nk-tb-col">
                                     <span>Date de debut</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>Status</span>
                                 </th>
                                 <th class="nk-tb-col nk-tb-col-tools text-center">
                                     <ul class="nk-tb-actions gx-1 my-n1">
@@ -86,18 +86,27 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <h6 class="title">{{ $course->name ?? "" }}</h6>
-                                        </span>
+                                        <span class="tb-lead">{{ $course->name ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $course->category->name ?? "" }}</span>
+                                        @if($course->category->name === "Litterature")
+                                            <span class="tb-lead bg-success-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Mathematique")
+                                            <span class="tb-lead bg-primary-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Sciences")
+                                            <span class="tb-lead bg-danger-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @elseif($course->category->name === "Technologie")
+                                            <span class="tb-lead bg-secondary-dim p-1">{{ $course->category->name ?? "" }}</span>
+                                        @endif
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">Total chapitres : {{ $course->chapters_count ?? "" }} </span>
+                                        <span class="tb-lead">{{ ucfirst($course->duration) ?? "" }} </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $course->startDate ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @if($course->status)
@@ -107,9 +116,6 @@
                                             <span class="dot bg-warning d-sm-none"></span>
                                             <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
                                         @endif
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $course->startDate ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1 my-n1">

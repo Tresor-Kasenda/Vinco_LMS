@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\StatusCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Interfaces\ChapterRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -23,7 +24,8 @@ class CourseBackendController extends Controller
 {
     public function __construct(
         private readonly CourseRepositoryInterface $repository,
-        private readonly SweetAlertFactory $factory
+        private readonly SweetAlertFactory $factory,
+        private readonly ChapterRepositoryInterface $chapterRepository
     ){}
 
     public function index(): Renderable
@@ -34,8 +36,11 @@ class CourseBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
+        $course = $this->repository->showCourse(key:  $key);
+
         return view('backend.domain.cours.show', [
-            'course' => $this->repository->showCourse(key:  $key)
+            'course' => $course,
+            'chapters' => $this->chapterRepository->getChapters(course: $course)
         ]);
     }
 

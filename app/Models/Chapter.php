@@ -4,11 +4,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Chapter
@@ -20,30 +23,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $description
  * @property string $displayType
  * @property int $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Course $course
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercice[] $exercises
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Course $course
+ * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lesson[] $lessons
+ * @property-read Collection|Lesson[] $lessons
  * @property-read int|null $lessons_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
+ * @property-read Collection|Question[] $questions
  * @property-read int|null $questions_count
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter newQuery()
+ * @method static Builder|Chapter newModelQuery()
+ * @method static Builder|Chapter newQuery()
  * @method static \Illuminate\Database\Query\Builder|Chapter onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter query()
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereCourseId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereDisplayType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Chapter whereUpdatedAt($value)
+ * @method static Builder|Chapter query()
+ * @method static Builder|Chapter whereCourseId($value)
+ * @method static Builder|Chapter whereCreatedAt($value)
+ * @method static Builder|Chapter whereDeletedAt($value)
+ * @method static Builder|Chapter whereDescription($value)
+ * @method static Builder|Chapter whereDisplayType($value)
+ * @method static Builder|Chapter whereId($value)
+ * @method static Builder|Chapter whereKey($value)
+ * @method static Builder|Chapter whereName($value)
+ * @method static Builder|Chapter whereStatus($value)
+ * @method static Builder|Chapter whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Chapter withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Chapter withoutTrashed()
  * @mixin \Eloquent
@@ -73,5 +76,4 @@ class Chapter extends Model
     {
         return $this->hasMany(Question::class);
     }
-
 }

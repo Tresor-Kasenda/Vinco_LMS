@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Mise a jours du cours")
+@section('title', "Administration")
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Modification du chaptire ({{ $chapter->name }} )</h3>
+                            <h3 class="nk-block-title page-title">Creation des chapitre</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -30,9 +30,8 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <form action="{{ route('admins.chapters.update', ['chapter' => $chapter->key]) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                            <form action="{{ route('admins.chapters.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
                                 <div class="row g-gs">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -43,7 +42,7 @@
                                                     class="form-control @error('name') error @enderror"
                                                     id="name"
                                                     name="name"
-                                                    value="{{ old('name') ?? $chapter->name }}"
+                                                    value="{{ old('name') }}"
                                                     placeholder="Saisir le nom du cours"
                                                     required>
                                             </div>
@@ -74,7 +73,7 @@
                                                     class="form-control @error('displayType') error @enderror"
                                                     id="displayType"
                                                     name="displayType"
-                                                    value="{{ old('displayType') ?? $chapter->displayType }}"
+                                                    value="{{ old('displayType') }}"
                                                     placeholder="type d'affichage"
                                                     required>
                                             </div>
@@ -89,7 +88,7 @@
                                                     id="description"
                                                     name="description"
                                                     placeholder="Write the description"
-                                                >{{ old('description') ?? $chapter->description }}</textarea>
+                                                >{{ old('description') }}</textarea>
                                             </div>
                                         </div>
                                     </div>

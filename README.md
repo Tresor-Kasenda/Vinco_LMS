@@ -20,8 +20,8 @@
 - [ ]  gestion des roles et privileges
 - [ ]  gestion du journal de classe 
 - [ ]  gestion d'horaire d'examen 
-- [ ]  gestion des cours
-- [ ]  gestion des chapitres 
+- [x]  gestion des cours
+- [x]  gestion des chapitres 
 - [ ]  Gestion des lecon 
 - [ ]  Gestion des exercice et devoir 
 - [ ]  Gestion des interrogation et examens

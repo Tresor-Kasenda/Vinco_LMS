@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
+use App\Http\Controllers\Backend\TrashedChapterBackendController;
 use App\Http\Controllers\Backend\TrashedCourseBackendController;
 use App\Http\Controllers\Frontend\AboutAppController;
 use App\Http\Controllers\Frontend\CalendarAppController;
@@ -43,6 +45,14 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('categories', CategoryBackendController::class);
         Route::resource('administrator', UsersBackendController::class);
         Route::resource('course', CourseBackendController::class);
+        Route::controller(ChapterBackendController::class)->group(function (){
+            Route::get('course/{course}/chapters', 'create')->name('chapters.create');
+            Route::post('chapters', 'store')->name('chapters.store');
+            Route::get('course/{course}/chapters/{chapter}', 'show')->name('chapters.show');
+            Route::get('course/{course}/chapters/{chapter}/edit', 'edit')->name('chapters.edit');
+            Route::put('chapters/{chapter}/update', 'update')->name('chapters.update');
+            Route::delete('chapters/{chapter}', 'destroy')->name('chapters.destroy');
+        });
 
         Route::controller(TrashedCampusBackendController::class)->group(function (){
             Route::get('historyCampus/', 'index')->name('campus.history');
@@ -86,6 +96,12 @@ Route::group(['middleware' => 'auth'], function (){
             Route::delete('deleteCourse/{key}', 'destroy')->name('course.remove');
         });
 
+        Route::controller(TrashedChapterBackendController::class)->group(function (){
+            Route::get('historyChapter/', 'index')->name('chapters.history');
+            Route::put('restoreChapter/{key}', 'restore')->name('chapters.restore');
+            Route::delete('deleteChapter/{key}', 'destroy')->name('chapters.remove');
+        });
+
         Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
         Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])->name('department.active');
@@ -93,6 +109,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])->name('categories.active');
         Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])->name('administrator.active');
         Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
+        //Route::put('activeChapter/course/{course}/chapter/{key}/update', [ChapterBackendController::class, 'activate'])->name('course.active');
     });
 });
 
