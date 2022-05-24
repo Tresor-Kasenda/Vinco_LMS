@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -28,11 +29,11 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ['required', 'string'],
+            'name' => ['required', 'string'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
-            "user_id" => ['required', Rule::exists(User::class, 'id')],
-            "campus_id" => ['required', Rule::exists(Campus::class, 'id')],
-            "description" => ['nullable'],
+            'user_id' => ['required', Rule::exists(User::class, 'id')],
+            'campus_id' => ['required', Rule::exists(Campus::class, 'id')],
+            'description' => ['nullable'],
         ];
     }
 }

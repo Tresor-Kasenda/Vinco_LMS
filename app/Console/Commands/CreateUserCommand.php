@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Console\Commands;
@@ -40,8 +41,8 @@ class CreateUserCommand extends Command
                 ]
             );
         }
-        if ($this->confirm("Voulez vous creer un administrateur")){
-            if (!$validator->fails()) {
+        if ($this->confirm('Voulez vous creer un administrateur')) {
+            if (! $validator->fails()) {
                 try {
                     $password = Hash::make($password);
                     $role = Role::query()
@@ -60,7 +61,7 @@ class CreateUserCommand extends Command
                     dd($exception);
                 }
             } else {
-                $this->error("some values are wrong !");
+                $this->error('some values are wrong !');
                 $this->table(['Errors'], $validator->errors()->messages());
                 goto process;
             }

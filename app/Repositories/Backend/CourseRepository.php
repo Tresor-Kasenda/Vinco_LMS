@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -29,10 +30,11 @@ class CourseRepository implements CourseRepositoryInterface
     public function showCourse(string $key)
     {
         $course = Course::query()
-            ->when('key', function ($query) use ($key){
+            ->when('key', function ($query) use ($key) {
                 $query->where('key', $key);
             })
             ->first();
+
         return $course->load(['category', 'user']);
     }
 
@@ -42,7 +44,7 @@ class CourseRepository implements CourseRepositoryInterface
             ->where('name', '=', $attributes->input('name'))
             ->first();
 
-        if (!$course) {
+        if (! $course) {
             $course = Course::query()
                 ->create([
                     'category_id' => $attributes->input('category'),
@@ -56,12 +58,13 @@ class CourseRepository implements CourseRepositoryInterface
                     'duration' => $attributes->input('duration'),
                     'status' => StatusEnum::FALSE,
                 ]);
-            $flash->addSuccess("Un nouveau cours a ete ajouter");
+            $flash->addSuccess('Un nouveau cours a ete ajouter');
+
             return $course;
         }
-        $flash->addError("Nom du cours ou le professeur a existe deja pour ce cours");
-        return back();
+        $flash->addError('Nom du cours ou le professeur a existe deja pour ce cours');
 
+        return back();
     }
 
     public function updated(string $key, $attributes, $flash)
@@ -79,30 +82,34 @@ class CourseRepository implements CourseRepositoryInterface
             'endDate' => $attributes->input('endDate'),
             'duration' => $attributes->input('duration'),
         ]);
-        $flash->addSuccess("Un nouveau cours a ete ajouter");
+        $flash->addSuccess('Un nouveau cours a ete ajouter');
+
         return $course;
     }
 
     public function deleted(string $key, $flash): RedirectResponse
     {
         $professor = $this->showCourse(key: $key);
-        if ($professor->status !== StatusEnum::FALSE){
-            $flash->addError("Veillez desactiver le cours avant de le mettre dans la corbeille");
+        if ($professor->status !== StatusEnum::FALSE) {
+            $flash->addError('Veillez desactiver le cours avant de le mettre dans la corbeille');
+
             return back();
         }
         $professor->delete();
         $flash->addSuccess('Une modification a ete effectuer sur ce cours');
+
         return back();
     }
 
     public function changeStatus($attributes): bool|int
     {
         $professor = $this->showCourse(key: $attributes->input('key'));
-        if ($professor != null){
+        if ($professor != null) {
             return $professor->update([
-                'status' => $attributes->input('status')
+                'status' => $attributes->input('status'),
             ]);
         }
+
         return false;
     }
 }

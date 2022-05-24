@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -15,24 +16,27 @@ class TrashedPersonnelBackendController extends Controller
     public function __construct(
         public SweetAlertFactory $alertFactory,
         public TrashedPersonnelRepositoryInterface $repository
-    ){}
+    ) {
+    }
 
     public function index(): Renderable
     {
         return view('backend.domain.personnels.trashed.index', [
-            'employees' => $this->repository->getTrashes()
+            'employees' => $this->repository->getTrashes(),
         ]);
     }
 
     public function restore(string $key): RedirectResponse
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
+
         return Response::redirectToRoute('admins.personnel.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
+
         return Response::redirectToRoute('admins.personnel.index');
     }
 }

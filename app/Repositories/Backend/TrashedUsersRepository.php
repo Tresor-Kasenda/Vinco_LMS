@@ -1,4 +1,5 @@
 <?php
+
  declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -22,6 +23,7 @@ class TrashedUsersRepository implements TrashedUsersRepositoryInterface
         $campus = $this->getTrashedCampus($key);
         $campus->restore();
         $alert->addSuccess("L'utilisateur a ete restorer avec success");
+
         return $campus;
     }
 
@@ -29,7 +31,8 @@ class TrashedUsersRepository implements TrashedUsersRepositoryInterface
     {
         $campus = $this->getTrashedCampus($key);
         $campus->forceDelete();
-        $alert->addInfo("Utilisateur supprimer definivement avec succes");
+        $alert->addInfo('Utilisateur supprimer definivement avec succes');
+
         return back();
     }
 

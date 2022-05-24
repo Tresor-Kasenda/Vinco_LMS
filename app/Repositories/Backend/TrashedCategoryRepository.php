@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -10,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 
 class TrashedCategoryRepository implements TrashedCategoryRepositoryInterface
 {
-
     public function getTrashes(): array|Collection
     {
         return Category::onlyTrashed()
@@ -22,7 +22,8 @@ class TrashedCategoryRepository implements TrashedCategoryRepositoryInterface
     {
         $department = $this->getTrashedCategory(key: $key);
         $department->restore();
-        $alert->addSuccess("La categorie a ete restorer avec success");
+        $alert->addSuccess('La categorie a ete restorer avec success');
+
         return $department;
     }
 
@@ -30,7 +31,8 @@ class TrashedCategoryRepository implements TrashedCategoryRepositoryInterface
     {
         $department = $this->getTrashedCategory(key: $key);
         $department->forceDelete();
-        $alert->addInfo("Categorie supprimer definivement avec succes");
+        $alert->addInfo('Categorie supprimer definivement avec succes');
+
         return back();
     }
 

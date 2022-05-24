@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear
+ * App\Models\AcademicYear.
  *
  * @property int $id
  * @property string $key
@@ -44,12 +45,11 @@ class AcademicYear extends Model
 
     public function personnel(): HasMany
     {
-        return $this->hasMany(AcademicYear::class);
+        return $this->hasMany(self::class);
     }
 
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
     }
-
 }

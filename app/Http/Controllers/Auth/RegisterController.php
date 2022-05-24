@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
@@ -36,7 +37,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required'],
             'lastName' => ['required', 'string', 'max:255'],
-            'phones' => ['required', 'min:10']
+            'phones' => ['required', 'min:10'],
         ]);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -26,8 +27,8 @@ class ConfirmedCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "status" => ['required'],
-            "key" => ['required', Rule::exists('categories', 'key')]
+            'status' => ['required'],
+            'key' => ['required', Rule::exists('categories', 'key')],
         ];
     }
 }

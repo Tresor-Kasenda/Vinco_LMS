@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -24,7 +25,8 @@ class TrashedDepartmentRepository implements TrashedDepartmentRepositoryInterfac
     {
         $department = $this->getTrashedDepartment(key: $key);
         $department->restore();
-        $alert->addSuccess("Le departement a ete restorer avec success");
+        $alert->addSuccess('Le departement a ete restorer avec success');
+
         return $department;
     }
 
@@ -33,7 +35,8 @@ class TrashedDepartmentRepository implements TrashedDepartmentRepositoryInterfac
         $department = $this->getTrashedDepartment(key: $key);
         $this->removePathOfImages(model: $department);
         $department->forceDelete();
-        $alert->addInfo("Departement supprimer definivement avec succes");
+        $alert->addInfo('Departement supprimer definivement avec succes');
+
         return back();
     }
 

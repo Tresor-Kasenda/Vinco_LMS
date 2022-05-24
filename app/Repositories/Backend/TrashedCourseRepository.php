@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -24,7 +25,8 @@ class TrashedCourseRepository implements TrashedCourseRepositoryInterface
     {
         $course = $this->getTrashedProfessor($key);
         $course->restore();
-        $alert->addSuccess("Le cours a ete restorer avec success");
+        $alert->addSuccess('Le cours a ete restorer avec success');
+
         return $course;
     }
 
@@ -33,7 +35,8 @@ class TrashedCourseRepository implements TrashedCourseRepositoryInterface
         $course = $this->getTrashedProfessor($key);
         $this->removePathOfImages(model: $course);
         $course->forceDelete();
-        $alert->addInfo("Cours supprimer definivement avec succes");
+        $alert->addInfo('Cours supprimer definivement avec succes');
+
         return back();
     }
 

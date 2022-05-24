@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Middleware;
@@ -12,7 +13,7 @@ class CampusMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::check()){
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 
@@ -36,7 +37,7 @@ class CampusMiddleware
             return $next($request);
         }
 
-        if (Auth::user()->role_id == RoleEnum::ADMIN){
+        if (Auth::user()->role_id == RoleEnum::ADMIN) {
             return redirect()->route('admins.backend.home');
         }
     }

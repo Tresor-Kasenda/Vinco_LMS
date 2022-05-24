@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -28,6 +29,7 @@ class UsersRepository implements UsersRepositoryInterface
         $user = User::query()
             ->where('key', '=', $key)
             ->first();
+
         return $user->load('role');
     }
 
@@ -37,19 +39,21 @@ class UsersRepository implements UsersRepositoryInterface
             ->where('email', '=', $attributes->input('email'))
             ->first();
         if ($user) {
-            $flash->addError("Email deja utiliser par un autre compte");
+            $flash->addError('Email deja utiliser par un autre compte');
+
             return back();
         }
         $user = User::query()
             ->create([
-                "name" => $attributes->input('name'),
-                "firstName" => $attributes->input('firstName'),
-                "email" => $attributes->input('email'),
-                "role_id" => $attributes->input('role_id'),
+                'name' => $attributes->input('name'),
+                'firstName' => $attributes->input('firstName'),
+                'email' => $attributes->input('email'),
+                'role_id' => $attributes->input('role_id'),
                 'status' => StatusEnum::TRUE,
-                "password" => Hash::make($attributes->input('password')),
+                'password' => Hash::make($attributes->input('password')),
             ]);
-        $flash->addSuccess("Utilisateur ajouter avec succes");
+        $flash->addSuccess('Utilisateur ajouter avec succes');
+
         return $user;
     }
 
@@ -57,36 +61,40 @@ class UsersRepository implements UsersRepositoryInterface
     {
         $user = $this->showUser(key: $key);
         $user->update([
-            "name" => $attributes->input('name'),
-            "firstName" => $attributes->input('firstName'),
-            "email" => $attributes->input('email'),
-            "role_id" => $attributes->input('role_id'),
-            "password" => Hash::make($attributes->input('password')),
+            'name' => $attributes->input('name'),
+            'firstName' => $attributes->input('firstName'),
+            'email' => $attributes->input('email'),
+            'role_id' => $attributes->input('role_id'),
+            'password' => Hash::make($attributes->input('password')),
         ]);
-        $flash->addSuccess("Utilisateur mise a jours avec succes");
+        $flash->addSuccess('Utilisateur mise a jours avec succes');
+
         return $user;
     }
 
     public function deleted(string $key, $flash): Model|Builder|User|RedirectResponse|null
     {
         $user = $this->showUser(key: $key);
-        if ($user->status !== StatusEnum::FALSE){
-            $flash->addError("Veillez desactiver le users avant de le mettre dans la corbeille");
+        if ($user->status !== StatusEnum::FALSE) {
+            $flash->addError('Veillez desactiver le users avant de le mettre dans la corbeille');
+
             return back();
         }
         $user->delete();
-        $flash->addSuccess("Utilisateur supprimer avec succes");
+        $flash->addSuccess('Utilisateur supprimer avec succes');
+
         return $user;
     }
 
     public function changeStatus($attributes): bool|int
     {
         $user = $this->showUser(key: $attributes->input('key'));
-        if ($user != null){
+        if ($user != null) {
             return $user->update([
-                'status' => $attributes->input('status')
+                'status' => $attributes->input('status'),
             ]);
         }
+
         return false;
     }
 }

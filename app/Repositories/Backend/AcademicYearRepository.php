@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -29,10 +30,11 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = AcademicYear::query()
             ->create([
-                'startDate' => $attributes->input("startDate"),
-                'endDate' => $attributes->input('endDate')
+                'startDate' => $attributes->input('startDate'),
+                'endDate' => $attributes->input('endDate'),
             ]);
         $flash->addSuccess('Une nouvelle annee a ete ajouter');
+
         return $academic;
     }
 
@@ -40,10 +42,11 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = $this->showAcademicYear(key: $key);
         $academic->update([
-            'startDate' => $attributes->input("startDate"),
-            'endDate' => $attributes->input('endDate')
+            'startDate' => $attributes->input('startDate'),
+            'endDate' => $attributes->input('endDate'),
         ]);
         $flash->addSuccess('l\'annee academique a ete modifier');
+
         return $academic;
     }
 
@@ -52,6 +55,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
         $academic = $this->showAcademicYear(key: $key);
         $academic->delete();
         $flash->addSuccess('l\'annee academique a ete supprimer');
+
         return $academic;
     }
 }

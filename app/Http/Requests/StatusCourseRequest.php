@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -27,8 +28,8 @@ class StatusCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "status" => ['required'],
-            "key" => ['required', Rule::exists('courses', 'key')]
+            'status' => ['required'],
+            'key' => ['required', Rule::exists('courses', 'key')],
         ];
     }
 }

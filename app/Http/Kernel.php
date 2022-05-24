@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http;
@@ -74,7 +75,7 @@ class Kernel extends HttpKernel
         'campus' => CampusMiddleware::class,
         'department' => DepartmentsMiddleware::class,
         'student' => StudentsMiddleware::class,
-        'professor' => ProfessorsMiddleware::class
+        'professor' => ProfessorsMiddleware::class,
 
     ];
 }

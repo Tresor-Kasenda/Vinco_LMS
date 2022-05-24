@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -29,7 +30,7 @@ class ChapterRequest extends FormRequest
             'name' => ['required', 'string', 'min:6'],
             'course' => ['required', Rule::exists('courses', 'name')],
             'displayType' => ['required', 'string'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ];
     }
 }

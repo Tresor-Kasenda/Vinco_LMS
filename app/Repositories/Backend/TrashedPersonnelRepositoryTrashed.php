@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -25,7 +26,8 @@ class TrashedPersonnelRepositoryTrashed implements TrashedPersonnelRepositoryInt
     {
         $campus = $this->getTrashedCampus($key);
         $campus->restore();
-        $alert->addSuccess("Le personnel a ete restorer avec success");
+        $alert->addSuccess('Le personnel a ete restorer avec success');
+
         return $campus;
     }
 
@@ -35,7 +37,8 @@ class TrashedPersonnelRepositoryTrashed implements TrashedPersonnelRepositoryInt
         $this->removePathOfImages(model: $campus);
         $campus->user->forceDelete();
         $campus->forceDelete();
-        $alert->addInfo("Personnel supprimer definivement avec succes");
+        $alert->addInfo('Personnel supprimer definivement avec succes');
+
         return back();
     }
 

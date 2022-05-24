@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -33,6 +34,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $professor = Professor::query()
             ->where('key', '=', $key)
             ->first();
+
         return $professor->load(['user']);
     }
 
@@ -42,11 +44,13 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->where('email', '=', $attributes->input('email'))
             ->first();
         if ($professor) {
-            $factory->addError("Email deja utiliser par un autre compte");
+            $factory->addError('Email deja utiliser par un autre compte');
+
             return back();
         }
         $professor = $this->createProfessor($attributes);
         $factory->addSuccess('Un professeur a ete ajouter');
+
         return $professor;
     }
 
@@ -68,29 +72,33 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             'birthdays' => $attributes->input('birthdays'),
         ]);
         $factory->addSuccess('Une modification a ete effectuer');
+
         return $professor;
     }
 
     public function deleted(string $key, $factory): RedirectResponse
     {
         $professor = $this->showProfessor(key: $key);
-        if ($professor->status !== StatusEnum::FALSE){
-            $factory->addError("Veillez desactiver le professeur avant de le mettre dans la corbeille");
+        if ($professor->status !== StatusEnum::FALSE) {
+            $factory->addError('Veillez desactiver le professeur avant de le mettre dans la corbeille');
+
             return back();
         }
         $professor->delete();
         $factory->addSuccess('Un Professeur a ete ajouter  dans la corbeille');
+
         return back();
     }
 
     public function changeStatus($attributes): bool|int
     {
         $professor = $this->showProfessor(key: $attributes->input('key'));
-        if ($professor != null){
+        if ($professor != null) {
             return $professor->update([
-                'status' => $attributes->input('status')
+                'status' => $attributes->input('status'),
             ]);
         }
+
         return false;
     }
 
@@ -110,7 +118,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'birthdays' => $attributes->input('birthdays'),
                 'user_id' => $attributes->input('user'),
-                'matriculate' => $this->generateRandomTransaction(10)
+                'matriculate' => $this->generateRandomTransaction(10),
             ]);
     }
 }

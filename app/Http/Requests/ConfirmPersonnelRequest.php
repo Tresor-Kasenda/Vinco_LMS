@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -22,8 +23,8 @@ class ConfirmPersonnelRequest extends FormRequest
     public function rules()
     {
         return [
-            "status" => ['required'],
-            "key" => ['required', Rule::exists('personnels', 'key')]
+            'status' => ['required'],
+            'key' => ['required', Rule::exists('personnels', 'key')],
         ];
     }
 }

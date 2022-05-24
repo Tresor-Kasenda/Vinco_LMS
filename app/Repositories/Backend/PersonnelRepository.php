@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -16,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * class PersonnelRepository
+ * class PersonnelRepository.
  */
 final class PersonnelRepository implements PersonnelRepositoryInterface
 {
@@ -35,6 +36,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         $personnel = Personnel::query()
             ->where('key', '=', $key)
             ->first();
+
         return $personnel->load(['user', 'academic']);
     }
 
@@ -44,11 +46,13 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             ->where('email', '=', $attributes->input('email'))
             ->first();
         if ($personnel) {
-            $factory->addError("Email deja utiliser par un autre compte");
+            $factory->addError('Email deja utiliser par un autre compte');
+
             return back();
         }
         $personnel = $this->createPersonnel($attributes);
         $factory->addSuccess('Un personnel a ete ajouter');
+
         return $personnel;
     }
 
@@ -67,32 +71,36 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             'gender' => $attributes->input('gender'),
             'birthdays' => $attributes->input('birthdays'),
             'academic_year_id' => $attributes->input('academic'),
-            'user_id' => $attributes->input("user"),
+            'user_id' => $attributes->input('user'),
         ]);
         $factory->addSuccess('Personnel modifier avec succes');
+
         return $personnel;
     }
 
     public function deleted(string $key, $factory): RedirectResponse
     {
         $personnel = $this->showPersonnelContent(key: $key);
-        if ($personnel->status !== StatusEnum::FALSE){
-            $factory->addError("Veillez desactiver le personnel avant de le mettre dans la corbeille");
+        if ($personnel->status !== StatusEnum::FALSE) {
+            $factory->addError('Veillez desactiver le personnel avant de le mettre dans la corbeille');
+
             return back();
         }
         $personnel->delete();
         $factory->addSuccess('Personnel modifier avec succes');
+
         return back();
     }
 
     public function changeStatus($attributes): bool|int
     {
         $personnel = $this->showPersonnelContent(key: $attributes->input('key'));
-        if ($personnel != null){
+        if ($personnel != null) {
             return $personnel->update([
-                'status' => $attributes->input('status')
+                'status' => $attributes->input('status'),
             ]);
         }
+
         return false;
     }
 
@@ -112,8 +120,8 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'birthdays' => $attributes->input('birthdays'),
                 'academic_year_id' => $attributes->input('academic'),
-                'user_id' => $attributes->input("user"),
-                'matriculate' => $this->generateRandomTransaction(10)
+                'user_id' => $attributes->input('user'),
+                'matriculate' => $this->generateRandomTransaction(10),
             ]);
     }
 }

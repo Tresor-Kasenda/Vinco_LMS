@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View\Composers;
@@ -12,11 +13,13 @@ class DepartmentComposer
 {
     public function compose(View $view): void
     {
-        $view->with('departmentHead', User::query()
-            ->when('role_id', function ($query){
+        $view->with(
+            'departmentHead',
+            User::query()
+            ->when('role_id', function ($query) {
                 $query->where('role_id', RoleEnum::DEPARTMENT);
             })
-            ->when('deleted_at', function ($query){
+            ->when('deleted_at', function ($query) {
                 $query->where('deleted_at', null);
             })
             ->get()

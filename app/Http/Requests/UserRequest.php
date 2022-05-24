@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -28,7 +29,7 @@ class UserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4'],
             'firstName' => ['required', 'string', 'min:4'],
-            "email" => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
+            'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'role_id' => ['required', Rule::exists('roles', 'id')],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];

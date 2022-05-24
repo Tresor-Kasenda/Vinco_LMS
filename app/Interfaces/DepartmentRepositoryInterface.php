@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Interfaces;
@@ -16,5 +17,4 @@ interface DepartmentRepositoryInterface
     public function deleted(string $key, $factory);
 
     public function changeStatus($attributes);
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View\Composers;
@@ -11,7 +12,9 @@ class RoleComposer
 {
     public function compose(View $view): void
     {
-        $view->with('roles', Role::query()
+        $view->with(
+            'roles',
+            Role::query()
             ->where('id', '!=', RoleEnum::ADMIN)
             ->where('id', '!=', RoleEnum::STUDENT)
             ->get()

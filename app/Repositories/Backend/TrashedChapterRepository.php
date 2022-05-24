@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -18,7 +19,7 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
             Chapter::onlyTrashed()
                 ->orderByDesc('created_at', 'desc')
                 ->get(),
-            self::getCourse(course: $course)
+            self::getCourse(course: $course),
         ];
     }
 
@@ -26,7 +27,8 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
     {
         $chapter = $this->getTrashedProfessor($key);
         $chapter->restore();
-        $alert->addSuccess("Le chapitre a ete restorer avec success");
+        $alert->addSuccess('Le chapitre a ete restorer avec success');
+
         return self::getCourse(course: $course);
     }
 
@@ -34,7 +36,8 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
     {
         $chapter = $this->getTrashedProfessor($key);
         $chapter->forceDelete();
-        $alert->addInfo("chapitre supprimer definivement avec succes");
+        $alert->addInfo('chapitre supprimer definivement avec succes');
+
         return self::getCourse(course: $course);
     }
 
@@ -50,7 +53,7 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
     protected static function getCourse($course)
     {
         return Course::query()
-            ->when('key', function ($query) use ($course){
+            ->when('key', function ($query) use ($course) {
                 $query->where('key', $course);
             })
             ->first();

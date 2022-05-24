@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -22,7 +23,7 @@ class AcademicYearRequest extends FormRequest
     {
         return [
             'startDate' => ['required', 'date', 'date_format:Y-m-d', 'before:endDate'],
-            'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate']
+            'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate'],
         ];
     }
 }

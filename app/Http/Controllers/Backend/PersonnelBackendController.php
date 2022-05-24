@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -21,19 +22,20 @@ final class PersonnelBackendController extends Controller
     public function __construct(
         private readonly PersonnelRepositoryInterface $repository,
         private readonly SweetAlertFactory $factory
-    ){}
+    ) {
+    }
 
     public function index(): Renderable
     {
         return view('backend.domain.personnels.index', [
-            'employees' => $this->repository->getPersonnelContent()
+            'employees' => $this->repository->getPersonnelContent(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
         return view('backend.domain.personnels.show', [
-            'employee' => $this->repository->showPersonnelContent(key:  $key)
+            'employee' => $this->repository->showPersonnelContent(key:  $key),
         ]);
     }
 
@@ -45,38 +47,42 @@ final class PersonnelBackendController extends Controller
     public function store(PersonnelRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
+
         return to_route('admins.personnel.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
         return view('backend.domain.personnels.edit', [
-            'employee' => $this->repository->showPersonnelContent(key: $key)
+            'employee' => $this->repository->showPersonnelContent(key: $key),
         ]);
     }
 
     public function update(UpdatePersonnelRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+
         return to_route('admins.personnel.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, factory: $this->factory);
+
         return back();
     }
 
     public function active(ConfirmPersonnelRequest $request): JsonResponse
     {
         $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee){
+        if ($employee) {
             return response()->json([
-                'message' => "The status has been successfully updated"
+                'message' => 'The status has been successfully updated',
             ]);
         }
+
         return response()->json([
-            'message' => "Desoler"
+            'message' => 'Desoler',
         ]);
     }
 }

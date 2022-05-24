@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
@@ -27,23 +28,23 @@ class ViewComposeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer([
-            'backend.domain.*'
+            'backend.domain.*',
         ], RoleComposer::class);
 
         View::composer([
-            'backend.domain.*'
+            'backend.domain.*',
         ], AcademicYearComposer::class);
 
         View::composer([
-            'backend.domain.*'
+            'backend.domain.*',
         ], PersonnelComposer::class);
 
         View::composer([
-            'backend.domain.*'
+            'backend.domain.*',
         ], CampusComposer::class);
 
         View::composer([
-            'backend.domain.*'
+            'backend.domain.*',
         ], DepartmentComposer::class);
     }
 }

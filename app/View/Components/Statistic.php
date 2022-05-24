@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View\Components;
@@ -10,8 +11,10 @@ use Illuminate\View\Component;
 class Statistic extends Component
 {
     public readonly string $name;
+
     public $number;
-    public  $route;
+
+    public $route;
 
     /**
      * Create a new component instance.

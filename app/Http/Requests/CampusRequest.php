@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -29,7 +30,7 @@ class CampusRequest extends FormRequest
             'name' => ['required', 'string', 'min:4', 'unique:campuses'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'description' => ['nullable'],
-            'user_id' => ['required', Rule::exists('users', 'id')]
+            'user_id' => ['required', Rule::exists('users', 'id')],
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -20,19 +21,20 @@ class CategoryBackendController extends Controller
     public function __construct(
         public CategoryRepositoryInterface $repository,
         public SweetAlertFactory $flasher
-    ){}
+    ) {
+    }
 
     public function index(): Renderable
     {
         return view('backend.domain.categories.index', [
-            'categories' => $this->repository->getCategories()
+            'categories' => $this->repository->getCategories(),
         ]);
     }
 
     public function show(string $key): Renderable
     {
         return view('backend.domain.categories.show', [
-            'category' => $this->repository->showCategory(key: $key)
+            'category' => $this->repository->showCategory(key: $key),
         ]);
     }
 
@@ -44,38 +46,42 @@ class CategoryBackendController extends Controller
     public function store(CategoryRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes:  $attributes, flash: $this->flasher);
+
         return to_route('admins.categories.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
         return view('backend.domain.categories.edit', [
-            'category' => $this->repository->showCategory(key: $key)
+            'category' => $this->repository->showCategory(key: $key),
         ]);
     }
 
     public function update(string $key, CategoryRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->flasher);
+
         return to_route('admins.categories.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, flash: $this->flasher);
+
         return back();
     }
 
     public function activate(ConfirmedCategoryRequest $request): JsonResponse
     {
         $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee){
+        if ($employee) {
             return response()->json([
-                'message' => "The status has been successfully updated"
+                'message' => 'The status has been successfully updated',
             ]);
         }
+
         return response()->json([
-            'message' => "Desoler"
+            'message' => 'Desoler',
         ]);
     }
 }

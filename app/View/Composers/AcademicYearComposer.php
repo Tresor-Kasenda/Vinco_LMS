@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View\Composers;
@@ -13,7 +14,9 @@ class AcademicYearComposer
     public function compose(View $view): void
     {
         $view
-            ->with('academicYear', AcademicYear::query()
+            ->with(
+                'academicYear',
+                AcademicYear::query()
                 ->get()
             );
     }

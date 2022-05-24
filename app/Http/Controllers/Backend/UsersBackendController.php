@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -20,19 +21,20 @@ final class UsersBackendController extends Controller
     public function __construct(
         public UsersRepositoryInterface $repository,
         public SweetAlertFactory $factory
-    ){}
+    ) {
+    }
 
     public function index(): \Illuminate\Contracts\View\View
     {
         return View::make('backend.domain.users.index', [
-           'administrators' => $this->repository->getUsers()
+           'administrators' => $this->repository->getUsers(),
         ]);
     }
 
     public function show(string $key): Renderable
     {
         return view('backend.domain.users.show', [
-            'administrator' => $this->repository->showUser(key: $key)
+            'administrator' => $this->repository->showUser(key: $key),
         ]);
     }
 
@@ -44,34 +46,40 @@ final class UsersBackendController extends Controller
     public function store(UserRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, flash: $this->factory);
+
         return to_route('admins.administrator.index');
     }
 
     public function edit(string $key): Factory|\Illuminate\Contracts\View\View|Application
     {
         return view('backend.domain.users.edit', [
-            'administrator' => $this->repository->showUser(key: $key)
+            'administrator' => $this->repository->showUser(key: $key),
         ]);
     }
 
     public function update(UserRequest $attributes, string $key): RedirectResponse
     {
-        $this->repository->updated( key: $key, attributes: $attributes, flash: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
+
         return to_route('admins.administrator.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, flash: $this->factory);
+
         return to_route('admins.administrator.index');
     }
 
     public function activate(ConfirmUserRequest $request): JsonResponse
     {
         $administrator = $this->repository->changeStatus(attributes: $request);
-        if (!$administrator) return response()->json(['message' => "Desoler"]);
+        if (! $administrator) {
+            return response()->json(['message' => 'Desoler']);
+        }
+
         return response()->json([
-            'message' => "The status has been successfully updated"
+            'message' => 'The status has been successfully updated',
         ]);
     }
 }
