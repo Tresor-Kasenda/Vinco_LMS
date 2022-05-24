@@ -30,7 +30,7 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <form action="{{ route('admins.chapters.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                            <form action="{{ route('admins.course.chapter.store', ['course' => $course->key]) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-gs">
                                     <div class="col-md-4">

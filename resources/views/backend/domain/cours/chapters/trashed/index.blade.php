@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.show', ['course' => $course->key]) }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -103,7 +103,7 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <form action="{{ route('admins.chapters.restore', $chapter->key) }}" method="POST">
+                                                                <form action="{{ route('admins.chapters.restore',['course' => $course->key, 'chapter' => $chapter->key]) }}" method="POST">
                                                                     @method('PUT')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">
@@ -113,7 +113,7 @@
                                                                 </form>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.chapters.remove', $chapter->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.chapters.remove',['course' => $course->key, 'chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim text-danger">

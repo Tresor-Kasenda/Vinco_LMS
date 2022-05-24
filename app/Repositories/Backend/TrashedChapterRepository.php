@@ -5,33 +5,37 @@ namespace App\Repositories\Backend;
 
 use App\Interfaces\TrashedChapterRepositoryInterface;
 use App\Models\Chapter;
+use App\Models\Course;
 use App\Traits\ImageUploader;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 
 class TrashedChapterRepository implements TrashedChapterRepositoryInterface
 {
-    public function getTrashes(): array|Collection
+    public function getTrashes($course): array|Collection
     {
-        return Chapter::onlyTrashed()
-            ->orderByDesc('created_at', 'desc')
-            ->get();
+        return [
+            Chapter::onlyTrashed()
+                ->orderByDesc('created_at', 'desc')
+                ->get(),
+            self::getCourse(course: $course)
+        ];
     }
 
-    public function restore(string $key, $alert)
+    public function restore($course, string $key, $alert): mixed
     {
-        $course = $this->getTrashedProfessor($key);
-        $course->restore();
+        $chapter = $this->getTrashedProfessor($key);
+        $chapter->restore();
         $alert->addSuccess("Le chapitre a ete restorer avec success");
-        return $course;
+        return self::getCourse(course: $course);
     }
 
-    public function deleted(string $key, $alert): RedirectResponse
+    public function deleted($course, string $key, $alert): mixed
     {
-        $course = $this->getTrashedProfessor($key);
-        $course->forceDelete();
+        $chapter = $this->getTrashedProfessor($key);
+        $chapter->forceDelete();
         $alert->addInfo("chapitre supprimer definivement avec succes");
-        return back();
+        return self::getCourse(course: $course);
     }
 
     public function getTrashedProfessor(string $key): mixed
@@ -39,6 +43,15 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
         return Chapter::withTrashed()
             ->when('key', function ($query) use ($key) {
                 $query->where('key', $key);
+            })
+            ->first();
+    }
+
+    protected static function getCourse($course)
+    {
+        return Course::query()
+            ->when('key', function ($query) use ($course){
+                $query->where('key', $course);
             })
             ->first();
     }

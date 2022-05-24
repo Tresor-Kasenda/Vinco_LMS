@@ -36,13 +36,13 @@
                                             </a>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.chapters.create', ['course' => $course->key]) }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.chapter.create', ['course' => $course->key]) }}">
                                                 <em class="icon ni ni-db"></em>
                                                 <span>Add chapter</span>
                                             </a>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.chapters.history') }}">
+                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.chapters.history', ['course' => $course->key]) }}">
                                                 <em class="icon ni ni-histroy"></em>
                                                 <span>Corbeille</span>
                                             </a>
@@ -142,19 +142,19 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="{{ route('admins.chapters.show', ['course' => $course->key, 'chapter' => $chapter->key] ) }}">
+                                                            <a href="{{ route('admins.course.chapter.show', ['course' => $course->key, 'chapter' => $chapter->key] ) }}">
                                                                 <em class="icon ni ni-eye"></em>
                                                                 <span>View</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ route('admins.chapters.edit', ['course' => $course->key, 'chapter' => $chapter->key]) }}">
+                                                            <a href="{{ route('admins.course.chapter.edit', ['course' => $course->key, 'chapter' => $chapter->key]) }}">
                                                                 <em class="icon ni ni-edit"></em>
                                                                 <span>Edit</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('admins.chapters.destroy', ['chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                            <form action="{{ route('admins.course.chapter.destroy', ['course' => $course->key, 'chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                 @method('DELETE')
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <button type="submit" class="btn btn-dim">

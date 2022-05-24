@@ -5,9 +5,9 @@ namespace App\Interfaces;
 
 interface TrashedChapterRepositoryInterface
 {
-    public function getTrashes();
+    public function getTrashes($course);
 
-    public function restore(string $key, $alert);
+    public function restore($course, string $key, $alert);
 
-    public function deleted(string $key, $alert);
+    public function deleted($course, string $key, $alert);
 }

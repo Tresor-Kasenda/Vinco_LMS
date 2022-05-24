@@ -45,14 +45,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::resource('categories', CategoryBackendController::class);
         Route::resource('administrator', UsersBackendController::class);
         Route::resource('course', CourseBackendController::class);
-        Route::controller(ChapterBackendController::class)->group(function (){
-            Route::get('course/{course}/chapters', 'create')->name('chapters.create');
-            Route::post('chapters', 'store')->name('chapters.store');
-            Route::get('course/{course}/chapters/{chapter}', 'show')->name('chapters.show');
-            Route::get('course/{course}/chapters/{chapter}/edit', 'edit')->name('chapters.edit');
-            Route::put('chapters/{chapter}/update', 'update')->name('chapters.update');
-            Route::delete('chapters/{chapter}', 'destroy')->name('chapters.destroy');
-        });
+        Route::resource('course.chapter', ChapterBackendController::class);
 
         Route::controller(TrashedCampusBackendController::class)->group(function (){
             Route::get('historyCampus/', 'index')->name('campus.history');
@@ -97,9 +90,9 @@ Route::group(['middleware' => 'auth'], function (){
         });
 
         Route::controller(TrashedChapterBackendController::class)->group(function (){
-            Route::get('historyChapter/', 'index')->name('chapters.history');
-            Route::put('restoreChapter/{key}', 'restore')->name('chapters.restore');
-            Route::delete('deleteChapter/{key}', 'destroy')->name('chapters.remove');
+            Route::get('course/{course}/historyChapter', 'index')->name('chapters.history');
+            Route::put('course/{course}/restoreChapter/{chapter}', 'restore')->name('chapters.restore');
+            Route::delete('course/{course}/deleteChapter/{chapter}', 'destroy')->name('chapters.remove');
         });
 
         Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');

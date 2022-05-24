@@ -17,22 +17,24 @@ class TrashedChapterBackendController extends Controller
         public TrashedChapterRepositoryInterface $repository
     ){}
 
-    public function index(): Renderable
+    public function index($course): Renderable
     {
+        [$chapters, $courses] = $this->repository->getTrashes(course: $course);
         return view('backend.domain.cours.chapters.trashed.index', [
-            'chapters' => $this->repository->getTrashes()
+            'chapters' => $chapters,
+            'course' => $courses
         ]);
     }
 
-    public function restore(string $key): RedirectResponse
+    public function restore($course, string $key): RedirectResponse
     {
-        $this->repository->restore(key: $key, alert: $this->alertFactory);
-        return back();
+        $chapter = $this->repository->restore(course: $course, key: $key, alert: $this->alertFactory);
+        return to_route('admins.course.show', ['course' => $chapter->key]);
     }
 
-    public function destroy(string $key): RedirectResponse
+    public function destroy($course, string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, alert: $this->alertFactory);
-        return back();
+        $chapter = $this->repository->deleted(course: $course, key: $key, alert: $this->alertFactory);
+        return to_route('admins.course.show', ['course' => $chapter->key]);
     }
 }

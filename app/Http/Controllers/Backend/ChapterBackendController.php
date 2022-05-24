@@ -8,7 +8,6 @@ use App\Http\Requests\ChapterRequest;
 use App\Http\Requests\StatusCourseRequest;
 use App\Interfaces\ChapterRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
-use App\Models\Course;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -27,10 +26,12 @@ class ChapterBackendController extends Controller
         public CourseRepositoryInterface $courseRepository
     ){}
 
-    public function show(string $key): Factory|View|Application
+    public function show($course, string $key): Factory|View|Application
     {
-        return view('backend.domain.cours.show', [
-            'chapter' => $this->repository->showChapter(key:  $key)
+        $chapter = $this->repository->showChapter(course: $course, key:  $key);
+        return view('backend.domain.cours.chapters.show', [
+            'chapter' => $chapter[0],
+            'course' => $chapter[1]
         ]);
     }
 
@@ -41,42 +42,30 @@ class ChapterBackendController extends Controller
         ]);
     }
 
-    public function store(ChapterRequest $attributes): RedirectResponse
+    public function store($course, ChapterRequest $attributes): RedirectResponse
     {
         $chapter = $this->repository->stored(attributes: $attributes, flash: $this->factory);
         return to_route('admins.course.show', ['course' => $chapter[1]->key]);
     }
 
-    public function edit(Course $course, string $key): HttpResponse
+    public function edit($course, string $key): HttpResponse
     {
-        return Response::view('backend.domain.cours.edit', [
-            'chapter' => $this->repository->showChapter(key: $key),
-            'course' => $course
+        $chapter = $this->repository->showChapter(course: $course, key:  $key);
+        return Response::view('backend.domain.cours.chapters.edit', [
+            'chapter' => $chapter[0],
+            'course' => $chapter[1]
         ]);
     }
 
-    public function update(string $key, ChapterRequest $attributes): RedirectResponse
+    public function update($course, string $key, ChapterRequest $attributes): RedirectResponse
     {
-        $chapter = $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
+        $chapter = $this->repository->updated(course: $course, key: $key, attributes: $attributes, flash: $this->factory);
         return to_route('admins.course.show', ['course' => $chapter[1]->key]);
     }
 
-    public function destroy(string $key): RedirectResponse
+    public function destroy($course, string $key): RedirectResponse
     {
-        $chapter = $this->repository->deleted(key: $key, flash: $this->factory);
-        return back();
-    }
-
-    public function activate(StatusCourseRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee){
-            return response()->json([
-                'message' => "The status has been successfully updated"
-            ]);
-        }
-        return response()->json([
-            'message' => "Desoler"
-        ]);
+        $chapter = $this->repository->deleted(course: $course,key: $key, flash: $this->factory);
+        return to_route('admins.course.show', ['course' => $chapter->key]);
     }
 }

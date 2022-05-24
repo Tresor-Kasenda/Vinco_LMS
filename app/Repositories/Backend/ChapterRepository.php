@@ -27,12 +27,15 @@ class ChapterRepository implements ChapterRepositoryInterface
             ->get();
     }
 
-    public function showChapter(string $key): Model|Builder|Chapter|null
+    public function showChapter($course, string $key): Model|Builder|Chapter|null|array
     {
         $chapter = Chapter::query()
             ->where('key', '=', $key)
             ->first();
-        return $chapter->load(['lessons']);
+        return [
+            $chapter->load('lessons'),
+            self::getCourse(course: $course)
+        ];
     }
 
     public function stored($attributes, $flash): Model|Builder|Chapter|RedirectResponse|array
@@ -47,7 +50,7 @@ class ChapterRepository implements ChapterRepositoryInterface
             $chapter = Chapter::query()
                 ->create([
                     'course_id' => $course->id,
-                    'status' => StatusEnum::FALSE,
+                    'status' => StatusEnum::TRUE,
                     'name' => $attributes->input('name'),
                     'displayType' => $attributes->input('displayType'),
                     'description' => $attributes->input('description')
@@ -59,43 +62,46 @@ class ChapterRepository implements ChapterRepositoryInterface
         return back();
     }
 
-    public function updated(string $key, $attributes, $flash): array
+    public function updated($course, string $key, $attributes, $flash): array
     {
-        $chapter = $this->showChapter(key: $key);
+        [$chapter, $courses] = $this->showChapter(course: $course, key: $key);
         $course = $this->getChapter($attributes);
         $chapter->update([
             'course_id' => $course->id,
-            'status' => StatusEnum::TRUE,
             'name' => $attributes->input('name'),
             'displayType' => $attributes->input('displayType'),
             'description' => $attributes->input('description')
         ]);
         $flash->addSuccess("Un cours a ete mise a jours avec success");
-        return [$chapter, $course];
+        return [$chapter, $courses];
     }
 
-    public function deleted(string $key, $flash): RedirectResponse
+    public function deleted($course, string $key, $flash)
     {
-        $chapter = $this->showChapter(key: $key);
+        [$chapter, $courses] = $this->showChapter(course: $course, key: $key);
         $chapter->delete();
         $flash->addSuccess('Le chapitre a ete supprimer avec success');
-        return back();
-    }
-
-    public function changeStatus($attributes)
-    {
-        // TODO: Implement changeStatus() method.
+        return $courses;
     }
 
     /**
      * @param $attributes
      * @return Course|Builder|Model|HigherOrderWhenProxy|mixed|object|null
      */
-    public function getChapter($attributes): mixed
+    private function getChapter($attributes): mixed
     {
         return Course::query()
             ->when('name', function ($query) use ($attributes) {
                 $query->where('name', $attributes->input('course'));
+            })
+            ->first();
+    }
+
+    protected static function getCourse($course)
+    {
+        return Course::query()
+            ->when('key', function ($query) use ($course){
+                $query->where('key', $course);
             })
             ->first();
     }

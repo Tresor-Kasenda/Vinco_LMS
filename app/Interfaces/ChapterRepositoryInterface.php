@@ -9,13 +9,11 @@ interface ChapterRepositoryInterface
 {
     public function getChapters(Course $course);
 
-    public function showChapter(string $key);
+    public function showChapter($course, string $key);
 
     public function stored($attributes, $flash);
 
-    public function updated(string $key, $attributes, $flash);
+    public function updated($course, string $key, $attributes, $flash);
 
-    public function deleted(string $key, $flash);
-
-    public function changeStatus($attributes);
+    public function deleted($course, string $key, $flash);
 }
