@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
+use App\Http\Controllers\Backend\LessonBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
 use App\Http\Controllers\Backend\ProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedChapterBackendController;
 use App\Http\Controllers\Backend\TrashedCourseBackendController;
 use App\Http\Controllers\Backend\TrashedDepartmentBackendController;
+use App\Http\Controllers\Backend\TrashedLessonBackendController;
 use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
@@ -46,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('administrator', UsersBackendController::class);
         Route::resource('course', CourseBackendController::class);
         Route::resource('course.chapter', ChapterBackendController::class);
+        Route::resource('course.chapter.lessons', LessonBackendController::class);
 
         Route::controller(TrashedCampusBackendController::class)->group(function () {
             Route::get('historyCampus/', 'index')->name('campus.history');
@@ -95,6 +98,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('course/{course}/deleteChapter/{chapter}', 'destroy')->name('chapters.remove');
         });
 
+        Route::controller(TrashedLessonBackendController::class)->group(function () {
+            Route::get('course/{course}/chapter/{chapter}/historyLessons', 'index')->name('lessons.history');
+            Route::put('course/{course}/chapter/{chapter}/restoreChapter/{lessons}', 'restore')->name('lessons.restore');
+            Route::delete('course/{course}/chapter/{chapter}/deleteChapter/{lessons}', 'destroy')->name('lessons.remove');
+        });
+
         Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
         Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])->name('department.active');
@@ -102,7 +111,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])->name('categories.active');
         Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])->name('administrator.active');
         Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
-        //Route::put('activeChapter/course/{course}/chapter/{key}/update', [ChapterBackendController::class, 'activate'])->name('course.active');
     });
 });
 

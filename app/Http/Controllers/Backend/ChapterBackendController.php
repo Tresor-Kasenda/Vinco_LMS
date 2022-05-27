@@ -6,15 +6,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChapterRequest;
-use App\Http\Requests\StatusCourseRequest;
 use App\Interfaces\ChapterRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
+use App\Interfaces\LessonRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
@@ -24,7 +23,8 @@ class ChapterBackendController extends Controller
     public function __construct(
         public ChapterRepositoryInterface $repository,
         public SweetAlertFactory $factory,
-        public CourseRepositoryInterface $courseRepository
+        public CourseRepositoryInterface $courseRepository,
+        private readonly LessonRepositoryInterface $lessonRepository
     ) {
     }
 
@@ -35,6 +35,7 @@ class ChapterBackendController extends Controller
         return view('backend.domain.cours.chapters.show', [
             'chapter' => $chapter[0],
             'course' => $chapter[1],
+            'lessons' => $this->lessonRepository->getLessons(course: $chapter[0], chapter: $chapter[1])
         ]);
     }
 

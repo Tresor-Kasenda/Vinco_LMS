@@ -10,6 +10,7 @@ use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\ChapterRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\DepartmentRepositoryInterface;
+use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
 use App\Interfaces\TrashedCampusRepositoryInterface;
@@ -17,6 +18,7 @@ use App\Interfaces\TrashedCategoryRepositoryInterface;
 use App\Interfaces\TrashedChapterRepositoryInterface;
 use App\Interfaces\TrashedCourseRepositoryInterface;
 use App\Interfaces\TrashedDepartmentRepositoryInterface;
+use App\Interfaces\TrashedLessonRepositoryInterface;
 use App\Interfaces\TrashedPersonnelRepositoryInterface;
 use App\Interfaces\TrashedProfessorRepositoryInterface;
 use App\Interfaces\TrashedUsersRepositoryInterface;
@@ -27,6 +29,7 @@ use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
+use App\Repositories\Backend\LessonRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
@@ -34,6 +37,7 @@ use App\Repositories\Backend\TrashedCategoryRepository;
 use App\Repositories\Backend\TrashedChapterRepository;
 use App\Repositories\Backend\TrashedCourseRepository;
 use App\Repositories\Backend\TrashedDepartmentRepository;
+use App\Repositories\Backend\TrashedLessonRepository;
 use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
 use App\Repositories\Backend\TrashedUsersRepository;
@@ -63,6 +67,8 @@ class RepositoryServiceProvider extends ServiceProvider
         TrashedCourseRepositoryInterface::class => TrashedCourseRepository::class,
         ChapterRepositoryInterface::class => ChapterRepository::class,
         TrashedChapterRepositoryInterface::class => TrashedChapterRepository::class,
+        LessonRepositoryInterface::class => LessonRepository::class,
+        TrashedLessonRepositoryInterface::class => TrashedLessonRepository::class
     ];
 
     /**

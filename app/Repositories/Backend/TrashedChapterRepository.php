@@ -25,7 +25,7 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
 
     public function restore($course, string $key, $alert): mixed
     {
-        $chapter = $this->getTrashedProfessor($key);
+        $chapter = $this->getTrashedChapter(key: $key);
         $chapter->restore();
         $alert->addSuccess('Le chapitre a ete restorer avec success');
 
@@ -34,14 +34,14 @@ class TrashedChapterRepository implements TrashedChapterRepositoryInterface
 
     public function deleted($course, string $key, $alert): mixed
     {
-        $chapter = $this->getTrashedProfessor($key);
+        $chapter = $this->getTrashedChapter(key: $key);
         $chapter->forceDelete();
         $alert->addInfo('chapitre supprimer definivement avec succes');
 
         return self::getCourse(course: $course);
     }
 
-    public function getTrashedProfessor(string $key): mixed
+    private function getTrashedChapter(string $key): mixed
     {
         return Chapter::withTrashed()
             ->when('key', function ($query) use ($key) {

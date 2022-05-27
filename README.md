@@ -20,10 +20,14 @@
 - [ ]  gestion des roles et privileges
 - [ ]  gestion du journal de classe 
 - [ ]  gestion d'horaire d'examen 
+- [ ]  Publication des Resultat
+- [ ]  Calendrier scolaire
+- [ ]  Programme des examens
 - [x]  gestion des cours
 - [x]  gestion des chapitres 
-- [ ]  Gestion des lecon 
+- [x]  Gestion des lecon 
 - [ ]  Gestion des exercice et devoir 
 - [ ]  Gestion des interrogation et examens
+- [ ]  Aperi
 - [ ]  Systeme de messageries instatanee pour communication professeurs etudiants
 - [ ]  Un PWA et SP pour qu'il soit installable sur mobile
