@@ -18,10 +18,13 @@
                                         <li>
                                             <div class="drodown">
                                                 <div class="form-control-wrap">
-                                                    <select name="status" id="status" class="form-select form-control form-control-lg">
+                                                    <select name="status" id="status" class="form-select form-control form-control-sm">
                                                         <option value="default_option">Select Status</option>
-                                                        <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
-                                                        <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
+                                                        @if($category->status == \App\Enums\StatusEnum::FALSE)
+                                                            <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
+                                                        @else
+                                                            <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
