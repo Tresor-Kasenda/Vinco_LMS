@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-3 col-lg-3">
     <div class="card">
         <div class="nk-ecwg nk-ecwg3">
             <a href="{{ $route ?? route('admins.backend.home') }}">

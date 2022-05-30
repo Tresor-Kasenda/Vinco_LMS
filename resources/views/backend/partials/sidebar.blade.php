@@ -34,56 +34,72 @@
                 <ul class="nk-menu">
                     @include('backend.components._link', [
                         'route' => route('admins.backend.home'),
-                        'name' => "Accueil",
-                        'icon' => "ni-dashboard-fill"
+                        'name' => "Dashboard",
+                        'icon' => "ni-home-alt"
                     ])
-                    <li class="nk-menu-heading">
-                        <h6 class="overline-title text-primary-alt">Administrateurs</h6>
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-users"></em>
+                            </span>
+                            <span class="nk-menu-text">Users</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.administrator.index'),
+                                'name' => "Users"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.personnel.index'),
+                                'name' => "Staffs"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.professors.index'),
+                                'name' => "Professors"
+                            ])
+                        </ul>
                     </li>
 
-                    @include('backend.components._link', [
-                        'route' => route('admins.administrator.index'),
-                        'name' => "Gestionnaire",
-                        'icon' => "ni-user-alt"
-                    ])
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-book-read"></em>
+                            </span>
+                            <span class="nk-menu-text">Academic</span>
+                        </a>
+                        <ul class="nk-menu-sub">
 
-                    <li class="nk-menu-heading">
-                        <h6 class="overline-title text-primary-alt">Administration</h6>
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic-years.index'),
+                                'name' => "Sessions"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.campus.index'),
+                                'name' => "Campus"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.departments.index'),
+                                'name' => "Department"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.departments.index'),
+                                'name' => "Section"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.departments.index'),
+                                'name' => "Class"
+                            ])
+
+                        </ul>
                     </li>
-
-                    @include('backend.components._link', [
-                        'route' => route('admins.academic-years.index'),
-                        'name' => "Annee academique",
-                        'icon' => "ni-swap"
-                    ])
-
-                    @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
-                        'name' => "Personnel",
-                        'icon' => "ni-user-c"
-                    ])
-
-                    @include('backend.components._link', [
-                        'route' => route('admins.campus.index'),
-                        'name' => "Campus",
-                        'icon' => "ni-book"
-                    ])
-
-                    @include('backend.components._link', [
-                        'route' => route('admins.departments.index'),
-                        'name' => "Departments",
-                        'icon' => "ni-layers"
-                    ])
-
-                    <li class="nk-menu-heading">
-                        <h6 class="overline-title text-primary-alt">Professeurs</h6>
-                    </li>
-
-                    @include('backend.components._link', [
-                        'route' => route('admins.professors.index'),
-                        'name' => "Professors",
-                        'icon' => "ni-user-circle"
-                    ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.categories.index'),

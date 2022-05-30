@@ -17,5 +17,6 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.scripts([
     'public/assets/admins/js/bundle41fe.js',
-    'public/assets/admins/js/scripts41fe.js'
+    'public/assets/admins/js/scripts41fe.js',
+    'public/assets/admins/js/demo-settings41fe.js'
 ], 'public/js/admins.js');

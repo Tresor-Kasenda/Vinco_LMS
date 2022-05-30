@@ -12,6 +12,9 @@
                     <img class="logo-dark logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo-dark">
                 </a>
             </div>
+            <div class="nk-header-search ms-3 ms-xl-0">
+                <span class="badge bg-primary">Manager</span>
+            </div>
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
                     <li class="dropdown notification-dropdown">
