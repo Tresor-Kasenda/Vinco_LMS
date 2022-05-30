@@ -75,6 +75,11 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @mixin Eloquent
  * @property int $status
  * @method static Builder|User whereStatus($value)
+ * @property-read bool $is_admin
+ * @property-read bool $is_student
+ * @property-read bool $is_teacher
+ * @property-read Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
  */
 class User extends Authenticatable
 {
@@ -82,9 +87,24 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
-    public function role(): BelongsTo
+    public function getIsAdminAttribute(): bool
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->roles()->where('id', 1)->exists();
+    }
+
+    public function getIsTeacherAttribute(): bool
+    {
+        return $this->roles()->where('id', 3)->exists();
+    }
+
+    public function getIsStudentAttribute(): bool
+    {
+        return $this->roles()->where('id', 4)->exists();
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
     }
 
     public function personnel(): HasOne

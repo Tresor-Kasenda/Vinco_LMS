@@ -65,6 +65,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\User|null $user
  */
 class Course extends Model
 {

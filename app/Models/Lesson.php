@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Carbon\Carbon;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,34 +28,121 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Chapter $chapter
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Exercice[] $exercises
+ * @property-read Chapter $chapter
+ * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Resource[] $resources
+ * @property-read Collection|Resource[] $resources
  * @property-read int|null $resources_count
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson newQuery()
+ * @method static Builder|Lesson newModelQuery()
+ * @method static Builder|Lesson newQuery()
  * @method static \Illuminate\Database\Query\Builder|Lesson onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson query()
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereChapterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereShortContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereUpdatedAt($value)
+ * @method static Builder|Lesson query()
+ * @method static Builder|Lesson whereChapterId($value)
+ * @method static Builder|Lesson whereContent($value)
+ * @method static Builder|Lesson whereCreatedAt($value)
+ * @method static Builder|Lesson whereDeletedAt($value)
+ * @method static Builder|Lesson whereId($value)
+ * @method static Builder|Lesson whereKey($value)
+ * @method static Builder|Lesson whereName($value)
+ * @method static Builder|Lesson whereShortContent($value)
+ * @method static Builder|Lesson whereStatus($value)
+ * @method static Builder|Lesson whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property-read int $difference
+ * @property string|null $end_time
+ * @property string|null $start_time
+ * @method static Builder|Lesson calendarByRoleOrClassId()
  */
 class Lesson extends Model
 {
     use HasFactory, SoftDeletes, HasKeyTrait;
 
     protected $guarded = [];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    const WEEK_DAYS = [
+        '1' => 'Monday',
+        '2' => 'Tuesday',
+        '3' => 'Wednesday',
+        '4' => 'Thursday',
+        '5' => 'Friday',
+        '6' => 'Saturday',
+        '7' => 'Sunday',
+    ];
+
+    public function getDifferenceAttribute(): int
+    {
+        return Carbon::parse($this->end_time)->diffInMinutes($this->start_time);
+    }
+
+    public function getStartTimeAttribute($value): ?string
+    {
+        return $value ? Carbon::createFromFormat('H:i:s', $value)
+            ->format(config('panel.lesson_time_format')) : null;
+    }
+
+    public function setStartTimeAttribute($value)
+    {
+        $this->attributes['start_time'] = $value ? Carbon::createFromFormat(
+            config('panel.lesson_time_format'),
+            $value
+        )->format('H:i:s') : null;
+    }
+
+    public function getEndTimeAttribute($value): ?string
+    {
+        return $value ? Carbon::createFromFormat('H:i:s', $value)
+            ->format(config('panel.lesson_time_format')) : null;
+    }
+
+    public function setEndTimeAttribute($value)
+    {
+        $this->attributes['end_time'] = $value ? Carbon::createFromFormat(
+            config('panel.lesson_time_format'),
+            $value
+        )->format('H:i:s') : null;
+    }
+
+    public static function isTimeAvailable($weekday, $startTime, $endTime, $class, $teacher, $lesson): bool
+    {
+        $lessons = self::where('weekday', $weekday)
+            ->when($lesson, function ($query) use ($lesson) {
+                $query->where('id', '!=', $lesson);
+            })
+            ->where(function ($query) use ($class, $teacher) {
+                $query->where('class_id', $class)
+                    ->orWhere('teacher_id', $teacher);
+            })
+            ->where([
+                ['start_time', '<', $endTime],
+                ['end_time', '>', $startTime],
+            ])
+            ->count();
+
+        return !$lessons;
+    }
+
+    public function scopeCalendarByRoleOrClassId($query)
+    {
+        return $query->when(!request()->input('class_id'), function ($query) {
+            $query->when(auth()->user()->is_teacher, function ($query) {
+                $query->where('teacher_id', auth()->user()->id);
+            })
+                ->when(auth()->user()->is_student, function ($query) {
+                    $query->where('class_id', auth()->user()->class_id ?? '0');
+                });
+        })
+            ->when(request()->input('class_id'), function ($query) {
+                $query->where('class_id', request()->input('class_id'));
+            });
+    }
 
     public function chapter(): BelongsTo
     {

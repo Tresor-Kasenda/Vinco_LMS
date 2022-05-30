@@ -12,15 +12,16 @@ return new class extends Migration {
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name', '30')->unique();
+            $table->string('title', '30')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $users = ['Student', 'Professor', 'Chef Student', 'Department', 'Campus', 'Admin'];
         foreach ($users as $user) {
             Role::query()
                 ->create([
-                    'name' => $user,
+                    'title' => $user,
                 ]);
         }
     }

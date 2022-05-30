@@ -13,6 +13,7 @@ use App\Interfaces\DepartmentRepositoryInterface;
 use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\PersonnelRepositoryInterface;
 use App\Interfaces\ProfessorRepositoryInterface;
+use App\Interfaces\SchedulerRepositoryInterface;
 use App\Interfaces\TrashedCampusRepositoryInterface;
 use App\Interfaces\TrashedCategoryRepositoryInterface;
 use App\Interfaces\TrashedChapterRepositoryInterface;
@@ -32,6 +33,7 @@ use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\LessonRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
+use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
 use App\Repositories\Backend\TrashedCategoryRepository;
 use App\Repositories\Backend\TrashedChapterRepository;
@@ -68,7 +70,8 @@ class RepositoryServiceProvider extends ServiceProvider
         ChapterRepositoryInterface::class => ChapterRepository::class,
         TrashedChapterRepositoryInterface::class => TrashedChapterRepository::class,
         LessonRepositoryInterface::class => LessonRepository::class,
-        TrashedLessonRepositoryInterface::class => TrashedLessonRepository::class
+        TrashedLessonRepositoryInterface::class => TrashedLessonRepository::class,
+        SchedulerRepositoryInterface::class => SchedulerRepository::class,
     ];
 
     /**

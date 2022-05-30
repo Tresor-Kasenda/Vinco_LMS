@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 $(document).ready(function () {
-    $('#status').on('change', function(){
+    $('#status').on('change', function () {
         const status = $("#status option:selected").val()
         $.ajax({
             type: "put",
@@ -12,8 +12,8 @@ $(document).ready(function () {
                 _token: '{{ csrf_token() }}'
             },
             dataType : 'json',
-            success: function(response){
-                if (response){
+            success: function (response) {
+                if (response) {
                     Swal.fire(`${response.message}`, "update", "success");
                     console.log(response.message)
                 }
