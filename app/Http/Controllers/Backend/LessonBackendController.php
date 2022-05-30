@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -24,7 +25,8 @@ class LessonBackendController extends Controller
         protected readonly LessonRepositoryInterface $repository,
         protected readonly CourseRepositoryInterface $courseRepository,
         protected readonly ChapterRepositoryInterface $chapterRepository
-    ){}
+    ) {
+    }
 
     public function show($course, $chapter, string $key): Factory|View|Application
     {
@@ -36,6 +38,7 @@ class LessonBackendController extends Controller
     public function create(string $course, $chapter): Renderable
     {
         [$courses, $chapters] = $this->repository->getChapterAndCourse(course: $course, chapter: $chapter);
+
         return view('backend.domain.cours.lessons.create', compact('courses', 'chapters'));
     }
 
@@ -47,6 +50,7 @@ class LessonBackendController extends Controller
             course: $course,
             flash: $this->factory
         );
+
         return to_route('admins.course.chapter.show', ['course' => $course, 'chapter' => $chapter]);
     }
 
@@ -57,7 +61,7 @@ class LessonBackendController extends Controller
         return Response::view('backend.domain.cours.lessons.edit', [
             'chapter' => $chapters,
             'course' => $courses,
-            'lesson' => $lesson
+            'lesson' => $lesson,
         ]);
     }
 
@@ -77,6 +81,7 @@ class LessonBackendController extends Controller
     public function destroy($course, $chapter, string $key): RedirectResponse
     {
         $this->repository->deleted(course: $course, chapter: $chapter, key: $key, flash: $this->factory);
+
         return to_route('admins.course.chapter.show', ['course' => $course, 'chapter' => $chapter]);
     }
 }

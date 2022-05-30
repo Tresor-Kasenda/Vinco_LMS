@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
@@ -21,6 +22,7 @@ class TrashedLessonBackendController extends Controller
     public function index($course, $chapter): Renderable
     {
         [$lessons, $chapters, $courses] = $this->repository->getTrashes(course: $course, chapter: $chapter);
+
         return view('backend.domain.cours.lessons.trashed.index', [
             'lessons' => $lessons,
             'course' => $courses,
@@ -31,6 +33,7 @@ class TrashedLessonBackendController extends Controller
     public function restore($course, $chapter, string $key): RedirectResponse
     {
         [$chapters, $courses] = $this->repository->restore(course: $course, chapter: $chapter, key: $key, alert: $this->alertFactory);
+
         return back();
     }
 

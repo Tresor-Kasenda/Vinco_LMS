@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -17,7 +18,7 @@ class TrashedLessonRepository implements TrashedLessonRepositoryInterface
                 ->orderByDesc('created_at', 'desc')
                 ->get(),
             self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter)
+            self::getChapter(chapter: $chapter),
         ];
     }
 
@@ -26,9 +27,10 @@ class TrashedLessonRepository implements TrashedLessonRepositoryInterface
         $lesson = $this->getTrashedLesson(key: $key);
         $lesson->restore();
         $alert->addSuccess('La lecon a ete restorer avec success');
+
         return [
             self::getCourse(course: $chapter),
-            self::getChapter(chapter: $course)
+            self::getChapter(chapter: $course),
         ];
     }
 
@@ -41,14 +43,14 @@ class TrashedLessonRepository implements TrashedLessonRepositoryInterface
 
         return [
             self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter)
+            self::getChapter(chapter: $chapter),
         ];
     }
 
     protected static function getCourse($course)
     {
         return Course::query()
-            ->when('key', function ($query) use ($course){
+            ->when('key', function ($query) use ($course) {
                 $query->where('key', $course);
             })
             ->first();
@@ -57,7 +59,7 @@ class TrashedLessonRepository implements TrashedLessonRepositoryInterface
     protected static function getChapter($chapter)
     {
         return Chapter::query()
-            ->when('key', function ($query) use ($chapter){
+            ->when('key', function ($query) use ($chapter) {
                 $query->where('key', $chapter);
             })
             ->first();

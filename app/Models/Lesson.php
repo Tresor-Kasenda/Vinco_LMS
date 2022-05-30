@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read Chapter $chapter
  * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read Collection|Resource[] $resources
+ * @property-read Collection|resource[] $resources
  * @property-read int|null $resources_count
  * @method static Builder|Lesson newModelQuery()
  * @method static Builder|Lesson newQuery()
@@ -67,7 +67,7 @@ class Lesson extends Model
         'deleted_at',
     ];
 
-    const WEEK_DAYS = [
+    public const WEEK_DAYS = [
         '1' => 'Monday',
         '2' => 'Tuesday',
         '3' => 'Wednesday',
@@ -126,12 +126,12 @@ class Lesson extends Model
             ])
             ->count();
 
-        return !$lessons;
+        return ! $lessons;
     }
 
     public function scopeCalendarByRoleOrClassId($query)
     {
-        return $query->when(!request()->input('class_id'), function ($query) {
+        return $query->when(! request()->input('class_id'), function ($query) {
             $query->when(auth()->user()->is_teacher, function ($query) {
                 $query->where('teacher_id', auth()->user()->id);
             })

@@ -35,7 +35,7 @@ class ChapterBackendController extends Controller
         return view('backend.domain.cours.chapters.show', [
             'chapter' => $chapter[0],
             'course' => $chapter[1],
-            'lessons' => $this->lessonRepository->getLessons(course: $chapter[0], chapter: $chapter[1])
+            'lessons' => $this->lessonRepository->getLessons(course: $chapter[0], chapter: $chapter[1]),
         ]);
     }
 

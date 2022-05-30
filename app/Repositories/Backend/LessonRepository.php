@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -24,12 +25,13 @@ class LessonRepository implements LessonRepositoryInterface
     public function showLesson($course, $chapter, string $key): array
     {
         $lesson = Lesson::query()
-            ->when('key', fn($query) => $query->where('key', $key))
+            ->when('key', fn ($query) => $query->where('key', $key))
             ->first();
+
         return [
             $lesson->load('chapter'),
             self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter)
+            self::getChapter(chapter: $chapter),
         ];
     }
 
@@ -37,7 +39,7 @@ class LessonRepository implements LessonRepositoryInterface
     {
         return [
             self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter)
+            self::getChapter(chapter: $chapter),
         ];
     }
 
@@ -93,7 +95,7 @@ class LessonRepository implements LessonRepositoryInterface
     protected static function getCourse($course)
     {
         return Course::query()
-            ->when('key', function ($query) use ($course){
+            ->when('key', function ($query) use ($course) {
                 $query->where('key', $course);
             })
             ->first();
@@ -102,7 +104,7 @@ class LessonRepository implements LessonRepositoryInterface
     protected static function getChapter($chapter)
     {
         return Chapter::query()
-            ->when('key', function ($query) use ($chapter){
+            ->when('key', function ($query) use ($chapter) {
                 $query->where('key', $chapter);
             })
             ->first();

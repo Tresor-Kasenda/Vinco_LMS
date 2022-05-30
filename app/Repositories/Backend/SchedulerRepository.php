@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories\Backend;
@@ -11,7 +12,8 @@ class SchedulerRepository implements SchedulerRepositoryInterface
 {
     public function render(CalendarService $service): array
     {
-        $weekDays     = Lesson::WEEK_DAYS;
+        $weekDays = Lesson::WEEK_DAYS;
+
         return $service->generateCalendarData($weekDays);
     }
 }

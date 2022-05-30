@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -29,7 +30,7 @@ class LessonRequest extends FormRequest
             'name' => ['required', 'string', 'min:3'],
             'chapter' => ['required', Rule::exists('chapters', 'name')],
             'shortContent' => ['required', 'string', 'min:4'],
-            'content' => ['nullable', 'string', 'min:20']
+            'content' => ['nullable', 'string', 'min:20'],
         ];
     }
 }
