@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\TrashedProfessorRepositoryInterface;
+use App\Contracts\TrashedProfessorRepositoryInterface;
 use App\Models\Professor;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Collection;

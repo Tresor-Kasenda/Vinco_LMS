@@ -1,6 +1,6 @@
 @extends('frontend.layout.auth')
 
-@section('title', "Authentificiation")
+@section('title', "Connexion a la partie gestionnaire")
 
 @section('content')
     <div class="nk-content">
@@ -67,34 +67,8 @@
                             <button class="btn btn-lg btn-primary btn-block">Connexion</button>
                         </div>
                     </form>
-                    <div class="text-center pt-4 pb-3">
-                        <h6 class="overline-title overline-title-sap">
-                            <span>OR</span>
-                        </h6>
-                    </div>
-                    <ul class="nav justify-center gx-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Facebook</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Google</a>
-                        </li>
-                    </ul>
                 </div>
                 <div class="nk-block nk-auth-footer">
-                    <div class="nk-block-between">
-                        <ul class="nav nav-sm text-center">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Terms & Condition</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Privacy Policy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Help</a>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="mt-3">
                         <p>&copy; {{ now()->format('Y') }}. All Rights Reserved.</p>
                     </div>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\AcademicYearRepositoryInterface;
+use App\Contracts\AcademicYearRepositoryInterface;
 use App\Models\AcademicYear;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

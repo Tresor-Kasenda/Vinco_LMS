@@ -4,35 +4,41 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Interfaces\AcademicYearRepositoryInterface;
-use App\Interfaces\CampusRepositoryInterface;
-use App\Interfaces\CategoryRepositoryInterface;
-use App\Interfaces\ChapterRepositoryInterface;
-use App\Interfaces\CourseRepositoryInterface;
-use App\Interfaces\DepartmentRepositoryInterface;
-use App\Interfaces\LessonRepositoryInterface;
-use App\Interfaces\PersonnelRepositoryInterface;
-use App\Interfaces\ProfessorRepositoryInterface;
-use App\Interfaces\SchedulerRepositoryInterface;
-use App\Interfaces\TrashedCampusRepositoryInterface;
-use App\Interfaces\TrashedCategoryRepositoryInterface;
-use App\Interfaces\TrashedChapterRepositoryInterface;
-use App\Interfaces\TrashedCourseRepositoryInterface;
-use App\Interfaces\TrashedDepartmentRepositoryInterface;
-use App\Interfaces\TrashedLessonRepositoryInterface;
-use App\Interfaces\TrashedPersonnelRepositoryInterface;
-use App\Interfaces\TrashedProfessorRepositoryInterface;
-use App\Interfaces\TrashedUsersRepositoryInterface;
-use App\Interfaces\UsersRepositoryInterface;
+use App\Contracts\AcademicYearRepositoryInterface;
+use App\Contracts\CampusRepositoryInterface;
+use App\Contracts\CategoryRepositoryInterface;
+use App\Contracts\ChapterRepositoryInterface;
+use App\Contracts\CourseRepositoryInterface;
+use App\Contracts\DepartmentRepositoryInterface;
+use App\Contracts\FeesRepositoryInterface;
+use App\Contracts\FiliaireRepositoryInterface;
+use App\Contracts\LessonRepositoryInterface;
+use App\Contracts\PersonnelRepositoryInterface;
+use App\Contracts\ProfessorRepositoryInterface;
+use App\Contracts\PromotionRepositoryInterface;
+use App\Contracts\SchedulerRepositoryInterface;
+use App\Contracts\TrashedCampusRepositoryInterface;
+use App\Contracts\TrashedCategoryRepositoryInterface;
+use App\Contracts\TrashedChapterRepositoryInterface;
+use App\Contracts\TrashedCourseRepositoryInterface;
+use App\Contracts\TrashedDepartmentRepositoryInterface;
+use App\Contracts\TrashedLessonRepositoryInterface;
+use App\Contracts\TrashedPersonnelRepositoryInterface;
+use App\Contracts\TrashedProfessorRepositoryInterface;
+use App\Contracts\TrashedUsersRepositoryInterface;
+use App\Contracts\UsersRepositoryInterface;
 use App\Repositories\Backend\AcademicYearRepository;
 use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
+use App\Repositories\Backend\FeesRepository;
+use App\Repositories\Backend\FiliaireRepository;
 use App\Repositories\Backend\LessonRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
+use App\Repositories\Backend\PromotionRepository;
 use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
 use App\Repositories\Backend\TrashedCategoryRepository;
@@ -72,6 +78,9 @@ class RepositoryServiceProvider extends ServiceProvider
         LessonRepositoryInterface::class => LessonRepository::class,
         TrashedLessonRepositoryInterface::class => TrashedLessonRepository::class,
         SchedulerRepositoryInterface::class => SchedulerRepository::class,
+        PromotionRepositoryInterface::class => PromotionRepository::class,
+        FiliaireRepositoryInterface::class => FiliaireRepository::class,
+        FeesRepositoryInterface::class => FeesRepository::class
     ];
 
     /**

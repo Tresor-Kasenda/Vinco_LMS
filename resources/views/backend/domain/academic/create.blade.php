@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Create academic years</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Create session</button>
                                         </div>
                                     </div>
                                 </div>

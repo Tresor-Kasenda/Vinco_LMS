@@ -8,10 +8,24 @@ use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
+use App\Http\Controllers\Backend\ExamListBackendController;
+use App\Http\Controllers\Backend\ExerciceBackendController;
+use App\Http\Controllers\Backend\FeesBackendController;
+use App\Http\Controllers\Backend\FiliaireBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
+use App\Http\Controllers\Backend\HomeworkBackendController;
+use App\Http\Controllers\Backend\InterroBackendController;
 use App\Http\Controllers\Backend\LessonBackendController;
+use App\Http\Controllers\Backend\ParentBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
 use App\Http\Controllers\Backend\ProfessorBackendController;
+use App\Http\Controllers\Backend\PromotionBackendController;
+use App\Http\Controllers\Backend\ResourceBackendController;
+use App\Http\Controllers\Backend\ResultBackendController;
+use App\Http\Controllers\Backend\RoleBackendController;
+use App\Http\Controllers\Backend\SchedulerBackendController;
+use App\Http\Controllers\Backend\SettingsBackendController;
+use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedChapterBackendController;
@@ -40,6 +54,30 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admins.',
         'middleware' => ['admins'],
     ], routes: function () {
+
+//        Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
+//            Route::resource('admin', UsersBackendController::class);
+//            Route::resource('student', ProfessorBackendController::class);
+//            Route::resource('parent', ProfessorBackendController::class);
+//            Route::resource('teacher', ProfessorBackendController::class);
+//            Route::resource('accountant', PersonnelBackendController::class);
+//        });
+
+//        Route::group(['prefix' => 'academic', 'as' => 'academic.'], routes: function () {
+//            Route::resource('sessions', UsersBackendController::class);
+//            Route::resource('campus', ProfessorBackendController::class);
+//            Route::resource('department', ProfessorBackendController::class);
+//            Route::resource('promotion', ProfessorBackendController::class);
+//            Route::resource('filiaire', PersonnelBackendController::class);
+//            Route::resource('category', PersonnelBackendController::class);
+//            Route::resource('syllabus', PersonnelBackendController::class);
+//            Route::resource('lesson', PersonnelBackendController::class);
+//            Route::resource('resource', PersonnelBackendController::class);
+//            Route::resource('exercice', PersonnelBackendController::class);
+//            Route::resource('devoir', PersonnelBackendController::class);
+//            Route::resource('interro', PersonnelBackendController::class);
+//        });
+        // modification des nom
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
         Route::resource('personnel', PersonnelBackendController::class);
         Route::resource('professors', ProfessorBackendController::class);
@@ -49,8 +87,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('categories', CategoryBackendController::class);
         Route::resource('administrator', UsersBackendController::class);
         Route::resource('course', CourseBackendController::class);
-        Route::resource('course.chapter', ChapterBackendController::class);
-        Route::resource('course.chapter.lessons', LessonBackendController::class);
+        // a revoir
+        Route::resource('chapter', ChapterBackendController::class);
+        Route::resource('lessons', LessonBackendController::class);
+        Route::resource('resource', ResourceBackendController::class);
+        Route::resource('exercice', ExerciceBackendController::class);
+        Route::resource('homework', HomeworkBackendController::class);
+        Route::resource('interro', InterroBackendController::class);
+        Route::resource('promotion', PromotionBackendController::class);
+        Route::resource('filiaire', FiliaireBackendController::class);
+        Route::resource('fees', FeesBackendController::class);
+        Route::resource('guardian', ParentBackendController::class);
+        Route::resource('roles', RoleBackendController::class);
+        Route::resource('settings', SettingsBackendController::class);
+        Route::resource('student', StudentBackendController::class);
+        Route::resource('exam', ExamListBackendController::class);
+        Route::resource('schedule', SchedulerBackendController::class);
+        Route::resource('exam-result', ResultBackendController::class);
+
 
         Route::controller(TrashedCampusBackendController::class)->group(function () {
             Route::get('historyCampus/', 'index')->name('campus.history');

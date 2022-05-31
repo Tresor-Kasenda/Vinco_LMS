@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-md btn-primary">Update academic years</button>
+                                            <button type="submit" class="btn btn-md btn-primary">Update session</button>
                                         </div>
                                     </div>
                                 </div>

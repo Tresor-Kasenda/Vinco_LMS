@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcademicYearRequest;
-use App\Interfaces\AcademicYearRepositoryInterface;
+use App\Contracts\AcademicYearRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;

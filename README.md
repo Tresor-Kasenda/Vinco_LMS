@@ -21,7 +21,7 @@
 - [ ]  gestion du journal de classe 
 - [ ]  gestion d'horaire d'examen 
 - [ ]  Publication des Resultat
-- [x]  Calendrier scolaire
+- [ ]  Calendrier scolaire
 - [ ]  Programme des examens
 - [x]  gestion des cours
 - [x]  gestion des chapitres 

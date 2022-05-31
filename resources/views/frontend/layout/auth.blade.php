@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('assets/admins/js/bundle41fe.js') }}"></script>
-    <script src="{{ asset('assets/admins/js/scripts41fe.js') }}"></script>
+{{--    <script src="{{ asset('assets/admins/js/bundle41fe.js') }}"></script>--}}
+{{--    <script src="{{ asset('assets/admins/js/scripts41fe.js') }}"></script>--}}
 </body>
 </html>

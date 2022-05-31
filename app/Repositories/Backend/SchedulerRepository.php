@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\SchedulerRepositoryInterface;
+use App\Contracts\SchedulerRepositoryInterface;
 use App\Models\Lesson;
 use App\Services\CalendarService;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\TrashedCategoryRepositoryInterface;
+use App\Contracts\TrashedCategoryRepositoryInterface;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;

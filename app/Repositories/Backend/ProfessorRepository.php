@@ -6,7 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
-use App\Interfaces\ProfessorRepositoryInterface;
+use App\Contracts\ProfessorRepositoryInterface;
 use App\Models\Professor;
 use App\Models\User;
 use App\Traits\ImageUploader;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace App\Contracts;
 
-interface DepartmentRepositoryInterface
+interface PersonnelRepositoryInterface
 {
-    public function getDepartments();
+    public function getPersonnelContent();
 
-    public function showDepartment(string $key);
+    public function showPersonnelContent(string $key);
 
     public function stored($attributes, $factory);
 

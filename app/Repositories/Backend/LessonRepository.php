@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Enums\StatusEnum;
-use App\Interfaces\LessonRepositoryInterface;
+use App\Contracts\LessonRepositoryInterface;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Lesson;

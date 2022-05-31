@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Requests\DepartmentStatusRequest;
-use App\Interfaces\DepartmentRepositoryInterface;
+use App\Contracts\DepartmentRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;

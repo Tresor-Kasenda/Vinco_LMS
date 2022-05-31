@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace App\Contracts;
 
-interface TrashedPersonnelRepositoryInterface
+interface TrashedUsersRepositoryInterface
 {
     public function getTrashes();
 

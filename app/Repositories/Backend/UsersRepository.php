@@ -6,7 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
-use App\Interfaces\UsersRepositoryInterface;
+use App\Contracts\UsersRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Interfaces\TrashedDepartmentRepositoryInterface;
+use App\Contracts\TrashedDepartmentRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;

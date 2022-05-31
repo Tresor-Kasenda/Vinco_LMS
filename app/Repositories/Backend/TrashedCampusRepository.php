@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\TrashedCampusRepositoryInterface;
+use App\Contracts\TrashedCampusRepositoryInterface;
 use App\Models\Campus;
 use App\Models\Department;
 use App\Traits\ImageUploader;

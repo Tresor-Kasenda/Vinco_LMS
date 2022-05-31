@@ -4,7 +4,7 @@
 
 namespace App\Repositories\Backend;
 
-use App\Interfaces\TrashedUsersRepositoryInterface;
+use App\Contracts\TrashedUsersRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;

@@ -9,7 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Session</h3>
+                            <h3 class="nk-block-title page-title">Sessions</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -49,9 +49,9 @@
                                                 <div class="dropdown-menu dropdown-menu-end" style="">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="{{ route('admins.academic-years.edit', $academic->key) }}">
+                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.academic-years.edit', $academic->key) }}">
                                                                 <em class="icon ni ni-edit"></em>
-                                                                <span>Edit Category</span>
+                                                                <span>Edit session</span>
                                                             </a>
                                                         </li>
                                                         <li>
@@ -60,7 +60,7 @@
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <button type="submit" class="btn btn-dim">
                                                                     <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete Category</span>
+                                                                    <span>Delete session</span>
                                                                 </button>
                                                             </form>
                                                         </li>

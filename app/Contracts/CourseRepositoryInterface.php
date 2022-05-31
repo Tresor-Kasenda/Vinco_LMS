@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Interfaces;
+namespace App\Contracts;
 
-interface UsersRepositoryInterface
+interface CourseRepositoryInterface
 {
-    public function getUsers();
+    public function getCourses();
 
-    public function showUser(string $key);
+    public function showCourse(string $key);
 
     public function stored($attributes, $flash);
 

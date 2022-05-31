@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Enums\StatusEnum;
-use App\Interfaces\CourseRepositoryInterface;
+use App\Contracts\CourseRepositoryInterface;
 use App\Models\Course;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
