@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Gestion des annees academiques")
 
 @section('content')
     <div class="container-fluid">
@@ -9,16 +9,16 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Sessions</h3>
+                            <h3 class="nk-block-title page-title">Annee academique</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic-years.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.session.create') }}">
                                                 <em class="icon ni ni-plus"></em>
-                                                <span>Add</span>
+                                                <span>Create</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -49,13 +49,13 @@
                                                 <div class="dropdown-menu dropdown-menu-end" style="">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.academic-years.edit', $academic->key) }}">
+                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.academic.session.edit', $academic->key) }}">
                                                                 <em class="icon ni ni-edit"></em>
                                                                 <span>Edit session</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('admins.academic-years.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                            <form action="{{ route('admins.academic.session.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                 @method('DELETE')
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <button type="submit" class="btn btn-dim">

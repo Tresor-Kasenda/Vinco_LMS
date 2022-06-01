@@ -6,9 +6,9 @@ namespace App\Contracts;
 
 interface TrashedLessonRepositoryInterface
 {
-    public function getTrashes($course, $chapter);
+    public function getTrashes();
 
-    public function restore($course, $chapter, string $key, $alert);
+    public function restore(string $key, $alert);
 
-    public function deleted($course, $chapter, string $key, $alert);
+    public function deleted(string $key, $alert);
 }

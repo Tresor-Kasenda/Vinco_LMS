@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.filiaire.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.filiaire.create') }}">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Create</span>
                                             </a>
@@ -106,19 +106,19 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.departments.edit', $filiaire->key) }}">
+                                                                <a href="{{ route('admins.academic.filiaire.edit', $filiaire->key) }}">
                                                                     <em class="icon ni ni-edit"></em>
                                                                     <span>Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('admins.departments.show',$filiaire->key) }}">
+                                                                <a href="{{ route('admins.academic.filiaire.show',$filiaire->key) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>View</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.departments.destroy', $filiaire->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.academic.filiaire.destroy', $filiaire->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

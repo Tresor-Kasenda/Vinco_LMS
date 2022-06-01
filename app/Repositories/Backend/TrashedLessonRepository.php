@@ -11,58 +11,30 @@ use App\Models\Lesson;
 
 class TrashedLessonRepository implements TrashedLessonRepositoryInterface
 {
-    public function getTrashes($course, $chapter): array
+    public function getTrashes(): array
     {
-        return [
-            Lesson::onlyTrashed()
+        return Lesson::onlyTrashed()
                 ->orderByDesc('created_at', 'desc')
-                ->get(),
-            self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter),
-        ];
+                ->get();
     }
 
-    public function restore($course, $chapter, string $key, $alert): array
+    public function restore(string $key, $alert): array
     {
         $lesson = $this->getTrashedLesson(key: $key);
         $lesson->restore();
         $alert->addSuccess('La lecon a ete restorer avec success');
 
-        return [
-            self::getCourse(course: $chapter),
-            self::getChapter(chapter: $course),
-        ];
+        return $lesson;
     }
 
-    public function deleted($course, $chapter, string $key, $alert): array
+    public function deleted(string $key, $alert): array
     {
         $lesson = $this->getTrashedLesson(key: $key);
 
         $lesson->forceDelete();
         $alert->addInfo('La lecon a ete  supprimer definivement avec succes');
 
-        return [
-            self::getCourse(course: $course),
-            self::getChapter(chapter: $chapter),
-        ];
-    }
-
-    protected static function getCourse($course)
-    {
-        return Course::query()
-            ->when('key', function ($query) use ($course) {
-                $query->where('key', $course);
-            })
-            ->first();
-    }
-
-    protected static function getChapter($chapter)
-    {
-        return Chapter::query()
-            ->when('key', function ($query) use ($chapter) {
-                $query->where('key', $chapter);
-            })
-            ->first();
+        return $lesson;
     }
 
     private function getTrashedLesson(string $key)

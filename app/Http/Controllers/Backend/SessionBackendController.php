@@ -38,7 +38,7 @@ class SessionBackendController extends Controller
     {
         $this->repository->stored(attributes:  $attributes, flash: $this->flasher);
 
-        return to_route('admins.academic-years.index');
+        return to_route('admins.academic.session.index');
     }
 
     public function edit(string $key): Factory|View|Application
@@ -52,7 +52,7 @@ class SessionBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->flasher);
 
-        return to_route('admins.academic-years.index');
+        return to_route('admins.academic.session.index');
     }
 
     public function destroy(string $key): RedirectResponse

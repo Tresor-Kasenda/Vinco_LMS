@@ -21,7 +21,7 @@ class TrashedCategoryBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.categories.trashed.index', [
+        return view('backend.domain.academic.categories.trashed.index', [
             'categories' => $this->repository->getTrashes(),
         ]);
     }
@@ -30,13 +30,13 @@ class TrashedCategoryBackendController extends Controller
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.categories.index');
+        return Response::redirectToRoute('admins.academic.categories.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.categories.index');
+        return Response::redirectToRoute('admins.academic.categories.index');
     }
 }

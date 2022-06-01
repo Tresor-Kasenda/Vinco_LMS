@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Resource.
@@ -20,24 +22,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $files
  * @property string $path
  * @property int $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Lesson $lesson
- * @method static \Illuminate\Database\Eloquent\Builder|Resource newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Resource newQuery()
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Lesson $lesson
+ * @method static Builder|Resource newModelQuery()
+ * @method static Builder|Resource newQuery()
  * @method static \Illuminate\Database\Query\Builder|Resource onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Resource query()
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereFiles($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereLessonId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource wherePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Resource whereUpdatedAt($value)
+ * @method static Builder|Resource query()
+ * @method static Builder|Resource whereCreatedAt($value)
+ * @method static Builder|Resource whereDeletedAt($value)
+ * @method static Builder|Resource whereFiles($value)
+ * @method static Builder|Resource whereId($value)
+ * @method static Builder|Resource whereKey($value)
+ * @method static Builder|Resource whereLessonId($value)
+ * @method static Builder|Resource whereName($value)
+ * @method static Builder|Resource wherePath($value)
+ * @method static Builder|Resource whereStatus($value)
+ * @method static Builder|Resource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
  * @mixin \Eloquent

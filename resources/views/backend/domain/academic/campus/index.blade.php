@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Gestion des campus")
 
 @section('content')
     <div class="container-fluid">
@@ -16,9 +16,9 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.campus.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.campus.create') }}">
                                                 <em class="icon ni ni-plus"></em>
-                                                <span>Add</span>
+                                                <span>Create</span>
                                             </a>
                                         </li>
                                         <li class="nk-block-tools-opt">
@@ -98,19 +98,19 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.campus.edit', $campus->key) }}">
+                                                                <a href="{{ route('admins.academic.campus.edit', $campus->key) }}">
                                                                     <em class="icon ni ni-edit"></em>
                                                                     <span>Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('admins.campus.show', $campus->key) }}">
+                                                                <a href="{{ route('admins.academic.campus.show', $campus->key) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>View</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.campus.destroy', $campus->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.academic.campus.destroy', $campus->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\StatusCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,7 +25,6 @@ class CourseBackendController extends Controller
     public function __construct(
         private readonly CourseRepositoryInterface $repository,
         private readonly SweetAlertFactory $factory,
-        private readonly ChapterRepositoryInterface $chapterRepository
     ) {
     }
 
@@ -34,34 +32,33 @@ class CourseBackendController extends Controller
     {
         $courses = $this->repository->getCourses();
 
-        return view('backend.domain.cours.index', compact('courses'));
+        return view('backend.domain.academic.cours.index', compact('courses'));
     }
 
     public function show(string $key): Factory|View|Application
     {
         $course = $this->repository->showCourse(key:  $key);
 
-        return view('backend.domain.cours.show', [
+        return view('backend.domain.academic.cours.show', [
             'course' => $course,
-            'chapters' => $this->chapterRepository->getChapters(course: $course),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.cours.create');
+        return view('backend.domain.academic.cours.create');
     }
 
     public function store(CourseRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, flash: $this->factory);
 
-        return to_route('admins.course.index');
+        return to_route('admins.academic.course.index');
     }
 
     public function edit(string $key): HttpResponse
     {
-        return Response::view('backend.domain.cours.edit', [
+        return Response::view('backend.domain.academic.cours.edit', [
             'course' => $this->repository->showCourse(key: $key),
         ]);
     }
@@ -70,14 +67,14 @@ class CourseBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
 
-        return Response::redirectToRoute('admins.course.index');
+        return Response::redirectToRoute('admins.academic.course.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, flash: $this->factory);
 
-        return Response::redirectToRoute('admins.course.index');
+        return Response::redirectToRoute('admins.academic.course.index');
     }
 
     public function activate(StatusCourseRequest $request): JsonResponse

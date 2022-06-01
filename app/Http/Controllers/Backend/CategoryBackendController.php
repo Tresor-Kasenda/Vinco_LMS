@@ -26,33 +26,33 @@ class CategoryBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.categories.index', [
+        return view('backend.domain.academic.categories.index', [
             'categories' => $this->repository->getCategories(),
         ]);
     }
 
     public function show(string $key): Renderable
     {
-        return view('backend.domain.categories.show', [
+        return view('backend.domain.academic.categories.show', [
             'category' => $this->repository->showCategory(key: $key),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.categories.create');
+        return view('backend.domain.academic.categories.create');
     }
 
     public function store(CategoryRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes:  $attributes, flash: $this->flasher);
 
-        return to_route('admins.categories.index');
+        return to_route('admins.academic.categories.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.categories.edit', [
+        return view('backend.domain.academic.categories.edit', [
             'category' => $this->repository->showCategory(key: $key),
         ]);
     }
@@ -61,7 +61,7 @@ class CategoryBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->flasher);
 
-        return to_route('admins.categories.index');
+        return to_route('admins.academic.categories.index');
     }
 
     public function destroy(string $key): RedirectResponse

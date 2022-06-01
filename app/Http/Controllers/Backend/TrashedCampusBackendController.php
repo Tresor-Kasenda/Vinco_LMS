@@ -22,7 +22,7 @@ class TrashedCampusBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.campus.trashed.index', [
+        return view('backend.domain.academic.campus.trashed.index', [
             'faculties' => $this->repository->getTrashes(),
         ]);
     }
@@ -31,13 +31,13 @@ class TrashedCampusBackendController extends Controller
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.campus.index');
+        return Response::redirectToRoute('admins.academic.campus.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.campus.index');
+        return Response::redirectToRoute('admins.academic.campus.index');
     }
 }

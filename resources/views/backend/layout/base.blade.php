@@ -17,7 +17,7 @@
             @include('backend.partials.sidebar')
             <div class="nk-wrap ">
                 @include('backend.partials.header')
-                <div class="nk-content ">
+                <div class="nk-content">
                     @yield('content')
                 </div>
                 <div class="nk-footer">

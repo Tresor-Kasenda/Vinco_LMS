@@ -6,15 +6,13 @@ namespace App\Contracts;
 
 interface LessonRepositoryInterface
 {
-    public function getLessons($course, $chapter);
+    public function getLessons();
 
-    public function showLesson($course, $chapter, string $key);
+    public function showLesson(string $key);
 
-    public function getChapterAndCourse($course, $chapter);
+    public function stored($attributes, $flash);
 
-    public function stored($attributes, $chapter, $course, $flash);
+    public function updated(string $key, $attributes, $flash);
 
-    public function updated($course, $chapter, string $key, $attributes, $flash);
-
-    public function deleted($course, $chapter, string $key, $flash);
+    public function deleted(string $key, $flash);
 }

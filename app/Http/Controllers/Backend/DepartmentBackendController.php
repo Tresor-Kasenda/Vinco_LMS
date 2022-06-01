@@ -28,21 +28,21 @@ class DepartmentBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.campus.departments.index', [
+        return view('backend.domain.academic.campus.departments.index', [
             'departments' => $this->repository->getDepartments(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.campus.departments.show', [
+        return view('backend.domain.academic.campus.departments.show', [
             'department' => $this->repository->showDepartment(key:  $key),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.campus.departments.create');
+        return view('backend.domain.academic.campus.departments.create');
     }
 
     public function store(DepartmentRequest $attributes): RedirectResponse
@@ -54,7 +54,7 @@ class DepartmentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.campus.departments.edit', [
+        return view('backend.domain.academic.campus.departments.edit', [
             'department' => $this->repository->showDepartment(key:  $key),
         ]);
     }

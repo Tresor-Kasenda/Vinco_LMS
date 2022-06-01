@@ -10,13 +10,17 @@ use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
+use App\Contracts\ExerciceRepositoryInterface;
 use App\Contracts\FeesRepositoryInterface;
 use App\Contracts\FiliaireRepositoryInterface;
+use App\Contracts\HomeworkRepositoryInterface;
+use App\Contracts\InterroRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
 use App\Contracts\PersonnelRepositoryInterface;
 use App\Contracts\ProfessorRepositoryInterface;
 use App\Contracts\ProfileRepositoryInterface;
 use App\Contracts\PromotionRepositoryInterface;
+use App\Contracts\ResourceRepositoryInterface;
 use App\Contracts\SchedulerRepositoryInterface;
 use App\Contracts\TrashedCampusRepositoryInterface;
 use App\Contracts\TrashedCategoryRepositoryInterface;
@@ -34,13 +38,17 @@ use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
+use App\Repositories\Backend\ExerciceRepository;
 use App\Repositories\Backend\FeesRepository;
 use App\Repositories\Backend\FiliaireRepository;
+use App\Repositories\Backend\HomeworkRepository;
+use App\Repositories\Backend\InterroRepository;
 use App\Repositories\Backend\LessonRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
 use App\Repositories\Backend\ProfileRepository;
 use App\Repositories\Backend\PromotionRepository;
+use App\Repositories\Backend\ResourceRepository;
 use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
 use App\Repositories\Backend\TrashedCategoryRepository;
@@ -84,6 +92,10 @@ class RepositoryServiceProvider extends ServiceProvider
         FiliaireRepositoryInterface::class => FiliaireRepository::class,
         FeesRepositoryInterface::class => FeesRepository::class,
         ProfileRepositoryInterface::class => ProfileRepository::class,
+        ResourceRepositoryInterface::class => ResourceRepository::class,
+        ExerciceRepositoryInterface::class => ExerciceRepository::class,
+        HomeworkRepositoryInterface::class => HomeworkRepository::class,
+        InterroRepositoryInterface::class => InterroRepository::class,
     ];
 
     /**

@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Detail du categorie")
 
 @section('content')
     <div class="container-fluid">
@@ -30,7 +30,7 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.categories.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.categories.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>

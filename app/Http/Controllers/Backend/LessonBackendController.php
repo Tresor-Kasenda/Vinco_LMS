@@ -23,65 +23,55 @@ class LessonBackendController extends Controller
     public function __construct(
         protected readonly SweetAlertFactory $factory,
         protected readonly LessonRepositoryInterface $repository,
-        protected readonly CourseRepositoryInterface $courseRepository,
-        protected readonly ChapterRepositoryInterface $chapterRepository
     ) {
     }
 
-    public function show($course, $chapter, string $key): Factory|View|Application
+    public function index(): Renderable
     {
-        $chapter = $this->repository->showLesson(course: $course, chapter: $chapter, key:  $key);
+        $lessons = $this->repository->getLessons();
 
-        return view('backend.domain.cours.lessons.show');
+        return view('backend.domain.academic.lessons.index', compact('lessons'));
     }
 
-    public function create(string $course, $chapter): Renderable
+    public function show(string $key): Factory|View|Application
     {
-        [$courses, $chapters] = $this->repository->getChapterAndCourse(course: $course, chapter: $chapter);
+        $chapter = $this->repository->showLesson(key:  $key);
 
-        return view('backend.domain.cours.lessons.create', compact('courses', 'chapters'));
+        return view('backend.domain.academic.lessons.show');
     }
 
-    public function store($course, $chapter, LessonRequest $attributes): RedirectResponse
+    public function create(): Renderable
     {
-        [$lesson, $courses, $chapters] = $this->repository->stored(
-            attributes: $attributes,
-            chapter: $chapter,
-            course: $course,
-            flash: $this->factory
-        );
+        $chapters = [];
 
-        return to_route('admins.course.chapter.show', ['course' => $course, 'chapter' => $chapter]);
+        return view('backend.domain.academic.lessons.create', compact('chapters'));
     }
 
-    public function edit($course, $chapter, string $key): HttpResponse
+    public function store(LessonRequest $attributes): RedirectResponse
     {
-        [$lesson, $courses, $chapters] = $this->repository->showLesson(course: $course, chapter: $chapter, key:  $key);
+        $this->repository->stored(attributes: $attributes, flash: $this->factory);
 
-        return Response::view('backend.domain.cours.lessons.edit', [
-            'chapter' => $chapters,
-            'course' => $courses,
-            'lesson' => $lesson,
-        ]);
+        return to_route('admins.academic.lessons.index');
     }
 
-    public function update($course, $chapter, string $key, LessonRequest $attributes): RedirectResponse
+    public function edit(string $key): HttpResponse
     {
-        [$lesson, $courses, $chapters] = $this->repository->updated(
-            course: $course,
-            chapter: $chapter,
-            key: $key,
-            attributes: $attributes,
-            flash: $this->factory
-        );
+        $lesson = $this->repository->showLesson(key:  $key);
 
-        return to_route('admins.course.chapter.show', ['course' => $course, 'chapter' => $chapter]);
+        return Response::view('backend.domain.academic.lessons.edit', compact('lesson'));
     }
 
-    public function destroy($course, $chapter, string $key): RedirectResponse
+    public function update(string $key, LessonRequest $attributes): RedirectResponse
     {
-        $this->repository->deleted(course: $course, chapter: $chapter, key: $key, flash: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
 
-        return to_route('admins.course.chapter.show', ['course' => $course, 'chapter' => $chapter]);
+        return to_route('admins.academic.lessons.index');
+    }
+
+    public function destroy(string $key): RedirectResponse
+    {
+        $this->repository->deleted(key: $key, flash: $this->factory);
+
+        return back();
     }
 }

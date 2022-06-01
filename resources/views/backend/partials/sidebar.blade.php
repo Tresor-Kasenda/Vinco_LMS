@@ -1,4 +1,4 @@
-<div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+<div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
@@ -49,7 +49,7 @@
 
                             @include('backend.components._links', [
                                 'route' => route('admins.academic.session.index'),
-                                'name' => "Sessions"
+                                'name' => "Annee academique"
                             ])
 
                             @include('backend.components._links', [

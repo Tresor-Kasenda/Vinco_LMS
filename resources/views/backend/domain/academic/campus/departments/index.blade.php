@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Gestion des departements")
 
 @section('content')
     <div class="container-fluid">
@@ -16,9 +16,9 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.departments.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.departments.create') }}">
                                                 <em class="icon ni ni-plus"></em>
-                                                <span>Add</span>
+                                                <span>Create</span>
                                             </a>
                                         </li>
                                         <li class="nk-block-tools-opt">
@@ -106,19 +106,19 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.departments.edit', $department->key) }}">
+                                                                <a href="{{ route('admins.academic.departments.edit', $department->key) }}">
                                                                     <em class="icon ni ni-edit"></em>
                                                                     <span>Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('admins.departments.show', $department->key) }}">
+                                                                <a href="{{ route('admins.academic.departments.show', $department->key) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>View</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.departments.destroy', $department->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.academic.departments.destroy', $department->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

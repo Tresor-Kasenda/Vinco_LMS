@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration du departement")
+@section('title', "Historique du departement")
 
 @section('content')
     <div class="container-fluid">
@@ -16,7 +16,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.departments.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.departments.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>

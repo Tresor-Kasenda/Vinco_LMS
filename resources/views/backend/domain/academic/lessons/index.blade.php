@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des chaptires des cours")
+@section('title', "Gestion des lecons")
 
 @section('content')
     <div class="container-fluid">
@@ -9,16 +9,16 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Chapitres</h3>
+                            <h3 class="nk-block-title page-title">Liste des lecons</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.create') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.lessons.create') }}">
                                                 <em class="icon ni ni-plus"></em>
-                                                <span>Add</span>
+                                                <span>Create</span>
                                             </a>
                                         </li>
                                         <li class="nk-block-tools-opt">
@@ -69,7 +69,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($chapters as $chapter)
+                        @foreach($lessons as $chapter)
                             <tr class="nk-tb-item text-center">
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $chapter->id ?? "" }}</span>
@@ -109,19 +109,19 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="{{ route('admins.chapters.show', ['chapter' => $chapter->key] ) }}">
+                                                            <a href="{{ route('admins.academic.lessons.show', ['chapter' => $chapter->key] ) }}">
                                                                 <em class="icon ni ni-eye"></em>
                                                                 <span>View</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="{{ route('admins.chapters.edit', ['chapter' => $chapter->key]) }}">
+                                                            <a href="{{ route('admins.academic.lessons.edit', ['chapter' => $chapter->key]) }}">
                                                                 <em class="icon ni ni-edit"></em>
                                                                 <span>Edit</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('admins.chapters.destroy', ['chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                            <form action="{{ route('admins.academic.lessons.destroy', ['chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                 @method('DELETE')
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <button type="submit" class="btn btn-dim">

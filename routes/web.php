@@ -72,17 +72,16 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('session', SessionBackendController::class);
             Route::resource('campus', CampusBackendController::class);
             Route::resource('departments', DepartmentBackendController::class);
+            Route::resource('promotion', PromotionBackendController::class);
+            Route::resource('filiaire', FiliaireBackendController::class);
             Route::resource('categories', CategoryBackendController::class);
             Route::resource('course', CourseBackendController::class);
-
             Route::resource('chapter', ChapterBackendController::class);
             Route::resource('lessons', LessonBackendController::class);
             Route::resource('resource', ResourceBackendController::class);
             Route::resource('exercice', ExerciceBackendController::class);
             Route::resource('homework', HomeworkBackendController::class);
             Route::resource('interro', InterroBackendController::class);
-            Route::resource('promotion', PromotionBackendController::class);
-            Route::resource('filiaire', FiliaireBackendController::class);
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {

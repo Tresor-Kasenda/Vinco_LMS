@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des cours")
+@section('title', "Detail sur le cours")
 
 @section('content')
     <div class="container-fluid">
@@ -30,33 +30,14 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.course.chapter.create', ['course' => $course->key]) }}">
-                                                <em class="icon ni ni-db"></em>
-                                                <span>Add chapter</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.chapters.history', ['course' => $course->key]) }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nk-block-head nk-block-head-sm">
-                    <div class="nk-block-between">
-                        <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Chapitres</h3>
                         </div>
                     </div>
                 </div>
