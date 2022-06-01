@@ -15,6 +15,7 @@ use App\Contracts\FiliaireRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
 use App\Contracts\PersonnelRepositoryInterface;
 use App\Contracts\ProfessorRepositoryInterface;
+use App\Contracts\ProfileRepositoryInterface;
 use App\Contracts\PromotionRepositoryInterface;
 use App\Contracts\SchedulerRepositoryInterface;
 use App\Contracts\TrashedCampusRepositoryInterface;
@@ -38,6 +39,7 @@ use App\Repositories\Backend\FiliaireRepository;
 use App\Repositories\Backend\LessonRepository;
 use App\Repositories\Backend\PersonnelRepository;
 use App\Repositories\Backend\ProfessorRepository;
+use App\Repositories\Backend\ProfileRepository;
 use App\Repositories\Backend\PromotionRepository;
 use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
@@ -80,7 +82,8 @@ class RepositoryServiceProvider extends ServiceProvider
         SchedulerRepositoryInterface::class => SchedulerRepository::class,
         PromotionRepositoryInterface::class => PromotionRepository::class,
         FiliaireRepositoryInterface::class => FiliaireRepository::class,
-        FeesRepositoryInterface::class => FeesRepository::class
+        FeesRepositoryInterface::class => FeesRepository::class,
+        ProfileRepositoryInterface::class => ProfileRepository::class,
     ];
 
     /**

@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class AcademicYearBackendController extends Controller
+class SessionBackendController extends Controller
 {
     public function __construct(
         public AcademicYearRepositoryInterface $repository,

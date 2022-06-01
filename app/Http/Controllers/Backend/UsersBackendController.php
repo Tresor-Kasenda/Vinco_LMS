@@ -26,33 +26,33 @@ final class UsersBackendController extends Controller
 
     public function index(): \Illuminate\Contracts\View\View
     {
-        return View::make('backend.domain.users.index', [
+        return View::make('backend.domain.admin.index', [
            'administrators' => $this->repository->getUsers(),
         ]);
     }
 
     public function show(string $key): Renderable
     {
-        return view('backend.domain.users.show', [
+        return view('backend.domain.admin.show', [
             'administrator' => $this->repository->showUser(key: $key),
         ]);
     }
 
     public function create(): Factory|\Illuminate\Contracts\View\View|Application
     {
-        return view('backend.domain.users.create');
+        return view('backend.domain.admin.create');
     }
 
     public function store(UserRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, flash: $this->factory);
 
-        return to_route('admins.administrator.index');
+        return to_route('admins.admin.admin.index');
     }
 
     public function edit(string $key): Factory|\Illuminate\Contracts\View\View|Application
     {
-        return view('backend.domain.users.edit', [
+        return view('backend.domain.admin.edit', [
             'administrator' => $this->repository->showUser(key: $key),
         ]);
     }
@@ -61,14 +61,14 @@ final class UsersBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
 
-        return to_route('admins.administrator.index');
+        return to_route('admins.admin.admin.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, flash: $this->factory);
 
-        return to_route('admins.administrator.index');
+        return to_route('admins.admin.admin.index');
     }
 
     public function activate(ConfirmUserRequest $request): JsonResponse

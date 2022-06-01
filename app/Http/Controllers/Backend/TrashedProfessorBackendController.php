@@ -21,8 +21,8 @@ class TrashedProfessorBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.professors.trashed.index', [
-            'professors' => $this->repository->getTrashes(),
+        return view('backend.domain.teacher.trashed.index', [
+            'teacher' => $this->repository->getTrashes(),
         ]);
     }
 
@@ -30,13 +30,13 @@ class TrashedProfessorBackendController extends Controller
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.professors.index');
+        return Response::redirectToRoute('admins.teacher.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.professors.index');
+        return Response::redirectToRoute('admins.teacher.index');
     }
 }

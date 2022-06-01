@@ -38,7 +38,7 @@ class ProfessorUpdateRequest extends FormRequest
             'birthdays' => ['required', 'date', 'date_format:Y-m-d'],
             'gender' => ['required'],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
-            'user' => ['required', Rule::exists('users', 'id')],
+            'user' => ['required', Rule::exists('admin', 'id')],
         ];
     }
 }

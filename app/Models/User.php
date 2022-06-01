@@ -43,7 +43,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read Personnel|null $personnel
- * @property-read Collection|Professor[] $professors
+ * @property-read Collection|Professor[] $teacher
  * @property-read int|null $professors_count
  * @property-read Role|null $role
  * @property-read Collection|Student[] $students
@@ -51,7 +51,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Subsidiary|null $subsidiary
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
- * @property-read Collection|Department[] $users
+ * @property-read Collection|Department[] $admin
  * @property-read int|null $users_count
  * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
@@ -78,8 +78,9 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read bool $is_admin
  * @property-read bool $is_student
  * @property-read bool $is_teacher
- * @property-read Collection|\App\Models\Role[] $roles
+ * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
+ * @property-read Profile|null $profile
  */
 class User extends Authenticatable
 {
@@ -137,6 +138,11 @@ class User extends Authenticatable
         return $this
             ->belongsToMany(Department::class, 'user_department')
             ->withTimestamps();
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
     }
 
     protected $hidden = [

@@ -14,7 +14,7 @@ class PersonnelComposer
     public function compose(View $view): void
     {
         $view->with(
-            'users',
+            'admin',
             User::query()
             ->when('role_id', fn ($builder) => $builder->where('role_id', RoleEnum::CAMPUS))
             ->when('deleted_at', fn ($query) => $query->where('deleted_at', null))

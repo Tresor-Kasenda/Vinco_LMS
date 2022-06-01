@@ -28,13 +28,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Campus $campus
- * @property-read Collection|\App\Models\Professor[] $professors
+ * @property-read Collection|\App\Models\Professor[] $teacher
  * @property-read int|null $professors_count
  * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
  * @property-read Collection|\App\Models\Subsidiary[] $subdsidiaries
  * @property-read int|null $subdsidiaries_count
- * @property-read Collection|\App\Models\User[] $users
+ * @property-read Collection|\App\Models\User[] $admin
  * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|Department newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Department newQuery()

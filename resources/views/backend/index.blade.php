@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title', "Tableau de bord")
 
 @section('content')
     <div class="container-fluid">
@@ -13,25 +13,25 @@
                                 <x-statistic
                                     name="Students"
                                     number="{{ \App\Models\Student::all()->count() }}"
-                                    route="{{ route('admins.professors.index') }}"
+                                    route="{{ route('admins.users.student.index') }}"
                                 />
 
                                 <x-statistic
                                     name="Teachers"
                                     number="{{ \App\Models\Professor::all()->count() }}"
-                                    route="{{ route('admins.professors.index') }}"
+                                    route="{{ route('admins.users.teacher.index') }}"
                                 />
 
                                 <x-statistic
                                     name="Stafs"
                                     number="{{ \App\Models\Personnel::all()->count() }}"
-                                    route="{{ route('admins.professors.index') }}"
+                                    route="{{ route('admins.users.staffs.index') }}"
                                 />
 
                                 <x-statistic
                                     name="Expense"
                                     number="{{ \App\Models\Course::all()->count() }}"
-                                    route="{{ route('admins.professors.index') }}"
+                                    route="{{ route('admins.accounting.fees.index') }}"
                                 />
 
                             </div>

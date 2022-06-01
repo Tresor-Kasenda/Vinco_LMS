@@ -76,7 +76,7 @@ class UsersRepository implements UsersRepositoryInterface
     {
         $user = $this->showUser(key: $key);
         if ($user->status !== StatusEnum::FALSE) {
-            $flash->addError('Veillez desactiver le users avant de le mettre dans la corbeille');
+            $flash->addError('Veillez desactiver le admin avant de le mettre dans la corbeille');
 
             return back();
         }

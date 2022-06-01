@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-class ProfessorBackendController extends Controller
+class TeacherBackendController extends Controller
 {
     public function __construct(
         public ProfessorRepositoryInterface $repository,
@@ -27,33 +27,33 @@ class ProfessorBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.professors.index', [
-            'professors' => $this->repository->getProfessors(),
+        return view('backend.domain.teacher.index', [
+            'teacher' => $this->repository->getProfessors(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.professors.show', [
+        return view('backend.domain.teacher.show', [
             'professor' => $this->repository->showProfessor(key:  $key),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.professors.create');
+        return view('backend.domain.teacher.create');
     }
 
     public function store(ProfessorRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.professors.index');
+        return to_route('admins.teacher.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.professors.edit', [
+        return view('backend.domain.teacher.edit', [
             'professor' => $this->repository->showProfessor(key: $key),
         ]);
     }
@@ -62,7 +62,7 @@ class ProfessorBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.professors.index');
+        return to_route('admins.teacher.index');
     }
 
     public function destroy(string $key): RedirectResponse

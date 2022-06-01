@@ -48,61 +48,61 @@
                         <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
-                                'route' => route('admins.academic-years.index'),
+                                'route' => route('admins.academic.session.index'),
                                 'name' => "Sessions"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.campus.index'),
+                                'route' => route('admins.academic.campus.index'),
                                 'name' => "Campus"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.departments.index'),
+                                'route' => route('admins.academic.departments.index'),
                                 'name' => "Department"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.promotion.index'),
+                                'route' => route('admins.academic.promotion.index'),
                                 'name' => "Promotion"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.filiaire.index'),
+                                'route' => route('admins.academic.filiaire.index'),
                                 'name' => "Filiaire"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.categories.index'),
+                                'route' => route('admins.academic.categories.index'),
                                 'name' => "Categories"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
+                                'route' => route('admins.academic.course.index'),
                                 'name' => "Syllabus"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
+                                'route' => route('admins.academic.lessons.index'),
                                 'name' => "Lecon"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
+                                'route' => route('admins.academic.resource.index'),
                                 'name' => "Resource"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
+                                'route' => route('admins.academic.exercice.index'),
                                 'name' => "Exercice"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
-                                'name' => "Devoir"
+                                'route' => route('admins.academic.homework.index'),
+                                'name' => "Homework"
                             ])
                             @include('backend.components._links', [
-                                'route' => route('admins.course.index'),
+                                'route' => route('admins.academic.interro.index'),
                                 'name' => "Interro"
                             ])
                         </ul>
@@ -118,27 +118,27 @@
                         <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
-                                'route' => route('admins.administrator.index'),
-                                'name' => "Users"
+                                'route' => route('admins.users.admin.index'),
+                                'name' => "Admin"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.users.staffs.index'),
                                 'name' => "Staffs"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.professors.index'),
-                                'name' => "Professors"
+                                'route' => route('admins.users.teacher.index'),
+                                'name' => "Teacher"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.professors.index'),
+                                'route' => route('admins.users.student.index'),
                                 'name' => "Student"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.professors.index'),
+                                'route' => route('admins.users.guardian.index'),
                                 'name' => "Parents"
                             ])
                         </ul>
@@ -154,17 +154,17 @@
                         <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
-                                'route' => route('admins.administrator.index'),
+                                'route' => route('admins.exam.exam.index'),
                                 'name' => "Exam List"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.exam.schedule.index'),
                                 'name' => "Schedule"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.exam.exam-result.index'),
                                 'name' => "Exam Result"
                             ])
                         </ul>
@@ -175,28 +175,37 @@
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-bell"></em>
                             </span>
-                            <span class="nk-menu-text">Announcement</span>
+                            <span class="nk-menu-text">Communication</span>
                         </a>
                         <ul class="nk-menu-sub">
-
                             @include('backend.components._links', [
-                                'route' => route('admins.administrator.index'),
+                                'route' => route('admins.exam.exam.index'),
                                 'name' => "Message"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.exam.exam.index'),
                                 'name' => "Calendar"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.exam.exam.index'),
                                 'name' => "Events"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.exam.exam.index'),
                                 'name' => "Notification"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.exam.exam.index'),
+                                'name' => "Journal de classe"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.exam.exam.index'),
+                                'name' => "Aperi"
                             ])
 
                         </ul>
@@ -212,12 +221,12 @@
                         <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
-                                'route' => route('admins.administrator.index'),
+                                'route' => route('admins.accounting.fees.index'),
                                 'name' => "Fees"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.personnel.index'),
+                                'route' => route('admins.accounting.expenses.index'),
                                 'name' => "Expense List"
                             ])
 
@@ -225,17 +234,28 @@
                     </li>
 
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.roles.index'),
                         'name' => "Role",
                         'icon' => "ni-lock-alt"
                     ])
 
                     @include('backend.components._link', [
-                        'route' => route('admins.personnel.index'),
+                        'route' => route('admins.settings.index'),
                         'name' => "Parametre",
                         'icon' => "ni-setting-alt"
                     ])
 
+                    <li class="nk-menu-item">
+                        <a class="nk-menu-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-signout"></em>
+                            </span>
+                            <span class="nk-menu-text">Logout</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

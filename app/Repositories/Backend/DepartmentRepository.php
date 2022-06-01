@@ -20,7 +20,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function getDepartments(): Collection|array
     {
         return Department::query()
-            ->with(['campus', 'users'])
+            ->with(['campus', 'admin'])
             ->latest()
             ->get();
     }
@@ -31,7 +31,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
             ->where('key', '=', $key)
             ->first();
 
-        return $department->load(['campus', 'users', 'professors']);
+        return $department->load(['campus', 'admin', 'teacher']);
     }
 
     public function stored($attributes, $factory): Model|Department|Builder|RedirectResponse

@@ -28,7 +28,7 @@ class ConfirmerProfessorRequest extends FormRequest
     {
         return [
             'status' => ['required'],
-            'key' => ['required', Rule::exists('professors', 'key')],
+            'key' => ['required', Rule::exists('teacher', 'key')],
         ];
     }
 }

@@ -28,7 +28,7 @@ class UpdateCourseRequest extends FormRequest
     {
         return [
             'category' => ['required', Rule::exists('categories', 'id')],
-            'professor' => ['nullable', Rule::exists('users', 'id')],
+            'professor' => ['nullable', Rule::exists('admin', 'id')],
             'name' => ['required', 'string', 'min:4'],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
             'duration' => ['required', 'string', 'min:3'],
