@@ -27,33 +27,33 @@ final class PersonnelBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.personnels.index', [
+        return view('backend.domain.users.personnels.index', [
             'employees' => $this->repository->getPersonnelContent(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.personnels.show', [
+        return view('backend.domain.users.personnels.show', [
             'employee' => $this->repository->showPersonnelContent(key:  $key),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.personnels.create');
+        return view('backend.domain.users.personnels.create');
     }
 
     public function store(PersonnelRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.personnel.index');
+        return to_route('admins.users.staffs.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.personnels.edit', [
+        return view('backend.domain.users.personnels.edit', [
             'employee' => $this->repository->showPersonnelContent(key: $key),
         ]);
     }
@@ -62,7 +62,7 @@ final class PersonnelBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.personnel.index');
+        return to_route('admins.users.staffs.index');
     }
 
     public function destroy(string $key): RedirectResponse

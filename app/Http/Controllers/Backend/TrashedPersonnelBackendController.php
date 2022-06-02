@@ -21,7 +21,7 @@ class TrashedPersonnelBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.personnels.trashed.index', [
+        return view('backend.domain.users.personnels.trashed.index', [
             'employees' => $this->repository->getTrashes(),
         ]);
     }
@@ -30,13 +30,13 @@ class TrashedPersonnelBackendController extends Controller
     {
         $this->repository->restore(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.personnel.index');
+        return Response::redirectToRoute('admins.users.staffs.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, alert: $this->alertFactory);
 
-        return Response::redirectToRoute('admins.personnel.index');
+        return Response::redirectToRoute('admins.users.staffs.index');
     }
 }

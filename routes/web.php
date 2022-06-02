@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
             Route::resource('admin', UsersBackendController::class);
-            Route::resource('student', TeacherBackendController::class);
+            Route::resource('student', StudentBackendController::class);
             Route::resource('teacher', TeacherBackendController::class);
             Route::resource('staffs', PersonnelBackendController::class);
             Route::resource('guardian', ParentBackendController::class);

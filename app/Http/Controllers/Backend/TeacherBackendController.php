@@ -27,33 +27,33 @@ class TeacherBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.teacher.index', [
-            'teacher' => $this->repository->getProfessors(),
+        return view('backend.domain.users.teacher.index', [
+            'teachers' => $this->repository->getProfessors(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.teacher.show', [
+        return view('backend.domain.users.teacher.show', [
             'professor' => $this->repository->showProfessor(key:  $key),
         ]);
     }
 
     public function create(): Renderable
     {
-        return view('backend.domain.teacher.create');
+        return view('backend.domain.users.teacher.create');
     }
 
     public function store(ProfessorRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.teacher.index');
+        return to_route('admins.users.teacher.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.teacher.edit', [
+        return view('backend.domain.users.teacher.edit', [
             'professor' => $this->repository->showProfessor(key: $key),
         ]);
     }
@@ -62,7 +62,7 @@ class TeacherBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.teacher.index');
+        return to_route('admins.users.teacher.index');
     }
 
     public function destroy(string $key): RedirectResponse
