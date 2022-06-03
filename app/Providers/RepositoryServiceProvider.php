@@ -12,7 +12,10 @@ use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
 use App\Contracts\ExerciceRepositoryInterface;
+use App\Contracts\ExpenseRepositoryInterface;
+use App\Contracts\ExpenseTypeRepositoryInterface;
 use App\Contracts\FeesRepositoryInterface;
+use App\Contracts\FeesTypeRepositoryInterface;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Contracts\HomeworkRepositoryInterface;
 use App\Contracts\InterroRepositoryInterface;
@@ -44,7 +47,10 @@ use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\ExamListRepository;
 use App\Repositories\Backend\ExerciceRepository;
+use App\Repositories\Backend\ExpenseRepository;
+use App\Repositories\Backend\ExpenseTypeRepository;
 use App\Repositories\Backend\FeesRepository;
+use App\Repositories\Backend\FeesTypeRepository;
 use App\Repositories\Backend\FiliaireRepository;
 use App\Repositories\Backend\HomeworkRepository;
 use App\Repositories\Backend\InterroRepository;
@@ -108,6 +114,9 @@ class RepositoryServiceProvider extends ServiceProvider
         ParentRepositoryInterface::class => ParentRepository::class,
         ExamListRepositoryInterface::class => ExamListRepository::class,
         ResultRepositoryInterface::class => ResultRepository::class,
+        FeesTypeRepositoryInterface::class => FeesTypeRepository::class,
+        ExpenseTypeRepositoryInterface::class => ExpenseTypeRepository::class,
+        ExpenseRepositoryInterface::class => ExpenseRepository::class,
     ];
 
     /**

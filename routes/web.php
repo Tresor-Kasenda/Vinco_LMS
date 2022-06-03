@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\ExpenseTypeBackendController;
+use App\Http\Controllers\Backend\FeesTypeBackendController;
 use App\Http\Controllers\Backend\ProfileBackendController;
 use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\CampusBackendController;
@@ -91,7 +93,9 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'announce', 'as' => 'announce.'], routes: function () {
+            Route::resource('feesTypes', FeesTypeBackendController::class);
             Route::resource('fees', FeesBackendController::class);
+            Route::resource('expenseTypes', ExpenseTypeBackendController::class);
             Route::resource('expenses', ExpenseBackendController::class);
         });
 

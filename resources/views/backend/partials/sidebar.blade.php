@@ -221,13 +221,23 @@
                         <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
+                                'route' => route('admins.announce.feesTypes.index'),
+                                'name' => "Fees Type"
+                            ])
+
+                            @include('backend.components._links', [
                                 'route' => route('admins.accounting.fees.index'),
                                 'name' => "Fees"
                             ])
 
                             @include('backend.components._links', [
+                                'route' => route('admins.announce.expenseTypes.index'),
+                                'name' => "Expense Type"
+                            ])
+
+                            @include('backend.components._links', [
                                 'route' => route('admins.accounting.expenses.index'),
-                                'name' => "Expense List"
+                                'name' => "Expenses"
                             ])
 
                         </ul>
