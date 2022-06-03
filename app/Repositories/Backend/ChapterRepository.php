@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Enums\StatusEnum;
 use App\Contracts\ChapterRepositoryInterface;
+use App\Enums\StatusEnum;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Traits\ImageUploader;

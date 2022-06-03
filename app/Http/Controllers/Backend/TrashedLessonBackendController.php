@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Contracts\TrashedChapterRepositoryInterface;
 use App\Contracts\TrashedLessonRepositoryInterface;
+use App\Http\Controllers\Controller;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;

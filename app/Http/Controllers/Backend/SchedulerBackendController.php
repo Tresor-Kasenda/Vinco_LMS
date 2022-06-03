@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Contracts\SchedulerRepositoryInterface;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;

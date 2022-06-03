@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Backend\ExpenseTypeBackendController;
-use App\Http\Controllers\Backend\FeesTypeBackendController;
-use App\Http\Controllers\Backend\ProfileBackendController;
-use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
@@ -14,7 +10,9 @@ use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
 use App\Http\Controllers\Backend\ExerciceBackendController;
 use App\Http\Controllers\Backend\ExpenseBackendController;
+use App\Http\Controllers\Backend\ExpenseTypeBackendController;
 use App\Http\Controllers\Backend\FeesBackendController;
+use App\Http\Controllers\Backend\FeesTypeBackendController;
 use App\Http\Controllers\Backend\FiliaireBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
 use App\Http\Controllers\Backend\HomeworkBackendController;
@@ -22,14 +20,16 @@ use App\Http\Controllers\Backend\InterroBackendController;
 use App\Http\Controllers\Backend\LessonBackendController;
 use App\Http\Controllers\Backend\ParentBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
-use App\Http\Controllers\Backend\TeacherBackendController;
+use App\Http\Controllers\Backend\ProfileBackendController;
 use App\Http\Controllers\Backend\PromotionBackendController;
 use App\Http\Controllers\Backend\ResourceBackendController;
 use App\Http\Controllers\Backend\ResultBackendController;
 use App\Http\Controllers\Backend\RoleBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
+use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\TeacherBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedChapterBackendController;
@@ -58,7 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admins.',
         'middleware' => ['admins'],
     ], routes: function () {
-
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
@@ -68,7 +67,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('staffs', PersonnelBackendController::class);
             Route::resource('guardian', ParentBackendController::class);
         });
-
 
         Route::group(['prefix' => 'academic', 'as' => 'academic.'], routes: function () {
             Route::resource('session', SessionBackendController::class);

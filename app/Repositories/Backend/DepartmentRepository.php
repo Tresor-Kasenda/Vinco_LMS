@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
-use App\Enums\StatusEnum;
 use App\Contracts\DepartmentRepositoryInterface;
+use App\Enums\StatusEnum;
 use App\Models\Department;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;

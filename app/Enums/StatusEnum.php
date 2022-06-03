@@ -6,7 +6,7 @@ namespace App\Enums;
 
 enum StatusEnum: int
 {
-public const FALSE = 0;
+    public const FALSE = 0;
 
-public const TRUE = 1;
+    public const TRUE = 1;
 }
