@@ -179,7 +179,7 @@
                         </a>
                         <ul class="nk-menu-sub">
                             @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
+                                'route' => route('admins.communication.message.index'),
                                 'name' => "Message"
                             ])
 

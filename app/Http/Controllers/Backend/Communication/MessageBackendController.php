@@ -14,7 +14,7 @@ class MessageBackendController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.domain.communication.message.index');
     }
 
     /**
