@@ -199,7 +199,7 @@
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
+                                'route' => route('admins.communication.journal.index'),
                                 'name' => "Journal de classe"
                             ])
 
