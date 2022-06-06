@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
+use App\Http\Controllers\Backend\Communication\MessageBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
@@ -95,6 +96,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('fees', FeesBackendController::class);
             Route::resource('expenseTypes', ExpenseTypeBackendController::class);
             Route::resource('expenses', ExpenseBackendController::class);
+        });
+
+        Route::group(['prefix' => 'communication', 'as' => 'communication.'], routes: function () {
+            Route::resource('message', MessageBackendController::class);
         });
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {

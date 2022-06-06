@@ -14,3 +14,4 @@ yarn-error.log
 /.vscode
 .phpunit.result.cache
 .php-cs-fixer.cache
+public/vendor/livewire/livewire.js
