@@ -21,6 +21,6 @@ class ExpenseType
         self::INSTITUTIONAL,
         self::STUDENT,
         self::ELECTRICITY,
-        self::TRANSPORTATION
+        self::TRANSPORTATION,
     ];
 }

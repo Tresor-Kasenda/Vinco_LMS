@@ -8,5 +8,4 @@ use App\Contracts\FiliaireRepositoryInterface;
 
 class FiliaireRepository implements FiliaireRepositoryInterface
 {
-
 }

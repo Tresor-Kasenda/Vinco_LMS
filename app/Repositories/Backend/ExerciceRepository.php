@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ExerciceRepository implements \App\Contracts\ExerciceRepositoryInterface
 {
-
     public function exercises(): array|Collection|\Illuminate\Support\Collection
     {
         return Exercice::query()

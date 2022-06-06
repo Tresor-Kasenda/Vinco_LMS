@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Contracts\FiliaireRepositoryInterface;
+use App\Http\Controllers\Controller;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -23,6 +23,7 @@ class FiliaireBackendController extends Controller
     public function index(): Renderable
     {
         $filiaires = [];
+
         return view('backend.domain.academic.filiaire.index', compact('filiaires'));
     }
 
