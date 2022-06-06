@@ -184,7 +184,7 @@
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
+                                'route' => route('admins.communication.calendar.index'),
                                 'name' => "Calendar"
                             ])
 
