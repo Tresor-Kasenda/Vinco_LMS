@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories\Backend;
 
+use App\Contracts\UsersRepositoryInterface;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
-use App\Contracts\UsersRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

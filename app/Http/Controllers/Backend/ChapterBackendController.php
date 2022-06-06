@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ChapterRequest;
 use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ChapterRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;

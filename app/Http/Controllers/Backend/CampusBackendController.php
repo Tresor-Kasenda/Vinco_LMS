@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\CampusRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CampusRequest;
 use App\Http\Requests\CampusStatusRequest;
-use App\Contracts\CampusRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;

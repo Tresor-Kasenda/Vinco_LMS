@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\PersonnelRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmPersonnelRequest;
 use App\Http\Requests\PersonnelRequest;
 use App\Http\Requests\UpdatePersonnelRequest;
-use App\Contracts\PersonnelRepositoryInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
