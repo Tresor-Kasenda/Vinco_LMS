@@ -1,6 +1,6 @@
 @extends('backend.layout.base')
 
-@section('title', "Calendar")
+@section('title', "Events")
 
 @section('content')
     <div class="container-fluid">
@@ -8,7 +8,7 @@
             <div class="nk-content-body">
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
-                        <div class="nk-block-head-content"><h3 class="nk-block-title page-title">Calendar</h3></div>
+                        <div class="nk-block-head-content"><h3 class="nk-block-title page-title">Events</h3></div>
                         <div class="nk-block-head-content"><a class="btn btn-primary" data-bs-toggle="modal"
                                                               href="#addEventPopup"><em
                                     class="icon ni ni-plus"></em><span>Add Event</span></a></div>

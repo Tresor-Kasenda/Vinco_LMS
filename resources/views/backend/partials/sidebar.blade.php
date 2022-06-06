@@ -189,12 +189,12 @@
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
+                                'route' => route('admins.communication.events.index'),
                                 'name' => "Events"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
+                                'route' => route('admins.communication.notification.index'),
                                 'name' => "Notification"
                             ])
 

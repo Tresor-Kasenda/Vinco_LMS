@@ -6,7 +6,9 @@ use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\Communication\CalendarBackendController;
+use App\Http\Controllers\Backend\Communication\EventsBackendController;
 use App\Http\Controllers\Backend\Communication\MessageBackendController;
+use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
@@ -102,6 +104,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'communication', 'as' => 'communication.'], routes: function () {
             Route::resource('message', MessageBackendController::class);
             Route::resource('calendar', CalendarBackendController::class);
+            Route::resource('events', EventsBackendController::class);
+            Route::resource('notification', NotificationBackendController::class);
         });
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
