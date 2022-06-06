@@ -10,6 +10,7 @@
     <title>VINCO | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
     @yield('styles')
+    @livewireStyles
 </head>
 <body class="nk-body bg-lighter npc-general has-sidebar">
     <div class="nk-app-root">
@@ -28,6 +29,7 @@
     </div>
     <script src="{{ asset('js/admins.js') }}"></script>
     @yield('scripts')
+    @livewireScripts
     @flasher_render
 </body>
 </html>
