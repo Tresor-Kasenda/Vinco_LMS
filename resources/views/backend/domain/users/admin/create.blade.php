@@ -93,7 +93,7 @@
                                                             required>
                                                             <option label="role" value=""></option>
                                                             @foreach(\App\Models\Role::all() as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                                <option value="{{ $role->id }}">{{ $role->title }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -110,21 +110,6 @@
                                                             name="password"
                                                             value="{{ old('password') }}"
                                                             placeholder="Saisir votre mot de passe"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="password-confirmation">Mot de passe (confirmation)</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="password"
-                                                            class="form-control @error('password_confirmation') error @enderror"
-                                                            id="password"
-                                                            name="password_confirmation"
-                                                            value="{{ old('password_confirmation') }}"
-                                                            placeholder="Confirmer votre mot de passe"
                                                             required>
                                                     </div>
                                                 </div>

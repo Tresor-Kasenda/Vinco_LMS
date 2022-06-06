@@ -36,7 +36,8 @@
                                         <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div class="d-flex align-items-center">
                                                 <div class="ms-3">
-                                                    <h6 class="title mb-1">
+                                                    <h6 class="title mb-1 text-center">
+                                                        Session :
                                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
                                                         -
                                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
@@ -67,6 +68,14 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="text-center font-weight-bold">
+                                            <p>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
+                                                -
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}
+                                                Academic Year
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

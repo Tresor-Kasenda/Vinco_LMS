@@ -30,7 +30,7 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <div class="row justify-content-center">
+                            <div class="row justify-content-center mb-4">
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.session.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
