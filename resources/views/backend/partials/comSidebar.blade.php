@@ -36,37 +36,37 @@
                     @include('backend.components._link', [
                                 'route' => route('admins.communication.message.index'),
                                 'name' => "Message",
-                                'icon' => "fab fa-comment-dots"
+                                'icon' => "ni-send"
                             ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.communication.calendar.index'),
                         'name' => "Calendar",
-                        'icon' => "bi bi-bar-chart-line"
+                        'icon' => "ni-calendar"
                     ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.communication.events.index'),
                         'name' => "Events",
-                        'icon' => "ti ti-star"
+                        'icon' => "ni-book"
                     ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.communication.notification.index'),
                         'name' => "Notification",
-                        'icon' => "ti ti-stamp"
+                        'icon' => "ni-alert"
                     ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.communication.journal.index'),
                         'name' => "Journal de classe",
-                        'icon' => "bi bi-bounding-box"
+                        'icon' => "ni-bag"
                     ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.exam.exam.index'),
                         'name' => "Aperi",
-                        'icon' => "ti ti-headphone"
+                        'icon' => "ni-building"
                     ])
 
                     @include('backend.components._link', [
