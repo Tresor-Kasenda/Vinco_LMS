@@ -4,18 +4,18 @@
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
                 <img
                     class="logo-light logo-img"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo">
                 <img
                     class="logo-dark logo-img"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo-dark">
                 <img
-                    class="logo-small logo-img logo-img-small"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    class="logo-small logo-img"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo-small">
             </a>
         </div>
