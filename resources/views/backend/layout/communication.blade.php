@@ -9,6 +9,13 @@
     <link rel="shortcut icon" href="">
     <title>COMMUNICATION | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
+
+    <style>
+        body {
+            font-family: 'Arial';
+        }
+    </style>
+
     @yield('styles')
     @livewireStyles
 </head>

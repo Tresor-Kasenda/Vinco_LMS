@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{asset('assets/vinco_dark.svg')}}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('assets/apps/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/apps/css/style.css') }}" rel="stylesheet">
