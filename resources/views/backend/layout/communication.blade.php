@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="for developers and programmers.">
     <link rel="shortcut icon" href="">
-    <title>LMS | @yield('title')</title>
+    <title>COMMUNICATION | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
     @yield('styles')
     @livewireStyles
@@ -15,7 +15,7 @@
 <body class="nk-body bg-lighter npc-general has-sidebar">
     <div class="nk-app-root">
         <div class="nk-main ">
-            @include('backend.partials.sidebar')
+            @include('backend.partials.comSidebar')
             <div class="nk-wrap ">
                 @include('backend.partials.header')
                 <div class="nk-content">
