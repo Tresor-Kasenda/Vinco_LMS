@@ -33,37 +33,37 @@
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                                 'route' => route('admins.communication.message.index'),
                                 'name' => "Message",
                                 'icon' => "fab fa-comment-dots"
                             ])
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                         'route' => route('admins.communication.calendar.index'),
                         'name' => "Calendar",
                         'icon' => "bi bi-bar-chart-line"
                     ])
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                         'route' => route('admins.communication.events.index'),
                         'name' => "Events",
                         'icon' => "ti ti-star"
                     ])
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                         'route' => route('admins.communication.notification.index'),
                         'name' => "Notification",
                         'icon' => "ti ti-stamp"
                     ])
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                         'route' => route('admins.communication.journal.index'),
                         'name' => "Journal de classe",
                         'icon' => "bi bi-bounding-box"
                     ])
 
-                    @include('backend.components._links', [
+                    @include('backend.components._link', [
                         'route' => route('admins.exam.exam.index'),
                         'name' => "Aperi",
                         'icon' => "ti ti-headphone"
