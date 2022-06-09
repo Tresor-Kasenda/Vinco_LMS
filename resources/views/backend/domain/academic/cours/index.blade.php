@@ -47,9 +47,6 @@
                                     <span>Categorie</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Professeur</span>
-                                </th>
-                                <th class="nk-tb-col">
                                     <span>Nombre des chapitres</span>
                                 </th>
                                 <th class="nk-tb-col">
@@ -59,15 +56,7 @@
                                     <span>Date de debut</span>
                                 </th>
                                 <th class="nk-tb-col nk-tb-col-tools text-center">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <span>ACTION</span>
                                 </th>
                             </tr>
                         </thead>
@@ -87,14 +76,11 @@
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <h6 class="title">{{ $course->name ?? "" }}</h6>
+                                            <h6 class="title">{{ substr($course->name, 0, 20) ?? "" }}...</h6>
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $course->category->name ?? "" }}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">Total chapitres : {{ $course->chapters_count ?? "" }} </span>
@@ -111,42 +97,24 @@
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $course->startDate ?? "" }} </span>
                                     </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1 my-n1">
-                                            <li class="me-n1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-h"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.course.show', $course->key) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.course.edit', $course->key) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.academic.course.destroy', $course->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                        <span>Remove</span>
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex">
+                                                <a href="{{ route('admins.academic.course.edit', $course->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                    <a href="{{ route('admins.academic.course.show', $course->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.course.destroy', $course->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

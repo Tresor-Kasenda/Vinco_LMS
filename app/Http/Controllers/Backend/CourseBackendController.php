@@ -39,9 +39,7 @@ class CourseBackendController extends Controller
     {
         $course = $this->repository->showCourse(key:  $key);
 
-        return view('backend.domain.academic.cours.show', [
-            'course' => $course,
-        ]);
+        return view('backend.domain.academic.cours.show', compact('course'));
     }
 
     public function create(): Renderable

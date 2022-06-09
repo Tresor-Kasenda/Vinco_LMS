@@ -6,10 +6,19 @@
     <div class="container-fluid">
         <div class="nk-content-inner">
             <div class="nk-content-body">
+                @if($course->status == \App\Enums\StatusEnum::FALSE)
+                    <div class="alert alert-fill alert-danger alert-icon">
+                        <em class="icon ni ni-cross-circle"></em>
+                        <strong>Course activation</strong>!
+                        The course does not yet active.
+                    </div>
+                @endif
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">{{ strtoupper($course->name) }}</h3>
+                            <h6 class="nk-block-title page-title">
+                                Course Details
+                            </h6>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -42,179 +51,61 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    @if($course->status == \App\Enums\StatusEnum::FALSE)
-                        <div class="alert alert-danger alert-icon " role="alert">
-                            <em class="icon ni ni-bell"></em>
-                            Le cours n'est pas encore confirmer
-                        </div>
-                    @endif
-                    <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
-                        <thead>
-                        <tr class="nk-tb-item nk-tb-head text-center">
-                            <th class="nk-tb-col">
-                                <span>Numero</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Titre du chapitre</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Lesson</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Professeur</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Status</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Type d'affichage</span>
-                            </th>
-                            <th class="nk-tb-col nk-tb-col-tools text-center">
-                                <ul class="nk-tb-actions gx-1 my-n1">
-                                    <li class="me-n1">
-                                        <div class="dropdown">
-                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                <em class="icon ni ni-more-h"></em>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($chapters as $chapter)
-                            <tr class="nk-tb-item text-center">
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $chapter->id ?? "" }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ ucfirst($chapter->name) }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        Total Lesson : {{ $chapter->lessons_count ?? 0 }}
-                                    </span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $chapter->course->user->name }} {{ $chapter->course->user->firstName }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    @if($chapter->status)
-                                        <span class="dot bg-success d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                    @else
-                                        <span class="dot bg-warning d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                    @endif
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        {{ \App\Helpers\verifyIfLessonIsVideo($chapter->displayType) }}
-                                    </span>
-                                </td>
-                                <td class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a href="{{ route('admins.course.chapter.show', ['course' => $course->key, 'chapter' => $chapter->key] ) }}">
-                                                                <em class="icon ni ni-eye"></em>
-                                                                <span>View</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ route('admins.course.chapter.edit', ['course' => $course->key, 'chapter' => $chapter->key]) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.course.chapter.destroy', ['course' => $course->key, 'chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-trash"></em>
-                                                                    <span>Remove</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="nk-block">
-                    <div class="card">
-                        <div class="card-aside-wrap">
-                            <div class="card-inner card-inner-lg">
-                                <div class="tab-content">
-                                    <div class="tab-pane active">
-                                        <div class="nk-block">
-                                            <div class="profile-ud-list">
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Nom</span>
-                                                        <span class="profile-ud-value">{{ $course->name ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Duree</span>
-                                                        <span class="profile-ud-value">{{ ucfirst($course->duration) ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Date de debut</span>
-                                                        <span class="profile-ud-value">{{ $course->startDate ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Date de fin</span>
-                                                        <span class="profile-ud-value">{{ $course->endDate ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Categorie</span>
-                                                        <span class="profile-ud-value">{{ strtoupper($course->category->name) ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Professeur</span>
-                                                        <span class="profile-ud-value">{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-divider divider md"></div>
-                                        <div class="nk-block">
-                                            <div class="bq-note">
-                                                <div class="bq-note-item">
-                                                    <div class="bq-note-text">
-                                                        <p>
-                                                            {{ $course->description ?? "" }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body border-bottom py-3">
+                                    <div class="text-center">
+                                        <img
+                                            @if($course->images)
+                                                src="{{ asset('storage/'.$course->images) }}"
+                                            @else
+                                                src="{{ asset('assets/admins/images/default.png') }}"
+                                            @endif
+                                            title="{{ $course->name }}"
+                                            class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
+                                        >
                                     </div>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ strtoupper($course->name) ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Responsable</th>
+                                            <td>{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Categorie</th>
+                                            <td>{{ strtoupper($course->category->name) ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Duration</th>
+                                            <td>{{ strtoupper($course->duration) ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date de debut</th>
+                                            <td>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->startDate)->format('d F Y') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date de fin</th>
+                                            <td>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->endDate)->format('d F Y') }}
+                                            </td>
+                                        </tr>
+                                        <tr class="text-justify">
+                                            <th>Sous description</th>
+                                            <td>{{ $course->subDescription ?? "" }}</td>
+                                        </tr>
+                                        <tr class="text-justify">
+                                            <th>Description</th>
+                                            <td>{{ $course->description ?? "" }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -124,7 +124,7 @@
                                                             data-placeholder="Select a category"
                                                             required>
                                                             <option label="Choisir une categorie" value=""></option>
-                                                            @foreach(\App\Models\Category::query()->where('status', '=', \App\Enums\StatusEnum::TRUE)->get() as $category)
+                                                            @foreach(\App\Models\Category::all() as $category)
                                                                 <option value="{{ $category->id }}">
                                                                     {{ $category->name ?? "" }}
                                                                 </option>
