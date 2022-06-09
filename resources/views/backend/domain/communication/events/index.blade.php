@@ -1,4 +1,4 @@
-@extends('backend.layout.base')
+@extends('backend.layout.communication')
 
 @section('title', "Events")
 

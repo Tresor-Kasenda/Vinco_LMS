@@ -1,21 +1,21 @@
-<div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu">
+<div class="nk-sidebar nk-sidebar-fixed is-light" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
                 <img
                     class="logo-light logo-img"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo">
                 <img
                     class="logo-dark logo-img"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo-dark">
                 <img
-                    class="logo-small logo-img logo-img-small"
-                    src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}"
-                    srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 3x"
+                    class="logo-small logo-img"
+                    src="{{ asset('assets/vinco-dark.png') }}"
+                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
                     alt="logo-small">
             </a>
         </div>
@@ -173,47 +173,6 @@
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon">
-                                <em class="icon ni ni-bell"></em>
-                            </span>
-                            <span class="nk-menu-text">Communication</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            @include('backend.components._links', [
-                                'route' => route('admins.communication.message.index'),
-                                'name' => "Message"
-                            ])
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.communication.calendar.index'),
-                                'name' => "Calendar"
-                            ])
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.communication.events.index'),
-                                'name' => "Events"
-                            ])
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.communication.notification.index'),
-                                'name' => "Notification"
-                            ])
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.communication.journal.index'),
-                                'name' => "Journal de classe"
-                            ])
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
-                                'name' => "Aperi"
-                            ])
-
-                        </ul>
-                    </li>
-
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
                                 <em class="icon ni ni-coin-alt"></em>
                             </span>
                             <span class="nk-menu-text">Accounting</span>
@@ -253,6 +212,12 @@
                         'route' => route('admins.settings.index'),
                         'name' => "Parametre",
                         'icon' => "ni-setting-alt"
+                    ])
+
+                    @include('backend.components._link', [
+                        'route' => route('admins.communication.message.index'),
+                        'name' => "Go To Communication",
+                        'icon' => "ni-book"
                     ])
 
                     <li class="nk-menu-item">
