@@ -38,24 +38,16 @@
                         <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
                                 <th class="nk-tb-col">
-                                    <span>Nom du categorie</span>
+                                    <span>NOM</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Annee academique</span>
+                                    <span>ANNEE ACADEMIQUE</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Status</span>
+                                    <span>STATUS</span>
                                 </th>
-                                <th class="nk-tb-col nk-tb-col-tools text-center">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <th class="nk-tb-col">
+                                    ACTION
                                 </th>
                             </tr>
                         </thead>
@@ -81,42 +73,24 @@
                                             <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
                                         @endif
                                     </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1 my-n1">
-                                            <li class="me-n1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-h"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.categories.show', $category->key) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.categories.edit', $category->key) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.academic.categories.destroy', $category->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                        <span>Remove</span>
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead text-center">
+                                            <div class="d-flex">
+                                                <a href="{{ route('admins.academic.categories.edit', $category->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                    <a href="{{ route('admins.academic.categories.show', $category->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.categories.destroy', $category->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

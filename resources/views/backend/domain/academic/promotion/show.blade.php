@@ -6,10 +6,19 @@
     <div class="container-fluid">
         <div class="nk-content-inner">
             <div class="nk-content-body">
+                @if($promotion->status == \App\Enums\StatusEnum::FALSE)
+                    <div class="alert alert-fill alert-danger alert-icon">
+                        <em class="icon ni ni-cross-circle"></em>
+                        <strong>promotion activation</strong>!
+                        The promotion does not yet active.
+                    </div>
+                @endif
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Departement ({{ strtoupper($department->name) }})</h3>
+                            <h6 class="nk-block-title page-title">
+                                Promotion Details
+                            </h6>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -20,7 +29,7 @@
                                                 <div class="form-control-wrap">
                                                     <select name="status" id="status" class="form-select form-control form-control-sm">
                                                         <option value="default_option">Select Status</option>
-                                                        @if($department->status == \App\Enums\StatusEnum::FALSE)
+                                                        @if($promotion->status == \App\Enums\StatusEnum::FALSE)
                                                             <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
                                                         @else
                                                             <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
@@ -30,7 +39,7 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.departments.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.promotion.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -42,67 +51,45 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    @if($department->status == \App\Enums\StatusEnum::FALSE)
-                        <div class="alert alert-danger alert-icon " role="alert">
-                            <em class="icon ni ni-bell"></em>
-                            Le departement n'est pas encore confirmer
-                        </div>
-                    @endif
-                    <div class="justify-content text-center p-2">
-                        <img
-                            @if($department->images)
-                                src="{{ asset('storage/'.$department->images) }}"
-                            @else
-
-                            @endif
-                            alt="{{ $department->name }}"
-                            class="img-fluid img-thumbnail rounded-circle"
-                            height="15%"
-                            width="10%"
-                        >
-                    </div>
-                    <div class="card">
-                        <div class="card-aside-wrap">
-                            <div class="card-inner card-inner-lg">
-                                <div class="tab-content">
-                                    <div class="tab-pane active">
-                                        <div class="nk-block">
-                                            <div class="profile-ud-list">
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Departement</span>
-                                                        <span class="profile-ud-value">{{ $department->name ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Responsable</span>
-                                                        @foreach($department->users as $user)
-                                                            <span class="profile-ud-value">{{ strtoupper($user->name) ?? "" }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Campus</span>
-                                                        <span class="profile-ud-value">{{ $department->campus->name ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-divider divider md"></div>
-                                        <div class="nk-block">
-                                            <div class="bq-note">
-                                                <div class="bq-note-item">
-                                                    <div class="bq-note-text">
-                                                        <p>
-                                                            {{ $department->description ?? "" }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body text-center border-bottom py-3">
+                                    <img
+                                        @if($promotion->images)
+                                            src="{{ asset('storage/'.$promotion->images) }}"
+                                        @else
+                                            src="{{ asset('assets/admins/images/default.png') }}"
+                                        @endif
+                                        title="{{ $promotion->name }}"
+                                        class="img-fluid user-avatar-xl mb-3 rounded-circle border-danger"
+                                    >
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ $promotion->name ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Filiaire</th>
+                                            <td>{{ strtoupper($promotion->subsidiary->name) ?? "" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Anneee academique</th>
+                                            <td>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $promotion->academic->startDate)->format('Y') }}
+                                                -
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $promotion->academic->endDate)->format('Y') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>
+                                                {{ $promotion->description ?? "" }}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -120,10 +107,10 @@
                 const status = $("#status option:selected").val()
                 $.ajax({
                     type: "put",
-                    url: `{{ route('admins.department.active', $department->key) }}`,
+                    url: `{{ route('admins.department.active', $promotion->key) }}`,
                     data: {
                         status: status,
-                        key: `{{ $department->key }}`,
+                        key: `{{ $promotion->key }}`,
                         _token: '{{ csrf_token() }}'
                     },
                     dataType : 'json',

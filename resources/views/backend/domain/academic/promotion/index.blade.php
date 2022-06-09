@@ -41,27 +41,19 @@
                                     <span>Image</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nom du department</span>
+                                    <span>PROMOTION</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nom du Campus</span>
+                                    <span>FILIAIRE</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Responsable</span>
+                                    <span>ANNEE ACADEMIC</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Status</span>
+                                    <span>STATUS</span>
                                 </th>
                                 <th class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div>
-                                                <a href="#" class="btn btn-icon btn-trigger">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <span>ACTION</span>
                                 </th>
                             </tr>
                         </thead>
@@ -77,17 +69,19 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $promotion->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ strtoupper($promotion->name) ?? ""}}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $promotion->campus->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ strtoupper($promotion->subsidiary->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        @foreach($promotion->users as $user)
-                                            <span class="tb-lead">{{ strtoupper($user->name) }}</span>
-                                        @endforeach
+                                        <span class="tb-lead">
+                                            {{ $promotion->academic->startDate ?? ""}}
+                                            -
+                                            {{ $promotion->academic->endDate ?? ""}}
+                                        </span>
                                     </td>
-                                    <td class="nk-tb-col tb-col-md">
+                                    <td class="nk-tb-col">
                                         @if($promotion->status)
                                             <span class="dot bg-success d-sm-none"></span>
                                             <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
@@ -96,42 +90,24 @@
                                             <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
                                         @endif
                                     </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1 my-n1">
-                                            <li class="me-n1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-h"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.departments.edit', $promotion->key) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.departments.show', $promotion->key) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.academic.departments.destroy', $promotion->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                        <span>Remove</span>
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex">
+                                                <a href="{{ route('admins.academic.promotion.edit', $promotion->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                    <a href="{{ route('admins.academic.promotion.show', $promotion->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.promotion.destroy', $promotion->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

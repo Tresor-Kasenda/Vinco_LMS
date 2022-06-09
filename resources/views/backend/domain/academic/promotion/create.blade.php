@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Logo du Department</label>
+                                                    <label class="form-label" for="images">Logo</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
@@ -67,15 +67,15 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Choisir le responsable</label>
+                                                    <label class="form-label" for="filiaire">FIliaire</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user_id') error @enderror"
-                                                        id="user_id"
-                                                        name="user_id"
-                                                        data-placeholder="Choisir le chef de department"
+                                                        class="form-control js-select2 @error('filiaire') error @enderror"
+                                                        id="filiaire"
+                                                        name="filiaire"
+                                                        data-placeholder="Choisir le filiaire"
                                                         required>
-                                                        <option label="Choisir le chef de department" value=""></option>
-                                                        @foreach($departmentHead as $user)
+                                                        <option label="Choisir le filiaire" value=""></option>
+                                                        @foreach(\App\Models\Subsidiary::all() as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endforeach
                                                     </select>
@@ -83,16 +83,16 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="campus_id">Choisir le Campus</label>
+                                                    <label class="form-label" for="academic">Annee academique</label>
                                                     <select
-                                                        class="form-control js-select2 @error('campus_id') error @enderror"
-                                                        id="campus_id"
-                                                        name="campus_id"
-                                                        data-placeholder="Choisir la faculte"
+                                                        class="form-control js-select2 @error('academic') error @enderror"
+                                                        id="academic"
+                                                        name="academic"
+                                                        data-placeholder="Choisir l'annee academique"
                                                         required>
-                                                        <option label="Choisir la faculte" value=""></option>
-                                                        @foreach($campuses as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        <option label="Choisir l'annee academique" value=""></option>
+                                                        @foreach(\App\Models\AcademicYear::all() as $campus)
+                                                            <option value="{{ $campus->id }}">{{ $campus->startDate }}/{{ $campus->endDate }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -101,18 +101,18 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Message</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Write the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save Informations</button>
+                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>
