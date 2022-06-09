@@ -18,37 +18,53 @@
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div class="row">
-                <div class="position-relative">
-                    <div class="h-auto w-auto position-absolute top-0 end-0 mt-3">
-                        @if (Route::has('login'))
-                            @auth
-                                <a href="{{route('admins.backend.home')}}"
-                                   class="btn btn-outline-light my-2 my-sm-0 me-2" type="submit">
-                                    Go TO LMS Dashboard
-                                </a>
-                                <a href="{{route('admins.communication.message.index')}}"
-                                   class="btn btn-outline-light my-2 my-sm-0" type="submit">
-                                    Go TO Communication Dashboard
-                                </a>
-                            @else
-                                <a href="{{route('login')}}"
-                                   class="btn btn-outline-light my-2 my-sm-0" type="submit">
-                                    Login
-                                </a>
-                            @endif
-                        @endif
-
-                    </div>
-                </div>
+    <div class="container h-100 w-100">
+        <div class="row mt-4">
+            <div class="d-flex justify-content-end">
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{route('admins.backend.home')}}"
+                           class="btn btn-outline-light w-auto h-auto d-inline my-2 my-sm-0 me-2" type="submit">
+                            Go TO LMS Dashboard
+                        </a>
+                        <a href="{{route('admins.communication.message.index')}}"
+                           class="btn btn-outline-light w-auto h-auto d-inline my-2 my-sm-0" type="submit">
+                            Go TO Communication Dashboard
+                        </a>
+                    @else
+                        <a href="{{route('login')}}"
+                           class="btn btn-outline-light w-auto h-auto d-inline my-2 my-sm-0" type="submit">
+                            Login
+                        </a>
+                    @endif
+                @endif
             </div>
         </div>
-    </nav>
-    <div class="container">
         <div class="row">
-
+            <div class="col-lg-8">
+                <div style="margin-top: 200px">
+                    <h1 style="font-family: Arial, Helvetica, sans-serif;
+                        font-weight: bolder;
+                        letter-spacing: -0.05em !important;
+                        font-size: 100px">
+                        Vinco Education Application
+                    </h1>
+                    <p class="w-75" style="font-family: Arial, Helvetica, sans-serif;
+                        line-height: 32px;
+                        color: #8193b2;
+                        font-size: 24px">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur consequuntur cupiditate deleniti dolore expedita fugit id laboriosam laudantium minima neque non odit officiis ratione sed suscipit ut, voluptate voluptatibus!
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div>
+                    <img
+                        src="{{asset('student.png')}}"
+                        alt="home-page-landing-student"
+                        class="h-75 w-75 me-5 text-white w-auto position-absolute bottom-0 end-0"/>
+                </div>
+            </div>
         </div>
     </div>
 
