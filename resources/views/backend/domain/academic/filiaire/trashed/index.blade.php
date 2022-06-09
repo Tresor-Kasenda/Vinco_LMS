@@ -9,14 +9,14 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Historique des departements</h3>
+                            <h3 class="nk-block-title page-title">Historique des filiaire</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.departments.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.filiaire.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
