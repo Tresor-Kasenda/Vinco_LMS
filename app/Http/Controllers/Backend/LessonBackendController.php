@@ -35,16 +35,14 @@ class LessonBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
-        $chapter = $this->repository->showLesson(key:  $key);
+        $lesson = $this->repository->showLesson(key:  $key);
 
-        return view('backend.domain.academic.lessons.show');
+        return view('backend.domain.academic.lessons.show', compact('lesson'));
     }
 
     public function create(): Renderable
     {
-        $chapters = [];
-
-        return view('backend.domain.academic.lessons.create', compact('chapters'));
+        return view('backend.domain.academic.lessons.create');
     }
 
     public function store(LessonRequest $attributes): RedirectResponse

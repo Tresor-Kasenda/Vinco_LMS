@@ -28,8 +28,8 @@ class LessonRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'chapter' => ['required', Rule::exists('chapters', 'name')],
-            'shortContent' => ['required', 'string', 'min:4'],
+            'chapter' => ['required', Rule::exists('chapters', 'id')],
+            'short_content' => ['required', 'string', 'min:4'],
             'content' => ['nullable', 'string', 'min:20'],
         ];
     }

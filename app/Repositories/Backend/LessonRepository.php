@@ -43,10 +43,10 @@ class LessonRepository implements LessonRepositoryInterface
         if (! $lesson) {
             $lesson = Lesson::query()
                 ->create([
-                    'chapter_id' => $attributes->input('chapter_id'),
+                    'chapter_id' => $attributes->input('chapter'),
                     'status' => StatusEnum::TRUE,
                     'name' => $attributes->input('name'),
-                    'shortContent' => $attributes->input('shortContent'),
+                    'shortContent' => $attributes->input('short_content'),
                     'content' => $attributes->input('content'),
                 ]);
             $flash->addSuccess('Une nouvelle lecon a ete ajouter');
@@ -58,13 +58,13 @@ class LessonRepository implements LessonRepositoryInterface
         return back();
     }
 
-    public function updated(string $key, $attributes, $flash): array
+    public function updated(string $key, $attributes, $flash)
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->update([
-            'chapter_id' => $attributes->input('chapter_id'),
+            'chapter_id' => $attributes->input('chapter'),
             'name' => $attributes->input('name'),
-            'shortContent' => $attributes->input('shortContent'),
+            'shortContent' => $attributes->input('short_content'),
             'content' => $attributes->input('content'),
         ]);
         $flash->addSuccess('Une lecon a ete mise a jours avec success');
