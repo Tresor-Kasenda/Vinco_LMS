@@ -48,6 +48,8 @@ class Resource extends Model
 {
     use HasFactory, SoftDeletes, HasKeyTrait;
 
+    protected $guarded = [];
+
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class, 'lesson_id');

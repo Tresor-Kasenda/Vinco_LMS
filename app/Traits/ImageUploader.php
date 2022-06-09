@@ -15,6 +15,19 @@ trait ImageUploader
             ->storePublicly('/', ['disk' => 'public']);
     }
 
+    public function uploadPDFFile(Request $request): bool|string
+    {
+        return $request->file('content')
+            ->storePublicly('/resource', ['disk' => 'public']);
+    }
+
+    public function removePDFFiles($model): void
+    {
+        Storage::disk('public')
+            ->delete($model->path);
+    }
+
+
     public function removePathOfImages($model): void
     {
         Storage::disk('public')
