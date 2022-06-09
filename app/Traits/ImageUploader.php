@@ -27,7 +27,6 @@ trait ImageUploader
             ->delete($model->path);
     }
 
-
     public function removePathOfImages($model): void
     {
         Storage::disk('public')

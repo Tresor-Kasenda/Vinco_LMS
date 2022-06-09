@@ -30,6 +30,7 @@ class ResourceRepository implements ResourceRepositoryInterface
         $resource = Resource::query()
             ->where('key', '=', $key)
             ->firstOrCreate();
+
         return $resource->load('lesson');
     }
 

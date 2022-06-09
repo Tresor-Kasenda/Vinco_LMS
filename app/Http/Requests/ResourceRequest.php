@@ -29,7 +29,7 @@ class ResourceRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3'],
             'lesson' => ['required', Rule::exists('lessons', 'id')],
-            'content' => ['required', 'mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf,sgv']
+            'content' => ['required', 'mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf,sgv'],
         ];
     }
 }

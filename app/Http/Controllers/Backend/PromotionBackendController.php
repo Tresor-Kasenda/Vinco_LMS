@@ -36,7 +36,6 @@ class PromotionBackendController extends Controller
         return view('backend.domain.academic.promotion.show', compact('promotion'));
     }
 
-
     public function create(): Factory|View|Application
     {
         return view('backend.domain.academic.promotion.create');

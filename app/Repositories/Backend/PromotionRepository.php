@@ -30,6 +30,7 @@ class PromotionRepository implements PromotionRepositoryInterface
         $promotion = Promotion::query()
             ->where('key', '=', $key)
             ->firstOrCreate();
+
         return $promotion->load(['subsidiary', 'academic']);
     }
 
@@ -47,7 +48,7 @@ class PromotionRepository implements PromotionRepositoryInterface
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
-                    'academic_year_id' => $attributes->input('academic')
+                    'academic_year_id' => $attributes->input('academic'),
                 ]);
             $factory->addSuccess('Une mouvelle filiaire a ete ajouter');
 
@@ -67,7 +68,7 @@ class PromotionRepository implements PromotionRepositoryInterface
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
             'images' => self::uploadFiles($attributes),
-            'academic_year_id' => $attributes->input('academic')
+            'academic_year_id' => $attributes->input('academic'),
         ]);
         $factory->addSuccess('Un campus a ete modifier');
 

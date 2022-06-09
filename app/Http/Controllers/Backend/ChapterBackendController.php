@@ -56,7 +56,7 @@ class ChapterBackendController extends Controller
     {
         $chapter = $this->repository->showChapter(key:  $key);
 
-        return Response::view('backend.domain.academic.chapters.edit',compact('chapter'));
+        return Response::view('backend.domain.academic.chapters.edit', compact('chapter'));
     }
 
     public function update(string $key, ChapterRequest $attributes): RedirectResponse
