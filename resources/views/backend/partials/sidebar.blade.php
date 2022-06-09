@@ -83,6 +83,11 @@
                             ])
 
                             @include('backend.components._links', [
+                                'route' => route('admins.academic.chapter.index'),
+                                'name' => "Chapitre"
+                            ])
+
+                            @include('backend.components._links', [
                                 'route' => route('admins.academic.lessons.index'),
                                 'name' => "Lecon"
                             ])

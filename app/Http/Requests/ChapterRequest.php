@@ -28,7 +28,7 @@ class ChapterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:6'],
-            'course' => ['required', Rule::exists('courses', 'name')],
+            'course' => ['required', Rule::exists('courses', 'id')],
             'displayType' => ['required', 'string'],
             'description' => ['nullable', 'string'],
         ];

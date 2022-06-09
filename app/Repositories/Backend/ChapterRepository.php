@@ -7,37 +7,31 @@ namespace App\Repositories\Backend;
 use App\Contracts\ChapterRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Chapter;
-use App\Models\Course;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\HigherOrderWhenProxy;
 
 class ChapterRepository implements ChapterRepositoryInterface
 {
     use ImageUploader;
 
-    public function getChapters(Course $course): array|Collection
+    public function getChapters(): array|Collection
     {
         return Chapter::query()
-            ->whereBelongsTo($course)
             ->withCount(['lessons', 'exercises'])
             ->orderByDesc('created_at')
             ->get();
     }
 
-    public function showChapter($course, string $key): Model|Builder|Chapter|null|array
+    public function showChapter(string $key): Model|Builder|Chapter|null|array
     {
         $chapter = Chapter::query()
             ->where('key', '=', $key)
             ->first();
 
-        return [
-            $chapter->load('lessons'),
-            self::getCourse(course: $course),
-        ];
+        return $chapter->load('lessons');
     }
 
     public function stored($attributes, $flash): Model|Builder|Chapter|RedirectResponse|array
@@ -48,10 +42,9 @@ class ChapterRepository implements ChapterRepositoryInterface
             })
             ->first();
         if (! $chapter) {
-            $course = $this->getChapter($attributes);
             $chapter = Chapter::query()
                 ->create([
-                    'course_id' => $course->id,
+                    'course_id' => $attributes->input('course'),
                     'status' => StatusEnum::TRUE,
                     'name' => $attributes->input('name'),
                     'displayType' => $attributes->input('displayType'),
@@ -59,56 +52,34 @@ class ChapterRepository implements ChapterRepositoryInterface
                 ]);
             $flash->addSuccess('Un nouveau cours a ete ajouter');
 
-            return [$chapter, $course];
+            return $chapter;
         }
         $flash->addError('Nom du cours ou le professeur a existe deja pour ce cours');
 
         return back();
     }
 
-    public function updated($course, string $key, $attributes, $flash): array
+    public function updated(string $key, $attributes, $flash): Model|Builder|array|Chapter|null
     {
-        [$chapter, $courses] = $this->showChapter(course: $course, key: $key);
-        $course = $this->getChapter($attributes);
+        $chapter = $this->showChapter(key: $key);
+
         $chapter->update([
-            'course_id' => $course->id,
+            'course_id' => $attributes->input('course'),
             'name' => $attributes->input('name'),
             'displayType' => $attributes->input('displayType'),
             'description' => $attributes->input('description'),
         ]);
         $flash->addSuccess('Un cours a ete mise a jours avec success');
 
-        return [$chapter, $courses];
+        return $chapter;
     }
 
-    public function deleted($course, string $key, $flash)
+    public function deleted(string $key, $flash): Model|Builder|array|Chapter|null
     {
-        [$chapter, $courses] = $this->showChapter(course: $course, key: $key);
+        $chapter = $this->showChapter(key: $key);
         $chapter->delete();
         $flash->addSuccess('Le chapitre a ete supprimer avec success');
 
-        return $courses;
-    }
-
-    /**
-     * @param $attributes
-     * @return Course|Builder|Model|HigherOrderWhenProxy|mixed|object|null
-     */
-    private function getChapter($attributes): mixed
-    {
-        return Course::query()
-            ->when('name', function ($query) use ($attributes) {
-                $query->where('name', $attributes->input('course'));
-            })
-            ->first();
-    }
-
-    protected static function getCourse($course)
-    {
-        return Course::query()
-            ->when('key', function ($query) use ($course) {
-                $query->where('key', $course);
-            })
-            ->first();
+        return $chapter;
     }
 }
