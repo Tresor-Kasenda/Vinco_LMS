@@ -91,7 +91,7 @@
                                                         data-placeholder="Choisir la faculte"
                                                         required>
                                                         <option label="Choisir la faculte" value=""></option>
-                                                        @foreach($campuses as $campus)
+                                                        @foreach(\App\Models\Campus::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
                                                         @endforeach
                                                     </select>

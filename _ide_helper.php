@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.16.0.
+ * Generated for Laravel 9.17.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2775,7 +2775,7 @@
      */ 
         class Broadcast {
                     /**
-         * Register the routes for handling broadcast authentication and sockets.
+         * Register the routes for handling broadcast channel authentication and sockets.
          *
          * @param array|null $attributes
          * @return void 
@@ -2785,6 +2785,32 @@
         {
                         /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
                         $instance->routes($attributes);
+        }
+                    /**
+         * Register the routes for handling broadcast user authentication.
+         *
+         * @param array|null $attributes
+         * @return void 
+         * @static 
+         */ 
+        public static function userAuthenticationRoutes($attributes = null)
+        {
+                        /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+                        $instance->userAuthenticationRoutes($attributes);
+        }
+                    /**
+         * Register the routes for handling broadcast authentication and sockets.
+         * 
+         * Alias of "routes" method.
+         *
+         * @param array|null $attributes
+         * @return void 
+         * @static 
+         */ 
+        public static function channelAuthorizationRoutes($attributes = null)
+        {
+                        /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+                        $instance->channelAuthorizationRoutes($attributes);
         }
                     /**
          * Get the socket ID for the given request.
@@ -7285,7 +7311,7 @@
                     /**
          * Create a new response instance for use during stubbing.
          *
-         * @param array|string $body
+         * @param array|string|null $body
          * @param int $status
          * @param array $headers
          * @return \GuzzleHttp\Promise\PromiseInterface 
@@ -18113,7 +18139,7 @@ namespace  {
              * Find a model by its primary key.
              *
              * @param mixed $id
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null 
              * @static 
              */ 
@@ -18127,7 +18153,7 @@ namespace  {
              * Find multiple models by their primary keys.
              *
              * @param \Illuminate\Contracts\Support\Arrayable|array $ids
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Collection 
              * @static 
              */ 
@@ -18141,7 +18167,7 @@ namespace  {
              * Find a model by its primary key or throw an exception.
              *
              * @param mixed $id
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static|static[] 
              * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
              * @static 
@@ -18156,7 +18182,7 @@ namespace  {
              * Find a model by its primary key or return fresh model instance.
              *
              * @param mixed $id
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|static 
              * @static 
              */ 
@@ -18170,7 +18196,7 @@ namespace  {
              * Find a model by its primary key or call a callback.
              *
              * @param mixed $id
-             * @param \Closure|array $columns
+             * @param \Closure|array|string $columns
              * @param \Closure|null $callback
              * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|mixed 
              * @static 
@@ -18226,7 +18252,7 @@ namespace  {
                 /**
              * Execute the query and get the first result or throw an exception.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|static 
              * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
              * @static 
@@ -18240,7 +18266,7 @@ namespace  {
                 /**
              * Execute the query and get the first result or call a callback.
              *
-             * @param \Closure|array $columns
+             * @param \Closure|array|string $columns
              * @param \Closure|null $callback
              * @return \Illuminate\Database\Eloquent\Model|static|mixed 
              * @static 
@@ -18377,7 +18403,7 @@ namespace  {
              * Paginate the given query.
              *
              * @param int|null|\Closure $perPage
-             * @param array $columns
+             * @param array|string $columns
              * @param string $pageName
              * @param int|null $page
              * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator 
@@ -18394,7 +18420,7 @@ namespace  {
              * Paginate the given query into a simple paginator.
              *
              * @param int|null $perPage
-             * @param array $columns
+             * @param array|string $columns
              * @param string $pageName
              * @param int|null $page
              * @return \Illuminate\Contracts\Pagination\Paginator 
@@ -18410,7 +18436,7 @@ namespace  {
              * Paginate the given query into a cursor paginator.
              *
              * @param int|null $perPage
-             * @param array $columns
+             * @param array|string $columns
              * @param string $cursorName
              * @param \Illuminate\Pagination\Cursor|string|null $cursor
              * @return \Illuminate\Contracts\Pagination\CursorPaginator 
@@ -18613,6 +18639,19 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Eloquent\Builder $instance */
                                 return $instance->setEagerLoads($eagerLoad);
+            }
+             
+                /**
+             * Indicate that the given relationships should not be eagerly loaded.
+             *
+             * @param array $relations
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */ 
+            public static function withoutEagerLoad($relations)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->withoutEagerLoad($relations);
             }
              
                 /**

@@ -40,7 +40,8 @@
                                                         Session :
                                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
                                                         -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
+                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}
+                                                    </h6>
                                                 </div>
                                             </div>
                                             <div class="dropdown">

@@ -28,7 +28,7 @@ class DepartmentBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.academic.campus.departments.index', [
+        return view('backend.domain.academic.departments.index', [
             'departments' => $this->repository->getDepartments(),
         ]);
     }
@@ -42,19 +42,19 @@ class DepartmentBackendController extends Controller
 
     public function create(): Renderable
     {
-        return view('backend.domain.academic.campus.departments.create');
+        return view('backend.domain.academic.departments.create');
     }
 
     public function store(DepartmentRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.departments.index');
+        return to_route('admins.academic.departments.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.academic.campus.departments.edit', [
+        return view('backend.domain.academic.departments.edit', [
             'department' => $this->repository->showDepartment(key:  $key),
         ]);
     }
@@ -63,14 +63,14 @@ class DepartmentBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
-        return Response::redirectToRoute('admins.departments.index');
+        return Response::redirectToRoute('admins.academic.departments.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, factory: $this->factory);
 
-        return Response::redirectToRoute('admins.departments.index');
+        return Response::redirectToRoute('admins.academic.departments.index');
     }
 
     public function activate(DepartmentStatusRequest $request): JsonResponse

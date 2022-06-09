@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\AcademicYear;
+use App\Models\Campus;
+use App\Models\Department;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CampusRequest extends FormRequest
+class FiliaireRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +28,15 @@ class CampusRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:4', 'unique:campuses'],
+            'name' => ['required', 'string', 'min:3'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
+            'user' => ['required', Rule::exists(User::class, 'id')],
+            'department' => ['required', Rule::exists(Department::class, 'id')],
+            'academic' => ['required', Rule::exists(AcademicYear::class, 'id')],
             'description' => ['nullable'],
-            'user_id' => ['required', Rule::exists('users', 'id')],
         ];
     }
 }

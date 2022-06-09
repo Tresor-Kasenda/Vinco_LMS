@@ -68,6 +68,11 @@ class Subsidiary extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function academic(): BelongsTo
+    {
+        return $this->belongsTo(AcademicYear::class, 'academic_year_id');
+    }
+
     public function promotions(): HasMany
     {
         return $this->hasMany(Promotion::class);

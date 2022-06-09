@@ -71,7 +71,7 @@ class Department extends Model
             ->withTimestamps();
     }
 
-    public function professors(): HasMany
+    public function teachers(): HasMany
     {
         return $this->hasMany(Professor::class);
     }

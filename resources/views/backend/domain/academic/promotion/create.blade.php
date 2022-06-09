@@ -37,7 +37,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du departement</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -45,7 +45,7 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du campus"
+                                                            placeholder="Saisir le nom du promotion"
                                                             required>
                                                     </div>
                                                 </div>

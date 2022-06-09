@@ -63,13 +63,13 @@
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.academic.promotion.index'),
-                                'name' => "Promotion"
+                                'route' => route('admins.academic.filiaire.index'),
+                                'name' => "Filiaire"
                             ])
 
                             @include('backend.components._links', [
-                                'route' => route('admins.academic.filiaire.index'),
-                                'name' => "Filiaire"
+                                'route' => route('admins.academic.promotion.index'),
+                                'name' => "Promotion"
                             ])
 
                             @include('backend.components._links', [

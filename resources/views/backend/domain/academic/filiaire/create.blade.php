@@ -37,7 +37,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du departement</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -45,7 +45,7 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du campus"
+                                                            placeholder="Saisir le nom du filiaire"
                                                             required>
                                                     </div>
                                                 </div>
@@ -67,15 +67,15 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Choisir le responsable</label>
+                                                    <label class="form-label" for="user">Choisir le responsable</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user_id') error @enderror"
-                                                        id="user_id"
-                                                        name="user_id"
-                                                        data-placeholder="Choisir le chef de department"
+                                                        class="form-control js-select2 @error('user') error @enderror"
+                                                        id="user"
+                                                        name="user"
+                                                        data-placeholder="Choisir le responsable"
                                                         required>
-                                                        <option label="Choisir le chef de department" value=""></option>
-                                                        @foreach($departmentHead as $user)
+                                                        <option label="Choisir le responsable" value=""></option>
+                                                        @foreach(\App\Models\User::where('role_id', \App\Enums\RoleEnum::CHEF_COURSES)->get() as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endforeach
                                                     </select>
@@ -83,16 +83,32 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="campus_id">Choisir le Campus</label>
+                                                    <label class="form-label" for="department">Choisir le departement</label>
                                                     <select
-                                                        class="form-control js-select2 @error('campus_id') error @enderror"
-                                                        id="campus_id"
-                                                        name="campus_id"
-                                                        data-placeholder="Choisir la faculte"
+                                                        class="form-control js-select2 @error('department') error @enderror"
+                                                        id="department"
+                                                        name="department"
+                                                        data-placeholder="Choisir la departemen"
                                                         required>
-                                                        <option label="Choisir la faculte" value=""></option>
-                                                        @foreach($campuses as $campus)
+                                                        <option label="Choisir le departement" value=""></option>
+                                                        @foreach(\App\Models\Department::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="academic">Choisir l'annnee academique</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('academic') error @enderror"
+                                                        id="academic"
+                                                        name="academic"
+                                                        data-placeholder="Choisir l'annnee academique"
+                                                        required>
+                                                        <option label="Choisir l'annnee academique" value=""></option>
+                                                        @foreach(\App\Models\AcademicYear::all() as $campus)
+                                                            <option value="{{ $campus->id }}">{{ $campus->startDate }}/{{ $campus->endDate }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

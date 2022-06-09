@@ -20,7 +20,7 @@ class TrashedDepartmentBackendController extends \App\Http\Controllers\Controlle
 
     public function index(): Renderable
     {
-        return view('backend.domain.academic.campus.departments.trashed.index', [
+        return view('backend.domain.academic.campus.trashed.index', [
             'departments' => $this->repository->getTrashes(),
         ]);
     }
