@@ -64,8 +64,9 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        <a id="download" href="{{ asset('storage/'. $resource->path) }}" download>
-                                            Telecharger <em class="icon ni ni-download"></em>
+                                        <a class="btn btn-dim btn-sm btn-danger" href="{{ asset('storage/'. $resource->path) }}" download>
+                                            Telecharger
+                                            <em class="icon ni ni-download"></em>
                                         </a>
                                     </span>
                                 </td>

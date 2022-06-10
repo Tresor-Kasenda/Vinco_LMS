@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Contracts\ExerciceRepositoryInterface;
+use App\Contracts\ExerciseRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LessonRequest;
+use App\Http\Requests\ExerciseRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -16,10 +16,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-class ExerciceBackendController extends Controller
+class ExerciseBackendController extends Controller
 {
     public function __construct(
-        protected readonly ExerciceRepositoryInterface $repository,
+        protected readonly ExerciseRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory
     ) {
     }
@@ -31,39 +31,37 @@ class ExerciceBackendController extends Controller
         return view('backend.domain.academic.exercises.index', compact('exercises'));
     }
 
-    public function show($course, $chapter, string $key): Factory|View|Application
+    public function show(string $key): Factory|View|Application
     {
-        $chapter = $this->repository->showExercise(key:  $key);
+        $exercise = $this->repository->showExercise(key:  $key);
 
-        return view('backend.domain.academic.exercises.show');
+        return view('backend.domain.academic.exercises.show', compact('exercise'));
     }
 
     public function create(): Renderable
     {
-        $chapters = [];
-
-        return view('backend.domain.academic.exercises.create', compact('chapters'));
+        return view('backend.domain.academic.exercises.create');
     }
 
-    public function store(LessonRequest $attributes): RedirectResponse
+    public function store(ExerciseRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.academic.exercise.index');
+        return redirect()->route('admins.academic.exercice.index');
     }
 
     public function edit(string $key): HttpResponse
     {
-        $lesson = $this->repository->showExercise(key:  $key);
+        $exercise = $this->repository->showExercise(key:  $key);
 
-        return Response::view('backend.domain.academic.exercises.edit', compact('lesson'));
+        return Response::view('backend.domain.academic.exercises.edit', compact('exercise'));
     }
 
-    public function update(string $key, LessonRequest $attributes): RedirectResponse
+    public function update(string $key, ExerciseRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
-        return to_route('admins.academic.exercise.index');
+        return redirect()->route('admins.academic.exercice.index');
     }
 
     public function destroy(string $key): RedirectResponse

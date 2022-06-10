@@ -12,6 +12,7 @@ use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
 use App\Contracts\ExerciceRepositoryInterface;
+use App\Contracts\ExerciseRepositoryInterface;
 use App\Contracts\ExpenseRepositoryInterface;
 use App\Contracts\ExpenseTypeRepositoryInterface;
 use App\Contracts\FeesRepositoryInterface;
@@ -46,7 +47,7 @@ use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\ExamListRepository;
-use App\Repositories\Backend\ExerciceRepository;
+use App\Repositories\Backend\ExerciseRepository;
 use App\Repositories\Backend\ExpenseRepository;
 use App\Repositories\Backend\ExpenseTypeRepository;
 use App\Repositories\Backend\FeesRepository;
@@ -107,7 +108,7 @@ class RepositoryServiceProvider extends ServiceProvider
         FeesRepositoryInterface::class => FeesRepository::class,
         ProfileRepositoryInterface::class => ProfileRepository::class,
         ResourceRepositoryInterface::class => ResourceRepository::class,
-        ExerciceRepositoryInterface::class => ExerciceRepository::class,
+        ExerciseRepositoryInterface::class => ExerciseRepository::class,
         HomeworkRepositoryInterface::class => HomeworkRepository::class,
         InterroRepositoryInterface::class => InterroRepository::class,
         StudentRepositoryInterface::class => StudentRepository::class,

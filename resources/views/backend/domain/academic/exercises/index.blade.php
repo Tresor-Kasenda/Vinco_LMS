@@ -50,91 +50,63 @@
                                 <span>Professeur</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Status</span>
+                                <span>Date de depot</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Type d'affichage</span>
+                                <span>Ponderation</span>
                             </th>
-                            <th class="nk-tb-col nk-tb-col-tools text-center">
-                                <ul class="nk-tb-actions gx-1 my-n1">
-                                    <li class="me-n1">
-                                        <div class="dropdown">
-                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                <em class="icon ni ni-more-h"></em>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <th class="nk-tb-col">
+                                <span>ACTION</span>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($exercises as $chapter)
+                        @foreach($exercises as $exercise)
                             <tr class="nk-tb-item text-center">
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $chapter->id ?? "" }}</span>
+                                    <span class="tb-lead">{{ $exercise->id ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ ucfirst($chapter->name) }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        Total Lesson : {{ $chapter->lessons_count ?? 0 }}
-                                    </span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $chapter->course->user->name }} {{ $chapter->course->user->firstName }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    @if($chapter->status)
-                                        <span class="dot bg-success d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                    @else
-                                        <span class="dot bg-warning d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                    @endif
+                                    <span class="tb-lead">{{ ucfirst($exercise->name) }}</span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ \App\Helpers\verifyIfLessonIsVideo($chapter->displayType) }}
+                                        {{ ucfirst($exercise->lesson->name) }}
                                     </span>
                                 </td>
-                                <td class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                    <em class="icon ni ni-more-h"></em>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ strtoupper($exercise->course->user->name) }}
+                                    </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ $exercise->schedule }}
+                                    </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ $exercise->weighting }}
+                                    </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex">
+                                                <a href="{{ route('admins.academic.exercice.edit', $exercise->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
                                                 </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a href="{{ route('admins.academic.exercice.show', ['chapter' => $chapter->key] ) }}">
-                                                                <em class="icon ni ni-eye"></em>
-                                                                <span>View</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ route('admins.academic.exercice.edit', ['chapter' => $chapter->key]) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.academic.exercice.destroy', ['chapter' => $chapter->key]) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-trash"></em>
-                                                                    <span>Remove</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    <a href="{{ route('admins.academic.exercice.show', $exercise->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.exercice.destroy', $exercise->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
                                             </div>
-                                        </li>
-                                    </ul>
+                                        </span>
                                 </td>
                             </tr>
                         @endforeach

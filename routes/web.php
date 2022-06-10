@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
@@ -13,7 +14,7 @@ use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
-use App\Http\Controllers\Backend\ExerciceBackendController;
+use App\Http\Controllers\Backend\ExerciseBackendController;
 use App\Http\Controllers\Backend\ExpenseBackendController;
 use App\Http\Controllers\Backend\ExpenseTypeBackendController;
 use App\Http\Controllers\Backend\FeesBackendController;
@@ -84,9 +85,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('chapter', ChapterBackendController::class);
             Route::resource('lessons', LessonBackendController::class);
             Route::resource('resource', ResourceBackendController::class);
-            Route::resource('exercice', ExerciceBackendController::class);
+            Route::resource('exercice', ExerciseBackendController::class);
             Route::resource('homework', HomeworkBackendController::class);
             Route::resource('interro', InterroBackendController::class);
+
+            Route::get('/getCourse', [ExerciceBackendApiController::class, 'render'])->name('chapter.render');
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {
