@@ -3,19 +3,19 @@
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
                 <img
-                    class="logo-light logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-light logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo">
                 <img
-                    class="logo-dark logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-dark logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo-dark">
                 <img
-                    class="logo-small logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-small logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo-small">
             </a>
         </div>
@@ -35,13 +35,13 @@
 
                     @include('backend.components._link', [
                                 'route' => route('admins.communication.message.index'),
-                                'name' => "Message",
+                                'name' => "Chat",
                                 'icon' => "ni-send"
                             ])
 
                     @include('backend.components._link', [
                         'route' => route('admins.communication.calendar.index'),
-                        'name' => "Calendar",
+                        'name' => "Calendrier Academique",
                         'icon' => "ni-calendar"
                     ])
 
@@ -62,6 +62,76 @@
                         'name' => "Journal de classe",
                         'icon' => "ni-bag"
                     ])
+
+                    @include('backend.components._link', [
+                                'route' => route('admins.academic.resource.index'),
+                                'name' => "Resource",
+                                'icon' => "ni-bookmark"
+                            ])
+
+                    @include('backend.components._link', [
+                                'route' => route('admins.communication.journal.index'),
+                                'name' => "Horaire de la semaine",
+                                'icon' => "ni-bullet"
+                            ])
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-book-read"></em>
+                            </span>
+                            <span class="nk-menu-text">Travaux</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.exercice.index'),
+                                'name' => "Exercice"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.homework.index'),
+                                'name' => "Homework"
+                            ])
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.interro.index'),
+                                'name' => "Interro"
+                            ])
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.interro.index'),
+                                'name' => "Bulletin"
+                            ])
+                        </ul>
+                    </li>
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-book-read"></em>
+                            </span>
+                            <span class="nk-menu-text">Résultats</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.exercice.index'),
+                                'name' => "Exercice"
+                            ])
+
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.homework.index'),
+                                'name' => "Homework"
+                            ])
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.interro.index'),
+                                'name' => "Interro"
+                            ])
+                            @include('backend.components._links', [
+                                'route' => route('admins.academic.interro.index'),
+                                'name' => "Bulletin"
+                            ])
+                        </ul>
+                    </li>
 
                     @include('backend.components._link', [
                         'route' => route('admins.exam.exam.index'),
