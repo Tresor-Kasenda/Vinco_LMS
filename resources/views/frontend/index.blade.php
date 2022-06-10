@@ -60,7 +60,7 @@
             <div class="col-lg-4">
                 <div>
                     <img
-                        src="{{asset('student.png')}}"
+                        src="{{asset('assets/student.png')}}"
                         alt="home-page-landing-student"
                         class="h-75 w-75 me-5 text-white w-auto position-absolute bottom-0 end-0"/>
                 </div>

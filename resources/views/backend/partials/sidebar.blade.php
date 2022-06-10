@@ -3,19 +3,19 @@
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
                 <img
-                    class="logo-light logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-light logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo">
                 <img
-                    class="logo-dark logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-dark logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo-dark">
                 <img
-                    class="logo-small logo-img"
-                    src="{{ asset('assets/vinco-dark.png') }}"
-                    srcset="{{ asset('assets/vinco-dark.png') }} 3x"
+                    class="logo-small logo-img h-100 w-100"
+                    src="{{ asset('assets/favicon.svg') }}"
+                    srcset="{{ asset('assets/favicon.svg') }} 3x"
                     alt="logo-small">
             </a>
         </div>
