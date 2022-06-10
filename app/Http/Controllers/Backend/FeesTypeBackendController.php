@@ -23,4 +23,9 @@ class FeesTypeBackendController extends Controller
 
         return view('backend.domain.account.feesType.index', compact('types'));
     }
+
+    public function create()
+    {
+        return view('backend.domain.account.feesType.create');
+    }
 }

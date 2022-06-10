@@ -23,4 +23,9 @@ class ExpenseBackendController extends Controller
 
         return view('backend.domain.account.expense.index', compact('expenses'));
     }
+
+    public function create()
+    {
+        return view('backend.domain.account.expense.create');
+    }
 }
