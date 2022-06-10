@@ -15,7 +15,6 @@ use Illuminate\Http\RedirectResponse;
 
 class ExerciseRepository implements ExerciseRepositoryInterface
 {
-
     public function exercises(): array|Collection|\Illuminate\Support\Collection
     {
         return Exercice::query()
@@ -29,6 +28,7 @@ class ExerciseRepository implements ExerciseRepositoryInterface
         $exercise = Exercice::query()
             ->where('key', '=', $key)
             ->firstOrCreate();
+
         return $exercise->load(['course', 'chapter', 'lesson']);
     }
 
