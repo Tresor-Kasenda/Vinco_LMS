@@ -28,45 +28,24 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="row g-gs">
-                        @forelse($types as $academic)
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card h-100">
+                    <div class="row mt-2 g-gs">
+                        @forelse($feesTypes as $feesType)
+                            <div class="col-md-4 col-xl-3">
+                                <div class="card">
+                                    <img src="{{ asset('storage/'. $feesType->images) }}" class="card-img-top" alt="">
                                     <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1">
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.accounting.feesTypes.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.accounting.feesTypes.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <h5 class="card-title">{{ $feesType->name }}</h5>
+                                        <div class="text-center d-flex">
+                                            <a href="{{ route('admins.announce.feesTypes.edit', $feesType->id) }}" class="btn btn-primary btn-sm">
+                                                <em class="icon ni ni-edit"></em>
+                                            </a>
+                                            <form action="{{ route('admins.announce.feesTypes.destroy', $feesType->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                @method('DELETE')
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <em class="icon ni ni-trash"></em>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

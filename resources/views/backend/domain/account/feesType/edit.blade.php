@@ -6,71 +6,51 @@
     <div class="container-fluid">
         <div class="nk-content-inner">
             <div class="nk-content-body">
-                <div class="nk-block-head nk-block-head-sm">
-                    <div class="nk-block-between">
-                        <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">
-                                Edit Schedule List
-                            </h3>
-                        </div>
-                        <div class="nk-block-head-content">
-                            <div class="toggle-wrap nk-block-tools-toggle">
-                                <div class="toggle-expand-content" data-content="more-options">
-                                    <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.exam.exam.index') }}">
-                                                <em class="icon ni ni-arrow-left"></em>
-                                                <span>Back</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="nk-block">
                     <div class="card">
-                        <div class="card-inner">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="card-title mt-2">Creation Fees Type</h6>
+                            <a class="btn btn-dim btn-primary btn-sm  active-link mt-2" href="{{ route('admins.announce.feesTypes.index') }}">
+                                <em class="icon ni ni-arrow-left"></em>
+                                <span>Back</span>
+                            </a>
+                        </div>
+                        <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-md-6">
-                                    <form action="{{ route('admins.exam.exam.update', $academic->key) }}" method="post" class="form-validate" novalidate="novalidate">
+                                <div class="col-md-7 mt-4">
+                                    <form action="{{ route('admins.announce.feesTypes.update', $feesType->id) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="startDate">Annee debut</label>
+                                                    <label class="form-label" for="name">Titre du l'exercice</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('startDate') error @enderror"
-                                                            id="startDate"
-                                                            name="startDate"
-                                                            value="{{ old('startDate' ) ?? $academic->startDate }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir le debut de l'annee"
+                                                            class="form-control @error('name') error @enderror"
+                                                            id="name"
+                                                            name="name"
+                                                            value="{{ old('name') ?? $feesType->name }}"
+                                                            placeholder="Saisir le nom du cours"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="endDate">Annee de fin</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control date-picker-alt @error('endDate') error @enderror"
-                                                            id="endDate"
-                                                            name="endDate"
-                                                            value="{{ old('endDate' ) ?? $academic->endDate }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir la fin de l'annee"
-                                                            required>
-                                                    </div>
+                                                    <label class="form-label" for="images">Images</label>
+                                                    <input
+                                                        type="file"
+                                                        class="form-control @error('images') error @enderror"
+                                                        id="images"
+                                                        name="images"
+                                                        value="{{ old('images') ?? $feesType->images }}"
+                                                        placeholder="Selectionnez l'image"
+                                                        required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 mb-3">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
