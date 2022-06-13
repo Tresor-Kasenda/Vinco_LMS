@@ -35,9 +35,10 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
         $fee = FeeType::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'images' => self::uploadFiles($attributes)
+                'images' => self::uploadFiles($attributes),
             ]);
         $factory->addSuccess('Une nouvelle fees type a ete ajouter');
+
         return $fee;
     }
 
@@ -47,9 +48,10 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
         $this->removePathOfImages($fee);
         $fee->update([
             'name' => $attributes->input('name'),
-            'images' => self::uploadFiles($attributes)
+            'images' => self::uploadFiles($attributes),
         ]);
         $factory->addSuccess('Nouvelle fees type a ete mise a jours avec success');
+
         return $fee;
     }
 
@@ -59,6 +61,7 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
         self::removePathOfImages($fee);
         $fee->delete();
         $factory->addSuccess('Nouvelle fees type a ete supprimer avec success');
+
         return $fee;
     }
 }
