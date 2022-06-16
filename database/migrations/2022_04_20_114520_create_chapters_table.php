@@ -19,7 +19,6 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('displayType');
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

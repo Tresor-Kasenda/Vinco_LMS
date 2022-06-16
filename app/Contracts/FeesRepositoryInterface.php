@@ -8,11 +8,11 @@ interface FeesRepositoryInterface
 {
     public function getFees();
 
-    public function showFee(string $key);
+    public function showFee(int $key);
 
     public function stored($attributes, $factory);
 
-    public function updated(string $key, $attributes, $factory);
+    public function updated(int $key, $attributes, $factory);
 
-    public function deleted(string $key, $factory);
+    public function deleted(int $key, $factory);
 }

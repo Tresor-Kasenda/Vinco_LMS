@@ -32,6 +32,7 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
+
                     @include('backend.components._link', [
                         'route' => route('admins.backend.home'),
                         'name' => "Dashboard",

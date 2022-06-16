@@ -18,11 +18,9 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('condition');
-            $table->integer('weighting');
-            $table->date('date');
-            $table->timestamp('schedule');
-            $table->string('duration');
+            $table->integer('weighting')->nullable();
+            $table->date('date')->nullable();
+            $table->string('duration')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

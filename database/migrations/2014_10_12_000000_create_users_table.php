@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('name', '30');
             $table->string('firstName', '30')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role_id')->default(RoleEnum::STUDENT);
             $table->boolean('status')->default(StatusEnum::FALSE);

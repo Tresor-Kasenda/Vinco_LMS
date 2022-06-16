@@ -37,7 +37,23 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du Leçon</label>
+                                                    <label class="form-label" for="chapter">Cours</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('chapter') error @enderror"
+                                                        id="chapter"
+                                                        name="chapter"
+                                                        data-placeholder="Choisir le chapter"
+                                                        required>
+                                                        <option label="Choisir le chapter" value=""></option>
+                                                        @foreach(\App\Models\Course::all() as $campus)
+                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"

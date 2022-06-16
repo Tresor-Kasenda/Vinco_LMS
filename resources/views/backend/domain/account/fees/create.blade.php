@@ -37,7 +37,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="startDate">Annee debut</label>
+                                                    <label class="form-label" for="startDate">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"

@@ -18,6 +18,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('name');
             $table->string('shortContent');
+            $table->enum('content_type', ['text', 'video']);
             $table->text('content')->nullable();
             $table->boolean('status')->nullable();
             $table->timestamps();

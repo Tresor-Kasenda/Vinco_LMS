@@ -93,6 +93,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function changeStatus($attributes): bool|int
     {
         $department = $this->showDepartment(key: $attributes->input('key'));
+
         if ($department != null) {
             return $department->update([
                 'status' => $attributes->input('status'),

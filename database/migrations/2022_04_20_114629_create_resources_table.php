@@ -18,8 +18,8 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name', '30');
-            $table->string('files');
-            $table->string('path');
+            $table->string('files')->nullable();
+            $table->string('path')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();
