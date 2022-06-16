@@ -220,7 +220,7 @@
                     ])
 
                     @include('backend.components._link', [
-                        'route' => route('admins.communication.message.index'),
+                        'route' => route('admins.communication.calendar.index'),
                         'name' => "Go To Communication",
                         'icon' => "ni-book"
                     ])

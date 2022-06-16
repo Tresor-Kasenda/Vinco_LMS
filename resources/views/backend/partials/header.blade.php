@@ -20,7 +20,7 @@
                 </span>
                 </a>
                 @else
-                    <a href="{{route('admins.communication.message.index')}}">
+                    <a href="{{route('admins.communication.calendar.index')}}">
                     <span class="badge bg-primary">
                     Go To Communication
                     </span>
