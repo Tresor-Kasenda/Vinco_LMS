@@ -81,6 +81,8 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
  * @property-read Profile|null $profile
+ * @property-read Collection|Professor[] $professors
+ * @property-read Collection|Department[] $users
  */
 class User extends Authenticatable
 {

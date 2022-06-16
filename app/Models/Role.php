@@ -35,9 +35,9 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  * @property string $title
  * @property Carbon|null $deleted_at
- * @property-read Collection|\App\Models\Permission[] $permissions
+ * @property-read Collection|Permission[] $permissions
  * @property-read int|null $permissions_count
- * @property-read Collection|\App\Models\User[] $rolesUsers
+ * @property-read Collection|User[] $rolesUsers
  * @property-read int|null $roles_users_count
  * @method static \Illuminate\Database\Query\Builder|Role onlyTrashed()
  * @method static Builder|Role whereDeletedAt($value)

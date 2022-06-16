@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Subsidiary.
@@ -22,35 +25,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $description
  * @property string $images
  * @property int $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property int $academic_year_id
- * @property-read \App\Models\Department $department
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Promotion[] $promotions
+ * @property-read Department $department
+ * @property-read Collection|Promotion[] $promotions
  * @property-read int|null $promotions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Student[] $students
+ * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary newQuery()
+ * @property-read User $user
+ * @method static Builder|Subsidiary newModelQuery()
+ * @method static Builder|Subsidiary newQuery()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary query()
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereAcademicYearId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereDepartmentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereImages($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subsidiary whereUserId($value)
+ * @method static Builder|Subsidiary query()
+ * @method static Builder|Subsidiary whereAcademicYearId($value)
+ * @method static Builder|Subsidiary whereCreatedAt($value)
+ * @method static Builder|Subsidiary whereDeletedAt($value)
+ * @method static Builder|Subsidiary whereDepartmentId($value)
+ * @method static Builder|Subsidiary whereDescription($value)
+ * @method static Builder|Subsidiary whereId($value)
+ * @method static Builder|Subsidiary whereImages($value)
+ * @method static Builder|Subsidiary whereKey($value)
+ * @method static Builder|Subsidiary whereName($value)
+ * @method static Builder|Subsidiary whereStatus($value)
+ * @method static Builder|Subsidiary whereUpdatedAt($value)
+ * @method static Builder|Subsidiary whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withoutTrashed()
  * @mixin \Eloquent
+ * @property-read AcademicYear $academic
  */
 class Subsidiary extends Model
 {

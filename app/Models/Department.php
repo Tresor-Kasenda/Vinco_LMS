@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,31 +29,34 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Campus $campus
- * @property-read Collection|\App\Models\Professor[] $teacher
+ * @property-read Collection|Professor[] $teacher
  * @property-read int|null $professors_count
- * @property-read Collection|\App\Models\Student[] $students
+ * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
- * @property-read Collection|\App\Models\Subsidiary[] $subdsidiaries
+ * @property-read Collection|Subsidiary[] $subdsidiaries
  * @property-read int|null $subdsidiaries_count
- * @property-read Collection|\App\Models\User[] $admin
+ * @property-read Collection|User[] $admin
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|Department newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Department newQuery()
+ * @method static Builder|Department newModelQuery()
+ * @method static Builder|Department newQuery()
  * @method static \Illuminate\Database\Query\Builder|Department onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Department query()
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereCampusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereImages($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Department whereUpdatedAt($value)
+ * @method static Builder|Department query()
+ * @method static Builder|Department whereCampusId($value)
+ * @method static Builder|Department whereCreatedAt($value)
+ * @method static Builder|Department whereDeletedAt($value)
+ * @method static Builder|Department whereDescription($value)
+ * @method static Builder|Department whereId($value)
+ * @method static Builder|Department whereImages($value)
+ * @method static Builder|Department whereKey($value)
+ * @method static Builder|Department whereName($value)
+ * @method static Builder|Department whereStatus($value)
+ * @method static Builder|Department whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  * @mixin \Eloquent
+ * @property-read Collection|Professor[] $teachers
+ * @property-read int|null $teachers_count
+ * @property-read Collection|User[] $users
  */
 class Department extends Model
 {

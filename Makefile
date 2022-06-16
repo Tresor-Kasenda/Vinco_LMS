@@ -38,6 +38,10 @@ create: vendor/autoload.php # creer un administrateur
 watch: vendor/autoload.php ## lance, le serve de development
 	npm run watch
 
+.PHONE: generate
+generate: vendor/autoload.php
+	php artisan ide:models
+
 vendor/autoload.php: composer.lock
 	composer install
 	touch vendor/autoload.php

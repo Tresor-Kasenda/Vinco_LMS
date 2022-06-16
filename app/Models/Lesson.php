@@ -54,6 +54,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $end_time
  * @property string|null $start_time
  * @method static Builder|Lesson calendarByRoleOrClassId()
+ * @property string $content_type
+ * @method static Builder|Lesson whereContentType($value)
  */
 class Lesson extends Model
 {

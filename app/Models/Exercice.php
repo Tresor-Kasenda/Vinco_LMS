@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Exercice.
@@ -25,31 +27,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $schedule
  * @property string $duration
  * @property int $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Chapter|null $chapter
- * @property-read \App\Models\Course $course
- * @property-read \App\Models\Lesson|null $lesson
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice newQuery()
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Chapter|null $chapter
+ * @property-read Course $course
+ * @property-read Lesson|null $lesson
+ * @method static Builder|Exercice newModelQuery()
+ * @method static Builder|Exercice newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exercice onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice query()
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereChapterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereCondition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereCourseId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereDuration($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereLessonId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereSchedule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Exercice whereWeighting($value)
+ * @method static Builder|Exercice query()
+ * @method static Builder|Exercice whereChapterId($value)
+ * @method static Builder|Exercice whereCondition($value)
+ * @method static Builder|Exercice whereCourseId($value)
+ * @method static Builder|Exercice whereCreatedAt($value)
+ * @method static Builder|Exercice whereDate($value)
+ * @method static Builder|Exercice whereDeletedAt($value)
+ * @method static Builder|Exercice whereDuration($value)
+ * @method static Builder|Exercice whereId($value)
+ * @method static Builder|Exercice whereKey($value)
+ * @method static Builder|Exercice whereLessonId($value)
+ * @method static Builder|Exercice whereName($value)
+ * @method static Builder|Exercice whereSchedule($value)
+ * @method static Builder|Exercice whereStatus($value)
+ * @method static Builder|Exercice whereUpdatedAt($value)
+ * @method static Builder|Exercice whereWeighting($value)
  * @method static \Illuminate\Database\Query\Builder|Exercice withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exercice withoutTrashed()
  * @mixin \Eloquent

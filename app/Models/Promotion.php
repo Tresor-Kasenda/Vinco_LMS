@@ -50,6 +50,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Promotion withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Promotion withoutTrashed()
  * @mixin Eloquent
+ * @property-read AcademicYear $academic
  */
 class Promotion extends Model
 {
