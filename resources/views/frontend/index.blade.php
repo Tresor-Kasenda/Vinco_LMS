@@ -27,7 +27,7 @@
                            class="btn btn-outline-light w-auto h-auto d-inline my-2 my-sm-0 me-2" type="submit">
                             Go TO LMS Dashboard
                         </a>
-                        <a href="{{route('admins.communication.message.index')}}"
+                        <a href="{{route('admins.communication.calendar.index')}}"
                            class="btn btn-outline-light w-auto h-auto d-inline my-2 my-sm-0" type="submit">
                             Go TO Communication Dashboard
                         </a>

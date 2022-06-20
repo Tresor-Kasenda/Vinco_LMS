@@ -34,7 +34,7 @@
                 <ul class="nk-menu">
 
                     @include('backend.components._link', [
-                                'route' => route('admins.communication.message.index'),
+                                'route' => url('/chatify'),
                                 'name' => "Chat",
                                 'icon' => "ni-send"
                             ])
