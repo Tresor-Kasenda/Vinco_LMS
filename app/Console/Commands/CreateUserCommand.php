@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Models\Role;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -54,6 +55,11 @@ class CreateUserCommand extends Command
                         ->create(compact('name', 'email', 'password', 'role_id', 'status'));
 
                     $user->save();
+                    Setting::query()
+                        ->create([
+                            'user_id' => $user->id,
+                            'app_name' => $name
+                        ]);
                     $this->info(sprintf('User %s with email <%s> as created', $name, $email));
                     exit();
                 } catch (\Exception $exception) {

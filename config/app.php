@@ -170,6 +170,7 @@ return [
 
         Flasher\Laravel\FlasherServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -198,6 +199,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Flasher' => Flasher\Laravel\Facade\Flasher::class,
+        'Timezonelist' => Jackiedo\Timezonelist\Facades\Timezonelist::class,
     ])->toArray(),
 
 ];

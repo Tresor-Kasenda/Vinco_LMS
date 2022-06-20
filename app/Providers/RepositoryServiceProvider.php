@@ -29,6 +29,7 @@ use App\Contracts\PromotionRepositoryInterface;
 use App\Contracts\ResourceRepositoryInterface;
 use App\Contracts\ResultRepositoryInterface;
 use App\Contracts\SchedulerRepositoryInterface;
+use App\Contracts\SettingRepositoryInterface;
 use App\Contracts\StudentRepositoryInterface;
 use App\Contracts\TrashedCampusRepositoryInterface;
 use App\Contracts\TrashedCategoryRepositoryInterface;
@@ -75,6 +76,7 @@ use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
 use App\Repositories\Backend\TrashedUsersRepository;
 use App\Repositories\Backend\UsersRepository;
+use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -118,6 +120,7 @@ class RepositoryServiceProvider extends ServiceProvider
         FeesTypeRepositoryInterface::class => FeesTypeRepository::class,
         ExpenseTypeRepositoryInterface::class => ExpenseTypeRepository::class,
         ExpenseRepositoryInterface::class => ExpenseRepository::class,
+        SettingRepositoryInterface::class => SettingRepository::class,
     ];
 
     /**

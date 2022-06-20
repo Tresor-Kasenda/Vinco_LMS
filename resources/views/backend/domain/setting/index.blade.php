@@ -35,21 +35,27 @@
                                 <div class="tab-pane active" id="basic">
                                     <div class="nk-block">
                                         <div class="row g-gs">
-                                            <div class="col-xxl-8 col-lg-12"></div>
+                                            <div class="col-xxl-8 col-lg-12">
+                                                @include('backend.components._basics')
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="system">
                                     <div class="nk-block">
                                         <div class="row g-gs">
-                                            <div class="col-xxl-8 col-lg-12"></div>
+                                            <div class="col-xxl-8 col-lg-12">
+                                                @include('backend.components._system')
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="language">
                                     <div class="nk-block">
                                         <div class="row g-gs">
-                                            <div class="col-xxl-8 col-lg-12"></div>
+                                            <div class="col-xxl-8 col-lg-12">
+                                                @include('backend.components._language')
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

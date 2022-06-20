@@ -83,6 +83,15 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Profile|null $profile
  * @property-read Collection|Professor[] $professors
  * @property-read Collection|Department[] $users
+ * @property int $active_status
+ * @property string $avatar
+ * @property int $dark_mode
+ * @property string $messenger_color
+ * @property-read Setting|null $setting
+ * @method static Builder|User whereActiveStatus($value)
+ * @method static Builder|User whereAvatar($value)
+ * @method static Builder|User whereDarkMode($value)
+ * @method static Builder|User whereMessengerColor($value)
  */
 class User extends Authenticatable
 {
@@ -133,6 +142,11 @@ class User extends Authenticatable
     public function professors(): HasMany
     {
         return $this->hasMany(Professor::class);
+    }
+
+    public function setting(): HasOne
+    {
+        return $this->hasOne(Setting::class);
     }
 
     public function users(): BelongsToMany

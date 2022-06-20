@@ -120,6 +120,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('roles', RoleBackendController::class);
         Route::resource('settings', SettingsBackendController::class);
+        Route::put('setting/{system}', [SettingsBackendController::class, 'updateSystem'])->name('system.update');
         Route::controller(ProfileBackendController::class)->group(function () {
             Route::get('profile', 'index')->name('admins.profile');
         });

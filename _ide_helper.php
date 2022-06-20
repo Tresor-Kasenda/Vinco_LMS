@@ -16612,6 +16612,121 @@
      
 }
 
+    namespace Jackiedo\Timezonelist\Facades { 
+            /**
+     * The Timezonelist facade.
+     *
+     * @method statis \Jackiedo\Timezonelist\Timezonelist showOffset(bool $status=true)                                                  Decide whether to show the offset or not.
+     * @see \Jackiedo\Timezonelist\Timezonelist
+     */ 
+        class Timezonelist {
+                    /**
+         * Set the filter of the groups want to get.
+         *
+         * @param array $groups
+         * @return \Jackiedo\Timezonelist\Timezonelist 
+         * @static 
+         */ 
+        public static function onlyGroups($groups = [])
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->onlyGroups($groups);
+        }
+                    /**
+         * Set the filter of the groups do not want to get.
+         *
+         * @param array $groups
+         * @return \Jackiedo\Timezonelist\Timezonelist 
+         * @static 
+         */ 
+        public static function excludeGroups($groups = [])
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->excludeGroups($groups);
+        }
+                    /**
+         * Decide whether to split group or not.
+         *
+         * @param bool $status
+         * @return \Jackiedo\Timezonelist\Timezonelist 
+         * @static 
+         */ 
+        public static function splitGroup($status = true)
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->splitGroup($status);
+        }
+                    /**
+         * Decide whether to show the offset or not.
+         *
+         * @param bool $status
+         * @return \Jackiedo\Timezonelist\Timezonelist 
+         * @static 
+         */ 
+        public static function showOffset($status = true)
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->showOffset($status);
+        }
+                    /**
+         * Return new static to reset all config.
+         *
+         * @return \Jackiedo\Timezonelist\Timezonelist 
+         * @static 
+         */ 
+        public static function reset()
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->reset();
+        }
+                    /**
+         * Create an array of timezones.
+         *
+         * @param bool $htmlencode Use HTML entities for items
+         * @return mixed 
+         * @static 
+         */ 
+        public static function toArray($htmlencode = true)
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->toArray($htmlencode);
+        }
+                    /**
+         * Alias of the `toSelectBox()` method.
+         *
+         * @deprecated 6.0.0 This method name no longer matches the semantics
+         * @param string $name The name of the select tag
+         * @param null|string $selected The selected value
+         * @param null|array|string $attrs The HTML attributes of select tag
+         * @param bool $htmlencode Use HTML entities for values of select tag
+         * @return string 
+         * @static 
+         */ 
+        public static function create($name, $selected = null, $attrs = null, $htmlencode = true)
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->create($name, $selected, $attrs, $htmlencode);
+        }
+                    /**
+         * Create a select box of timezones.
+         *
+         * @param string $name The name of the select tag
+         * @param null|string $selected The selected value
+         * @param null|array|string $attrs The HTML attributes of select tag
+         * @param bool $htmlencode Use HTML entities for values of select tag
+         * @return string 
+         * @static 
+         */ 
+        public static function toSelectBox($name, $selected = null, $attrs = null, $htmlencode = true)
+        {
+                        /** @var \Jackiedo\Timezonelist\Timezonelist $instance */
+                        return $instance->toSelectBox($name, $selected, $attrs, $htmlencode);
+        }
+         
+    }
+     
+}
+
     namespace Livewire { 
             /**
      * 
@@ -16938,6 +17053,301 @@
         {
                         /** @var \Livewire\LivewireManager $instance */
                         return $instance->flushState();
+        }
+         
+    }
+     
+}
+
+    namespace Chatify\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class ChatifyMessenger {
+                    /**
+         * Get max file's upload size in MB.
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getMaxUploadSize()
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getMaxUploadSize();
+        }
+                    /**
+         * This method returns the allowed image extensions
+         * to attach with the message.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllowedImages()
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getAllowedImages();
+        }
+                    /**
+         * This method returns the allowed file extensions
+         * to attach with the message.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllowedFiles()
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getAllowedFiles();
+        }
+                    /**
+         * Returns an array contains messenger's colors
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getMessengerColors()
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getMessengerColors();
+        }
+                    /**
+         * Trigger an event using Pusher
+         *
+         * @param string $channel
+         * @param string $event
+         * @param array $data
+         * @return void 
+         * @static 
+         */ 
+        public static function push($channel, $event, $data)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        $instance->push($channel, $event, $data);
+        }
+                    /**
+         * Authentication for pusher
+         *
+         * @param string $channelName
+         * @param string $socket_id
+         * @param array $data
+         * @return void 
+         * @static 
+         */ 
+        public static function pusherAuth($channelName, $socket_id, $data = null)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        $instance->pusherAuth($channelName, $socket_id, $data);
+        }
+                    /**
+         * Fetch message by id and return the message card
+         * view as a response.
+         *
+         * @param int $id
+         * @return array 
+         * @static 
+         */ 
+        public static function fetchMessage($id, $index = null)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->fetchMessage($id, $index);
+        }
+                    /**
+         * Return a message card with the given data.
+         *
+         * @param array $data
+         * @param string $viewType
+         * @return string 
+         * @static 
+         */ 
+        public static function messageCard($data, $viewType = null)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->messageCard($data, $viewType);
+        }
+                    /**
+         * Default fetch messages query between a Sender and Receiver.
+         *
+         * @param int $user_id
+         * @return \App\Models\ChMessage|\Illuminate\Database\Eloquent\Builder 
+         * @static 
+         */ 
+        public static function fetchMessagesQuery($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->fetchMessagesQuery($user_id);
+        }
+                    /**
+         * create a new message to database
+         *
+         * @param array $data
+         * @return void 
+         * @static 
+         */ 
+        public static function newMessage($data)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        $instance->newMessage($data);
+        }
+                    /**
+         * Make messages between the sender [Auth user] and
+         * the receiver [User id] as seen.
+         *
+         * @param int $user_id
+         * @return bool 
+         * @static 
+         */ 
+        public static function makeSeen($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->makeSeen($user_id);
+        }
+                    /**
+         * Get last message for a specific user
+         *
+         * @param int $user_id
+         * @return \App\Models\ChMessage|\Chatify\Collection|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null 
+         * @static 
+         */ 
+        public static function getLastMessageQuery($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getLastMessageQuery($user_id);
+        }
+                    /**
+         * Count Unseen messages
+         *
+         * @param int $user_id
+         * @return \Chatify\Collection 
+         * @static 
+         */ 
+        public static function countUnseenMessages($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->countUnseenMessages($user_id);
+        }
+                    /**
+         * Get user list's item data [Contact Itme]
+         * (e.g. User data, Last message, Unseen Counter.
+         * 
+         * ..)
+         *
+         * @param int $messenger_id
+         * @param \Chatify\Collection $user
+         * @return string 
+         * @static 
+         */ 
+        public static function getContactItem($user)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getContactItem($user);
+        }
+                    /**
+         * Get user with avatar (formatted).
+         *
+         * @param \Chatify\Collection $user
+         * @return \Chatify\Collection 
+         * @static 
+         */ 
+        public static function getUserWithAvatar($user)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getUserWithAvatar($user);
+        }
+                    /**
+         * Check if a user in the favorite list
+         *
+         * @param int $user_id
+         * @return boolean 
+         * @static 
+         */ 
+        public static function inFavorite($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->inFavorite($user_id);
+        }
+                    /**
+         * Make user in favorite list
+         *
+         * @param int $user_id
+         * @param int $star
+         * @return boolean 
+         * @static 
+         */ 
+        public static function makeInFavorite($user_id, $action)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->makeInFavorite($user_id, $action);
+        }
+                    /**
+         * Get shared photos of the conversation
+         *
+         * @param int $user_id
+         * @return array 
+         * @static 
+         */ 
+        public static function getSharedPhotos($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getSharedPhotos($user_id);
+        }
+                    /**
+         * Delete Conversation
+         *
+         * @param int $user_id
+         * @return boolean 
+         * @static 
+         */ 
+        public static function deleteConversation($user_id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->deleteConversation($user_id);
+        }
+                    /**
+         * Delete message by ID
+         *
+         * @param int $id
+         * @return boolean 
+         * @static 
+         */ 
+        public static function deleteMessage($id)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->deleteMessage($id);
+        }
+                    /**
+         * Return a storage instance with disk name specified in the config.
+         *
+         * @static 
+         */ 
+        public static function storage()
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->storage();
+        }
+                    /**
+         * Get user avatar url.
+         *
+         * @param string $user_avatar_name
+         * @return string 
+         * @static 
+         */ 
+        public static function getUserAvatarUrl($user_avatar_name)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getUserAvatarUrl($user_avatar_name);
+        }
+                    /**
+         * Get attachment's url.
+         *
+         * @param string $attachment_name
+         * @return string 
+         * @static 
+         */ 
+        public static function getAttachmentUrl($attachment_name)
+        {
+                        /** @var \Chatify\ChatifyMessenger $instance */
+                        return $instance->getAttachmentUrl($attachment_name);
         }
          
     }
@@ -21649,7 +22059,9 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Flasher extends \Flasher\Laravel\Facade\Flasher {}
+            class Timezonelist extends \Jackiedo\Timezonelist\Facades\Timezonelist {}
             class Livewire extends \Livewire\Livewire {}
+            class Chatify extends \Chatify\Facades\ChatifyMessenger {}
             class SweetAlert extends \Flasher\SweetAlert\Laravel\Facade\SweetAlert {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
