@@ -57,9 +57,8 @@ class FeesBackendController extends Controller
 
     public function destroy(int $id): RedirectResponse
     {
-        $this->repository->deleted(key: $id,factory: $this->factory);
+        $this->repository->deleted(key: $id, factory: $this->factory);
 
         return back();
     }
-
 }

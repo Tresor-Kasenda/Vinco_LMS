@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Homework
+ * App\Models\Homework.
  *
  * @property int $id
  * @property string $key

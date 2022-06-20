@@ -46,9 +46,10 @@ class FeesRepository implements FeesRepositoryInterface
                 'due_date' => $attributes->input('dues'),
                 'pay_date' => $attributes->input('pay_date'),
                 'description' => $attributes->input('description'),
-                'status' => StatusEnum::FALSE
+                'status' => StatusEnum::FALSE,
             ]);
         $factory->addSuccess('Nouvelle transaction effectuer avec succes');
+
         return $fee;
     }
 
@@ -65,6 +66,7 @@ class FeesRepository implements FeesRepositoryInterface
             'description' => $attributes->input('description'),
         ]);
         $factory->addSuccess('Transaction modifier avec succes');
+
         return $fee;
     }
 
@@ -73,6 +75,7 @@ class FeesRepository implements FeesRepositoryInterface
         $fee = $this->showFee(key: $key);
         $fee->delete();
         $factory->addSuccess('Transaction supprimer avec succes');
+
         return $fee;
     }
 }

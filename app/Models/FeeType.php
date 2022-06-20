@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\FeeType
+ * App\Models\FeeType.
  *
  * @property int $id
  * @property string $name

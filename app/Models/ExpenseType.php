@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ExpenseType
+ * App\Models\ExpenseType.
  *
  * @property int $id
  * @property string $key

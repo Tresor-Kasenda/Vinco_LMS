@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "carbon-cli/carbon-cli": "^1.2",
         "guzzlehttp/guzzle": "^7.4.3",
         "laravel/framework": "^v9.17.0",
         "laravel/sanctum": "^v2.15.1",
