@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ChFavorite
+ * App\Models\ChFavorite.
  *
  * @property int $id
  * @property int $user_id

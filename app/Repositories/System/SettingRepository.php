@@ -31,9 +31,10 @@ class SettingRepository implements SettingRepositoryInterface
                 'app_address' =>  $request->input('app_address'),
                 'app_icons' =>  self::uploadIcons(request: $request),
                 'app_images' =>  self::uploadLogo(request: $request),
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
         $factory->addSuccess('Configuration enregistrer avec succes');
+
         return $setting;
     }
 
@@ -81,7 +82,7 @@ class SettingRepository implements SettingRepositoryInterface
             'class_start' => $request->input('class_start'),
             'class_end' => $request->input('class_end'),
             'app_time_zone' => $request->input('timezone'),
-            'routine_time_difference' => $request->input('routine_time_difference')
+            'routine_time_difference' => $request->input('routine_time_difference'),
         ]);
 
         $factory->addSuccess('Configuration modifier avec succes');

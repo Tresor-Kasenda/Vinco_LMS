@@ -31,7 +31,7 @@ class SettingsBackendController extends Controller
      */
     public function index(): Renderable
     {
-        $times  =  new \Jackiedo\Timezonelist\Timezonelist();
+        $times = new \Jackiedo\Timezonelist\Timezonelist();
 
         return view('backend.domain.setting.index', compact('times'));
     }
@@ -43,6 +43,7 @@ class SettingsBackendController extends Controller
     public function store(SettingRequest $request): RedirectResponse
     {
         $this->repository->store(request: $request, factory: $this->factory);
+
         return back();
     }
 

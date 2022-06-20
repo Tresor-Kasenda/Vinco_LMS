@@ -58,7 +58,7 @@ class CreateUserCommand extends Command
                     Setting::query()
                         ->create([
                             'user_id' => $user->id,
-                            'app_name' => $name
+                            'app_name' => $name,
                         ]);
                     $this->info(sprintf('User %s with email <%s> as created', $name, $email));
                     exit();

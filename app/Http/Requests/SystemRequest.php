@@ -27,8 +27,8 @@ class SystemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "timezone" => ['required', 'string', 'timezone'],
-            "routine_time_difference" => ['required', Rule::in([
+            'timezone' => ['required', 'string', 'timezone'],
+            'routine_time_difference' => ['required', Rule::in([
                 '10',
                 '20',
                 '25',
@@ -38,10 +38,10 @@ class SystemRequest extends FormRequest
                 '45',
                 '50',
                 '55',
-                '90'
+                '90',
             ])],
-            "class_start" => ['required'],
-            "end_start" => ['required'],
+            'class_start' => ['required'],
+            'end_start' => ['required'],
         ];
     }
 }

@@ -18,6 +18,7 @@ class RoleBackendController extends Controller
                ->orderByDesc('created_at')
                ->get();
         });
+
         return view('backend.domain.roles.index', compact('roles'));
     }
 }

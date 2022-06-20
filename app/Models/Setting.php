@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Setting
+ * App\Models\Setting.
  *
  * @property int $id
  * @property int $user_id

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ChMessage
+ * App\Models\ChMessage.
  *
  * @property int $id
  * @property string $type

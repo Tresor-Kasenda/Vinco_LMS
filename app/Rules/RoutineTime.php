@@ -30,8 +30,8 @@ class RoutineTime implements Rule
     {
         return Setting::query()
             ->where('class_start', '<=', $value)
-            ->where('class_end', ">=", $value)
-            ->count() == 0 ;
+            ->where('class_end', '>=', $value)
+            ->count() == 0;
     }
 
     /**
