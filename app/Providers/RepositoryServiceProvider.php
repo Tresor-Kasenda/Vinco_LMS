@@ -8,6 +8,7 @@ use App\Contracts\AcademicYearRepositoryInterface;
 use App\Contracts\CampusRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\ChapterRepositoryInterface;
+use App\Contracts\ChartRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
@@ -76,6 +77,7 @@ use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
 use App\Repositories\Backend\TrashedUsersRepository;
 use App\Repositories\Backend\UsersRepository;
+use App\Repositories\System\ChartRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -121,6 +123,7 @@ class RepositoryServiceProvider extends ServiceProvider
         ExpenseTypeRepositoryInterface::class => ExpenseTypeRepository::class,
         ExpenseRepositoryInterface::class => ExpenseRepository::class,
         SettingRepositoryInterface::class => SettingRepository::class,
+        ChartRepositoryInterface::class => ChartRepository::class,
     ];
 
     /**
