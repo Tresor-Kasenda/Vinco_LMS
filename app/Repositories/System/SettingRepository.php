@@ -10,6 +10,7 @@ use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingRepository implements SettingRepositoryInterface
 {
@@ -88,5 +89,11 @@ class SettingRepository implements SettingRepositoryInterface
         $factory->addSuccess('Configuration modifier avec succes');
 
         return $setting;
+    }
+
+    public function removeCache($factory)
+    {
+        Artisan::call('cache:clear');
+        $factory->addSuccess('Configuration modifier avec succes');
     }
 }

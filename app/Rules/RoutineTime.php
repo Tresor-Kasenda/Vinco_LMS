@@ -39,7 +39,7 @@ class RoutineTime implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The validation error message.';
     }
