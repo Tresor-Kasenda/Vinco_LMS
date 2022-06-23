@@ -7,21 +7,25 @@ namespace App\Repositories\Backend;
 use App\Contracts\UsersRepositoryInterface;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
+use App\Models\ExpenseType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class UsersRepository implements UsersRepositoryInterface
 {
     public function getUsers(): array|Collection
     {
-        return User::query()
-            ->orderByDesc('created_at')
-            ->latest()
-            ->get();
+        return Cache::remember('users', 3600, function () {
+            return User::query()
+                ->orderByDesc('created_at')
+                ->latest()
+                ->get();
+        });
     }
 
     public function showUser(string $key): Model|Builder|User|null

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -28,8 +30,16 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Expense whereKey($value)
  * @method static Builder|Expense whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read ExpenseType $types
  */
 class Expense extends Model
 {
-    use HasFactory;
+    use HasFactory, HasKeyTrait;
+
+    protected $guarded = [];
+
+    public function types(): BelongsTo
+    {
+        return $this->belongsTo(ExpenseType::class, 'expense_type_id');
+    }
 }

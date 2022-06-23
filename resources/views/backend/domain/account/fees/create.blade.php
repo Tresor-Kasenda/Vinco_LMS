@@ -37,16 +37,31 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="startDate">Nom</label>
+                                                    <label class="form-label" for="types">Fee Type</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('types') error @enderror"
+                                                        id="types"
+                                                        name="types"
+                                                        data-placeholder="Select Type"
+                                                        required>
+                                                        <option label="Select Type" value=""></option>
+                                                        @foreach(\App\Models\FeeType::all() as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="student">Student</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('startDate') error @enderror"
-                                                            id="startDate"
-                                                            name="startDate"
-                                                            value="{{ old('startDate') }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir le debut de l'annee"
+                                                            class="form-control @error('student') error @enderror"
+                                                            id="student"
+                                                            name="student"
+                                                            value="{{ old('student') }}"
+                                                            placeholder="Select Student"
                                                             required>
                                                     </div>
                                                 </div>

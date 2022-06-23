@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-use App\Http\Middleware\AdminsMiddleware;
-use App\Http\Middleware\CampusMiddleware;
-use App\Http\Middleware\DepartmentsMiddleware;
-use App\Http\Middleware\ProfessorsMiddleware;
-use App\Http\Middleware\StudentsMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -55,7 +50,7 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware.
      *
-     * These middleware may be assigned to groups or used individually.
+     * This middleware may be assigned to groups or used individually.
      *
      * @var array<string, class-string|string>
      */
@@ -71,11 +66,16 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'admins' => AdminsMiddleware::class,
-        'campus' => CampusMiddleware::class,
-        'department' => DepartmentsMiddleware::class,
-        'student' => StudentsMiddleware::class,
-        'professor' => ProfessorsMiddleware::class,
+         // 'admins' => AdminsMiddleware::class,
+         // 'campus' => CampusMiddleware::class,
+         // 'department' => DepartmentsMiddleware::class,
+         // 'student' => StudentsMiddleware::class,
+         // 'professor' => ProfessorsMiddleware::class,
+
+
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
     ];
 }

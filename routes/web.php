@@ -58,7 +58,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'permission']], function () {
     Route::group([
         'prefix' => 'admins',
         'as' => 'admins.',
@@ -196,9 +196,3 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');
-Route::get('about', [AboutAppController::class, 'index'])->name('about.index');
-Route::get('short-courses', [ShortCoursesAppController::class, 'index'])->name('courses.index');
-Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.index');
-Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
-Route::get('events', [EventAppController::class, 'index'])->name('events.index');
-Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');

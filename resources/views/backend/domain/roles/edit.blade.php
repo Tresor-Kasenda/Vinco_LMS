@@ -36,7 +36,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
@@ -50,6 +50,27 @@
                                                             required>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                @foreach($permissions as $permission)
+                                                    <tr>
+                                                        <td>
+                                                            <input
+                                                                type="checkbox"
+                                                                name="permission[{{ $permission->name }}]"
+                                                                value="{{ $permission->name }}"
+                                                                class='permission'
+                                                                {{
+                                                                    in_array($permission->name, $rolePermissions)
+                                                                    ? 'checked'
+                                                                    : ''
+                                                                }}>
+                                                        </td>
+                                                        <td>{{ $permission->name }}</td>
+                                                        <td>{{ $permission->guard_name }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -66,4 +87,23 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('[name="all_permission"]').on('click', function() {
+                if($(this).is(':checked')) {
+                    $.each($('.permission'), function() {
+                        $(this).prop('checked',true);
+                    });
+                } else {
+                    $.each($('.permission'), function() {
+                        $(this).prop('checked',false);
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

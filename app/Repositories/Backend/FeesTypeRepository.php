@@ -6,11 +6,11 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\FeesTypeRepositoryInterface;
 use App\Models\FeeType;
-use App\Models\IncomeType;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class FeesTypeRepository implements FeesTypeRepositoryInterface
 {
@@ -18,9 +18,11 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
 
     public function getFeesTypes(): Collection|array
     {
-        return FeeType::query()
-            ->orderByDesc('created_at')
-            ->get();
+        return Cache::remember('feesTypes', 1000, function () {
+            return FeeType::query()
+                ->orderByDesc('created_at')
+                ->get();
+        });
     }
 
     public function showFeeType(string $key): Model|Builder|null
@@ -32,36 +34,36 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
 
     public function stored($attributes, $factory): Model|Builder
     {
-        $fee = FeeType::query()
+        $feeType = FeeType::query()
             ->create([
                 'name' => $attributes->input('name'),
                 'images' => self::uploadFiles($attributes),
             ]);
-        $factory->addSuccess('Une nouvelle fees type a ete ajouter');
+        $factory->addSuccess('Fees Type added with Successfully');
 
-        return $fee;
+        return $feeType;
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
-        $fee = $this->showFeeType(key: $key);
-        $this->removePathOfImages($fee);
-        $fee->update([
+        $feeType = $this->showFeeType(key: $key);
+        $this->removePathOfImages($feeType);
+        $feeType->update([
             'name' => $attributes->input('name'),
             'images' => self::uploadFiles($attributes),
         ]);
-        $factory->addSuccess('Nouvelle fees type a ete mise a jours avec success');
 
-        return $fee;
+        $factory->addSuccess('Fees Type updated with Successfully');
+        return $feeType;
     }
 
     public function deleted(string $key, $factory): Model|Builder|null
     {
-        $fee = $this->showFeeType(key: $key);
-        self::removePathOfImages($fee);
-        $fee->delete();
-        $factory->addSuccess('Nouvelle fees type a ete supprimer avec success');
+        $feeType = $this->showFeeType(key: $key);
+        self::removePathOfImages($feeType);
+        $feeType->delete();
 
-        return $fee;
+        $factory->addSuccess('Fees Type deleted with Successfully');
+        return $feeType;
     }
 }

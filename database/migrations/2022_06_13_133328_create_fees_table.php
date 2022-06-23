@@ -26,8 +26,8 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('transaction_no')->unique();
             $table->string('amount');
-            $table->string('due_date');
-            $table->string('pay_date');
+            $table->date('due_date');
+            $table->date('pay_date')->nullable();
             $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
             $table->text('description');
             $table->timestamps();

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
-use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class CreateUserCommand extends Command
 {
@@ -46,15 +47,22 @@ class CreateUserCommand extends Command
             if (! $validator->fails()) {
                 try {
                     $password = Hash::make($password);
-                    $role = Role::query()
-                        ->where('id', '=', RoleEnum::ADMIN)
-                        ->first();
-                    $role_id = $role->id;
                     $status = StatusEnum::TRUE;
                     $user = User::query()
-                        ->create(compact('name', 'email', 'password', 'role_id', 'status'));
-
+                        ->create(compact('name', 'email', 'password', 'status'));
                     $user->save();
+                    $role = Role::create(['name' => "Super Admin"]);
+
+                    Artisan::call('db:seed');
+
+                    $permission = Permission::query()
+                        ->pluck('id', 'id')
+                        ->all();
+
+                    $role->syncPermissions($permission);
+
+                    $user->assignRole([$role->id]);
+
                     Setting::query()
                         ->create([
                             'user_id' => $user->id,
