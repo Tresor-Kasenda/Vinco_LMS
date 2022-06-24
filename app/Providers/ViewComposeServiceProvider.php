@@ -29,10 +29,6 @@ class ViewComposeServiceProvider extends ServiceProvider
     {
         View::composer([
             'backend.domain.*',
-        ], RoleComposer::class);
-
-        View::composer([
-            'backend.domain.*',
         ], AcademicYearComposer::class);
 
         View::composer([

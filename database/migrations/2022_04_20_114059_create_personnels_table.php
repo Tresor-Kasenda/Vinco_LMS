@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->string('images')->nullable();
             $table->string('location')->nullable();
             $table->string('identityCard')->unique()->nullable();
-            $table->enum('gender', [GenderEnum::$genders]);
+            $table->enum('gender', ['male', 'female']);
             $table->date('birthdays')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();

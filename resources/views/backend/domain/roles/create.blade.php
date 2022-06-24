@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Edition du role")
+@section('title')
+    Create Role
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Edition du role</h3>
+                            <h3 class="nk-block-title page-title">Create Role</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -30,11 +32,19 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="row justify-content-center mb-4">
                                 <div class="col-md-12">
-                                    <form action="{{ route('admins.roles.update', $role->id) }}" method="post" class="form-validate" novalidate="novalidate">
+                                    <form action="{{ route('admins.roles.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
-                                        @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -45,7 +55,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $role->name }}"
+                                                            value="{{ old('name') }}"
                                                             placeholder="Definir le role"
                                                             required>
                                                     </div>
@@ -84,7 +94,6 @@
                                                                                 name="permission[]"
                                                                                 id="permission[]"
                                                                                 value="{{ $permission->id }}"
-                                                                                {{ in_array($permission->id, $roleHasPermissions) ? 'checked' : '' }}
                                                                                 class="form-check-input">
                                                                             <span class="form-check-label">
                                                                                 {{ $permission->name  ?? "" }}
@@ -97,7 +106,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 text-center">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
@@ -116,12 +125,10 @@
 
 
 @section('scripts')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
-            $(document).ready(function() {
-                $("#all_permission").click(function () {
-                    $('input:checkbox').not(this).prop('checked', this.checked);
-                });
+            $("#all_permission").click(function () {
+                $('input:checkbox').not(this).prop('checked', this.checked);
             });
         });
     </script>

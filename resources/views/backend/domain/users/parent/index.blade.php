@@ -38,7 +38,7 @@
                         <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
                                 <th class="nk-tb-col">
-                                    <span>name</span>
+                                    <span>Name</span>
                                 </th>
                                 <th class="nk-tb-col">
                                     <span>First name</span>

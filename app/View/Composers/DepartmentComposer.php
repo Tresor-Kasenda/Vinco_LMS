@@ -16,9 +16,6 @@ class DepartmentComposer
         $view->with(
             'departmentHead',
             User::query()
-            ->when('role_id', function ($query) {
-                $query->where('role_id', RoleEnum::DEPARTMENT);
-            })
             ->when('deleted_at', function ($query) {
                 $query->where('deleted_at', null);
             })

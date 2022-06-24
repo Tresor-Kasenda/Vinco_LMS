@@ -55,20 +55,29 @@ class CreateUserCommand extends Command
 
                     Artisan::call('db:seed');
 
+                    $results = Permission::all();
+
                     $permission = Permission::query()
                         ->pluck('id', 'id')
                         ->all();
 
+                    $progressBar = $this->output->createProgressBar($results->count());
+                    $progressBar->start();
+
                     $role->syncPermissions($permission);
 
-                    $user->assignRole([$role->id]);
+                    $user->assignRole($role);
+                    sleep(3);
+                    $progressBar->advance();
 
                     Setting::query()
                         ->create([
                             'user_id' => $user->id,
                             'app_name' => $name,
                         ]);
-                    $this->info(sprintf('User %s with email <%s> as created', $name, $email));
+                    $progressBar->finish();
+
+                    $this->info(sprintf('User name %s with email <%s>, as created', $name, $email));
                     exit();
                 } catch (\Exception $exception) {
                     $this->error('Something went wrong run the command with -v for more details');

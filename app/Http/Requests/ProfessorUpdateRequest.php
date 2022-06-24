@@ -30,7 +30,7 @@ class ProfessorUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'min:4', 'max:255'],
             'firstName' => ['required', 'string', 'min:4', 'max:255'],
             'lastName' => ['required', 'string', 'min:4', 'max:255'],
-            'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
+            'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'nationality' => ['required', 'string', 'min:4', 'max:255'],
             'address' => ['required', 'string', 'min:7', 'max:255'],

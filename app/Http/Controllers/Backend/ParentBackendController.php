@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\ParentRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmerProfessorRequest;
+use App\Http\Requests\ParentRequest;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
@@ -16,6 +17,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ParentBackendController extends Controller
 {
@@ -23,28 +26,38 @@ class ParentBackendController extends Controller
         protected readonly ParentRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory
     ) {
+        $this->middleware('can:parent-list', ['only' => ['index','show']]);
+        $this->middleware('can:parent-create', ['only' => ['create','store']]);
+        $this->middleware('can:parent-edit', ['only' => ['edit','update']]);
+        $this->middleware('can:parent-delete', ['only' => ['destroy']]);
     }
 
     public function index(): Renderable
     {
-        return view('backend.domain.users.parent.index', [
-            'parents' => $this->repository->guardians(),
-        ]);
+        abort_unless(request()->user()->can('parent-list'), 403);
+
+        $parents = $this->repository->guardians();
+
+        return view('backend.domain.users.parent.index', compact('parents'));
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.parent.show', [
-            'professor' => $this->repository->showGuardian(key:  $key),
-        ]);
+        abort_if(Gate::denies('parent-view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $permission = $this->repository->showGuardian(key: $key);
+
+        return view('backend.domain.users.parent.show', compact('permission'));
     }
 
     public function create(): Renderable
     {
+        abort_if(Gate::denies('parent-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('backend.domain.users.parent.create');
     }
 
-    public function store(ProfessorRequest $attributes): RedirectResponse
+    public function store(ParentRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 

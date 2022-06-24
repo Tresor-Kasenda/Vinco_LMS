@@ -21,12 +21,8 @@ class PermissionMiddleware
      * @param null $guard
      * @return Response|RedirectResponse
      */
-    public function handle(
-        Request $request,
-        Closure $next,
-        $permission = null,
-        $guard = null
-    ): Response|RedirectResponse {
+    public function handle(Request $request, Closure $next, $permission = null, $guard = null): Response|RedirectResponse
+    {
         $authGuard = app('auth')->guard($guard);
 
         if ($authGuard->guest()) {

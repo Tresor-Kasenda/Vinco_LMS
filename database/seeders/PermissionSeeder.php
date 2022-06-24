@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
 {
@@ -16,6 +17,8 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
         $permissions = [
             'user-create',
             'user-list',
@@ -84,10 +87,12 @@ class PermissionSeeder extends Seeder
             'exam-create',
             'exam-edit',
             'exam-delete',
+            'exam-view',
             'question-list',
             'question-create',
             'question-edit',
             'question-delete',
+            'question-view',
             'exercice-list',
             'exercice-create',
             'exercice-edit',
@@ -131,6 +136,7 @@ class PermissionSeeder extends Seeder
             'setting-create',
             'setting-edit',
             'setting-delete',
+            'setting-view',
             'role-list',
             'role-create',
             'role-edit',
@@ -139,14 +145,46 @@ class PermissionSeeder extends Seeder
             'calendar-create',
             'calendar-edit',
             'calendar-delete',
+            'calendar-view',
             'schedule-list',
             'schedule-create',
             'schedule-edit',
             'schedule-delete',
+            'schedule-view',
             'exam-schedule-list',
             'exam-schedule-create',
             'exam-schedule-edit',
             'exam-schedule-delete',
+            'event-list',
+            'event-view',
+            'event-create',
+            'event-edit',
+            'event-delete',
+            'notification-list',
+            'notification-view',
+            'notification-create',
+            'notification-edit',
+            'notification-delete',
+            'bulletin-list',
+            'bulletin-view',
+            'bulletin-create',
+            'bulletin-edit',
+            'bulletin-delete',
+            'aperi-list',
+            'aperi-view',
+            'aperi-create',
+            'aperi-edit',
+            'aperi-delete',
+            'chat-list',
+            'chat-view',
+            'chat-edit',
+            'chat-delete',
+            'chat-create',
+            'group-list',
+            'group-view',
+            'group-create',
+            'group-edit',
+            'group-delete',
         ];
 
         foreach ($permissions as $permission) {

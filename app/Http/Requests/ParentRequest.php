@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
 
-class RoleRequest extends FormRequest
+class ParentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +15,6 @@ class RoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return true;
     }
 
@@ -27,12 +23,14 @@ class RoleRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'permission' => ['required', 'array'],
-            'permission.*' => ['integer', Rule::exists('permissions', 'id')],
+            'name' => ['required', 'string', 'min:3'],
+            'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
+            'password' => ['required', 'string', 'min:6'],
+            'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'gender' => ['required', 'in:male,female']
         ];
     }
 }

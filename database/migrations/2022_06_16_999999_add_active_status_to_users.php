@@ -11,7 +11,7 @@ class AddActiveStatusToUsers extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             // if not exist, add the new column
