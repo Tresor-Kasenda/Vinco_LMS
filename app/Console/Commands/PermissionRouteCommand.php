@@ -30,7 +30,7 @@ class PermissionRouteCommand extends Command
     /**
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $routes = Route::getRoutes()->getRoutes();
 

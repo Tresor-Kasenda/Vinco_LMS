@@ -28,6 +28,7 @@
         "laravel/sail": "^1.14.10",
         "mockery/mockery": "^1.5.0",
         "nunomaduro/collision": "^6.2",
+        "nunomaduro/phpinsights": "^2.4",
         "pestphp/pest-plugin-laravel": "^1.2",
         "phpunit/phpunit": "^9.5.20",
         "spatie/laravel-ignition": "^1.2.4"
@@ -79,7 +80,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "treeware/plant": true
+            "treeware/plant": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "minimum-stability": "dev",
