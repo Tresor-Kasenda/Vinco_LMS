@@ -31,11 +31,12 @@ class RoleRepository implements RoleRepositoryInterface
     {
         $role = Role::query()
             ->create([
-                'name' => $attributes->input('name')
+                'name' => $attributes->input('name'),
             ]);
         $role->givePermissionTo($attributes->input('permission'));
 
-        $flash->addSuccess("New role as added with successfully");
+        $flash->addSuccess('New role as added with successfully');
+
         return $role;
     }
 
@@ -43,12 +44,13 @@ class RoleRepository implements RoleRepositoryInterface
     {
         $role = $this->showRole(key: $key);
         $role->update([
-            'name' => $attributes->input('name')
+            'name' => $attributes->input('name'),
         ]);
 
         $role->syncPermissions($attributes->input('permission'));
 
-        $flash->addSuccess("New role as updated with successfully");
+        $flash->addSuccess('New role as updated with successfully');
+
         return $role;
     }
 
@@ -56,7 +58,8 @@ class RoleRepository implements RoleRepositoryInterface
     {
         $role = $this->showRole(key: $key);
         $role->delete();
-        $flash->addSuccess("New role as deleted with successfully");
+        $flash->addSuccess('New role as deleted with successfully');
+
         return $role;
     }
 }

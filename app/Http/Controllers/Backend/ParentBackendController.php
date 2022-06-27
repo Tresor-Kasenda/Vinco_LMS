@@ -26,9 +26,9 @@ class ParentBackendController extends Controller
         protected readonly ParentRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory
     ) {
-        $this->middleware('can:parent-list', ['only' => ['index','show']]);
-        $this->middleware('can:parent-create', ['only' => ['create','store']]);
-        $this->middleware('can:parent-edit', ['only' => ['edit','update']]);
+        $this->middleware('can:parent-list', ['only' => ['index', 'show']]);
+        $this->middleware('can:parent-create', ['only' => ['create', 'store']]);
+        $this->middleware('can:parent-edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:parent-delete', ['only' => ['destroy']]);
     }
 

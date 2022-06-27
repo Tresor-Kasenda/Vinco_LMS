@@ -52,6 +52,7 @@ class FeesRepository implements FeesRepositoryInterface
             ]);
 
         $factory->addSuccess('Fee added with successfully');
+
         return $fee;
     }
 
@@ -69,6 +70,7 @@ class FeesRepository implements FeesRepositoryInterface
         ]);
 
         $factory->addSuccess('Fee updated with successfully');
+
         return $fee;
     }
 
@@ -78,6 +80,7 @@ class FeesRepository implements FeesRepositoryInterface
         $fee->delete();
 
         $factory->addSuccess('Fee deleted with successfully');
+
         return $fee;
     }
 }

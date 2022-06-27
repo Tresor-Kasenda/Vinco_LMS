@@ -30,7 +30,7 @@ class ParentRequest extends FormRequest
             'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'password' => ['required', 'string', 'min:6'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
-            'gender' => ['required', 'in:male,female']
+            'gender' => ['required', 'in:male,female'],
         ];
     }
 }

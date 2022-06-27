@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProfessorRepositoryTest extends TestCase
 {
-
     public function testCreateUser()
     {
-
     }
 }

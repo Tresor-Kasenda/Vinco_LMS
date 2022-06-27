@@ -28,14 +28,14 @@ class AcademicYearRequest extends FormRequest
                 'date',
                 'date_format:Y-m-d',
                 'before:endDate',
-                new RoutineTime()
+                new RoutineTime(),
             ],
             'endDate' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
                 'after:startDate',
-                new RoutineTime()
+                new RoutineTime(),
             ],
         ];
     }

@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\RoleRepositoryInterface;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use Illuminate\Contracts\View\View;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleBackendController extends Controller
@@ -51,7 +51,6 @@ class RoleBackendController extends Controller
         return redirect()->route('admins.roles.index');
     }
 
-
     public function edit(int $id): Factory|View|Application
     {
         abort_if(Gate::denies('role-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -59,6 +58,7 @@ class RoleBackendController extends Controller
         $role = $this->repository->showRole(key: $id);
         $roleHasPermissions = $role->permissions->pluck('id')->toArray();
         $permissions = Permission::query()->get();
+
         return view('backend.domain.roles.edit', compact('role', 'permissions', 'roleHasPermissions'));
     }
 
@@ -77,6 +77,6 @@ class RoleBackendController extends Controller
 
         $this->repository->deleted(key: $id, flash: $this->factory);
 
-        return back()->with('success', "The role has remove with successfull");
+        return back()->with('success', 'The role has remove with successfull');
     }
 }

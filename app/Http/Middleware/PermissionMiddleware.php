@@ -38,7 +38,7 @@ class PermissionMiddleware
         if (is_null($permission)) {
             $permission = $request->route()->getName();
 
-            $permissions = array($permission);
+            $permissions = [$permission];
         }
 
         foreach ($permissions as $permission) {

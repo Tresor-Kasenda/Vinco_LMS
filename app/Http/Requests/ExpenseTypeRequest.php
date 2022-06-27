@@ -27,7 +27,7 @@ class ExpenseTypeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'images' => ['required','mimes:jpg,png,svg,gif,jpeg'],
+            'images' => ['required', 'mimes:jpg,png,svg,gif,jpeg'],
         ];
     }
 }

@@ -26,9 +26,10 @@ class ExpenseRepository implements ExpenseRepositoryInterface
 
     public function showExpense(string $key): Model|Builder|Expense
     {
-        $expense =  Expense::query()
+        $expense = Expense::query()
             ->where('id', '=', $key)
             ->firstOrFail();
+
         return $expense->load('types');
     }
 
@@ -38,10 +39,11 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             ->create([
                 'amount' => $attributes->input('amount'),
                 'description' => $attributes->input('description'),
-                'expense_type_id' => $attributes->input('expense')
+                'expense_type_id' => $attributes->input('expense'),
             ]);
 
         $factory->addSuccess('Expense added with successfully');
+
         return $expense;
     }
 
@@ -51,9 +53,10 @@ class ExpenseRepository implements ExpenseRepositoryInterface
         $expense->update([
             'amount' => $attributes->input('amount'),
             'description' => $attributes->input('description'),
-            'expense_type_id' => $attributes->input('expense')
+            'expense_type_id' => $attributes->input('expense'),
         ]);
         $factory->addSuccess('Expense updated with successfully');
+
         return $expense;
     }
 
@@ -62,6 +65,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
         $expense = $this->showExpense(key: $key);
         $expense->delete();
         $factory->addSuccess('Expense updated with successfully');
+
         return $expense;
     }
 }

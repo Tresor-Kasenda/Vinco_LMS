@@ -46,6 +46,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->first();
         if ($professor) {
             $factory->addError('Email deja utiliser par un autre compte');
+
             return back();
         }
         $user = $this->createUser($attributes);
@@ -55,6 +56,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $professor = $this->createProfessor($attributes, $user);
 
         $factory->addSuccess('Un professeur a ete ajouter');
+
         return $professor;
     }
 
@@ -80,6 +82,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $professor = $this->showProfessor(key: $key);
         if ($professor->status !== StatusEnum::FALSE) {
             $factory->addError('Veillez desactiver le professeur avant de le mettre dans la corbeille');
+
             return back();
         }
         $professor->delete();
@@ -125,7 +128,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('password'))
+                'password' => Hash::make($attributes->input('password')),
             ]);
     }
 
