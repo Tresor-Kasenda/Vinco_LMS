@@ -7,6 +7,8 @@ use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\Communication\CalendarBackendController;
+use App\Http\Controllers\Backend\Communication\Chat\GroupController;
+use App\Http\Controllers\Backend\Communication\Chat\MessageController;
 use App\Http\Controllers\Backend\Communication\EventsBackendController;
 use App\Http\Controllers\Backend\Communication\JournalBackendController;
 use App\Http\Controllers\Backend\Communication\MessageBackendController;
@@ -202,3 +204,19 @@ Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.
 Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
 Route::get('events', [EventAppController::class, 'index'])->name('events.index');
 Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
+
+
+//Add chat group test
+Route::get('/group/create',  [GroupController::class, 'create_form']);
+Route::post('/group/create', [GroupController::class, 'create']);
+Route::get('/group/join', [GroupController::class, 'join_form']);
+Route::post('/group/join', [GroupController::class, 'join']);
+Route::get('/group/{id}', [GroupController::class, 'show_group']);
+Route::get('/group/edit/{id}', [GroupController::class, 'edit']);
+Route::post('/group/update/{id}', [GroupController::class, 'update']);
+Route::delete('/group/delete/{id}', [GroupController::class, 'delete']);
+Route::get('/group/members_list/{id}', [GroupController::class, 'members_list']);
+Route::get('/remove_user/{id}/{user_id}', [GroupController::class, 'remove_user']);
+Route::post('/send_message/{id}', [MessageController::class, 'send_message']);
+Route::get('/show_messages/{id}', [MessageController::class, 'show_messages']);
+Route::get('/home-groupe', [App\Http\Controllers\Backend\Communication\Chat\HomeController::class, 'index'])->name('home');
