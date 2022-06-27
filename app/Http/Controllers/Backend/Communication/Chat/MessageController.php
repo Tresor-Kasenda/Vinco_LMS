@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Backend\Communication\Chat;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Message;
-use App\Models\Group;
-
 use App\Events\MessageEvent;
+use App\Http\Controllers\Controller;
+use App\Models\Group;
+use App\Models\Message;
+use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
@@ -37,7 +36,7 @@ class MessageController extends Controller
         $message = Message::create([
             'user_id' => auth()->user()->id,
             'group_id' => $id,
-            'message' => $request->message
+            'message' => $request->message,
         ])->with(['group', 'user'])->latest()->first();
 
         //update the group. The update_at date will help list groups from the most recent to the oldest

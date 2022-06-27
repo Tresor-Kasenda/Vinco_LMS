@@ -19,7 +19,6 @@ class MessageEvent implements ShouldBroadcast
      *
      * @return void
      */
-
     public $message;
 
     public function __construct($message)

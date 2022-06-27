@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Backend\Communication\Chat;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Models\Group;
+use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
@@ -29,7 +28,7 @@ class GroupController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         //generate a code for the groupe
@@ -43,7 +42,7 @@ class GroupController extends Controller
         ]);
 
         //we attach the user with the group after he created it
-       $group->participants()->attach(auth()->user()->id);
+        $group->participants()->attach(auth()->user()->id);
 
         return redirect('/chatify')->with('success', 'Your group has been created');
     }
@@ -58,7 +57,7 @@ class GroupController extends Controller
     public function join(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required'
+            'code' => 'required',
         ]);
 
         $code = $request->code;
@@ -66,24 +65,18 @@ class GroupController extends Controller
         $group = Group::where('code', $code)->first();
 
         //if the group exists
-        if ($group)
-        {
-            try
-            {
+        if ($group) {
+            try {
                 //we add the user to the group and we redirect him to the home page with a success message
 
                 $group->participants()->attach(auth()->user()->id);
 
                 return redirect('/chatify')->with('success', 'Group joined');
-            }
-            catch (\Throwable $th)
-            {
+            } catch (\Throwable $th) {
                 //Display an error if the user is already in the group
                 return redirect()->back()->with('error', 'You are already a member of this group');
             }
-        }
-        else
-        {
+        } else {
             //if the group doesn't exist we throw an error
             return redirect()->back()->with('error', 'Group not found');
         }
@@ -111,7 +104,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $group = Group::find($id);
@@ -120,7 +113,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect('/group/'. $id)->with('success', 'Group name has been changed');
+        return redirect('/group/'.$id)->with('success', 'Group name has been changed');
     }
 
     //delete a groupe and remove every participant

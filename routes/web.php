@@ -205,9 +205,8 @@ Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
 Route::get('events', [EventAppController::class, 'index'])->name('events.index');
 Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
 
-
 //Add chat group test
-Route::get('/group/create',  [GroupController::class, 'create_form']);
+Route::get('/group/create', [GroupController::class, 'create_form']);
 Route::post('/group/create', [GroupController::class, 'create']);
 Route::get('/group/join', [GroupController::class, 'join_form']);
 Route::post('/group/join', [GroupController::class, 'join']);

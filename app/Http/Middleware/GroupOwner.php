@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Group;
 use Closure;
 use Illuminate\Http\Request;
-
-use App\Models\Group;
 
 class GroupOwner
 {
@@ -20,14 +19,10 @@ class GroupOwner
     {
         $group = Group::find($request->id);
 
-        if ($group->admin_id == auth()->user()->id)
-        {
+        if ($group->admin_id == auth()->user()->id) {
             return $next($request);
-        }
-        else
-        {
+        } else {
             return redirect('/home')->with('error', 'Unauthorized');
         }
-        
     }
 }
