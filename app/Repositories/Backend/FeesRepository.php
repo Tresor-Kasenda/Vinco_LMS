@@ -7,11 +7,11 @@ namespace App\Repositories\Backend;
 use App\Contracts\FeesRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Fee;
-use App\Models\Income;
 use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class FeesRepository implements FeesRepositoryInterface
 {
@@ -19,10 +19,12 @@ class FeesRepository implements FeesRepositoryInterface
 
     public function getFees(): Collection|array
     {
-        return Income::query()
-            ->with(['student', 'feeType'])
-            ->orderByDesc('created_at')
-            ->get();
+        return Cache::remember('fees', 1000, function () {
+            return Fee::query()
+                ->with(['student', 'feeType'])
+                ->orderByDesc('created_at')
+                ->get();
+        });
     }
 
     public function showFee(int $key)
@@ -38,7 +40,7 @@ class FeesRepository implements FeesRepositoryInterface
     {
         $fee = Fee::query()
             ->create([
-                'fee_type_id' => $attributes->input('fee_type'),
+                'fee_type_id' => $attributes->input('type'),
                 'student_id' => $attributes->input('student'),
                 'amount' => $attributes->input('amount'),
                 'name' => $attributes->input('name'),
@@ -48,7 +50,8 @@ class FeesRepository implements FeesRepositoryInterface
                 'description' => $attributes->input('description'),
                 'status' => StatusEnum::FALSE,
             ]);
-        $factory->addSuccess('Nouvelle transaction effectuer avec succes');
+
+        $factory->addSuccess('Fee added with successfully');
 
         return $fee;
     }
@@ -57,7 +60,7 @@ class FeesRepository implements FeesRepositoryInterface
     {
         $fee = $this->showFee(key: $key);
         $fee->update([
-            'fee_type_id' => $attributes->input('fee_type'),
+            'fee_type_id' => $attributes->input('type'),
             'student_id' => $attributes->input('student'),
             'amount' => $attributes->input('amount'),
             'name' => $attributes->input('name'),
@@ -65,7 +68,8 @@ class FeesRepository implements FeesRepositoryInterface
             'pay_date' => $attributes->input('pay_date'),
             'description' => $attributes->input('description'),
         ]);
-        $factory->addSuccess('Transaction modifier avec succes');
+
+        $factory->addSuccess('Fee updated with successfully');
 
         return $fee;
     }
@@ -74,7 +78,8 @@ class FeesRepository implements FeesRepositoryInterface
     {
         $fee = $this->showFee(key: $key);
         $fee->delete();
-        $factory->addSuccess('Transaction supprimer avec succes');
+
+        $factory->addSuccess('Fee deleted with successfully');
 
         return $fee;
     }

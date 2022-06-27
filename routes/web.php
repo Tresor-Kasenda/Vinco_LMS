@@ -48,23 +48,16 @@ use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
-use App\Http\Controllers\Frontend\AboutAppController;
-use App\Http\Controllers\Frontend\CalendarAppController;
-use App\Http\Controllers\Frontend\EventAppController;
-use App\Http\Controllers\Frontend\FeesAppController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
-use App\Http\Controllers\Frontend\LibraryAppController;
-use App\Http\Controllers\Frontend\ShortCoursesAppController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::group([
         'prefix' => 'admins',
         'as' => 'admins.',
-        'middleware' => ['admins'],
     ], routes: function () {
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
 

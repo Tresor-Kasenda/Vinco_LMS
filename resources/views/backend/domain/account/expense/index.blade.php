@@ -29,53 +29,59 @@
                 </div>
                 <div class="nk-block">
                     <div class="row g-gs">
-                        @forelse($expenses as $academic)
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card h-100">
-                                    <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1">
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
+                        <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
+                            <thead>
+                            <tr class="nk-tb-item nk-tb-head text-center">
+                                <th class="nk-tb-col">
+                                    <span>N°</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>EXPENSE TYPE</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>AMOUNT</span>
+                                </th>
+                                <th class="nk-tb-col nk-tb-col-tools text-center">
+                                    <span>ACTION</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($expenses as $expense)
+                                <tr class="nk-tb-item text-center">
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <h6 class="title">{{ $expense->id }}</h6>
+                                        </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ ucfirst($expense->types->name) ?? "" }}</span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $expense->amount ?? 0 }} </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.accounting.expenses.edit', $expense->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                    Edit
                                                 </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.accounting.expenses.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.accounting.expenses.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <form action="{{ route('admins.accounting.expenses.destroy', $expense->id) }}" method="POST" class="ml-3" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-center mt-4 text-azure">
-                                Pas des sessions disponible
-                            </div>
-                        @endforelse
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

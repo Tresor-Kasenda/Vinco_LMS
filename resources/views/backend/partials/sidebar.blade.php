@@ -32,199 +32,261 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-
                     @include('backend.components._link', [
                         'route' => route('admins.backend.home'),
                         'name' => "Dashboard",
                         'icon' => "ni-home-alt"
                     ])
 
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <em class="icon ni ni-book-read"></em>
-                            </span>
-                            <span class="nk-menu-text">Academic</span>
-                        </a>
-                        <ul class="nk-menu-sub">
+                    @role('Parent')
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-book-read"></em>
+                                </span>
+                                <span class="nk-menu-text">Academic</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.departments.index'),
+                                    'name' => "Department"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.session.index'),
-                                'name' => "Annee academique"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.filiaire.index'),
+                                    'name' => "Filiaire"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.campus.index'),
-                                'name' => "Campus"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.promotion.index'),
+                                    'name' => "Promotion"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.departments.index'),
-                                'name' => "Department"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.course.index'),
+                                    'name' => "Syllabus"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.filiaire.index'),
-                                'name' => "Filiaire"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.resource.index'),
+                                    'name' => "Resource"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.promotion.index'),
-                                'name' => "Promotion"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.exercice.index'),
+                                    'name' => "Exercice"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.categories.index'),
-                                'name' => "Categories"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.homework.index'),
+                                    'name' => "Homework"
+                                ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.interro.index'),
+                                    'name' => "Interro"
+                                ])
+                            </ul>
+                        </li>
+                        @include('backend.components._link', [
+                            'route' => route('admins.accounting.fees.index'),
+                            'name' => "Fee",
+                            'icon' => "ni-coin-alt"
+                        ])
+                        @include('backend.components._link', [
+                            'route' => route('admins.users.teacher.index'),
+                            'name' => "Teacher",
+                            'icon' => "ni-user"
+                        ])
+                    @endrole
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.course.index'),
-                                'name' => "Syllabus"
-                            ])
+                    @role('Super Admin')
+                        @include('backend.components._link', [
+                            'route' => route('admins.academic.session.index'),
+                            'name' => "Annee academique",
+                            'icon' => "ni-calendar-alt"
+                        ])
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon">
+                                        <em class="icon ni ni-book-read"></em>
+                                    </span>
+                                <span class="nk-menu-text">Academic</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.campus.index'),
+                                    'name' => "Campus"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.chapter.index'),
-                                'name' => "Chapitre"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.departments.index'),
+                                    'name' => "Department"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.lessons.index'),
-                                'name' => "Lecon"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.filiaire.index'),
+                                    'name' => "Filiaire"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.resource.index'),
-                                'name' => "Resource"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.promotion.index'),
+                                    'name' => "Promotion"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.exercice.index'),
-                                'name' => "Exercice"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.categories.index'),
+                                    'name' => "Categories"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.homework.index'),
-                                'name' => "Homework"
-                            ])
-                            @include('backend.components._links', [
-                                'route' => route('admins.academic.interro.index'),
-                                'name' => "Interro"
-                            ])
-                        </ul>
-                    </li>
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.course.index'),
+                                    'name' => "Syllabus"
+                                ])
 
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <em class="icon ni ni-users"></em>
-                            </span>
-                            <span class="nk-menu-text">Users</span>
-                        </a>
-                        <ul class="nk-menu-sub">
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.chapter.index'),
+                                    'name' => "Chapitre"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.admin.index'),
-                                'name' => "Admin"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.lessons.index'),
+                                    'name' => "Lecon"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.staffs.index'),
-                                'name' => "Staffs"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.resource.index'),
+                                    'name' => "Resource"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.teacher.index'),
-                                'name' => "Teacher"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.exercice.index'),
+                                    'name' => "Exercice"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.student.index'),
-                                'name' => "Student"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.homework.index'),
+                                    'name' => "Homework"
+                                ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.academic.interro.index'),
+                                    'name' => "Interro"
+                                ])
+                            </ul>
+                        </li>
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.guardian.index'),
-                                'name' => "Parents"
-                            ])
-                        </ul>
-                    </li>
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-coin-alt"></em>
+                                </span>
+                                <span class="nk-menu-text">Accounting</span>
+                            </a>
+                            <ul class="nk-menu-sub">
 
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <em class="icon ni ni-edit-alt"></em>
-                            </span>
-                            <span class="nk-menu-text">Exam</span>
-                        </a>
-                        <ul class="nk-menu-sub">
+                                @include('backend.components._links', [
+                                    'route' => route('admins.announce.feesTypes.index'),
+                                    'name' => "Fees Type"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.exam.exam.index'),
-                                'name' => "Exam List"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.accounting.fees.index'),
+                                    'name' => "Fees"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.exam.schedule.index'),
-                                'name' => "Schedule"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.announce.expenseTypes.index'),
+                                    'name' => "Expense Type"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.exam.exam-result.index'),
-                                'name' => "Exam Result"
-                            ])
-                        </ul>
-                    </li>
+                                @include('backend.components._links', [
+                                    'route' => route('admins.accounting.expenses.index'),
+                                    'name' => "Expenses"
+                                ])
+                            </ul>
+                        </li>
 
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <em class="icon ni ni-coin-alt"></em>
-                            </span>
-                            <span class="nk-menu-text">Accounting</span>
-                        </a>
-                        <ul class="nk-menu-sub">
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon">
+                                        <em class="icon ni ni-edit-alt"></em>
+                                    </span>
+                                <span class="nk-menu-text">Exam</span>
+                            </a>
+                            <ul class="nk-menu-sub">
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.announce.feesTypes.index'),
-                                'name' => "Fees Type"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.exam.exam.index'),
+                                    'name' => "Exam List"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.accounting.fees.index'),
-                                'name' => "Fees"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.exam.schedule.index'),
+                                    'name' => "Schedule"
+                                ])
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.announce.expenseTypes.index'),
-                                'name' => "Expense Type"
-                            ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.exam.exam-result.index'),
+                                    'name' => "Exam Result"
+                                ])
+                            </ul>
+                        </li>
 
-                            @include('backend.components._links', [
-                                'route' => route('admins.accounting.expenses.index'),
-                                'name' => "Expenses"
-                            ])
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon">
+                                        <em class="icon ni ni-users"></em>
+                                    </span>
+                                <span class="nk-menu-text">Users</span>
+                            </a>
+                            <ul class="nk-menu-sub">
 
-                        </ul>
-                    </li>
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.admin.index'),
+                                    'name' => "Admin"
+                                ])
 
-                    @include('backend.components._link', [
-                        'route' => route('admins.roles.index'),
-                        'name' => "Role",
-                        'icon' => "ni-lock-alt"
-                    ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.staffs.index'),
+                                    'name' => "Staffs"
+                                ])
 
-                    @include('backend.components._link', [
-                        'route' => route('admins.settings.index'),
-                        'name' => "Parametre",
-                        'icon' => "ni-setting-alt"
-                    ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.teacher.index'),
+                                    'name' => "Teacher"
+                                ])
 
-                    @include('backend.components._link', [
-                        'route' => route('admins.communication.calendar.index'),
-                        'name' => "Go To Communication",
-                        'icon' => "ni-book"
-                    ])
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.student.index'),
+                                    'name' => "Student"
+                                ])
+
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.guardian.index'),
+                                    'name' => "Parents"
+                                ])
+                            </ul>
+                        </li>
+
+                        @include('backend.components._link', [
+                            'route' => route('admins.roles.index'),
+                            'name' => "Role",
+                            'icon' => "ni-lock-alt"
+                        ])
+
+                        @include('backend.components._link', [
+                            'route' => route('admins.settings.index'),
+                            'name' => "Parametre",
+                            'icon' => "ni-setting-alt"
+                        ])
+
+                        @include('backend.components._link', [
+                            'route' => route('admins.communication.calendar.index'),
+                            'name' => "Go To Communication",
+                            'icon' => "ni-book"
+                        ])
+                    @endrole
+
+
 
                     <li class="nk-menu-item">
                         <a class="nk-menu-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

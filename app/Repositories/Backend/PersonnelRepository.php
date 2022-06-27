@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 /**
  * class PersonnelRepository.
@@ -50,7 +51,11 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
 
             return back();
         }
-        $personnel = $this->createPersonnel($attributes);
+        $user = $this->storeCampus($attributes);
+        $role = $this->getRole();
+        $user->assignRole($role->id);
+        $personnel = $this->createPersonnel($attributes, $user);
+
         $factory->addSuccess('Un personnel a ete ajouter');
 
         return $personnel;
@@ -59,20 +64,19 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
+
+        $this->removePathOfImages(model: $personnel);
+
         $personnel->update([
             'username' => $attributes->input('name'),
-            'firstname' => $attributes->input('firstName'),
             'lastname' => $attributes->input('lastName'),
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
-            'nationality' => $attributes->input('nationality'),
-            'location' => $attributes->input('address'),
-            'identityCard' => $attributes->input('identityCard'),
+            'images' => self::uploadFiles($attributes),
             'gender' => $attributes->input('gender'),
-            'birthdays' => $attributes->input('birthdays'),
             'academic_year_id' => $attributes->input('academic'),
-            'user_id' => $attributes->input('user'),
         ]);
+
         $factory->addSuccess('Personnel modifier avec succes');
 
         return $personnel;
@@ -104,24 +108,43 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         return false;
     }
 
-    public function createPersonnel($attributes): Builder|Model
+    public function createPersonnel($attributes, $user): Builder|Model
     {
         return Personnel::query()
             ->create([
                 'username' => $attributes->input('name'),
-                'firstname' => $attributes->input('firstName'),
                 'lastname' => $attributes->input('lastName'),
                 'email' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
-                'nationality' => $attributes->input('nationality'),
                 'images' => self::uploadFiles($attributes),
-                'location' => $attributes->input('address'),
-                'identityCard' => $attributes->input('identityCard'),
                 'gender' => $attributes->input('gender'),
-                'birthdays' => $attributes->input('birthdays'),
                 'academic_year_id' => $attributes->input('academic'),
-                'user_id' => $attributes->input('user'),
+                'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10),
             ]);
+    }
+
+    /**
+     * @param $attributes
+     * @return User|Builder|Model
+     */
+    public function storeCampus($attributes): User|Builder|Model
+    {
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'password' => Hash::make($attributes->input('password')),
+            ]);
+    }
+
+    /**
+     * @return Builder|Model
+     */
+    public function getRole(): Builder|Model
+    {
+        return Role::query()
+            ->where('name', '=', 'Campus')
+            ->firstOrFail();
     }
 }

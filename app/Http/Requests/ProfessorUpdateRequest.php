@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfessorUpdateRequest extends FormRequest
 {
@@ -16,6 +18,8 @@ class ProfessorUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        abort_if(Gate::denies('Personnel-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -30,7 +34,7 @@ class ProfessorUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'min:4', 'max:255'],
             'firstName' => ['required', 'string', 'min:4', 'max:255'],
             'lastName' => ['required', 'string', 'min:4', 'max:255'],
-            'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
+            'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'nationality' => ['required', 'string', 'min:4', 'max:255'],
             'address' => ['required', 'string', 'min:7', 'max:255'],

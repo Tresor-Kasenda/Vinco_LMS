@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Liste des frais entrant")
+@section('title')
+    Fees Listen
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Incomes List</h3>
+                            <h3 class="nk-block-title page-title">Fees Listen</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -29,53 +31,86 @@
                 </div>
                 <div class="nk-block">
                     <div class="row g-gs">
-                        @forelse($incomes as $academic)
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card h-100">
-                                    <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1">
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
+                        <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
+                            <thead>
+                            <tr class="nk-tb-item nk-tb-head text-center">
+                                <th class="nk-tb-col">
+                                    <span>USER INFORMATION</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>TRANSACTION NO</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>AMOUNT</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>DUE DATE</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>PAY DATE</span>
+                                </th>
+                                <th class="nk-tb-col nk-tb-col-tools text-center">
+                                    <span>ACTION</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($fees as $fee)
+                                    <tr class="nk-tb-item text-center">
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">
+                                                <span class="title">
+                                                    Student:
+                                                    <a href="{{ route('admins.users.student.show', $fee->student->id) }}">
+                                                        {{ ucfirst($fee->student->firstname) }} {{ ucfirst($fee->student->lastname) }}
+                                                    </a>
+                                                </span>
+                                                <span class="title">
+                                                    Parent:
+                                                    <a href="{{ route('admins.users.guardian.show', $fee->student->id) }}">
+                                                        {{ ucfirst($fee->student->firstname) }} {{ ucfirst($fee->student->lastname) }}
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ $fee->transaction_no ?? 0 }}</span>
+                                        </td>
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ $fee->amount ?? "" }}</span>
+                                        </td>
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ $fee->due_date ?? "" }}</span>
+                                        </td>
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ $fee->pay_date ?? "" }} </span>
+                                        </td>
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('admins.accounting..fees.edit', $fee->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-check"></em>
+                                                        Confirmed
+                                                    </a>
+                                                    <a href="{{ route('admins.accounting..fees.edit', $fee->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-edit"></em>
+                                                        Edit
+                                                    </a>
+                                                    <form action="{{ route('admins.accounting..fees.destroy', $fee->id) }}" method="POST" class="ml-3" onsubmit="return confirm('Voulez vous supprimer');">
+                                                        @method('DELETE')
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                            <em class="icon ni ni-trash"></em>
+                                                            Delete
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.accounting.fees.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.accounting.fees.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-center mt-4 text-azure">
-                                Pas des sessions disponible
-                            </div>
-                        @endforelse
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

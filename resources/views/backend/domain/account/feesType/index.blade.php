@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Liste des frais entrant")
+@section('title')
+    Fee Type Listen
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Incomes Type</h3>
+                            <h3 class="nk-block-title page-title">Fee Type Listen</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -30,19 +32,24 @@
                 <div class="nk-block">
                     <div class="row mt-2 g-gs">
                         @forelse($feesTypes as $feesType)
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card">
-                                    <img src="{{ asset('storage/'. $feesType->images) }}" class="card-img-top" alt="">
-                                    <div class="card-inner">
-                                        <h5 class="card-title">{{ $feesType->name }}</h5>
-                                        <div class="text-center d-flex">
-                                            <a href="{{ route('admins.announce.feesTypes.edit', $feesType->id) }}" class="btn btn-primary btn-sm">
+                            <div class="col-sm-6 col-lg-4 col-xxl-3">
+                                <div class="gallery card">
+                                    <img
+                                        class="w-100 rounded-top"
+                                        src="{{ asset('storage/'.$feesType->images) }}"
+                                        alt="{{ $feesType->name }}">
+                                    <div class="gallery-body card-inner align-center justify-between flex-wrap g-2">
+                                        <h6>{{ ucfirst($feesType->name) }}</h6>
+                                        <div class="user-card">
+                                            <a href="{{ route('admins.announce.feesTypes.edit', $feesType->id) }}" class="btn btn-outline-primary btn-dim">
                                                 <em class="icon ni ni-edit"></em>
                                             </a>
-                                            <form action="{{ route('admins.announce.feesTypes.destroy', $feesType->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                        </div>
+                                        <div>
+                                            <form method="post" action="{{ route('admins.announce.feesTypes.destroy', $feesType->id) }}">
+                                                @csrf
                                                 @method('DELETE')
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button class="btn btn-outline-danger btn-dim">
                                                     <em class="icon ni ni-trash"></em>
                                                 </button>
                                             </form>
@@ -52,7 +59,7 @@
                             </div>
                         @empty
                             <div class="text-center mt-4 text-azure">
-                                Pas des sessions disponible
+                                Pas des frais disponibles
                             </div>
                         @endforelse
                     </div>

@@ -7,11 +7,13 @@ namespace App\Repositories\Backend;
 use App\Contracts\UsersRepositoryInterface;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
+use App\Models\ExpenseType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class UsersRepository implements UsersRepositoryInterface
@@ -20,17 +22,14 @@ class UsersRepository implements UsersRepositoryInterface
     {
         return User::query()
             ->orderByDesc('created_at')
-            ->latest()
             ->get();
     }
 
     public function showUser(string $key): Model|Builder|User|null
     {
-        $user = User::query()
+        return User::query()
             ->where('key', '=', $key)
             ->first();
-
-        return $user->load('role');
     }
 
     public function stored($attributes, $flash): Model|Builder|User|RedirectResponse
@@ -46,12 +45,12 @@ class UsersRepository implements UsersRepositoryInterface
         $user = User::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'firstName' => $attributes->input('firstName'),
                 'email' => $attributes->input('email'),
-                'role_id' => $attributes->input('role_id'),
                 'status' => StatusEnum::TRUE,
                 'password' => Hash::make($attributes->input('password')),
             ]);
+
+        $user->assignRole($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur ajouter avec succes');
 
         return $user;
@@ -62,11 +61,10 @@ class UsersRepository implements UsersRepositoryInterface
         $user = $this->showUser(key: $key);
         $user->update([
             'name' => $attributes->input('name'),
-            'firstName' => $attributes->input('firstName'),
             'email' => $attributes->input('email'),
-            'role_id' => $attributes->input('role_id'),
             'password' => Hash::make($attributes->input('password')),
         ]);
+        $user->assignRole($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur mise a jours avec succes');
 
         return $user;

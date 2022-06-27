@@ -27,8 +27,8 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('duration')->nullable();
             $table->string('images')->nullable();
-            $table->date('startDate')->nullable();
-            $table->date('endDate')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

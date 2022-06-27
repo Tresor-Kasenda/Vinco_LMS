@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasKeyTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,9 +34,24 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Guardian wherePhones($value)
  * @method static Builder|Guardian whereUpdatedAt($value)
  * @method static Builder|Guardian whereUserId($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property string $name_guardian
+ * @property string|null $firstName_guardian
+ * @property string $email_guardian
+ * @property string $images
+ * @method static Builder|Guardian whereEmailGuardian($value)
+ * @method static Builder|Guardian whereFirstNameGuardian($value)
+ * @method static Builder|Guardian whereImages($value)
+ * @method static Builder|Guardian whereNameGuardian($value)
  */
 class Guardian extends Model
 {
-    use HasFactory;
+    use HasFactory, HasKeyTrait;
+
+    protected $guarded = [];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

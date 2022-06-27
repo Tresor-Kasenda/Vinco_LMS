@@ -20,23 +20,23 @@ use Illuminate\Http\RedirectResponse;
 class TeacherBackendController extends Controller
 {
     public function __construct(
-        public ProfessorRepositoryInterface $repository,
-        public SweetAlertFactory $factory
+        protected readonly ProfessorRepositoryInterface $repository,
+        protected readonly SweetAlertFactory $factory
     ) {
     }
 
     public function index(): Renderable
     {
-        return view('backend.domain.users.teacher.index', [
-            'teachers' => $this->repository->getProfessors(),
-        ]);
+        $teachers = $this->repository->getProfessors();
+
+        return view('backend.domain.users.teacher.index', compact('teachers'));
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.teacher.show', [
-            'professor' => $this->repository->showProfessor(key:  $key),
-        ]);
+        $teacher = $this->repository->showProfessor(key: $key);
+
+        return view('backend.domain.users.teacher.show', compact('teacher'));
     }
 
     public function create(): Renderable
@@ -53,9 +53,9 @@ class TeacherBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.teacher.edit', [
-            'professor' => $this->repository->showProfessor(key: $key),
-        ]);
+        $teacher = $this->repository->showProfessor(key: $key);
+
+        return view('backend.domain.users.teacher.edit', compact('teacher'));
     }
 
     public function update(ProfessorUpdateRequest $attributes, string $key): RedirectResponse

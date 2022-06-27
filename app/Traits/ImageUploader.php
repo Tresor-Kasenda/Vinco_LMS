@@ -56,4 +56,10 @@ trait ImageUploader
         Storage::disk('public')
             ->delete($model->images);
     }
+
+    public function removePathOfImage($model): void
+    {
+        Storage::disk('public')
+            ->delete($model->image);
+    }
 }

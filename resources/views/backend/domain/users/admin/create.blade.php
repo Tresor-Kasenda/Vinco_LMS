@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Create admin")
+@section('title')
+    Create Admin
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -31,6 +33,15 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.users.admin.store') }}" method="post" class="form-validate mt-2">
                                         @csrf
@@ -45,29 +56,15 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir votre nom"
+                                                            placeholder="Enter name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstName">Votre post-nom</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('firstName') error @enderror"
-                                                            id="firstName"
-                                                            name="firstName"
-                                                            value="{{ old('firstName') }}"
-                                                            placeholder="Saisir votre post-nom"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="email">Email address</label>
+                                                    <label class="form-label" for="email">Email </label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
@@ -76,11 +73,19 @@
                                                             name="email"
                                                             value="{{ old('email') }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
-                                                            placeholder="Saisir votre adresse email"
+                                                            placeholder="Enter email"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            @php
+                                                $roles  = \Spatie\Permission\Models\Role::query()
+                                                    ->where('name', '=', 'Admin')
+                                                    ->orWhere('name', '=', 'Super Admin')
+                                                    ->get()
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="role_id">Select Role</label>
@@ -92,8 +97,8 @@
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach(\App\Models\Role::all() as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->title }}</option>
+                                                            @foreach($roles as $role)
+                                                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -109,7 +114,7 @@
                                                             id="password"
                                                             name="password"
                                                             value="{{ old('password') }}"
-                                                            placeholder="Saisir votre mot de passe"
+                                                            placeholder="Enter password"
                                                             required>
                                                     </div>
                                                 </div>

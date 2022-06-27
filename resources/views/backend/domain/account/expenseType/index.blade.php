@@ -29,44 +29,28 @@
                 </div>
                 <div class="nk-block">
                     <div class="row g-gs">
-                        @forelse($types as $academic)
+                        @forelse($expenseTypes as $expenseType)
                             <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card h-100">
-                                    <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1">
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.announce.expenseTypes.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.announce.expenseTypes.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                <div class="gallery card">
+                                    <img
+                                        class="w-100 rounded-top"
+                                        src="{{ asset('storage/'.$expenseType->image) }}"
+                                        alt="{{ $expenseType->name }}">
+                                    <div class="gallery-body card-inner align-center justify-between flex-wrap g-2">
+                                        <h6>{{ ucfirst($expenseType->name) }}</h6>
+                                        <div class="user-card">
+                                            <a href="{{ route('admins.announce.expenseTypes.edit', $expenseType->id) }}" class="btn btn-outline-primary btn-dim">
+                                                <em class="icon ni ni-edit"></em>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form method="post" action="{{ route('admins.announce.expenseTypes.destroy', $expenseType->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-outline-danger btn-dim">
+                                                    <em class="icon ni ni-trash"></em>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

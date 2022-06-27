@@ -8,10 +8,10 @@ use App\Contracts\AcademicYearRepositoryInterface;
 use App\Contracts\CampusRepositoryInterface;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Contracts\ChapterRepositoryInterface;
+use App\Contracts\ChartRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
-use App\Contracts\ExerciceRepositoryInterface;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Contracts\ExpenseRepositoryInterface;
 use App\Contracts\ExpenseTypeRepositoryInterface;
@@ -28,6 +28,7 @@ use App\Contracts\ProfileRepositoryInterface;
 use App\Contracts\PromotionRepositoryInterface;
 use App\Contracts\ResourceRepositoryInterface;
 use App\Contracts\ResultRepositoryInterface;
+use App\Contracts\RoleRepositoryInterface;
 use App\Contracts\SchedulerRepositoryInterface;
 use App\Contracts\SettingRepositoryInterface;
 use App\Contracts\StudentRepositoryInterface;
@@ -64,6 +65,7 @@ use App\Repositories\Backend\ProfileRepository;
 use App\Repositories\Backend\PromotionRepository;
 use App\Repositories\Backend\ResourceRepository;
 use App\Repositories\Backend\ResultRepository;
+use App\Repositories\Backend\RoleRepository;
 use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\StudentRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
@@ -76,6 +78,7 @@ use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
 use App\Repositories\Backend\TrashedUsersRepository;
 use App\Repositories\Backend\UsersRepository;
+use App\Repositories\System\ChartRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -121,6 +124,8 @@ class RepositoryServiceProvider extends ServiceProvider
         ExpenseTypeRepositoryInterface::class => ExpenseTypeRepository::class,
         ExpenseRepositoryInterface::class => ExpenseRepository::class,
         SettingRepositoryInterface::class => SettingRepository::class,
+        ChartRepositoryInterface::class => ChartRepository::class,
+        RoleRepositoryInterface::class => RoleRepository::class,
     ];
 
     /**

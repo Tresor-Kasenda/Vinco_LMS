@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,7 +54,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Subsidiary whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @property-read AcademicYear $academic
  */
 class Subsidiary extends Model

@@ -30,8 +30,8 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = AcademicYear::query()
             ->create([
-                'startDate' => $attributes->input('startDate'),
-                'endDate' => $attributes->input('endDate'),
+                'start_date' => $attributes->input('startDate'),
+                'end_date' => $attributes->input('endDate'),
             ]);
         $flash->addSuccess('Une nouvelle annee a ete ajouter');
 

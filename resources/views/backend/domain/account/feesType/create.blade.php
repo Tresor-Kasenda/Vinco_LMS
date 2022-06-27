@@ -4,6 +4,15 @@
 
 @section('content')
     <div class="container-fluid">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="nk-content-inner">
             <div class="nk-content-body">
                 <div class="nk-block">

@@ -24,9 +24,9 @@ class FeesBackendController extends Controller
 
     public function index(): Renderable
     {
-        $incomes = $this->repository->getFees();
+        $fees = $this->repository->getFees();
 
-        return view('backend.domain.account.fees.index', compact('incomes'));
+        return view('backend.domain.account.fees.index', compact('fees'));
     }
 
     public function create(): Factory|View|Application

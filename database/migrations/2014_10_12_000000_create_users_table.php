@@ -15,10 +15,8 @@ return new class extends Migration {
             $table->id();
             $table->string('key')->unique();
             $table->string('name', '30');
-            $table->string('firstName', '30')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('role_id')->default(RoleEnum::STUDENT);
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->rememberToken();
             $table->timestamps();

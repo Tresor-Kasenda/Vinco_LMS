@@ -38,9 +38,9 @@
                                                 <div class="ms-3">
                                                     <h6 class="title mb-1 text-center">
                                                         Session :
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
+                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
                                                         -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}
+                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
                                                     </h6>
                                                 </div>
                                             </div>
@@ -72,10 +72,9 @@
                                         </div>
                                         <div class="text-center font-weight-bold">
                                             <p>
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
                                                 -
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}
-                                                Academic Year
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
                                             </p>
                                         </div>
                                     </div>

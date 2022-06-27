@@ -15,34 +15,9 @@ trait RedirectRoute
 
     public function redirectTo(): string
     {
-        switch (Auth::user()->role_id && Auth::user()->status === StatusEnum::TRUE) {
+        switch (Auth::user() && Auth::user()->status === StatusEnum::TRUE) {
             case RoleEnum::ADMIN:
                 $this->redirectTo = route('admins.backend.home');
-
-                return $this->redirectTo;
-                break;
-            case RoleEnum::CAMPUS:
-                $this->redirectTo = route('');
-
-                return $this->redirectTo;
-                break;
-            case RoleEnum::DEPARTMENT:
-                $this->redirectTo = route('');
-
-                return $this->redirectTo;
-                break;
-            case RoleEnum::PROFESSOR:
-                $this->redirectTo = route('');
-
-                return $this->redirectTo;
-                break;
-            case RoleEnum::STUDENT:
-                $this->redirectTo = route('');
-
-                return $this->redirectTo;
-                break;
-            case RoleEnum::CHEF_COURSES:
-                $this->redirectTo = route('');
 
                 return $this->redirectTo;
                 break;

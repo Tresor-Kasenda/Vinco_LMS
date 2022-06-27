@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
+use App\Models\AcademicYear;
 use App\Models\Setting;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -28,9 +29,9 @@ class RoutineTime implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        return Setting::query()
-            ->where('class_start', '<=', $value)
-            ->where('class_end', '>=', $value)
+        return AcademicYear::query()
+            ->where('start_date', '<=', $value)
+            ->where('end_date', '>=', $value)
             ->count() == 0;
     }
 
@@ -39,8 +40,8 @@ class RoutineTime implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
-        return 'The validation error message.';
+        return 'Cette annee existe deja.';
     }
 }

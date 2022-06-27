@@ -23,6 +23,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * App\Models\User.
@@ -45,7 +47,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Personnel|null $personnel
  * @property-read Collection|Professor[] $teacher
  * @property-read int|null $professors_count
- * @property-read Role|null $role
  * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
  * @property-read Subsidiary|null $subsidiary
@@ -78,7 +79,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read bool $is_admin
  * @property-read bool $is_student
  * @property-read bool $is_teacher
- * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
  * @property-read Profile|null $profile
  * @property-read Collection|Professor[] $professors
@@ -92,32 +92,16 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereAvatar($value)
  * @method static Builder|User whereDarkMode($value)
  * @method static Builder|User whereMessengerColor($value)
+ * @property-read Collection|Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @method static Builder|User permission($permissions)
+ * @method static Builder|User role($roles, $guard = null)
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasKeyTrait;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasKeyTrait, HasRoles;
 
     protected $guarded = [];
-
-    public function getIsAdminAttribute(): bool
-    {
-        return $this->roles()->where('id', 1)->exists();
-    }
-
-    public function getIsTeacherAttribute(): bool
-    {
-        return $this->roles()->where('id', 3)->exists();
-    }
-
-    public function getIsStudentAttribute(): bool
-    {
-        return $this->roles()->where('id', 4)->exists();
-    }
-
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
 
     public function personnel(): HasOne
     {

@@ -31,6 +31,15 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center mb-4">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.session.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
@@ -46,7 +55,7 @@
                                                             name="startDate"
                                                             value="{{ old('startDate') }}"
                                                             data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir le debut de l'annee"
+                                                            placeholder="Enter Start Date"
                                                             required>
                                                     </div>
                                                 </div>
@@ -62,7 +71,7 @@
                                                             name="endDate"
                                                             value="{{ old('endDate') }}"
                                                             data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir la fin de l'annee"
+                                                            placeholder="Enter End Date"
                                                             required>
                                                     </div>
                                                 </div>
