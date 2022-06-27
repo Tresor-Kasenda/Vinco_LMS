@@ -20,21 +20,16 @@ class UsersRepository implements UsersRepositoryInterface
 {
     public function getUsers(): array|Collection
     {
-        return Cache::remember('users', 3600, function () {
-            return User::query()
-                ->orderByDesc('created_at')
-                ->latest()
-                ->get();
-        });
+        return User::query()
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function showUser(string $key): Model|Builder|User|null
     {
-        $user = User::query()
+        return User::query()
             ->where('key', '=', $key)
             ->first();
-
-        return $user->load('role');
     }
 
     public function stored($attributes, $flash): Model|Builder|User|RedirectResponse
@@ -50,12 +45,12 @@ class UsersRepository implements UsersRepositoryInterface
         $user = User::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'firstName' => $attributes->input('firstName'),
                 'email' => $attributes->input('email'),
-                'role_id' => $attributes->input('role_id'),
                 'status' => StatusEnum::TRUE,
                 'password' => Hash::make($attributes->input('password')),
             ]);
+
+        $user->assignRole($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur ajouter avec succes');
 
         return $user;
@@ -66,11 +61,10 @@ class UsersRepository implements UsersRepositoryInterface
         $user = $this->showUser(key: $key);
         $user->update([
             'name' => $attributes->input('name'),
-            'firstName' => $attributes->input('firstName'),
             'email' => $attributes->input('email'),
-            'role_id' => $attributes->input('role_id'),
             'password' => Hash::make($attributes->input('password')),
         ]);
+        $user->assignRole($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur mise a jours avec succes');
 
         return $user;

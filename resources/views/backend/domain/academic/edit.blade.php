@@ -10,10 +10,7 @@
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">
-                                Annee academique
-                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                -
-                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}
+                                Edit Academic Years
                             </h3>
                         </div>
                         <div class="nk-block-head-content">
@@ -36,6 +33,15 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.session.update', $academic->key) }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
@@ -50,9 +56,9 @@
                                                             class="form-control date-picker-alt @error('startDate') error @enderror"
                                                             id="startDate"
                                                             name="startDate"
-                                                            value="{{ old('startDate' ) ?? $academic->startDate }}"
+                                                            value="{{ old('startDate' ) ?? $academic->start_date }}"
                                                             data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir le debut de l'annee"
+                                                            placeholder="Enter Start Date"
                                                             required>
                                                     </div>
                                                 </div>
@@ -66,9 +72,9 @@
                                                             class="form-control date-picker-alt @error('endDate') error @enderror"
                                                             id="endDate"
                                                             name="endDate"
-                                                            value="{{ old('endDate' ) ?? $academic->endDate }}"
+                                                            value="{{ old('endDate' ) ?? $academic->end_date }}"
                                                             data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir la fin de l'annee"
+                                                            placeholder="Enter End Date"
                                                             required>
                                                     </div>
                                                 </div>

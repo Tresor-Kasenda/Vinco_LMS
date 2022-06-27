@@ -21,7 +21,6 @@ class CampusRepository implements CampusRepositoryInterface
     {
         return Campus::query()
             ->with('user')
-            ->latest()
             ->get();
     }
 
@@ -36,11 +35,11 @@ class CampusRepository implements CampusRepositoryInterface
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
+
         $campus = Campus::query()
-            ->when('user_id', function ($query) use ($attributes) {
-                $query->where('user_id', $attributes->input('user_id'));
-            })
+            ->when('user_id', fn ($query) => $query->where('user_id', $attributes->input('user_id')))
             ->first();
+
         if (! $campus) {
             $faculty = Campus::query()
                 ->create([
@@ -49,7 +48,7 @@ class CampusRepository implements CampusRepositoryInterface
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
                 ]);
-            $factory->addSuccess('Un nouvaux campus a ete ajouter');
+            $factory->addSuccess('Campus add with successfully');
 
             return $faculty;
         }

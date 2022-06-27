@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation de l'enseignant")
+@section('title')
+    Create Teacher
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Teacher</h3>
+                            <h3 class="nk-block-title page-title">Create Teacher</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -31,10 +33,20 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.users.teacher.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -45,44 +57,31 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir votre nom"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstName">Votre post-nom</label>
+                                                    <label class="form-label" for="lastname">Votre prenom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('firstName') error @enderror"
-                                                            id="firstName"
-                                                            name="firstName"
-                                                            value="{{ old('firstName') }}"
-                                                            placeholder="Saisir votre post-nom"
+                                                            class="form-control @error('lastname') error @enderror"
+                                                            id="lastname"
+                                                            name="lastname"
+                                                            value="{{ old('lastname') }}"
+                                                            placeholder="Enter Lastname"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="lastName">Votre prenom</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('lastName') error @enderror"
-                                                            id="lastName"
-                                                            name="lastName"
-                                                            value="{{ old('lastName') }}"
-                                                            placeholder="Saisir votre prenom"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="email">Email address</label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
@@ -91,11 +90,12 @@
                                                             name="email"
                                                             value="{{ old('email') }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
-                                                            placeholder="Saisir votre adresse email"
+                                                            placeholder="Enter Email"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phones">Telephone</label>
@@ -107,131 +107,81 @@
                                                                 name="phones"
                                                                 id="phones"
                                                                 value="{{ old('phones') }}"
-                                                                placeholder="Saisir votre numero de telephone"
+                                                                placeholder="Enter Phones"
                                                                 required>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="nationality">Nationalite</label>
-                                                    <div class="form-control-wrap">
-                                                        <div class="input-group">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('nationality') error @enderror"
-                                                                name="nationality"
-                                                                id="nationality"
-                                                                value="{{ old('nationality') }}"
-                                                                placeholder="Saisir votre nationalite"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="address">Adresse</label>
-                                                    <div class="form-control-wrap">
-                                                        <div class="input-group">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('address') error @enderror"
-                                                                name="address"
-                                                                id="address"
-                                                                value="{{ old('address') }}"
-                                                                placeholder="Saisir votre adresse"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="identityCard">N Identite (carte ou passposrt)</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('identityCard') error @enderror"
-                                                            id="identityCard"
-                                                            name="identityCard"
-                                                            value="{{ old('identityCard') }}"
-                                                            placeholder="Saisir votre numero de carte d'identite"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @php
-                                                $users = \App\Models\User::query()
-                                                    ->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR)
-                                                    ->where('status', '=', \App\Enums\StatusEnum::TRUE)->get()
-                                            @endphp
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="user">Select Professeur</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 @error('user') error @enderror"
-                                                            id="user"
-                                                            name="user"
-                                                            data-placeholder="Choisir le professeur"
-                                                            required>
-                                                            <option label="role" value=""></option>
-                                                            @foreach($users as $user)
-                                                                <option value="{{ $user->id }}">{{ $user->name }} {{ $user->firstName }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Photo profile</label>
+                                                    <label class="form-label">Images</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
                                                             class="form-control @error('images') error @enderror"
                                                             name="images"
                                                             value="{{ old('images') }}"
-                                                            placeholder="Selectionnez une image"
+                                                            placeholder="Enter Images"
                                                         >
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="birthdays">Date de naissance</label>
+                                                    <label class="form-label" for="password">Password</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control date-picker @error('birthdays') error @enderror"
-                                                            id="birthdays"
-                                                            name="birthdays"
-                                                            value="{{ old('birthdays') }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir votre date de naissance"
+                                                            type="password"
+                                                            class="form-control @error('password') error @enderror"
+                                                            id="password"
+                                                            name="password"
+                                                            value="{{ old('password') }}"
+                                                            placeholder="Enter Password"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+
+                                            <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="gender">Genre</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-control js-select2 @error('gender') error @enderror" data-value="{{ old('gender') }}" id="gender" name="gender" data-placeholder="Select a gender" required>
-                                                            <option label="genre" value=""></option>
-                                                            <option value="masculin">Masculin</option>
-                                                            <option value="feminin">Feminin</option>
-                                                        </select>
-                                                    </div>
+                                                    <label class="form-label" for="gender">Gender</label> <br>
+                                                    <ul class="custom-control-group g-3 align-center flex-wrap">
+                                                        <li>
+                                                            <div class="custom-control custom-radio">
+                                                                <input
+                                                                    type="radio"
+                                                                    class="custom-control-input"
+                                                                    checked=""
+                                                                    name="gender"
+                                                                    value="male"
+                                                                    id="male">
+                                                                <label class="custom-control-label" for="male">Homme</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="custom-control custom-radio checked">
+                                                                <input
+                                                                    type="radio"
+                                                                    class="custom-control-input"
+                                                                    name="gender"
+                                                                    value="female"
+                                                                    id="female">
+                                                                <label class="custom-control-label" for="female">Femme</label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
-                                                <div class="form-group">
+                                                <div class="form-group text-center">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </form>
                                 </div>

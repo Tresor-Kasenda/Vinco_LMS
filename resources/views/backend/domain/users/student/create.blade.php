@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creatation de l'etudiant")
+@section('title')
+    Create Student
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -16,7 +18,8 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.student.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm"
+                                               href="{{ route('admins.users.student.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -31,11 +34,20 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                <div class="col-md-6">
+                                <div class="col-md-7">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2">
                                         @csrf
                                         <div class="row g-gs">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
                                                     <div class="form-control-wrap">
@@ -45,29 +57,14 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir votre nom"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstName">Votre post-nom</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('firstName') error @enderror"
-                                                            id="firstName"
-                                                            name="firstName"
-                                                            value="{{ old('firstName') }}"
-                                                            placeholder="Saisir votre post-nom"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="email">Email address</label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
@@ -76,30 +73,12 @@
                                                             name="email"
                                                             value="{{ old('email') }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
-                                                            placeholder="Saisir votre adresse email"
+                                                            placeholder="Enter Email"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="role_id">Select Role</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 @error('role_id') error @enderror"
-                                                            id="role_id"
-                                                            name="role_id"
-                                                            data-placeholder="Select a role"
-                                                            required>
-                                                            <option label="role" value=""></option>
-                                                            @foreach(\App\Models\Role::all() as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Mot de passe</label>
                                                     <div class="form-control-wrap">
@@ -109,27 +88,143 @@
                                                             id="password"
                                                             name="password"
                                                             value="{{ old('password') }}"
-                                                            placeholder="Saisir votre mot de passe"
+                                                            placeholder="Enter password"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="password-confirmation">Mot de passe (confirmation)</label>
+                                                    <label class="form-label" for="parent">Parent</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 @error('parent') error @enderror"
+                                                            id="parent"
+                                                            name="parent"
+                                                            data-placeholder="Select Parent"
+                                                            required>
+                                                            <option label="parent" value=""></option>
+                                                            @foreach(\App\Models\Guardian::all() as $class)
+                                                                <option
+                                                                    value="{{ $class->id }}"
+                                                                >{{ ucfirst($class->name_guardian ) ?? "" }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="department">Departement</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 @error('department') error @enderror"
+                                                            id="department"
+                                                            name="department"
+                                                            data-placeholder="Select Department"
+                                                            required>
+                                                            <option label="department" value=""></option>
+                                                            @foreach(\App\Models\Department::all() as $class)
+                                                                <option
+                                                                    value="{{ $class->id }}"
+                                                                >{{ ucfirst($class->name ) ?? "" }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="filiaire">Filiaire</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 @error('filiaire') error @enderror"
+                                                            id="filiaire"
+                                                            name="filiaire"
+                                                            data-placeholder="Select Filiaire"
+                                                            required>
+                                                            <option label="filiaire" value=""></option>
+                                                            @foreach(\App\Models\Subsidiary::all() as $class)
+                                                                <option
+                                                                    value="{{ $class->id }}"
+                                                                >{{ ucfirst($class->name ) ?? "" }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="class">Promotion</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 @error('class') error @enderror"
+                                                            id="class"
+                                                            name="class"
+                                                            data-placeholder="Select Promotion"
+                                                            required>
+                                                            <option label="class" value=""></option>
+                                                            @foreach(\App\Models\Promotion::all() as $class)
+                                                                <option
+                                                                    value="{{ $class->id }}"
+                                                                >{{ ucfirst($class->name ) ?? "" }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="admission">Admission Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="password"
-                                                            class="form-control @error('password_confirmation') error @enderror"
-                                                            id="password"
-                                                            name="password_confirmation"
-                                                            value="{{ old('password_confirmation') }}"
-                                                            placeholder="Confirmer votre mot de passe"
+                                                            type="text"
+                                                            class="form-control date-picker @error('admission') error @enderror"
+                                                            id="admission"
+                                                            name="admission"
+                                                            value="{{ old('admission') }}"
+                                                            placeholder="Select Admission Date"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="gender">Gender</label> <br>
+                                                    <ul class="custom-control-group g-3 align-center flex-wrap">
+                                                        <li>
+                                                            <div class="custom-control custom-radio">
+                                                                <input
+                                                                    type="radio"
+                                                                    class="custom-control-input"
+                                                                    checked=""
+                                                                    name="gender"
+                                                                    value="male"
+                                                                    id="male">
+                                                                <label class="custom-control-label" for="male">Homme</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="custom-control custom-radio checked">
+                                                                <input
+                                                                    type="radio"
+                                                                    class="custom-control-input"
+                                                                    name="gender"
+                                                                    value="female"
+                                                                    id="female">
+                                                                <label class="custom-control-label" for="female">Femme</label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
@@ -144,4 +239,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#department').on('change', function(e) {
+                let cat_id = e.target.value;
+                $.ajax({
+                    url: "",
+                    type: "get",
+                    data: {
+                        cat_id: cat_id
+                    },
+                    success: function(data) {
+                        $('#subcategory').empty();
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

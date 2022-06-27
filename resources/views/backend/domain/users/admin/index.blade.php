@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des administrateurs")
+@section('title')
+    Admins Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Admins</h3>
+                            <h3 class="nk-block-title page-title">Admins List</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -41,9 +43,6 @@
                                     <span>name</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>First name</span>
-                                </th>
-                                <th class="nk-tb-col">
                                     <span>Email</span>
                                 </th>
                                 <th class="nk-tb-col tb-col-md">
@@ -69,10 +68,7 @@
                             @foreach($admins as $administrator)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $administrator->name ?? "" }}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $administrator->firstName ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($administrator->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $administrator->email ?? "" }}</span>
@@ -87,7 +83,11 @@
                                         @endif
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $administrator->role->name ?? "" }}</span>
+                                        <div class="tb-lead d-flex flex-wrap">
+                                            @foreach($administrator->roles as $role)
+                                                <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
+                                            @endforeach
+                                        </div>
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1 my-n1">

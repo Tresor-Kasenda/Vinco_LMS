@@ -100,6 +100,11 @@
                     @endrole
 
                     @role('Super Admin')
+                        @include('backend.components._link', [
+                            'route' => route('admins.academic.session.index'),
+                            'name' => "Annee academique",
+                            'icon' => "ni-calendar-alt"
+                        ])
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon">
@@ -108,12 +113,6 @@
                                 <span class="nk-menu-text">Academic</span>
                             </a>
                             <ul class="nk-menu-sub">
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.academic.session.index'),
-                                    'name' => "Annee academique"
-                                ])
-
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.campus.index'),
                                     'name' => "Campus"
@@ -279,13 +278,15 @@
                             'name' => "Parametre",
                             'icon' => "ni-setting-alt"
                         ])
+
+                        @include('backend.components._link', [
+                            'route' => route('admins.communication.calendar.index'),
+                            'name' => "Go To Communication",
+                            'icon' => "ni-book"
+                        ])
                     @endrole
 
-                    @include('backend.components._link', [
-                        'route' => route('admins.communication.calendar.index'),
-                        'name' => "Go To Communication",
-                        'icon' => "ni-book"
-                    ])
+
 
                     <li class="nk-menu-item">
                         <a class="nk-menu-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

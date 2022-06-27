@@ -33,7 +33,7 @@ class RoleRepository implements RoleRepositoryInterface
             ->create([
                 'name' => $attributes->input('name')
             ]);
-        $role->syncPermissions($attributes->input('permission'));
+        $role->givePermissionTo($attributes->input('permission'));
 
         $flash->addSuccess("New role as added with successfully");
         return $role;

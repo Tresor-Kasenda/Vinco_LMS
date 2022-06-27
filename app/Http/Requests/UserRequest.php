@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:4'],
-            'firstName' => ['required', 'string', 'min:4'],
             'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'role_id' => ['required', Rule::exists('roles', 'id')],
             'password' => ['required', 'string', 'min:8'],

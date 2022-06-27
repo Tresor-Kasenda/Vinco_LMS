@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Rules\RoutineTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AcademicYearRequest extends FormRequest
@@ -22,8 +23,20 @@ class AcademicYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'startDate' => ['required', 'date', 'date_format:Y-m-d', 'before:endDate'],
-            'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate'],
+            'startDate' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'before:endDate',
+                new RoutineTime()
+            ],
+            'endDate' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'after:startDate',
+                new RoutineTime()
+            ],
         ];
     }
 }

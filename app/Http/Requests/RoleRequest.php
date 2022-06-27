@@ -18,7 +18,7 @@ class RoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('Role-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return true;
     }
 

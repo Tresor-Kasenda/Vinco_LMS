@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des campus")
+@section('title')
+    Campus Manager
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Campus</h3>
+                            <h3 class="nk-block-title page-title">Campus List</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -77,7 +79,7 @@
                                         <span class="tb-lead">{{ $campus->name }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($campus->user->name) }}-{{ strtoupper($campus->user->firstname) }}</span>
+                                        <span class="tb-lead">{{ ucfirst($campus->user->name) }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
                                         @if($campus->status)

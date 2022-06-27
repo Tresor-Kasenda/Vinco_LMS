@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation du campus")
+@section('title')
+    Create Campus
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,14 +11,15 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Campus</h3>
+                            <h3 class="nk-block-title page-title">Campus Create</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.campus.index') }}">
+                                            <a class="btn btn-outline-light d-none d-md-inline-flex"
+                                               href="{{ route('admins.academic.campus.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -31,13 +34,22 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.campus.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du campus</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -45,14 +57,14 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du campus"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Logo du campus</label>
+                                                    <label class="form-label" for="images">Images</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
@@ -60,37 +72,40 @@
                                                             id="images"
                                                             name="images"
                                                             value="{{ old('images') }}"
-                                                            placeholder="Choisir le logo du campus"
+                                                            placeholder="Enter Image"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Choisir le responsable</label>
+                                                    <label class="form-label" for="user_id">Responsable</label>
                                                     <select
                                                         class="form-control js-select2 @error('user_id') error @enderror"
                                                         id="user_id"
                                                         name="user_id"
-                                                        data-placeholder="Select a responsable"
+                                                        data-placeholder="Select a manager"
                                                         required>
                                                         <option label="role" value=""></option>
-                                                        @foreach($admin as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @foreach(\App\Models\Personnel::all() as $personnel)
+                                                            <option
+                                                                value="{{ $personnel->id }}">
+                                                                {{ ucfirst($personnel->username) ?? "" }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="description">Message</label>
+                                                    <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Write the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,16 +124,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('styles')
-    @parent
-    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/editors/quill41fe.css') }}">
-@endsection
-
-
-@section('scripts')
-    @parent
-    <script src="{{ asset('assets/admins/js/editors41fe.js') }}"></script>
-    <script src="{{ asset('assets/admins/js/libs/editors/quill41fe.js') }}"></script>
 @endsection

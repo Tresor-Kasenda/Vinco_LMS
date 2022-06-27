@@ -27,16 +27,16 @@ final class PersonnelBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.users.personnels.index', [
-            'employees' => $this->repository->getPersonnelContent(),
-        ]);
+        $employees = $this->repository->getPersonnelContent();
+
+        return view('backend.domain.users.personnels.index', compact('employees'));
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.personnels.show', [
-            'employee' => $this->repository->showPersonnelContent(key:  $key),
-        ]);
+        $employee = $this->repository->showPersonnelContent(key:  $key);
+
+        return view('backend.domain.users.personnels.show', compact('employee'));
     }
 
     public function create(): Renderable
@@ -53,9 +53,9 @@ final class PersonnelBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.personnels.edit', [
-            'employee' => $this->repository->showPersonnelContent(key: $key),
-        ]);
+        $employee = $this->repository->showPersonnelContent(key:  $key);
+
+        return view('backend.domain.users.personnels.edit', compact('employee'));
     }
 
     public function update(UpdatePersonnelRequest $attributes, string $key): RedirectResponse

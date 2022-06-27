@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasKeyTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,7 +46,7 @@ use Illuminate\Support\Carbon;
  */
 class Guardian extends Model
 {
-    use HasFactory;
+    use HasFactory, HasKeyTrait;
 
     protected $guarded = [];
 

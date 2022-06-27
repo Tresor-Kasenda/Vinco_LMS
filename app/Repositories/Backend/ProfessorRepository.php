@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class ProfessorRepository implements ProfessorRepositoryInterface
 {
@@ -45,12 +46,15 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->first();
         if ($professor) {
             $factory->addError('Email deja utiliser par un autre compte');
-
             return back();
         }
-        $professor = $this->createProfessor($attributes);
-        $factory->addSuccess('Un professeur a ete ajouter');
+        $user = $this->createUser($attributes);
+        $role = $this->getRole();
+        $user->assignRole($role->id);
 
+        $professor = $this->createProfessor($attributes, $user);
+
+        $factory->addSuccess('Un professeur a ete ajouter');
         return $professor;
     }
 
@@ -60,16 +64,11 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $this->removePathOfImages(model: $professor);
         $professor->update([
             'username' => $attributes->input('name'),
-            'firstname' => $attributes->input('firstName'),
-            'lastname' => $attributes->input('lastName'),
+            'lastname' => $attributes->input('lastname'),
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
-            'country' => $attributes->input('nationality'),
             'images' => self::uploadFiles($attributes),
-            'location' => $attributes->input('address'),
-            'identityCard' => $attributes->input('identityCard'),
             'gender' => $attributes->input('gender'),
-            'birthdays' => $attributes->input('birthdays'),
         ]);
         $factory->addSuccess('Une modification a ete effectuer');
 
@@ -81,7 +80,6 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $professor = $this->showProfessor(key: $key);
         if ($professor->status !== StatusEnum::FALSE) {
             $factory->addError('Veillez desactiver le professeur avant de le mettre dans la corbeille');
-
             return back();
         }
         $professor->delete();
@@ -102,23 +100,42 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         return false;
     }
 
-    private function createProfessor($attributes): Model|Builder
+    private function createProfessor($attributes, $user): Model|Builder
     {
         return Professor::query()
             ->create([
                 'username' => $attributes->input('name'),
-                'firstname' => $attributes->input('firstName'),
-                'lastname' => $attributes->input('lastName'),
+                'lastname' => $attributes->input('lastname'),
                 'email' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
-                'country' => $attributes->input('nationality'),
                 'images' => self::uploadFiles($attributes),
-                'location' => $attributes->input('address'),
-                'identityCard' => $attributes->input('identityCard'),
                 'gender' => $attributes->input('gender'),
-                'birthdays' => $attributes->input('birthdays'),
-                'user_id' => $attributes->input('user'),
+                'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10),
             ]);
+    }
+
+    /**
+     * @param $attributes
+     * @return User|Builder|Model
+     */
+    public function createUser($attributes): User|Builder|Model
+    {
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'password' => Hash::make($attributes->input('password'))
+            ]);
+    }
+
+    /**
+     * @return Builder|Model
+     */
+    public function getRole(): Builder|Model
+    {
+        return Role::query()
+            ->where('name', '=', 'Teacher')
+            ->firstOrFail();
     }
 }

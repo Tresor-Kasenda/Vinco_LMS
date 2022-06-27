@@ -52,6 +52,11 @@ class CreateUserCommand extends Command
                         ->create(compact('name', 'email', 'password', 'status'));
                     $user->save();
                     $role = Role::create(['name' => "Super Admin"]);
+                    Role::create(['name' => "Admin"]);
+                    Role::create(['name' => "Student"]);
+                    Role::create(['name' => "Parent"]);
+                    Role::create(['name' => "Campus"]);
+                    Role::create(['name' => "Teacher"]);
 
                     Artisan::call('db:seed');
 
@@ -76,8 +81,6 @@ class CreateUserCommand extends Command
                             'app_name' => $name,
                         ]);
                     $progressBar->finish();
-
-                    $this->info(sprintf('User name %s with email <%s>, as created', $name, $email));
                     exit();
                 } catch (\Exception $exception) {
                     $this->error('Something went wrong run the command with -v for more details');

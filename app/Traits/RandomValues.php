@@ -22,4 +22,16 @@ trait RandomValues
     {
         return strval(rand($firstValue, $secondValue));
     }
+
+    public function randomMatriculate(string $name): string
+    {
+        $characters = now()->format('Y'). substr($name, 0, 3);
+        $randomMatriculate = '';
+        for ($i = 0; $i < $name; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomMatriculate .= $characters[$index];
+        }
+
+        return strtoupper($randomMatriculate);
+    }
 }

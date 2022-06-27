@@ -33,9 +33,9 @@ final class UsersBackendController extends Controller
 
     public function show(string $key): Renderable
     {
-        return view('backend.domain.users.admin.show', [
-            'admin' => $this->repository->showUser(key: $key),
-        ]);
+        $user = $this->repository->showUser(key: $key);
+
+        return view('backend.domain.users.admin.show', compact('user'));
     }
 
     public function create(): Factory|\Illuminate\Contracts\View\View|Application

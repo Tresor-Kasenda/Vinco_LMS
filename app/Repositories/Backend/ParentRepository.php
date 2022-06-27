@@ -35,9 +35,7 @@ class ParentRepository implements ParentRepositoryInterface
     public function stored($attributes, $factory): Model|Guardian|Builder
     {
         $parent  = $this->createUserParent($attributes);
-
         $role = $this->getParentRole();
-
         $parent->assignRole($role);
 
         $guardian = Guardian::query()
