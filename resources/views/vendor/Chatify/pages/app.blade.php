@@ -44,10 +44,44 @@
 
            {{-- ---------------- [ Group Tab ] ---------------- --}}
            <div class="@if($type == 'group') show @endif messenger-tab groups-tab app-scroll" data-view="groups">
+
+               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+               <div class="container m-3">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <a class="btn btn-primary"
+                              href="/group/create"
+                           >Create a group</a>
+                       </div>
+                       <div class="col-md-6">
+                           <a class="btn btn-light" href="/group/join">Join a group</a>
+                       </div>
+                   </div>
+               </div>
+               @php
+                   $groups = auth()->user()->group_member;
+               @endphp
                 {{-- items --}}
-                <p style="text-align: center;color:grey;margin-top:30px">
-                    <a target="_blank" style="color:{{$messengerColor}};" href="https://chatify.munafio.com/notes#groups-feature">Click here</a> for more info!
-                </p>
+               @forelse($groups as $group)
+                   <table class="table">
+                       <tr>
+                           <td>
+                               <a class="text-black" href="/group/{{$group->id}}">
+                                   <p class="text-dark">
+                                       {{ strlen($group->name) > 12 ? trim(substr($group->name,0,15)).'..' : $group->name }}</p>
+
+                                   @if ($group->admin_id == auth()->user()->id)
+                                       <p class="h6">
+                                           Code to join: <em class="text-success">{{$group->code}}</em>
+                                       </p>
+                                   @endif
+                               </a>
+                           </td>
+                       </tr>
+                   </table>
+               @empty
+               @endforelse
              </div>
 
              {{-- ---------------- [ Search Tab ] ---------------- --}}

@@ -35,27 +35,6 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ Auth::guest() ? url('/') : url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-
-                @if (!Auth::guest())
-                    <div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                @endif
-            </div>
-        </nav>
 
         <main class="py-4">
             @include('backend.domain.communication.chat.partials.error_message')

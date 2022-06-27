@@ -45,7 +45,7 @@ class GroupController extends Controller
         //we attach the user with the group after he created it
        $group->participants()->attach(auth()->user()->id);
 
-        return redirect('/home')->with('success', 'Your group has been created');
+        return redirect('/chatify')->with('success', 'Your group has been created');
     }
 
     //display the form to join a group
@@ -74,7 +74,7 @@ class GroupController extends Controller
 
                 $group->participants()->attach(auth()->user()->id);
 
-                return redirect('/home')->with('success', 'Group joined');
+                return redirect('/chatify')->with('success', 'Group joined');
             }
             catch (\Throwable $th)
             {
