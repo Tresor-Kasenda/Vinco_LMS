@@ -14,6 +14,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 use function PHPUnit\Framework\at;
 
 class FiliaireBackendController extends Controller
@@ -26,6 +28,8 @@ class FiliaireBackendController extends Controller
 
     public function index(): Renderable
     {
+        abort_if(Gate::denies('Subsidiaries-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+
         $filiaires = $this->repository->getFiliaires();
 
         return view('backend.domain.academic.filiaire.index', compact('filiaires'));
@@ -45,9 +49,11 @@ class FiliaireBackendController extends Controller
 
     public function store(FiliaireRequest $attributes): RedirectResponse
     {
+        abort_if(Gate::denies('Subsidiaries-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
-        return redirect()->route('admins.academic.departments.index');
+        return redirect()->route('admins.academic.filiaire.index');
     }
 
     public function edit(string $key): Factory|View|Application
@@ -59,13 +65,17 @@ class FiliaireBackendController extends Controller
 
     public function update(FiliaireRequest $request, string $key): RedirectResponse
     {
+        abort_if(Gate::denies('Subsidiaries-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->repository->updated(key: $key, attributes:  $request, factory: $this->factory);
 
-        return redirect()->route('admins.academic.departments.index');
+        return redirect()->route('admins.academic.filiaire.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
+        abort_if(Gate::denies('Subsidiaries-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->repository->deleted(key: $key, factory: $this->factory);
 
         return back();

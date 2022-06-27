@@ -46,7 +46,6 @@ class FiliaireRepository implements FiliaireRepositoryInterface
             $faculty = Subsidiary::query()
                 ->create([
                     'department_id' => $attributes->input('department'),
-                    'academic_year_id' => $attributes->input('academic'),
                     'user_id' => $attributes->input('user'),
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
@@ -67,7 +66,7 @@ class FiliaireRepository implements FiliaireRepositoryInterface
         $this->removePathOfImages($campus);
         $campus->update([
             'department_id' => $attributes->input('department'),
-            'user_id' => $attributes->input('user_id'),
+            'user_id' => $attributes->input('user'),
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
             'images' => self::uploadFiles($attributes),

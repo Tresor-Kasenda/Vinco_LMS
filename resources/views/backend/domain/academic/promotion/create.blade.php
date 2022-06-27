@@ -31,6 +31,15 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.promotion.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
@@ -45,14 +54,14 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du promotion"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Logo</label>
+                                                    <label class="form-label" for="images">Image</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
@@ -60,7 +69,7 @@
                                                             id="images"
                                                             name="images"
                                                             value="{{ old('images') }}"
-                                                            placeholder="Choisir le logo du campus"
+                                                            placeholder="Enter Image"
                                                             required>
                                                     </div>
                                                 </div>
@@ -92,7 +101,11 @@
                                                         required>
                                                         <option label="Choisir l'annee academique" value=""></option>
                                                         @foreach(\App\Models\AcademicYear::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->startDate }}/{{ $campus->endDate }}</option>
+                                                            <option value="{{ $campus->id }}">
+                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
+                                                                -
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $campus->end_date)->format('Y') }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -105,7 +118,7 @@
                                                             class="form-control form-control-sm"
                                                             id="description"
                                                             name="description"
-                                                            placeholder="Write the description"
+                                                            placeholder="Enter the description"
                                                         >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>

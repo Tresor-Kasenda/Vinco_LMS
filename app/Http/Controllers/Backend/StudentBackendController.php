@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmerProfessorRequest;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
+use App\Http\Requests\StudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -27,16 +29,16 @@ class StudentBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.users.student.index', [
-            'students' => $this->repository->students(),
-        ]);
+        $students = $this->repository->students();
+
+        return view('backend.domain.users.student.index', compact('students'));
     }
 
     public function show(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.student.show', [
-            'professor' => $this->repository->showStudent(key:  $key),
-        ]);
+        $student = $this->repository->showStudent($key);
+
+        return view('backend.domain.users.student.show', compact('student'));
     }
 
     public function create(): Renderable
@@ -44,7 +46,7 @@ class StudentBackendController extends Controller
         return view('backend.domain.users.student.create');
     }
 
-    public function store(ProfessorRequest $attributes): RedirectResponse
+    public function store(StudentRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
@@ -53,12 +55,12 @@ class StudentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.student.edit', [
-            'professor' => $this->repository->showStudent(key: $key),
-        ]);
+        $student = $this->repository->showStudent($key);
+
+        return view('backend.domain.users.student.edit', compact('student'));
     }
 
-    public function update(ProfessorUpdateRequest $attributes, string $key): RedirectResponse
+    public function update(UpdateStudentRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 

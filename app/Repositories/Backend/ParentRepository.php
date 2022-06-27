@@ -27,9 +27,11 @@ class ParentRepository implements ParentRepositoryInterface
             ->get();
     }
 
-    public function showGuardian(string $key)
+    public function showGuardian(string $key): Model|Guardian|Builder
     {
-        // TODO: Implement showGuardian() method.
+        return Guardian::query()
+            ->where('id', '=', $key)
+            ->firstOrFail();
     }
 
     public function stored($attributes, $factory): Model|Guardian|Builder
@@ -52,14 +54,32 @@ class ParentRepository implements ParentRepositoryInterface
         return $guardian;
     }
 
-    public function updated(string $key, $attributes, $factory)
+    public function updated(string $key, $attributes, $factory): Model|Guardian|Builder
     {
-        // TODO: Implement updated() method.
+        $parent = $this->showGuardian($key);
+        $this->removePathOfImages($parent);
+
+        $parent->update([
+            'name_guardian' => $attributes->input('name'),
+            'email_guardian' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'gender' => $attributes->input('gender'),
+        ]);
+
+        $factory->addSuccess("Parent updated with successfully");
+
+        return $parent;
     }
 
-    public function deleted(string $key, $factory)
+    public function deleted(string $key, $factory): Model|Guardian|Builder
     {
-        // TODO: Implement deleted() method.
+        $parent = $this->showGuardian($key);
+
+        $parent->delete();
+
+        $factory->addSuccess("Parent deleted with successfully");
+
+        return $parent;
     }
 
     public function changeStatus($attributes)

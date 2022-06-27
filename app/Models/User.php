@@ -96,6 +96,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $permissions_count
  * @method static Builder|User permission($permissions)
  * @method static Builder|User role($roles, $guard = null)
+ * @property-read Collection|\Spatie\Permission\Models\Role[] $roles
  */
 class User extends Authenticatable
 {

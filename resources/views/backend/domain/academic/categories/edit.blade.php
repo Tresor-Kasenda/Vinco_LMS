@@ -65,9 +65,9 @@
                                                             <option label="genre" value=""></option>
                                                             @foreach($academicYear as $year)
                                                                 <option value="{{ $year->id }}">
-                                                                    {{  \Carbon\Carbon::createFromFormat('Y-m-d', $year->startDate)->format('Y') }}
+                                                                    {{  \Carbon\Carbon::createFromFormat('Y-m-d', $year->start_date)->format('Y') }}
                                                                     -
-                                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $year->endDate)->format('Y') }}
+                                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $year->end_date)->format('Y') }}
                                                                 </option>
                                                             @endforeach>
                                                         </select>

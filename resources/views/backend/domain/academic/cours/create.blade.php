@@ -145,9 +145,9 @@
                                                             data-placeholder="Select a professor"
                                                             required>
                                                             <option label="Choisir un professeur" value=""></option>
-                                                            @foreach(\App\Models\User::query()->where('role_id', '=', \App\Enums\RoleEnum::PROFESSOR)->get() as $professor)
+                                                            @foreach(\App\Models\Professor::all() as $professor)
                                                                 <option value="{{ $professor->id }}">
-                                                                    {{ $professor->name ?? "" }}-{{ $professor->firstName ?? "" }}
+                                                                    {{ ucfirst($professor->username) ?? "" }}
                                                                 </option>
                                                             @endforeach>
                                                         </select>

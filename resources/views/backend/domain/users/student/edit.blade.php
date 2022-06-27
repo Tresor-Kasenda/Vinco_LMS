@@ -46,6 +46,7 @@
                                     @endif
                                     <form action="{{ route('admins.users.student.update', $student->id) }}" method="post" class="form-validate mt-2">
                                         @csrf
+                                        @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -56,7 +57,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $student->name }}"
+                                                            value="{{ old('name') ?? $student->firstname }}"
                                                             placeholder="Enter Name"
                                                             required>
                                                     </div>
@@ -74,21 +75,6 @@
                                                             value="{{ old('email') ?? $student->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter Email"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="password">Mot de passe</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="password"
-                                                            class="form-control @error('password') error @enderror"
-                                                            id="password"
-                                                            name="password"
-                                                            value="{{ old('password') }}"
-                                                            placeholder="Enter password"
                                                             required>
                                                     </div>
                                                 </div>
@@ -178,7 +164,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="admission">Admission Date</label>
                                                     <div class="form-control-wrap">
@@ -187,7 +173,8 @@
                                                             class="form-control date-picker @error('admission') error @enderror"
                                                             id="admission"
                                                             name="admission"
-                                                            value="{{ old('admission') ?? $student->created_at->format('M,d Y') }}"
+                                                            data-date-format="yyyy-mm-dd"
+                                                            value="{{ old('admission') ?? $student->admission }}"
                                                             placeholder="Select Admission Date"
                                                             required>
                                                     </div>
