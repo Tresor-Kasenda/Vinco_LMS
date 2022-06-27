@@ -153,4 +153,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function group()
+    {
+        return $this->belongsToMany('App\Models\Group', 'admin_id');
+    }
+
+    public function group_member()
+    {
+        return $this->belongsToMany('App\Models\Group', 'group_participants', 'user_id', 'group_id')->orderBy('updated_at', 'desc');
+    }
+
+    public function message()
+    {
+        return $this->hasMany('App\Models\Message', 'user_id');
+    }
 }
