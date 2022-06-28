@@ -45,9 +45,9 @@ class ParentBackendController extends Controller
     {
         abort_if(Gate::denies('parent-view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permission = $this->repository->showGuardian(key: $key);
+        $parent = $this->repository->showGuardian(key: $key);
 
-        return view('backend.domain.users.parent.show', compact('permission'));
+        return view('backend.domain.users.parent.show', compact('parent'));
     }
 
     public function create(): Renderable
@@ -66,9 +66,9 @@ class ParentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.users.parent.edit', [
-            'professor' => $this->repository->showGuardian(key: $key),
-        ]);
+        $parent  = $this->repository->showGuardian(key: $key);
+
+        return view('backend.domain.users.parent.edit', compact('parent'));
     }
 
     public function update(ProfessorUpdateRequest $attributes, string $key): RedirectResponse

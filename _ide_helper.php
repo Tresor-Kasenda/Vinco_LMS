@@ -16806,6 +16806,162 @@
      
 }
 
+    namespace MaddHatter\LaravelFullcalendar\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Calendar {
+                    /**
+         * Create an event DTO to add to a calendar
+         *
+         * @param string $title
+         * @param string $isAllDay
+         * @param string|\DateTime $start If string, must be valid datetime format: http://bit.ly/1z7QWbg
+         * @param string|\DateTime $end If string, must be valid datetime format: http://bit.ly/1z7QWbg
+         * @param string $id event Id
+         * @param array $options
+         * @return \MaddHatter\LaravelFullcalendar\SimpleEvent 
+         * @static 
+         */ 
+        public static function event($title, $isAllDay, $start, $end, $id = null, $options = [])
+        {
+                        return \MaddHatter\LaravelFullcalendar\Calendar::event($title, $isAllDay, $start, $end, $id, $options);
+        }
+                    /**
+         * Create the <div> the calendar will be rendered into
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function calendar()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->calendar();
+        }
+                    /**
+         * Get the <script> block to render the calendar (as a View)
+         *
+         * @return \Illuminate\View\View 
+         * @static 
+         */ 
+        public static function script()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->script();
+        }
+                    /**
+         * Customize the ID of the generated <div>
+         *
+         * @param string $id
+         * @return \MaddHatter\LaravelFullcalendar\Calendar 
+         * @static 
+         */ 
+        public static function setId($id)
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->setId($id);
+        }
+                    /**
+         * Get the ID of the generated <div>
+         * This value is randomized unless a custom value was set via setId
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getId()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->getId();
+        }
+                    /**
+         * Add an event
+         *
+         * @param \Event $event
+         * @param array $customAttributes
+         * @return \MaddHatter\LaravelFullcalendar\Calendar 
+         * @static 
+         */ 
+        public static function addEvent($event, $customAttributes = [])
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->addEvent($event, $customAttributes);
+        }
+                    /**
+         * Add multiple events
+         *
+         * @param array|\ArrayAccess $events
+         * @param array $customAttributes
+         * @return \MaddHatter\LaravelFullcalendar\Calendar 
+         * @static 
+         */ 
+        public static function addEvents($events, $customAttributes = [])
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->addEvents($events, $customAttributes);
+        }
+                    /**
+         * Set fullcalendar options
+         *
+         * @param array $options
+         * @return \MaddHatter\LaravelFullcalendar\Calendar 
+         * @static 
+         */ 
+        public static function setOptions($options)
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->setOptions($options);
+        }
+                    /**
+         * Get the fullcalendar options (not including the events list)
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getOptions()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->getOptions();
+        }
+                    /**
+         * Set fullcalendar callback options
+         *
+         * @param array $callbacks
+         * @return \MaddHatter\LaravelFullcalendar\Calendar 
+         * @static 
+         */ 
+        public static function setCallbacks($callbacks)
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->setCallbacks($callbacks);
+        }
+                    /**
+         * Get the callbacks currently defined
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getCallbacks()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->getCallbacks();
+        }
+                    /**
+         * Get options+events JSON
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getOptionsJson()
+        {
+                        /** @var \MaddHatter\LaravelFullcalendar\Calendar $instance */
+                        return $instance->getOptionsJson();
+        }
+         
+    }
+     
+}
+
     namespace Livewire { 
             /**
      * 
@@ -22168,6 +22324,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Flasher extends \Flasher\Laravel\Facade\Flasher {}
             class Timezonelist extends \Jackiedo\Timezonelist\Facades\Timezonelist {}
+            class Calendar extends \MaddHatter\LaravelFullcalendar\Facades\Calendar {}
             class Livewire extends \Livewire\Livewire {}
             class Chatify extends \Chatify\Facades\ChatifyMessenger {}
             class SweetAlert extends \Flasher\SweetAlert\Laravel\Facade\SweetAlert {}

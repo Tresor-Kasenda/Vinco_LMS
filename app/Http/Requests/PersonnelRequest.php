@@ -17,7 +17,6 @@ class PersonnelRequest extends FormRequest
     public function authorize(): bool
     {
         abort_if(Gate::denies('Personnel-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 

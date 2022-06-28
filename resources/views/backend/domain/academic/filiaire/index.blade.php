@@ -50,9 +50,6 @@
                                     <span>Departement</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Annee academique</span>
-                                </th>
-                                <th class="nk-tb-col">
                                     <span>Status</span>
                                 </th>
                                 <th class="nk-tb-col">
@@ -79,9 +76,6 @@
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $filiaire->department->name ?? ""}}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $filiaire->academic->startDate ?? ""}}-{{ $filiaire->academic->endDate ?? ""}}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @if($filiaire->status)

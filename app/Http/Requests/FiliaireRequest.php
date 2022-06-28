@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use App\Models\AcademicYear;
 use App\Models\Campus;
 use App\Models\Department;
+use App\Models\Personnel;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -33,9 +34,8 @@ class FiliaireRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
-            'user' => ['required', Rule::exists(User::class, 'id')],
+            'user' => ['required', Rule::exists(Personnel::class, 'id')],
             'department' => ['required', Rule::exists(Department::class, 'id')],
-            'academic' => ['required', Rule::exists(AcademicYear::class, 'id')],
             'description' => ['nullable'],
         ];
     }

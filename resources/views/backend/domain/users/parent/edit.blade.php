@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Mise a jours du parent")
+@section('title')
+    Edit Patent
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,9 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">
-                                Edit Parent/<strong class="text-primary small">{{ strtoupper($administrator->username) }}</strong>
-                            </h3>
+                            <h3 class="nk-block-title page-title">Edit Parent</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -34,9 +34,17 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.users.guardian.update', $administrator->key) }}" method="post" class="form-validate mt-3">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.users.guardian.update', $parent->id) }}" method="post" class="form-validate mt-2">
                                         @csrf
-                                        @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -47,61 +55,30 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $administrator->name }}"
-                                                            placeholder="Saisir votre nom"
+                                                            value="{{ old('name') ?? $parent->name_guardian }}"
+                                                            placeholder="Enter name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstName">Votre post-nom</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('firstName') error @enderror"
-                                                            id="firstName"
-                                                            name="firstName"
-                                                            value="{{ old('firstName') ?? $administrator->firstName }}"
-                                                            placeholder="Saisir votre post-nom"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="email">Email address</label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $administrator->email }}"
+                                                            value="{{ old('email') ?? $parent->email_guardian }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
-                                                            placeholder="Saisir votre adresse email"
+                                                            placeholder="Enter email"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="role_id">Select Role</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 @error('role_id') error @enderror"
-                                                            id="role_id"
-                                                            name="role_id"
-                                                            data-placeholder="Select a role"
-                                                            required>
-                                                            <option label="role" value=""></option>
-                                                            @foreach(\App\Models\Role::all() as $role)
-                                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Mot de passe</label>
@@ -117,9 +94,25 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="phones">Phone</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="tel"
+                                                            class="form-control @error('phones') error @enderror"
+                                                            id="phones"
+                                                            name="phones"
+                                                            value="{{ old('phone') ?? $parent->phones }}"
+                                                            placeholder="Enter Phone"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="password">Gender</label> <br>
+                                                    <label class="form-label" for="gender">Gender</label> <br>
                                                     <ul class="custom-control-group g-3 align-center flex-wrap">
                                                         <li>
                                                             <div class="custom-control custom-radio">
@@ -127,9 +120,10 @@
                                                                     type="radio"
                                                                     class="custom-control-input"
                                                                     checked=""
-                                                                    name="reg-public"
-                                                                    id="reg-enable">
-                                                                <label class="custom-control-label" for="reg-enable">Homme</label>
+                                                                    name="gender"
+                                                                    value="male"
+                                                                    id="male">
+                                                                <label class="custom-control-label" for="male">Homme</label>
                                                             </div>
                                                         </li>
                                                         <li>
@@ -137,9 +131,10 @@
                                                                 <input
                                                                     type="radio"
                                                                     class="custom-control-input"
-                                                                    name="reg-public"
-                                                                    id="reg-disable">
-                                                                <label class="custom-control-label" for="reg-disable">Femme</label>
+                                                                    name="gender"
+                                                                    value="female"
+                                                                    id="female">
+                                                                <label class="custom-control-label" for="female">Femme</label>
                                                             </div>
                                                         </li>
                                                     </ul>

@@ -78,14 +78,6 @@
                                             <th>Departement</th>
                                             <td>{{ $filiaire->department->name ?? "" }}</td>
                                         </tr>
-                                        <tr>
-                                            <th>Anneee academique</th>
-                                            <td>
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $filiaire->academic->startDate)->format('Y') }}
-                                                -
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $filiaire->academic->endDate)->format('Y') }}
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

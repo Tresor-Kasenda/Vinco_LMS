@@ -11,6 +11,7 @@ use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\ChartRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
+use App\Contracts\EventRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Contracts\ExpenseRepositoryInterface;
@@ -20,7 +21,9 @@ use App\Contracts\FeesTypeRepositoryInterface;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Contracts\HomeworkRepositoryInterface;
 use App\Contracts\InterroRepositoryInterface;
+use App\Contracts\JournalRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
+use App\Contracts\NotificationRepositoryInterface;
 use App\Contracts\ParentRepositoryInterface;
 use App\Contracts\PersonnelRepositoryInterface;
 use App\Contracts\ProfessorRepositoryInterface;
@@ -78,6 +81,9 @@ use App\Repositories\Backend\TrashedPersonnelRepositoryTrashed;
 use App\Repositories\Backend\TrashedProfessorRepository;
 use App\Repositories\Backend\TrashedUsersRepository;
 use App\Repositories\Backend\UsersRepository;
+use App\Repositories\Com\EventRepository;
+use App\Repositories\Com\JournalRepository;
+use App\Repositories\Com\NotificationRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
@@ -126,6 +132,9 @@ class RepositoryServiceProvider extends ServiceProvider
         SettingRepositoryInterface::class => SettingRepository::class,
         ChartRepositoryInterface::class => ChartRepository::class,
         RoleRepositoryInterface::class => RoleRepository::class,
+        EventRepositoryInterface::class => EventRepository::class,
+        NotificationRepositoryInterface::class => NotificationRepository::class,
+        JournalRepositoryInterface::class => JournalRepository::class,
     ];
 
     /**
