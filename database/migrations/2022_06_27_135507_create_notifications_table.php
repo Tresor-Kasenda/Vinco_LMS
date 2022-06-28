@@ -19,9 +19,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->string('images');
-            $table->date('start_date');
-            $table->date('end_date');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="">
     <title>COMMUNICATION | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.css"/>
 
     <style>
         body {
