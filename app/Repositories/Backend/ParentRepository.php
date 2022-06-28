@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 use function PHPUnit\Framework\assertTrue;
 use function PHPUnit\Framework\at;
+use Spatie\Permission\Models\Role;
 
 class ParentRepository implements ParentRepositoryInterface
 {
@@ -36,7 +36,7 @@ class ParentRepository implements ParentRepositoryInterface
 
     public function stored($attributes, $factory): Model|Guardian|Builder
     {
-        $parent  = $this->createUserParent($attributes);
+        $parent = $this->createUserParent($attributes);
         $role = $this->getParentRole();
         $parent->assignRole($role);
 
@@ -46,10 +46,10 @@ class ParentRepository implements ParentRepositoryInterface
                 'email_guardian' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
                 'gender' => $attributes->input('gender'),
-                'user_id' => $parent->id
+                'user_id' => $parent->id,
             ]);
 
-        $factory->addSuccess("Parent added with successfully");
+        $factory->addSuccess('Parent added with successfully');
 
         return $guardian;
     }
@@ -97,7 +97,7 @@ class ParentRepository implements ParentRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('password'))
+                'password' => Hash::make($attributes->input('password')),
             ]);
     }
 

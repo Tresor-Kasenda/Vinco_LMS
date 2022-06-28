@@ -19,8 +19,8 @@ class ChartRepository implements ChartRepositoryInterface
         return Fee::query()
             ->select(
                 [
-                    DB::raw("(COUNT(*)) as count"),
-                    DB::raw("MONTHNAME(created_at) as monthname")
+                    DB::raw('(COUNT(*)) as count'),
+                    DB::raw('MONTHNAME(created_at) as monthname'),
                 ]
             )
             ->whereYear('created_at', date('Y'))
@@ -34,8 +34,8 @@ class ChartRepository implements ChartRepositoryInterface
         return Expense::query()
             ->select(
                 [
-                    DB::raw("(COUNT(*)) as count"),
-                    DB::raw("MONTHNAME(created_at) as monthname")
+                    DB::raw('(COUNT(*)) as count'),
+                    DB::raw('MONTHNAME(created_at) as monthname'),
                 ]
             )
             ->whereYear('created_at', date('Y'))
@@ -51,7 +51,7 @@ class ChartRepository implements ChartRepositoryInterface
                 [
                     'gender',
                     'id',
-                    DB::raw('COUNT(id) as order_count')
+                    DB::raw('COUNT(id) as order_count'),
                 ]
             )
             ->whereIn('gender', ['masculin', 'feminim'])
@@ -59,14 +59,13 @@ class ChartRepository implements ChartRepositoryInterface
             ->get();
     }
 
-
     public function getFeesByWeeks(): array|Collection|\Illuminate\Support\Collection
     {
         return Fee::query()
             ->select(
                 [
-                    DB::raw("(COUNT(*)) as count"),
-                    DB::raw("DAYNAME(created_at) as dayname")
+                    DB::raw('(COUNT(*)) as count'),
+                    DB::raw('DAYNAME(created_at) as dayname'),
                 ]
             )
             ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
@@ -80,8 +79,8 @@ class ChartRepository implements ChartRepositoryInterface
         return Expense::query()
             ->select(
                 [
-                    DB::raw("(COUNT(*)) as count"),
-                    DB::raw("DAYNAME(created_at) as dayname")
+                    DB::raw('(COUNT(*)) as count'),
+                    DB::raw('DAYNAME(created_at) as dayname'),
                 ]
             )
             ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])

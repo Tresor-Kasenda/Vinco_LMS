@@ -22,12 +22,12 @@ class RoleSeeder extends Seeder
     {
         $admin = User::query()
             ->create([
-                'name' => "Vinco",
+                'name' => 'Vinco',
                 'email' => 'admin@vinco.com',
-                'password' => Hash::make('vinco-lms')
+                'password' => Hash::make('vinco-lms'),
             ]);
 
-        $role = Role::create(['name' => "Super Admin"]);
+        $role = Role::create(['name' => 'Super Admin']);
 
         $permission = Permission::query()
             ->pluck('id', 'id')

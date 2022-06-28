@@ -61,5 +61,4 @@ class ExpenseTypeBackendController extends Controller
 
         return back();
     }
-
 }

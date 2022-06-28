@@ -18,6 +18,7 @@ trait RedirectRoute
         switch (Auth::user() && Auth::user()->status === StatusEnum::TRUE) {
             case RoleEnum::ADMIN:
                 $this->redirectTo = route('admins.backend.home');
+
                 return $this->redirectTo;
                 break;
             default:

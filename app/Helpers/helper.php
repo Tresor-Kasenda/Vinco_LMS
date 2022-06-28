@@ -13,7 +13,6 @@ if (! function_exists('verifyIfLessonIsVideo')) {
     }
 }
 
-
 if (! function_exists('priceFormat')) {
     function priceFormat($price): string
     {

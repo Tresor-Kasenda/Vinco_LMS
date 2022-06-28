@@ -35,7 +35,6 @@ class CampusRepository implements CampusRepositoryInterface
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
-
         $campus = Campus::query()
             ->when('user_id', fn ($query) => $query->where('user_id', $attributes->input('user_id')))
             ->first();

@@ -16,7 +16,7 @@ class UpdatePersonnelRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::allwos('Personnel-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('Personnel-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return true;
     }
 

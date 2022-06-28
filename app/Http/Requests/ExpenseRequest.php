@@ -29,7 +29,7 @@ class ExpenseRequest extends FormRequest
         return [
             'expense' => ['required', Rule::exists('expense_types', 'id')],
             'amount' => ['required', 'min:2'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ];
     }
 }

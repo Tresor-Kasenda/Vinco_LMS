@@ -54,6 +54,7 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
         ]);
 
         $factory->addSuccess('Fees Type updated with Successfully');
+
         return $feeType;
     }
 
@@ -64,6 +65,7 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
         $feeType->delete();
 
         $factory->addSuccess('Fees Type deleted with Successfully');
+
         return $feeType;
     }
 }

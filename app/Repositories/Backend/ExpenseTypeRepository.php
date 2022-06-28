@@ -37,10 +37,11 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
         $expenseType = ExpenseType::query()
             ->create([
                'name' => $attributes->input('name'),
-               'image' => self::uploadFiles(request: $attributes)
+               'image' => self::uploadFiles(request: $attributes),
             ]);
 
         $factory->addSuccess('Expense type added with successfully');
+
         return $expenseType;
     }
 
@@ -50,10 +51,11 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
         $this->removePathOfImage($expenseType);
         $expenseType->update([
             'name' => $attributes->input('name'),
-            'image' => self::uploadFiles(request: $attributes)
+            'image' => self::uploadFiles(request: $attributes),
         ]);
 
         $factory->addSuccess('Expense type modified with successfully');
+
         return $expenseType;
     }
 
@@ -63,6 +65,7 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
         $this->removePathOfImage($expenseType);
         $expenseType->delete();
         $factory->addSuccess('Expense type deleted with successfully');
+
         return $expenseType;
     }
 }
