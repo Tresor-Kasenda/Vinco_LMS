@@ -86,6 +86,17 @@ use Illuminate\Support\Carbon;
  * @mixin \Eloquent
  * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
+ * @property string|null $phone_number
+ * @property string|null $identity_card
+ * @property string|null $born_city
+ * @property string|null $parent_name
+ * @property string|null $parent_phone
+ * @property int $guardian_id
+ * @property string|null $admission
+ * @method static Builder|Student whereAdmission($value)
+ * @method static Builder|Student whereGuardianId($value)
+ * @method static Builder|Student whereParentName($value)
+ * @method static Builder|Student whereParentPhone($value)
  */
 class Student extends Model
 {

@@ -36,6 +36,8 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  * @property-read Collection|Category[] $categories
  * @property-read int|null $categories_count
+ * @property string $start_date
+ * @property string $end_date
  */
 class AcademicYear extends Model
 {

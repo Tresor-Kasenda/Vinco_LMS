@@ -44,7 +44,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2">
+                                    <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-6">
@@ -187,12 +187,30 @@
                                                             class="form-control date-picker @error('admission') error @enderror"
                                                             id="admission"
                                                             name="admission"
+                                                            data-date-format="yyyy-mm-dd"
                                                             value="{{ old('admission') }}"
                                                             placeholder="Select Admission Date"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="images">Image</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="file"
+                                                            class="form-control @error('images') error @enderror"
+                                                            id="images"
+                                                            name="images"
+                                                            value="{{ old('images') }}"
+                                                            placeholder="Select image"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-lg-12">
                                                 <div class="form-group">

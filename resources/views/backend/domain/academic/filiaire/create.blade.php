@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation de filiaire")
+@section('title')
+    Create Filiaire
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -31,6 +33,15 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.filiaire.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
@@ -45,14 +56,14 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du filiaire"
+                                                            placeholder="Enter name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Logo du Department</label>
+                                                    <label class="form-label" for="images">Image</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
@@ -60,69 +71,54 @@
                                                             id="images"
                                                             name="images"
                                                             value="{{ old('images') }}"
-                                                            placeholder="Choisir le logo du campus"
+                                                            placeholder="Enter Image"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user">Choisir le responsable</label>
+                                                    <label class="form-label" for="user">Responsable</label>
                                                     <select
                                                         class="form-control js-select2 @error('user') error @enderror"
                                                         id="user"
                                                         name="user"
-                                                        data-placeholder="Choisir le responsable"
+                                                        data-placeholder="Select Responsable"
                                                         required>
-                                                        <option label="Choisir le responsable" value=""></option>
-                                                        @foreach(\App\Models\User::where('role_id', \App\Enums\RoleEnum::CHEF_COURSES)->get() as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        <option label="Select Responsable" value=""></option>
+                                                        @foreach(\App\Models\Personnel::all() as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->username }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="department">Choisir le departement</label>
+                                                    <label class="form-label" for="department">Departement</label>
                                                     <select
                                                         class="form-control js-select2 @error('department') error @enderror"
                                                         id="department"
                                                         name="department"
-                                                        data-placeholder="Choisir la departemen"
+                                                        data-placeholder="Select le departement"
                                                         required>
-                                                        <option label="Choisir le departement" value=""></option>
+                                                        <option label="Select le departement" value=""></option>
                                                         @foreach(\App\Models\Department::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="academic">Choisir l'annnee academique</label>
-                                                    <select
-                                                        class="form-control js-select2 @error('academic') error @enderror"
-                                                        id="academic"
-                                                        name="academic"
-                                                        data-placeholder="Choisir l'annnee academique"
-                                                        required>
-                                                        <option label="Choisir l'annnee academique" value=""></option>
-                                                        @foreach(\App\Models\AcademicYear::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->startDate }}/{{ $campus->endDate }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Message</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Write the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

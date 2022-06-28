@@ -31,7 +31,7 @@ class PromotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3'],
+            'name' => ['required', 'string'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')],
             'academic' => ['required', Rule::exists(AcademicYear::class, 'id')],

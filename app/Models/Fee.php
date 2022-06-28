@@ -41,6 +41,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Fee whereTransactionNo($value)
  * @method static Builder|Fee whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $guardian_id
+ * @method static Builder|Fee whereGuardianId($value)
  */
 class Fee extends Model
 {

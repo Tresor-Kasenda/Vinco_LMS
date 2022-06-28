@@ -66,6 +66,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
  * @mixin \Eloquent
  * @property-read User|null $user
+ * @property string|null $start_date
+ * @property string|null $end_date
  */
 class Course extends Model
 {

@@ -172,6 +172,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -201,6 +202,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Flasher' => Flasher\Laravel\Facade\Flasher::class,
         'Timezonelist' => Jackiedo\Timezonelist\Facades\Timezonelist::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ])->toArray(),
 
 ];

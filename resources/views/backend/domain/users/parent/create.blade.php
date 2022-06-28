@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Create parent")
+@section('title')
+    Create Parent
+@endsection
 
 @section('content')
     <div class="container-fluid">

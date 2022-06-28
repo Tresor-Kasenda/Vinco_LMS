@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation du departement")
+@section('title')
+    Create Department
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Departements</h3>
+                            <h3 class="nk-block-title page-title">Create Department</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -31,13 +33,22 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <div class="col-md-6">
                                     <form action="{{ route('admins.academic.departments.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du departement</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -45,14 +56,14 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du campus"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Logo du Department</label>
+                                                    <label class="form-label" for="images">Image</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
@@ -67,7 +78,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Choisir le responsable</label>
+                                                    <label class="form-label" for="user_id">Responsable</label>
                                                     <select
                                                         class="form-control js-select2 @error('user_id') error @enderror"
                                                         id="user_id"
@@ -83,7 +94,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="campus_id">Choisir le Campus</label>
+                                                    <label class="form-label" for="campus_id">Campus</label>
                                                     <select
                                                         class="form-control js-select2 @error('campus_id') error @enderror"
                                                         id="campus_id"
@@ -99,14 +110,14 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="description">Message</label>
+                                                    <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Write the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

@@ -55,6 +55,7 @@
                             <th class="nk-tb-col tb-col-md">
                                 <span>Status</span>
                             </th>
+                            @role('Super Admin')
                             <th class="nk-tb-col nk-tb-col-tools">
                                 <ul class="nk-tb-actions gx-1 my-n1">
                                     <li class="me-n1">
@@ -66,6 +67,7 @@
                                     </li>
                                 </ul>
                             </th>
+                            @endrole
                         </tr>
                         </thead>
                         <tbody>
@@ -100,6 +102,7 @@
                                         <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
                                     @endif
                                 </td>
+                                @role('Super Admin')
                                 <td class="nk-tb-col nk-tb-col-tools">
                                     <ul class="nk-tb-actions gx-1 my-n1">
                                         <li class="me-n1">
@@ -137,6 +140,7 @@
                                         </li>
                                     </ul>
                                 </td>
+                                @endrole
                             </tr>
                         @endforeach
                         </tbody>

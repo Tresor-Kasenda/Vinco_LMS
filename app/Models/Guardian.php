@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Guardian whereFirstNameGuardian($value)
  * @method static Builder|Guardian whereImages($value)
  * @method static Builder|Guardian whereNameGuardian($value)
+ * @property-read \App\Models\User $user
  */
 class Guardian extends Model
 {

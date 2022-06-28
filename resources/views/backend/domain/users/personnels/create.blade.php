@@ -141,6 +141,38 @@
                                                 </div>
                                             </div>
 
+                                            @php
+                                                $roles = \Spatie\Permission\Models\Role::query()
+                                                        ->where('name', '!=', 'Super Admin')
+                                                        ->where('name', '!=', 'Admin')
+                                                        ->where('name', '!=', 'Parent')
+                                                        ->where('name', '!=', 'Teacher')
+                                                        ->where('name', '!=', 'Student')
+                                                        ->get()
+                                            @endphp
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="role">Role</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 @error('role') error @enderror"
+                                                            data-value="{{ old('role') }}"
+                                                            id="role"
+                                                            name="role"
+                                                            data-placeholder="Select Role"
+                                                            required>
+                                                            <option label="Select Role" value=""></option>
+                                                            @foreach($roles as $role)
+                                                                <option value="{{ $role->id }}">
+                                                                    {{ ucfirst($role->name) ?? "" }}
+                                                                </option>
+                                                            @endforeach>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="academic">Annee academique</label>
