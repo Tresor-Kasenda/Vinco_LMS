@@ -39,8 +39,29 @@
                                         </li>
                                     </ul>
                                     <ul class="nk-chat-head-tools">
-                                        <li><a href="{{url('./chatify')}}" class="btn btn-icon btn-trigger text-primary"><em
-                                                    class="icon ni ni-home-fill"></em></a></li>
+                                        <li>
+                                            <a href="{{url('./chatify')}}"
+                                               class="btn btn-dark text-white">
+                                                Back To Contact
+                                            </a>
+                                        </li>
+                                        @if ($group->admin_id == auth()->user()->id)
+                                            <li>
+                                                <a class="btn btn-info" href="/group/edit/{{$group->id}}" style="color:white;">Edit</a>
+                                            </li>
+
+                                            <li>
+                                                <form action="/group/delete/{{$group->id}}" method="POST">
+                                                    @csrf
+                                                    @method('Delete')
+
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete group</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-warning" href="/group/members_list/{{$group->id}}" style="color:white;">Remove users</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                                 <div class="nk-chat-panel" data-simplebar>
