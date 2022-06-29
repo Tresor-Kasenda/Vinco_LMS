@@ -16,7 +16,7 @@ class EventRepository implements EventRepositoryInterface
     /**
      * @throws Exception
      */
-    public function events()
+    public function events(): \MaddHatter\LaravelFullcalendar\Calendar
     {
         $events = EventModel::query()
             ->orderByDesc('created_at')
@@ -71,7 +71,7 @@ class EventRepository implements EventRepositoryInterface
         return $event;
     }
 
-    public function updated(string $key, $attributes, $factory)
+    public function updated(string $key, $attributes, $factory): Model|EventModel|Builder
     {
         $event = $this->showEvent($key);
         $event->update([
