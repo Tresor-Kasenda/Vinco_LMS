@@ -16,40 +16,34 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Category.
+ * App\Models\Category
  *
  * @property int $id
- * @property string $key
  * @property string $name
- * @property string $description
- * @property int $status
+ * @property string|null $description
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property int $academic_year_id
+ * @property-read AcademicYear|null $academic
  * @property-read Collection|Course[] $courses
  * @property-read int|null $courses_count
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
  * @method static Builder|Category query()
- * @method static Builder|Category whereAcademicYearId($value)
  * @method static Builder|Category whereCreatedAt($value)
  * @method static Builder|Category whereDeletedAt($value)
  * @method static Builder|Category whereDescription($value)
  * @method static Builder|Category whereId($value)
- * @method static Builder|Category whereKey($value)
  * @method static Builder|Category whereName($value)
- * @method static Builder|Category whereStatus($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin Eloquent
- * @property-read AcademicYear $academic
  */
 class Category extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 

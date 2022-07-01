@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Institution
@@ -26,41 +30,46 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string|null $institution_end_time
  * @property int|null $institution_routine_time
  * @property string|null $institution_description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Campus[] $campuses
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Campus[] $campuses
  * @property-read int|null $campuses_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
+ * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Expense[] $expenses
+ * @property-read Collection|Expense[] $expenses
  * @property-read int|null $expenses_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Fee[] $fees
+ * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
- * @property-read \App\Models\Journal|null $journals
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Institution newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Institution newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Institution query()
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionImages($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionPhones($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionRoutineTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionTown($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereInstitutionWebsite($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Institution whereUserId($value)
+ * @property-read Journal|null $journals
+ * @property-read User $user
+ * @method static Builder|Institution newModelQuery()
+ * @method static Builder|Institution newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Institution onlyTrashed()
+ * @method static Builder|Institution query()
+ * @method static Builder|Institution whereCreatedAt($value)
+ * @method static Builder|Institution whereDeletedAt($value)
+ * @method static Builder|Institution whereId($value)
+ * @method static Builder|Institution whereInstitutionAddress($value)
+ * @method static Builder|Institution whereInstitutionCountry($value)
+ * @method static Builder|Institution whereInstitutionDescription($value)
+ * @method static Builder|Institution whereInstitutionEndTime($value)
+ * @method static Builder|Institution whereInstitutionImages($value)
+ * @method static Builder|Institution whereInstitutionName($value)
+ * @method static Builder|Institution whereInstitutionPhones($value)
+ * @method static Builder|Institution whereInstitutionRoutineTime($value)
+ * @method static Builder|Institution whereInstitutionStartTime($value)
+ * @method static Builder|Institution whereInstitutionTown($value)
+ * @method static Builder|Institution whereInstitutionWebsite($value)
+ * @method static Builder|Institution whereUpdatedAt($value)
+ * @method static Builder|Institution whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Institution withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Institution withoutTrashed()
  * @mixin \Eloquent
  */
 class Institution extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 

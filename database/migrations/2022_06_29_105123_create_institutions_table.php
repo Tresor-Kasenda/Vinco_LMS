@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('institution_routine_time')->nullable(); //Différence horaire de routine
             $table->text('institution_description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

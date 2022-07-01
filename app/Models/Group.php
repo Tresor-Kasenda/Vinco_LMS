@@ -1,9 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Group
@@ -12,22 +20,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $code
  * @property int $admin_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $participants
+ * @property-read Collection|User[] $participants
  * @property-read int|null $participants_count
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Group newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Group newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Group query()
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereAdminId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Group whereUpdatedAt($value)
+ * @property-read User $user
+ * @method static Builder|Group newModelQuery()
+ * @method static Builder|Group newQuery()
+ * @method static Builder|Group query()
+ * @method static Builder|Group whereAdminId($value)
+ * @method static Builder|Group whereCode($value)
+ * @method static Builder|Group whereCreatedAt($value)
+ * @method static Builder|Group whereId($value)
+ * @method static Builder|Group whereName($value)
+ * @method static Builder|Group whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Group extends Model
@@ -37,17 +45,17 @@ class Group extends Model
     //attributes that are not mass assignable
     protected $guarded = [];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User', 'admin_id');
     }
 
-    public function participants()
+    public function participants(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'group_participants', 'group_id', 'user_id');
     }
 
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany('App\Models\Message', 'group_id');
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -9,17 +11,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Result.
+ * App\Models\Result
  *
  * @property int $id
- * @property string $key
  * @property int $course_id
  * @property int $student_id
  * @property string $cote
  * @property string $observation
- * @property string $status
+ * @property int|null $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Course $course
+ * @property-read Student $student
  * @method static Builder|Result newModelQuery()
  * @method static Builder|Result newQuery()
  * @method static Builder|Result query()
@@ -27,14 +30,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Result whereCourseId($value)
  * @method static Builder|Result whereCreatedAt($value)
  * @method static Builder|Result whereId($value)
- * @method static Builder|Result whereKey($value)
  * @method static Builder|Result whereObservation($value)
  * @method static Builder|Result whereStatus($value)
  * @method static Builder|Result whereStudentId($value)
  * @method static Builder|Result whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \App\Models\Course $course
- * @property-read \App\Models\Student $student
  */
 class Result extends Model
 {

@@ -12,10 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Profile.
+ * App\Models\Profile
  *
  * @property int $id
- * @property string $key
  * @property int $user_id
  * @property string $images
  * @property Carbon|null $created_at
@@ -27,14 +26,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Profile whereCreatedAt($value)
  * @method static Builder|Profile whereId($value)
  * @method static Builder|Profile whereImages($value)
- * @method static Builder|Profile whereKey($value)
  * @method static Builder|Profile whereUpdatedAt($value)
  * @method static Builder|Profile whereUserId($value)
  * @mixin \Eloquent
  */
 class Profile extends Model
 {
-    use HasFactory, HasKeyTrait;
+    use HasFactory;
 
     protected $guarded = [];
 

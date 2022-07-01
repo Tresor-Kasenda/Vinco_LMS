@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -8,22 +10,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
+
 /**
- * App\Models\Homework.
+ * App\Models\Homework
  *
  * @property int $id
- * @property string $key
  * @property int|null $course_id
  * @property int|null $chapter_id
  * @property int|null $lesson_id
  * @property string $name
- * @property int|null $weighting
- * @property string $schedule
- * @property string|null $duration
+ * @property float|null $rating_homework
+ * @property string|null $filling_date
  * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property-read Chapter|null $chapter
+ * @property-read Course|null $course
+ * @property-read Lesson|null $lesson
  * @method static Builder|Homework newModelQuery()
  * @method static Builder|Homework newQuery()
  * @method static Builder|Homework query()
@@ -31,23 +35,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Homework whereCourseId($value)
  * @method static Builder|Homework whereCreatedAt($value)
  * @method static Builder|Homework whereDeletedAt($value)
- * @method static Builder|Homework whereDuration($value)
+ * @method static Builder|Homework whereFillingDate($value)
  * @method static Builder|Homework whereId($value)
- * @method static Builder|Homework whereKey($value)
  * @method static Builder|Homework whereLessonId($value)
  * @method static Builder|Homework whereName($value)
- * @method static Builder|Homework whereSchedule($value)
+ * @method static Builder|Homework whereRatingHomework($value)
  * @method static Builder|Homework whereStatus($value)
  * @method static Builder|Homework whereUpdatedAt($value)
- * @method static Builder|Homework whereWeighting($value)
  * @mixin \Eloquent
- * @property float|null $rating_homework
- * @property string|null $filling_date
- * @property-read \App\Models\Chapter|null $chapter
- * @property-read \App\Models\Course|null $course
- * @property-read \App\Models\Lesson|null $lesson
- * @method static Builder|Homework whereFillingDate($value)
- * @method static Builder|Homework whereRatingHomework($value)
  */
 class Homework extends Model
 {

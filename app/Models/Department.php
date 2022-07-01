@@ -16,10 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Department.
+ * App\Models\Department
  *
  * @property int $id
- * @property string $key
  * @property int $campus_id
  * @property string $name
  * @property string|null $description
@@ -29,13 +28,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Campus $campus
- * @property-read Collection|Professor[] $teacher
- * @property-read int|null $professors_count
  * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
  * @property-read Collection|Subsidiary[] $subdsidiaries
  * @property-read int|null $subdsidiaries_count
- * @property-read Collection|User[] $admin
+ * @property-read Collection|Professor[] $teachers
+ * @property-read int|null $teachers_count
+ * @property-read Collection|User[] $users
  * @property-read int|null $users_count
  * @method static Builder|Department newModelQuery()
  * @method static Builder|Department newQuery()
@@ -47,20 +46,16 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Department whereDescription($value)
  * @method static Builder|Department whereId($value)
  * @method static Builder|Department whereImages($value)
- * @method static Builder|Department whereKey($value)
  * @method static Builder|Department whereName($value)
  * @method static Builder|Department whereStatus($value)
  * @method static Builder|Department whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  * @mixin \Eloquent
- * @property-read Collection|Professor[] $teachers
- * @property-read int|null $teachers_count
- * @property-read Collection|User[] $users
  */
 class Department extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 

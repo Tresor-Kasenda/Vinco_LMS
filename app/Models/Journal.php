@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Journal
@@ -18,26 +20,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $date
  * @property string $start_time
  * @property string $end_time
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $institution_id
  * @property-read Journal $course
- * @property-read \App\Models\Institution $institution
- * @property-read \App\Models\Student|null $student
- * @property-read \App\Models\Professor|null $teacher
- * @method static \Illuminate\Database\Eloquent\Builder|Journal newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Journal newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Journal query()
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereCourseId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereInstitutionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereProfessorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereStudentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Journal whereUpdatedAt($value)
+ * @property-read Institution $institution
+ * @property-read Student|null $student
+ * @property-read Professor|null $teacher
+ * @method static Builder|Journal newModelQuery()
+ * @method static Builder|Journal newQuery()
+ * @method static Builder|Journal query()
+ * @method static Builder|Journal whereCourseId($value)
+ * @method static Builder|Journal whereCreatedAt($value)
+ * @method static Builder|Journal whereDate($value)
+ * @method static Builder|Journal whereEndTime($value)
+ * @method static Builder|Journal whereId($value)
+ * @method static Builder|Journal whereInstitutionId($value)
+ * @method static Builder|Journal whereProfessorId($value)
+ * @method static Builder|Journal whereStartTime($value)
+ * @method static Builder|Journal whereStudentId($value)
+ * @method static Builder|Journal whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Journal extends Model
