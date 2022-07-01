@@ -18,21 +18,12 @@ class RoleSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $admin = User::query()
-            ->create([
-                'name' => 'Vinco',
-                'email' => 'admin@vinco.com',
-                'password' => Hash::make('vinco-lms'),
-            ]);
-
-        $role = Role::create(['name' => 'Super Admin']);
-
-        $permission = Permission::query()
-            ->pluck('id', 'id')
-            ->all();
-        $role->syncPermissions($permission);
-        $admin->assignRole([$role->id]);
+        Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Student']);
+        Role::create(['name' => 'Parent']);
+        Role::create(['name' => 'Campus']);
+        Role::create(['name' => 'Teacher']);
     }
 }

@@ -64,6 +64,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Personnel withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Personnel withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $images_personnel
+ * @method static Builder|Personnel whereImagesPersonnel($value)
  */
 class Personnel extends Model
 {

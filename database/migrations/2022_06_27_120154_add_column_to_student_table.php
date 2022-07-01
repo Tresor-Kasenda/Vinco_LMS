@@ -18,9 +18,10 @@ return new class extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->foreignIdFor(Guardian::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->date('admission')->nullable();
+            $table->date('admission_date')->nullable();
         });
     }
 

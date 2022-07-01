@@ -43,12 +43,21 @@ use Illuminate\Support\Carbon;
  * @mixin \Eloquent
  * @property int $guardian_id
  * @method static Builder|Fee whereGuardianId($value)
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @property-read \App\Models\Guardian|null $parent
+ * @method static Builder|Fee whereInstitutionId($value)
  */
 class Fee extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
+    }
 
     public function student(): BelongsTo
     {
@@ -58,5 +67,10 @@ class Fee extends Model
     public function feeType(): BelongsTo
     {
         return $this->belongsTo(FeeType::class, 'fee_type_id');
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Guardian::class);
     }
 }

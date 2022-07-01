@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -68,6 +70,23 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $user
  * @property string|null $start_date
  * @property string|null $end_date
+ * @property int $professor_id
+ * @property string|null $sub_description
+ * @property int|null $weighting
+ * @property-read Collection|\App\Models\Exam[] $exams
+ * @property-read int|null $exams_count
+ * @property-read Collection|\App\Models\Homework[] $homeworks
+ * @property-read int|null $homeworks_count
+ * @property-read Collection|\App\Models\Journal[] $journal
+ * @property-read int|null $journal_count
+ * @property-read Collection|\App\Models\Professor[] $professors
+ * @property-read int|null $professors_count
+ * @property-read Collection|\App\Models\Result[] $results
+ * @property-read int|null $results_count
+ * @property-read Collection|\App\Models\Schedule[] $schedules
+ * @property-read int|null $schedules_count
+ * @method static Builder|Course whereProfessorId($value)
+ * @method static Builder|Course whereWeighting($value)
  */
 class Course extends Model
 {
@@ -80,9 +99,9 @@ class Course extends Model
         return $this->hasMany(Chapter::class);
     }
 
-    public function user(): BelongsTo
+    public function professors(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsToMany(Professor::class);
     }
 
     public function category(): BelongsTo
@@ -90,7 +109,7 @@ class Course extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function exam(): HasMany
+    public function exams(): HasMany
     {
         return $this->hasMany(Exam::class);
     }
@@ -103,5 +122,25 @@ class Course extends Model
     public function exercises(): HasMany
     {
         return $this->hasMany(Exercice::class);
+    }
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function journal(): HasMany
+    {
+        return $this->hasMany(Journal::class);
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function homeworks(): HasMany
+    {
+        return $this->hasMany(Homework::class);
     }
 }

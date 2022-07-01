@@ -55,6 +55,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exercice withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exercice withoutTrashed()
  * @mixin \Eloquent
+ * @property float|null $rating
+ * @property string|null $filling_date
+ * @method static Builder|Exercice whereFillingDate($value)
+ * @method static Builder|Exercice whereRating($value)
  */
 class Exercice extends Model
 {

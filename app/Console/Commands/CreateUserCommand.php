@@ -52,11 +52,6 @@ class CreateUserCommand extends Command
                         ->create(compact('name', 'email', 'password', 'status'));
                     $user->save();
                     $role = Role::create(['name' => 'Super Admin']);
-                    Role::create(['name' => 'Admin']);
-                    Role::create(['name' => 'Student']);
-                    Role::create(['name' => 'Parent']);
-                    Role::create(['name' => 'Campus']);
-                    Role::create(['name' => 'Teacher']);
 
                     Artisan::call('db:seed');
 

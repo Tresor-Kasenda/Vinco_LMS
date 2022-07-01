@@ -52,6 +52,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Question withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Question withoutTrashed()
  * @mixin \Eloquent
+ * @property float|null $rating
+ * @method static Builder|Question whereRating($value)
  */
 class Question extends Model
 {

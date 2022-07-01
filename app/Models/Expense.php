@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasKeyTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,8 +30,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Expense whereId($value)
  * @method static Builder|Expense whereKey($value)
  * @method static Builder|Expense whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  * @property-read ExpenseType $types
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|Expense whereInstitutionId($value)
  */
 class Expense extends Model
 {
@@ -41,5 +45,10 @@ class Expense extends Model
     public function types(): BelongsTo
     {
         return $this->belongsTo(ExpenseType::class, 'expense_type_id');
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

@@ -49,6 +49,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exam withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exam withoutTrashed()
  * @mixin \Eloquent
+ * @property float|null $rating
+ * @method static Builder|Exam whereRating($value)
  */
 class Exam extends Model
 {

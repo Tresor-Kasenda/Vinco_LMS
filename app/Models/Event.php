@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -27,6 +28,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Event whereStartDate($value)
  * @method static Builder|Event whereTitle($value)
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @property int|null $promotion_id
+ * @property-read Event $institution
+ * @property-read \App\Models\Promotion|null $promotion
+ * @method static Builder|Event whereInstitutionId($value)
+ * @method static Builder|Event wherePromotionId($value)
  */
 class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
@@ -59,5 +66,15 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
     public function getEnd(): DateTime|Carbon
     {
         return $this->end_date;
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function promotion(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class);
     }
 }

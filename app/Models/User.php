@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -96,7 +97,19 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $permissions_count
  * @method static Builder|User permission($permissions)
  * @method static Builder|User role($roles, $guard = null)
- * @property-read Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read Collection|Role[] $roles
+ * @property-read int|null $campus_count
+ * @property-read Collection|\App\Models\Department[] $departments
+ * @property-read int|null $departments_count
+ * @property-read Collection|\App\Models\Group[] $group
+ * @property-read int|null $group_count
+ * @property-read Collection|\App\Models\Group[] $group_member
+ * @property-read int|null $group_member_count
+ * @property-read \App\Models\Institution|null $institution
+ * @property-read Collection|\App\Models\Message[] $message
+ * @property-read int|null $message_count
+ * @property-read Collection|\App\Models\Guardian[] $parents
+ * @property-read int|null $parents_count
  */
 class User extends Authenticatable
 {
@@ -109,9 +122,9 @@ class User extends Authenticatable
         return $this->hasOne(Personnel::class);
     }
 
-    public function campus(): HasOne
+    public function campus(): HasMany
     {
-        return $this->hasOne(Campus::class);
+        return $this->hasMany(Campus::class);
     }
 
     public function students(): HasMany
@@ -124,9 +137,9 @@ class User extends Authenticatable
         return $this->hasOne(Subsidiary::class);
     }
 
-    public function professors(): HasMany
+    public function teacher(): HasOne
     {
-        return $this->hasMany(Professor::class);
+        return $this->hasOne(Professor::class);
     }
 
     public function setting(): HasOne
@@ -134,16 +147,27 @@ class User extends Authenticatable
         return $this->hasOne(Setting::class);
     }
 
-    public function users(): BelongsToMany
+    public function departments(): BelongsToMany
     {
         return $this
             ->belongsToMany(Department::class, 'user_department')
             ->withTimestamps();
     }
 
+    public function parents(): HasMany
+    {
+        return $this->hasMany(Guardian::class);
+    }
+
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function institution(): HasOne
+    {
+        return $this->hasOne(Institution::class);
     }
 
     protected $hidden = [
@@ -155,17 +179,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function group()
+    public function group(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Group', 'admin_id');
     }
 
-    public function group_member()
+    public function group_member(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Group', 'group_participants', 'user_id', 'group_id')->orderBy('updated_at', 'desc');
+        return $this->belongsToMany(
+            'App\Models\Group',
+            'group_participants',
+            'user_id',
+            'group_id'
+        )
+            ->orderBy('updated_at', 'desc');
     }
 
-    public function message()
+    public function message(): HasMany
     {
         return $this->hasMany('App\Models\Message', 'user_id');
     }

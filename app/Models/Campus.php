@@ -47,6 +47,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Campus withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Campus withoutTrashed()
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|Campus whereInstitutionId($value)
  */
 class Campus extends Model
 {
@@ -57,6 +60,11 @@ class Campus extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 
     public function departments(): HasMany

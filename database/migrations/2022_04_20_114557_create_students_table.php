@@ -17,12 +17,7 @@ return new class extends Migration {
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(Promotion::class)
-                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Department::class)
@@ -33,8 +28,12 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->foreignIdFor(Promotion::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->string('name', '30');
             $table->string('firstname', '30');
-            $table->string('middlename', '30');
             $table->string('lastname', '30')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('phone_number')->unique()->nullable();
@@ -45,7 +44,7 @@ return new class extends Migration {
             $table->string('identity_card')->unique()->nullable();
             $table->date('birthdays')->nullable();
             $table->string('born_city')->nullable();
-            $table->string('bornTown')->nullable();
+            $table->string('born_town')->nullable();
             $table->string('parent_name')->nullable();
             $table->string('parent_phone')->nullable();
             $table->enum('gender', ['male', 'female']);

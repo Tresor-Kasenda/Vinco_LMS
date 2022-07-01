@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('personnels', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
@@ -25,12 +24,11 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('phones')->unique()->nullable();
             $table->string('nationality')->nullable();
-            $table->string('images')->nullable();
+            $table->string('images_personnel')->nullable();
             $table->string('location')->nullable();
             $table->string('identityCard')->unique()->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->date('birthdays')->nullable();
-            $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();
         });

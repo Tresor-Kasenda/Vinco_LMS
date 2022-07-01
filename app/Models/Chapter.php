@@ -51,6 +51,12 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Chapter withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Chapter withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $content
+ * @property-read Collection|\App\Models\Homework[] $homeworks
+ * @property-read int|null $homeworks_count
+ * @property-read Collection|\App\Models\Resource[] $resources
+ * @property-read int|null $resources_count
+ * @method static Builder|Chapter whereContent($value)
  */
 class Chapter extends Model
 {
@@ -77,4 +83,16 @@ class Chapter extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class);
+    }
+
+    public function homeworks(): HasMany
+    {
+        return $this->hasMany(Homework::class);
+    }
+
+
 }

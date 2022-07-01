@@ -13,14 +13,12 @@ return new class extends Migration {
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Subsidiary::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name', '30')->unique();
             $table->text('description')->nullable();
             $table->string('images');
-            $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();
         });

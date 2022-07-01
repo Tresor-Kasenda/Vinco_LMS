@@ -56,6 +56,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Lesson calendarByRoleOrClassId()
  * @property string $content_type
  * @method static Builder|Lesson whereContentType($value)
+ * @property string $short_content
+ * @property-read Collection|\App\Models\Homework[] $homeworks
+ * @property-read int|null $homeworks_count
  */
 class Lesson extends Model
 {
@@ -159,5 +162,10 @@ class Lesson extends Model
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class);
+    }
+
+    public function homeworks(): HasMany
+    {
+        return $this->hasMany(Homework::class);
     }
 }

@@ -13,7 +13,6 @@ return new class extends Migration {
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Course::class)
                 ->constrained()
                 ->cascadeOnDelete();
@@ -22,7 +21,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('cote');
             $table->string('observation');
-            $table->string('status');
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

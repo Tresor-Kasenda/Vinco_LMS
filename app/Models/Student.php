@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -97,6 +98,15 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Student whereGuardianId($value)
  * @method static Builder|Student whereParentName($value)
  * @method static Builder|Student whereParentPhone($value)
+ * @property string $name
+ * @property string|null $born_town
+ * @property string|null $admission_date
+ * @property-read \App\Models\Journal|null $journal
+ * @property-read \App\Models\Guardian|null $parent
+ * @property-read Collection|\App\Models\Result[] $results
+ * @property-read int|null $results_count
+ * @method static Builder|Student whereAdmissionDate($value)
+ * @method static Builder|Student whereName($value)
  */
 class Student extends Model
 {
@@ -127,5 +137,20 @@ class Student extends Model
     public function fees(): HasMany
     {
         return $this->hasMany(Fee::class);
+    }
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function journal(): HasOne
+    {
+        return $this->hasOne(Journal::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Guardian::class);
     }
 }

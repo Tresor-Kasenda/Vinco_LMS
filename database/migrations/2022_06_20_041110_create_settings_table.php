@@ -29,7 +29,6 @@ return new class extends Migration {
             $table->string('app_images')->nullable();
             $table->string('class_start')->nullable();
             $table->string('class_end')->nullable();
-            $table->string('routine_time_difference')->nullable();
             $table->string('app_time_zone')->nullable();
             $table->softDeletes();
             $table->timestamps();

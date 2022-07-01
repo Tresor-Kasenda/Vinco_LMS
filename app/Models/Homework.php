@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -40,8 +41,32 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Homework whereUpdatedAt($value)
  * @method static Builder|Homework whereWeighting($value)
  * @mixin \Eloquent
+ * @property float|null $rating_homework
+ * @property string|null $filling_date
+ * @property-read \App\Models\Chapter|null $chapter
+ * @property-read \App\Models\Course|null $course
+ * @property-read \App\Models\Lesson|null $lesson
+ * @method static Builder|Homework whereFillingDate($value)
+ * @method static Builder|Homework whereRatingHomework($value)
  */
 class Homework extends Model
 {
     use HasFactory;
+
+    protected $guarded =[];
+
+    public function lesson(): BelongsTo
+    {
+        return $this->belongsTo(Lesson::class);
+    }
+
+    public function chapter(): BelongsTo
+    {
+        return $this->belongsTo(Chapter::class);
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

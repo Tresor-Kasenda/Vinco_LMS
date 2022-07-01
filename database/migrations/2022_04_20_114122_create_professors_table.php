@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('professors', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
@@ -30,7 +29,6 @@ return new class extends Migration {
             $table->string('identityCard')->unique()->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->date('birthdays')->nullable();
-            $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();
         });

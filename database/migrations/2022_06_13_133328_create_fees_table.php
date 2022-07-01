@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\FeeType;
 use App\Models\Guardian;
+use App\Models\Student;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,10 @@ return new class extends Migration {
             $table->foreignIdFor(Guardian::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('transaction_no')->unique();
+            $table->foreignIdFor(Student::class)
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->integer('transaction_no')->unique();
             $table->string('amount');
             $table->date('due_date');
             $table->date('pay_date')->nullable();

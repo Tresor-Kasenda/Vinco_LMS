@@ -14,18 +14,17 @@ return new class extends Migration {
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Course::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Chapter::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('name');
-            $table->integer('weighting')->nullable(); //ponderation
+            $table->float('rating')->nullable(); // cote d'examen
             $table->date('date')->nullable();
-            $table->string('duration')->nullable();
+            $table->time('duration')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

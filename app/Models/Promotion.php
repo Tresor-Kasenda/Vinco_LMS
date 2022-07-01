@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -51,6 +52,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Promotion withoutTrashed()
  * @mixin Eloquent
  * @property-read AcademicYear $academic
+ * @property-read Collection|\App\Models\Event[] $events
+ * @property-read int|null $events_count
+ * @property-read \App\Models\Schedule|null $schedules
  */
 class Promotion extends Model
 {
@@ -72,4 +76,15 @@ class Promotion extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function schedules(): HasOne
+    {
+        return $this->hasOne(Schedule::class);
+    }
+
 }

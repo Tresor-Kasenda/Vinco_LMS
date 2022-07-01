@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -71,6 +73,12 @@ use Illuminate\Support\Carbon;
  * @property string $phones
  * @method static Builder|Professor whereEmail($value)
  * @method static Builder|Professor wherePhones($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Course[] $courses
+ * @property-read int|null $courses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $departments
+ * @property-read int|null $departments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Journal[] $journals
+ * @property-read int|null $journals_count
  */
 class Professor extends Model
 {
@@ -83,8 +91,19 @@ class Professor extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function department(): BelongsTo
+    public function departments(): BelongsToMany
     {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsToMany(Department::class);
     }
+
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function journals(): HasMany
+    {
+        return $this->hasMany(Journal::class);
+    }
+
 }

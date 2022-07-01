@@ -75,9 +75,10 @@ class Department extends Model
             ->withTimestamps();
     }
 
-    public function teachers(): HasMany
+
+    public function teachers(): BelongsToMany
     {
-        return $this->hasMany(Professor::class);
+        return $this->belongsToMany(Professor::class);
     }
 
     public function subdsidiaries(): HasMany

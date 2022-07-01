@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -43,7 +44,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Guardian whereFirstNameGuardian($value)
  * @method static Builder|Guardian whereImages($value)
  * @method static Builder|Guardian whereNameGuardian($value)
- * @property-read \App\Models\User $user
+ * @property-read User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Fee[] $fees
+ * @property-read int|null $fees_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Student[] $students
+ * @property-read int|null $students_count
  */
 class Guardian extends Model
 {
@@ -54,5 +59,15 @@ class Guardian extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function fees(): HasMany
+    {
+        return $this->hasMany(Fee::class);
+    }
+
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class);
     }
 }

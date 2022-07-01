@@ -43,6 +43,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Resource withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Resource withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $chapter_id
+ * @property-read \App\Models\Chapter|null $chapter
+ * @method static Builder|Resource whereChapterId($value)
  */
 class Resource extends Model
 {
@@ -53,5 +56,10 @@ class Resource extends Model
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class, 'lesson_id');
+    }
+
+    public function chapter(): BelongsTo
+    {
+        return $this->belongsTo(Chapter::class);
     }
 }
