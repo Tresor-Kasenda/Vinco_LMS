@@ -28,7 +28,7 @@ class UsersRepository implements UsersRepositoryInterface
     public function showUser(string $key): Model|Builder|User|null
     {
         return User::query()
-            ->where('key', '=', $key)
+            ->where('id', '=', $key)
             ->first();
     }
 

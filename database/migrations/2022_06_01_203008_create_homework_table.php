@@ -15,7 +15,6 @@ return new class extends Migration {
     {
         Schema::create('homework', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Course::class)
                 ->nullable()
                 ->constrained()
@@ -29,9 +28,8 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->integer('weighting')->nullable();
-            $table->timestamp('schedule');
-            $table->string('duration')->nullable();
+            $table->float('rating_homework')->nullable(); // cote d'examen
+            $table->date('filling_date')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

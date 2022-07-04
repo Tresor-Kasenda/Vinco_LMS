@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Models\AcademicYear;
 use App\Models\Department;
+use App\Models\Professor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +12,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::table('professors', function (Blueprint $table) {
+        Schema::create('professors_department', function (Blueprint $table) {
+            $table->foreignIdFor(Professor::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->foreignIdFor(Department::class)
-                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
         });
@@ -21,8 +24,5 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::table('professors', function (Blueprint $table) {
-            $table->dropForeignIdFor(AcademicYear::class);
-        });
     }
 };

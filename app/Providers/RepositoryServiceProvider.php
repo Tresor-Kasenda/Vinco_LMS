@@ -20,6 +20,7 @@ use App\Contracts\FeesRepositoryInterface;
 use App\Contracts\FeesTypeRepositoryInterface;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Contracts\HomeworkRepositoryInterface;
+use App\Contracts\InstitutionRepositoryInterface;
 use App\Contracts\InterroRepositoryInterface;
 use App\Contracts\JournalRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
@@ -85,6 +86,7 @@ use App\Repositories\Com\EventRepository;
 use App\Repositories\Com\JournalRepository;
 use App\Repositories\Com\NotificationRepository;
 use App\Repositories\System\ChartRepository;
+use App\Repositories\System\InstitutionRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -135,6 +137,7 @@ class RepositoryServiceProvider extends ServiceProvider
         EventRepositoryInterface::class => EventRepository::class,
         NotificationRepositoryInterface::class => NotificationRepository::class,
         JournalRepositoryInterface::class => JournalRepository::class,
+        InstitutionRepositoryInterface::class => InstitutionRepository::class
     ];
 
     /**

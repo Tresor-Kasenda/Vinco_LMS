@@ -13,13 +13,11 @@ return new class extends Migration {
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Course::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('status')->default(StatusEnum::FALSE);
+            $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

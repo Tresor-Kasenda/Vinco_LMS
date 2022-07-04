@@ -16,20 +16,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Subsidiary.
+ * App\Models\Subsidiary
  *
  * @property int $id
- * @property string $key
  * @property int $department_id
  * @property int $user_id
  * @property string $name
  * @property string|null $description
  * @property string $images
- * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property int $academic_year_id
+ * @property-read AcademicYear $academic
  * @property-read Department $department
  * @property-read Collection|Promotion[] $promotions
  * @property-read int|null $promotions_count
@@ -40,26 +38,22 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Subsidiary newQuery()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary onlyTrashed()
  * @method static Builder|Subsidiary query()
- * @method static Builder|Subsidiary whereAcademicYearId($value)
  * @method static Builder|Subsidiary whereCreatedAt($value)
  * @method static Builder|Subsidiary whereDeletedAt($value)
  * @method static Builder|Subsidiary whereDepartmentId($value)
  * @method static Builder|Subsidiary whereDescription($value)
  * @method static Builder|Subsidiary whereId($value)
  * @method static Builder|Subsidiary whereImages($value)
- * @method static Builder|Subsidiary whereKey($value)
  * @method static Builder|Subsidiary whereName($value)
- * @method static Builder|Subsidiary whereStatus($value)
  * @method static Builder|Subsidiary whereUpdatedAt($value)
  * @method static Builder|Subsidiary whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withoutTrashed()
  * @mixin Eloquent
- * @property-read AcademicYear $academic
  */
 class Subsidiary extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 

@@ -23,12 +23,12 @@
                                                 <span>Create</span>
                                             </a>
                                         </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
+{{--                                        <li class="nk-block-tools-opt">--}}
+{{--                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">--}}
+{{--                                                <em class="icon ni ni-histroy"></em>--}}
+{{--                                                <span>Corbeille</span>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
                                     </ul>
                                 </div>
                             </div>
@@ -99,19 +99,19 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.users.admin.edit', $administrator->key) }}">
+                                                                <a href="{{ route('admins.users.admin.edit', $administrator->id) }}">
                                                                     <em class="icon ni ni-edit"></em>
                                                                     <span>Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('admins.users.admin.show', $administrator->key) }}">
+                                                                <a href="{{ route('admins.users.admin.show', $administrator->id) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>View</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.users.admin.destroy', $administrator->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

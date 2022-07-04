@@ -15,11 +15,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Campus.
+ * App\Models\Campus
  *
  * @property int $id
- * @property string $key
  * @property int $user_id
+ * @property string $key
  * @property string $name
  * @property string|null $description
  * @property string $images
@@ -27,8 +27,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property int $institution_id
  * @property-read Collection|Department[] $departments
  * @property-read int|null $departments_count
+ * @property-read Institution $institution
  * @property-read User $user
  * @method static Builder|Campus newModelQuery()
  * @method static Builder|Campus newQuery()
@@ -39,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Campus whereDescription($value)
  * @method static Builder|Campus whereId($value)
  * @method static Builder|Campus whereImages($value)
+ * @method static Builder|Campus whereInstitutionId($value)
  * @method static Builder|Campus whereKey($value)
  * @method static Builder|Campus whereName($value)
  * @method static Builder|Campus whereStatus($value)
@@ -50,13 +53,18 @@ use Illuminate\Support\Carbon;
  */
 class Campus extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 
     public function departments(): HasMany

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -13,9 +15,6 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $title
  * @property string $content
- * @property string $images
- * @property string $start_date
- * @property string $end_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Notification newModelQuery()
@@ -23,10 +22,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Notification query()
  * @method static Builder|Notification whereContent($value)
  * @method static Builder|Notification whereCreatedAt($value)
- * @method static Builder|Notification whereEndDate($value)
  * @method static Builder|Notification whereId($value)
- * @method static Builder|Notification whereImages($value)
- * @method static Builder|Notification whereStartDate($value)
  * @method static Builder|Notification whereTitle($value)
  * @method static Builder|Notification whereUpdatedAt($value)
  * @mixin \Eloquent

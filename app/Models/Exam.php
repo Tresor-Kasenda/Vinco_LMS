@@ -13,17 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Exam.
+ * App\Models\Exam
  *
  * @property int $id
- * @property string $key
  * @property int $course_id
- * @property string $name
- * @property string $condition
- * @property int $weighting
- * @property string $date
- * @property string $schedule
- * @property string $duration
+ * @property float|null $rating
+ * @property string|null $date
+ * @property string|null $duration
  * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -33,26 +29,22 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Exam newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exam onlyTrashed()
  * @method static Builder|Exam query()
- * @method static Builder|Exam whereCondition($value)
  * @method static Builder|Exam whereCourseId($value)
  * @method static Builder|Exam whereCreatedAt($value)
  * @method static Builder|Exam whereDate($value)
  * @method static Builder|Exam whereDeletedAt($value)
  * @method static Builder|Exam whereDuration($value)
  * @method static Builder|Exam whereId($value)
- * @method static Builder|Exam whereKey($value)
- * @method static Builder|Exam whereName($value)
- * @method static Builder|Exam whereSchedule($value)
+ * @method static Builder|Exam whereRating($value)
  * @method static Builder|Exam whereStatus($value)
  * @method static Builder|Exam whereUpdatedAt($value)
- * @method static Builder|Exam whereWeighting($value)
  * @method static \Illuminate\Database\Query\Builder|Exam withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exam withoutTrashed()
  * @mixin \Eloquent
  */
 class Exam extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 

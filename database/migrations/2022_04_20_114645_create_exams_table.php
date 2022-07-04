@@ -13,14 +13,12 @@ return new class extends Migration {
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Course::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('name');
-            $table->integer('weighting')->nullable();
+            $table->float('rating')->nullable(); // cote d'examen
             $table->date('date')->nullable();
-            $table->string('duration')->nullable();
+            $table->time('duration')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

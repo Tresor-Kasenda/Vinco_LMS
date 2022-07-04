@@ -16,50 +16,48 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Lesson.
+ * App\Models\Lesson
  *
  * @property int $id
- * @property string $key
  * @property int $chapter_id
  * @property string $name
- * @property string $shortContent
+ * @property string $short_content
+ * @property string $content_type
  * @property string|null $content
- * @property int|null $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read Chapter $chapter
  * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read Collection|resource[] $resources
+ * @property-read int $difference
+ * @property string|null $end_time
+ * @property string|null $start_time
+ * @property-read Collection|Homework[] $homeworks
+ * @property-read int|null $homeworks_count
+ * @property-read Collection|Resource[] $resources
  * @property-read int|null $resources_count
+ * @method static Builder|Lesson calendarByRoleOrClassId()
  * @method static Builder|Lesson newModelQuery()
  * @method static Builder|Lesson newQuery()
  * @method static \Illuminate\Database\Query\Builder|Lesson onlyTrashed()
  * @method static Builder|Lesson query()
  * @method static Builder|Lesson whereChapterId($value)
  * @method static Builder|Lesson whereContent($value)
+ * @method static Builder|Lesson whereContentType($value)
  * @method static Builder|Lesson whereCreatedAt($value)
  * @method static Builder|Lesson whereDeletedAt($value)
  * @method static Builder|Lesson whereId($value)
- * @method static Builder|Lesson whereKey($value)
  * @method static Builder|Lesson whereName($value)
  * @method static Builder|Lesson whereShortContent($value)
- * @method static Builder|Lesson whereStatus($value)
  * @method static Builder|Lesson whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
- * @property-read int $difference
- * @property string|null $end_time
- * @property string|null $start_time
- * @method static Builder|Lesson calendarByRoleOrClassId()
- * @property string $content_type
- * @method static Builder|Lesson whereContentType($value)
  */
 class Lesson extends Model
 {
-    use HasFactory, SoftDeletes, HasKeyTrait;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -159,5 +157,10 @@ class Lesson extends Model
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class);
+    }
+
+    public function homeworks(): HasMany
+    {
+        return $this->hasMany(Homework::class);
     }
 }

@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des personnelles")
+@section('title')
+    Personnels Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Personnels</h3>
+                            <h3 class="nk-block-title page-title">Liste des personnels</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -52,9 +54,6 @@
                                 <th class="nk-tb-col">
                                     <span>Matricule</span>
                                 </th>
-                                <th class="nk-tb-col tb-col-md">
-                                    <span>Status</span>
-                                </th>
                                 <th class="nk-tb-col nk-tb-col-tools">
                                     <ul class="nk-tb-actions gx-1 my-n1">
                                         <li class="me-n1">
@@ -91,15 +90,6 @@
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $personnel->matriculate ?? "" }}</span>
                                     </td>
-                                    <td class="nk-tb-col">
-                                        @if($personnel->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
-                                    </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1 my-n1">
                                             <li class="me-n1">
@@ -110,19 +100,19 @@
                                                     <div class="dropdown-menu dropdown-menu-end">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('admins.users.staffs.edit', $personnel->key) }}">
+                                                                <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}">
                                                                     <em class="icon ni ni-edit"></em>
                                                                     <span>Edit</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('admins.users.staffs.show', $personnel->key) }}">
+                                                                <a href="{{ route('admins.users.staffs.show', $personnel->id) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>View</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('admins.users.staffs.destroy', $personnel->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

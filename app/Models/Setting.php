@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Setting.
+ * App\Models\Setting
  *
  * @property int $id
  * @property int $user_id
@@ -25,7 +25,6 @@ use Illuminate\Support\Carbon;
  * @property string|null $app_images
  * @property string|null $class_start
  * @property string|null $class_end
- * @property string|null $routine_time_difference
  * @property string|null $app_time_zone
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
@@ -47,7 +46,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Setting whereCreatedAt($value)
  * @method static Builder|Setting whereDeletedAt($value)
  * @method static Builder|Setting whereId($value)
- * @method static Builder|Setting whereRoutineTimeDifference($value)
  * @method static Builder|Setting whereShortName($value)
  * @method static Builder|Setting whereUpdatedAt($value)
  * @method static Builder|Setting whereUserId($value)

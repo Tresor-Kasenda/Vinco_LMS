@@ -24,83 +24,80 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\Models\User.
+ * App\Models\User
  *
  * @property int $id
- * @property string $key
  * @property string $name
- * @property string|null $firstName
  * @property string $email
- * @property Carbon|null $email_verified_at
  * @property string $password
- * @property int $role_id
+ * @property int $status
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Campus|null $campus
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read Personnel|null $personnel
- * @property-read Collection|Professor[] $teacher
- * @property-read int|null $professors_count
- * @property-read Collection|Student[] $students
- * @property-read int|null $students_count
- * @property-read Subsidiary|null $subsidiary
- * @property-read Collection|PersonalAccessToken[] $tokens
- * @property-read int|null $tokens_count
- * @property-read Collection|Department[] $admin
- * @property-read int|null $users_count
- * @method static UserFactory factory(...$parameters)
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
- * @method static Builder|User query()
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereDeletedAt($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereEmailVerifiedAt($value)
- * @method static Builder|User whereFirstName($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereKey($value)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereRoleId($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|User withTrashed()
- * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
- * @mixin Eloquent
- * @property int $status
- * @method static Builder|User whereStatus($value)
- * @property-read bool $is_admin
- * @property-read bool $is_student
- * @property-read bool $is_teacher
- * @property-read int|null $roles_count
- * @property-read Profile|null $profile
- * @property-read Collection|Professor[] $professors
- * @property-read Collection|Department[] $users
  * @property int $active_status
  * @property string $avatar
  * @property int $dark_mode
  * @property string $messenger_color
- * @property-read Setting|null $setting
- * @method static Builder|User whereActiveStatus($value)
- * @method static Builder|User whereAvatar($value)
- * @method static Builder|User whereDarkMode($value)
- * @method static Builder|User whereMessengerColor($value)
+ * @property-read Collection|Campus[] $campus
+ * @property-read int|null $campus_count
+ * @property-read Collection|Department[] $departments
+ * @property-read int|null $departments_count
+ * @property-read Collection|Group[] $group
+ * @property-read int|null $group_count
+ * @property-read Collection|Group[] $group_member
+ * @property-read int|null $group_member_count
+ * @property-read Institution|null $institution
+ * @property-read Collection|Message[] $message
+ * @property-read int|null $message_count
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read Collection|Guardian[] $parents
+ * @property-read int|null $parents_count
  * @property-read Collection|Permission[] $permissions
  * @property-read int|null $permissions_count
+ * @property-read Personnel|null $personnel
+ * @property-read Profile|null $profile
+ * @property-read Collection|Role[] $roles
+ * @property-read int|null $roles_count
+ * @property-read Setting|null $setting
+ * @property-read Collection|Student[] $students
+ * @property-read int|null $students_count
+ * @property-read Subsidiary|null $subsidiary
+ * @property-read Professor|null $teacher
+ * @property-read Collection|PersonalAccessToken[] $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static Builder|User permission($permissions)
+ * @method static Builder|User query()
  * @method static Builder|User role($roles, $guard = null)
- * @property-read Collection|\Spatie\Permission\Models\Role[] $roles
+ * @method static Builder|User whereActiveStatus($value)
+ * @method static Builder|User whereAvatar($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereDarkMode($value)
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereMessengerColor($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereStatus($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasKeyTrait, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     protected $guarded = [];
 
@@ -109,9 +106,9 @@ class User extends Authenticatable
         return $this->hasOne(Personnel::class);
     }
 
-    public function campus(): HasOne
+    public function campus(): HasMany
     {
-        return $this->hasOne(Campus::class);
+        return $this->hasMany(Campus::class);
     }
 
     public function students(): HasMany
@@ -124,9 +121,9 @@ class User extends Authenticatable
         return $this->hasOne(Subsidiary::class);
     }
 
-    public function professors(): HasMany
+    public function teacher(): HasOne
     {
-        return $this->hasMany(Professor::class);
+        return $this->hasOne(Professor::class);
     }
 
     public function setting(): HasOne
@@ -134,16 +131,27 @@ class User extends Authenticatable
         return $this->hasOne(Setting::class);
     }
 
-    public function users(): BelongsToMany
+    public function departments(): BelongsToMany
     {
         return $this
             ->belongsToMany(Department::class, 'user_department')
             ->withTimestamps();
     }
 
+    public function parents(): HasMany
+    {
+        return $this->hasMany(Guardian::class);
+    }
+
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function institution(): HasOne
+    {
+        return $this->hasOne(Institution::class);
     }
 
     protected $hidden = [
@@ -155,17 +163,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function group()
+    public function group(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Group', 'admin_id');
     }
 
-    public function group_member()
+    public function group_member(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Group', 'group_participants', 'user_id', 'group_id')->orderBy('updated_at', 'desc');
+        return $this->belongsToMany(
+            'App\Models\Group',
+            'group_participants',
+            'user_id',
+            'group_id'
+        )
+            ->orderBy('updated_at', 'desc');
     }
 
-    public function message()
+    public function message(): HasMany
     {
         return $this->hasMany('App\Models\Message', 'user_id');
     }

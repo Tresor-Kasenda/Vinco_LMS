@@ -2,7 +2,9 @@
 
 ## **Fonctionnalite de la plateforme**
 
+- [ ]  **Gestion Institution**
 - [X]  Gestion des utilisateurs
+- [x]  **Gestion des annees academique**
 - [X]  Gestion des annee academique 
 - [X]  gestion  des personnels 
 - [X]  gestion des campus

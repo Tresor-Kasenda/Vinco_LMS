@@ -12,15 +12,13 @@ return new class extends Migration {
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Chapter::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('shortContent');
+            $table->string('short_content');
             $table->enum('content_type', ['text', 'video']);
             $table->text('content')->nullable();
-            $table->boolean('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

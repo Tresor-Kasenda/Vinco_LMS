@@ -14,14 +14,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear.
+ * App\Models\AcademicYear
  *
  * @property int $id
- * @property string $key
- * @property string $startDate
- * @property string $endDate
+ * @property string $start_date
+ * @property string $end_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection|Category[] $categories
+ * @property-read int|null $categories_count
  * @property-read Collection|AcademicYear[] $personnel
  * @property-read int|null $personnel_count
  * @method static Builder|AcademicYear newModelQuery()
@@ -30,18 +31,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AcademicYear whereCreatedAt($value)
  * @method static Builder|AcademicYear whereEndDate($value)
  * @method static Builder|AcademicYear whereId($value)
- * @method static Builder|AcademicYear whereKey($value)
  * @method static Builder|AcademicYear whereStartDate($value)
  * @method static Builder|AcademicYear whereUpdatedAt($value)
  * @mixin Eloquent
- * @property-read Collection|Category[] $categories
- * @property-read int|null $categories_count
- * @property string $start_date
- * @property string $end_date
  */
 class AcademicYear extends Model
 {
-    use HasFactory, HasKeyTrait;
+    use HasFactory;
 
     protected $guarded = [];
 

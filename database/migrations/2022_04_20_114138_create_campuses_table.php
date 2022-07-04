@@ -13,10 +13,10 @@ return new class extends Migration {
     {
         Schema::create('campuses', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->string('key')->unique();
             $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->string('images');

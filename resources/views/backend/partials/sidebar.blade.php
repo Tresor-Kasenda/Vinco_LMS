@@ -81,6 +81,7 @@
                                     'route' => route('admins.academic.homework.index'),
                                     'name' => "Homework"
                                 ])
+
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.interro.index'),
                                     'name' => "Interro"
@@ -92,6 +93,7 @@
                             'name' => "Fee",
                             'icon' => "ni-coin-alt"
                         ])
+
                         @include('backend.components._link', [
                             'route' => route('admins.users.teacher.index'),
                             'name' => "Teacher",
@@ -102,15 +104,15 @@
                     @role('Student')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-icon">
-                                            <em class="icon ni ni-book-read"></em>
-                                        </span>
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-book-read"></em>
+                                </span>
                                 <span class="nk-menu-text">Academic</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.course.index'),
-                                    'name' => "Syllabus"
+                                    'name' => "Cours"
                                 ])
 
                                 @include('backend.components._links', [
@@ -146,9 +148,9 @@
 
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                            <span class="nk-menu-icon">
-                                                <em class="icon ni ni-edit-alt"></em>
-                                            </span>
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-edit-alt"></em>
+                                </span>
                                 <span class="nk-menu-text">Exam</span>
                             </a>
                             <ul class="nk-menu-sub">
@@ -339,10 +341,52 @@
 
                     @role('Super Admin')
                         @include('backend.components._link', [
+                            'route' => route('admins.institution.index'),
+                            'name' => "Institution",
+                            'icon' => "ni-building"
+                        ])
+
+                        @include('backend.components._link', [
                             'route' => route('admins.academic.session.index'),
                             'name' => "Annee academique",
                             'icon' => "ni-calendar-alt"
                         ])
+
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-users"></em>
+                                </span>
+                                <span class="nk-menu-text">Users</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.admin.index'),
+                                    'name' => "Admin"
+                                ])
+
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.staffs.index'),
+                                    'name' => "Staffs"
+                                ])
+
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.teacher.index'),
+                                    'name' => "Teacher"
+                                ])
+
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.student.index'),
+                                    'name' => "Student"
+                                ])
+
+                                @include('backend.components._links', [
+                                    'route' => route('admins.users.guardian.index'),
+                                    'name' => "Parents"
+                                ])
+                            </ul>
+                        </li>
+
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon">
@@ -465,42 +509,6 @@
                                 @include('backend.components._links', [
                                     'route' => route('admins.exam.exam-result.index'),
                                     'name' => "Exam Result"
-                                ])
-                            </ul>
-                        </li>
-
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon">
-                                        <em class="icon ni ni-users"></em>
-                                    </span>
-                                <span class="nk-menu-text">Users</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.users.admin.index'),
-                                    'name' => "Admin"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.users.staffs.index'),
-                                    'name' => "Staffs"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.users.teacher.index'),
-                                    'name' => "Teacher"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.users.student.index'),
-                                    'name' => "Student"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.users.guardian.index'),
-                                    'name' => "Parents"
                                 ])
                             </ul>
                         </li>

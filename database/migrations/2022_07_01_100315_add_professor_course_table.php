@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-use App\Models\Guardian;
+use App\Models\Course;
+use App\Models\Professor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -15,12 +17,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->foreignIdFor(Guardian::class)
-                ->nullable()
+        Schema::create('professor_course', function (Blueprint $table) {
+            $table->foreignIdFor(Professor::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->date('admission_date')->nullable();
+
+            $table->foreignIdFor(Course::class)
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 
@@ -29,10 +33,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('student', function (Blueprint $table) {
-            $table->dropForeignIdFor(Guardian::class);
-        });
+        //
     }
 };

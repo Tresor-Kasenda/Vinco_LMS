@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,5 +62,11 @@ trait ImageUploader
     {
         Storage::disk('public')
             ->delete($model->image);
+    }
+
+    private function removePathOfInstitution(Model $model): void
+    {
+        Storage::disk('public')
+            ->delete($model->institution_images);
     }
 }

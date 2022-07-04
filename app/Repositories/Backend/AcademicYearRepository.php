@@ -22,7 +22,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     public function showAcademicYear(string $key): Model|Builder|null
     {
         return AcademicYear::query()
-            ->where('key', '=', $key)
+            ->where('id', '=', $key)
             ->first();
     }
 
