@@ -37,6 +37,7 @@ use App\Http\Controllers\Backend\SchedulerBackendController;
 use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\System\InstitutionController;
 use App\Http\Controllers\Backend\TeacherBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'admins.',
     ], routes: function () {
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
+
+        Route::resource('institution', InstitutionController::class);
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
             Route::resource('admin', UsersBackendController::class);

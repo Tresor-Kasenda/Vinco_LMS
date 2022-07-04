@@ -33,17 +33,18 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.session.update', $academic->key) }}" method="post" class="form-validate" novalidate="novalidate">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <form action="{{ route('admins.academic.session.update', $academic->id) }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">

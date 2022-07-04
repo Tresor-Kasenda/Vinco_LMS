@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des annees academiques")
+@section('title')
+    Annee Academique
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -30,52 +32,29 @@
                 <div class="nk-block">
                     <div class="row g-gs">
                         @forelse($academics as $academic)
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
+                            <div class="col-sm-6 col-lg-3 col-xxl-3">
                                 <div class="card h-100">
                                     <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1 text-center">
-                                                        Session :
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.academic.session.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit session</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.academic.session.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete session</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <h3 class="text-center text-gray h4 font-weight-light mb-3">Session</h3>
                                         <div class="text-center font-weight-bold">
-                                            <p>
+                                            <h5>
                                                 {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
                                                 -
                                                 {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
-                                            </p>
+                                            </h5>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <a class="-mr-2 btn btn-dim btn-primary ml-2" href="{{ route('admins.academic.session.edit', $academic->id) }}">
+                                                <em class="icon ni ni-edit"></em>
+                                            </a>
+                                            <form action="{{ route('admins.academic.session.destroy', $academic->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                @method('DELETE')
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <button type="submit" class="btn btn-dim btn-danger">
+                                                    <em class="icon ni ni-trash"></em>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
