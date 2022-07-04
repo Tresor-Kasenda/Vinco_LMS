@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Event
+ * App\Models\Event.
  *
  * @property int $id
  * @property string $title
@@ -57,7 +57,7 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 
     public function isAllDay(): bool
     {
-        return (bool)$this->all_day;
+        return (bool) $this->all_day;
     }
 
     public function getStart(): DateTime|Carbon

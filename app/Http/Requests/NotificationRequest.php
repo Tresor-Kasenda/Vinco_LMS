@@ -27,7 +27,7 @@ class NotificationRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:4'],
-            'content' => ['required', 'string', 'min:10']
+            'content' => ['required', 'string', 'min:10'],
         ];
     }
 }

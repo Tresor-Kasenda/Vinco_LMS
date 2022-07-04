@@ -8,7 +8,6 @@ use App\Contracts\JournalRepositoryInterface;
 
 class JournalRepository implements JournalRepositoryInterface
 {
-
     public function results()
     {
         // TODO: Implement results() method.

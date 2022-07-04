@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "394489ff0a047987459e16502d45f667",
+    "content-hash": "347fff9f0c500ea3a54441916d718df6",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -1328,7 +1328,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-28T14:33:19+00:00"
+            "time": "2022-06-28T14:33:19+00:00
         },
         {
             "name": "laravel/helpers",
