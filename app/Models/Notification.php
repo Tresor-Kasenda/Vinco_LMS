@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Notification
+ * App\Models\Notification.
  *
  * @property int $id
  * @property string $title

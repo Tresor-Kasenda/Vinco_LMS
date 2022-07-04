@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotificationRepository implements NotificationRepositoryInterface
 {
-
     public function notifications(): array|Collection|\Illuminate\Support\Collection
     {
         return Notification::query()
@@ -32,9 +31,9 @@ class NotificationRepository implements NotificationRepositoryInterface
         $notification = Notification::query()
             ->create([
                 'title' => $attributes->input('title'),
-                'content' => $attributes->input('content')
+                'content' => $attributes->input('content'),
             ]);
-        $factory->addSuccess("Notification added with successfully");
+        $factory->addSuccess('Notification added with successfully');
 
         return $notification;
     }
@@ -47,7 +46,7 @@ class NotificationRepository implements NotificationRepositoryInterface
             'content' => $attributes->input('content'),
         ]);
 
-        $factory->addSuccess("Notification updated with successfully");
+        $factory->addSuccess('Notification updated with successfully');
 
         return $notification;
     }
@@ -58,7 +57,7 @@ class NotificationRepository implements NotificationRepositoryInterface
 
         $notification->delete();
 
-        $factory->addSuccess("Notification deleted with successfully");
+        $factory->addSuccess('Notification deleted with successfully');
 
         return $notification;
     }

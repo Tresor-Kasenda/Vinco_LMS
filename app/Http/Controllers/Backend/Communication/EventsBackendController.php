@@ -18,7 +18,6 @@ use Illuminate\Http\RedirectResponse;
  */
 class EventsBackendController extends Controller
 {
-
     public function __construct(
         protected readonly EventRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory

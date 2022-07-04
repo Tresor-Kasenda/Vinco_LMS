@@ -17,8 +17,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
-use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 use function Pest\Laravel\delete;
+use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 
 class DepartmentBackendController extends Controller
 {
@@ -30,7 +30,6 @@ class DepartmentBackendController extends Controller
 
     public function index(): Renderable
     {
-
         $departments = $this->repository->getDepartments();
 
         $this->authorize('Department-list', $departments);

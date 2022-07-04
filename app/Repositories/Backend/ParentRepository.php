@@ -66,7 +66,7 @@ class ParentRepository implements ParentRepositoryInterface
             'gender' => $attributes->input('gender'),
         ]);
 
-        $factory->addSuccess("Parent updated with successfully");
+        $factory->addSuccess('Parent updated with successfully');
 
         return $parent;
     }
@@ -77,7 +77,7 @@ class ParentRepository implements ParentRepositoryInterface
 
         $parent->delete();
 
-        $factory->addSuccess("Parent deleted with successfully");
+        $factory->addSuccess('Parent deleted with successfully');
 
         return $parent;
     }
