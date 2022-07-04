@@ -21,6 +21,15 @@ class UsersRepository implements UsersRepositoryInterface
     public function getUsers(): array|Collection
     {
         return User::query()
+            ->select([
+                'name',
+                'email',
+                'status',
+                'id'
+            ])
+            ->whereHas('roles', function ($query) {
+                $query->whereIn('name', ['Super Admin', 'Admin']);
+            })
             ->orderByDesc('created_at')
             ->get();
     }

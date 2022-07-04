@@ -14,6 +14,9 @@
         body {
             font-family: 'Arial';
         }
+        .ui-datepicker-calendar{
+            display: none;
+        }
     </style>
 
     @yield('styles')

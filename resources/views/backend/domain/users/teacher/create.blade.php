@@ -11,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Create Teacher</h3>
+                            <h3 class="nk-block-title page-title">Create Professor</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -33,20 +33,19 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.users.teacher.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -175,13 +174,11 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group text-center">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </form>
                                 </div>

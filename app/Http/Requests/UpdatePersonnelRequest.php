@@ -29,11 +29,11 @@ class UpdatePersonnelRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:4', 'max:255'],
-            'lastName' => ['required', 'string', 'min:4', 'max:255'],
             'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
-            'gender' => ['required', 'in:male,female'],
+            'role' => ['required', Rule::exists('roles', 'id')],
             'academic' => ['required', Rule::exists('academic_years', 'id')],
+            'gender' => ['required', 'in:male,female'],
         ];
     }
 }

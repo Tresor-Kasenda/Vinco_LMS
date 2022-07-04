@@ -38,7 +38,7 @@ use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
-use App\Http\Controllers\Backend\TeacherBackendController;
+use App\Http\Controllers\Backend\ProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedChapterBackendController;
@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
             Route::resource('admin', UsersBackendController::class);
             Route::resource('student', StudentBackendController::class);
-            Route::resource('teacher', TeacherBackendController::class);
+            Route::resource('teacher', ProfessorBackendController::class);
             Route::resource('staffs', PersonnelBackendController::class);
             Route::resource('guardian', ParentBackendController::class);
         });
@@ -183,7 +183,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
         Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])
             ->name('department.active');
-        Route::put('activeProfessor/{key}/update', [TeacherBackendController::class, 'activate'])
+        Route::put('activeProfessor/{key}/update', [ProfessorBackendController::class, 'activate'])
             ->name('teacher.active');
         Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])
             ->name('categories.active');

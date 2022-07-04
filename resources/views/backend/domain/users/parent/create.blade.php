@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.guardian.store') }}" method="post" class="form-validate mt-2">
+                                    <form action="{{ route('admins.users.guardian.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
@@ -78,19 +78,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="password">Mot de passe</label>
+                                                    <label class="form-label">Images</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="password"
-                                                            class="form-control @error('password') error @enderror"
-                                                            id="password"
-                                                            name="password"
-                                                            value="{{ old('password') }}"
-                                                            placeholder="Saisir votre mot de passe"
-                                                            required>
+                                                            type="file"
+                                                            class="form-control @error('images') error @enderror"
+                                                            name="images"
+                                                            value="{{ old('images') }}"
+                                                            placeholder="Enter Images"
+                                                        >
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,6 +108,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="password">Mot de passe</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="password"
+                                                            class="form-control @error('password') error @enderror"
+                                                            id="password"
+                                                            name="password"
+                                                            value="{{ old('password') }}"
+                                                            placeholder="Saisir votre mot de passe"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="gender">Gender</label> <br>

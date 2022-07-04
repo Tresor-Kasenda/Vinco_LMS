@@ -26,16 +26,16 @@ final class UsersBackendController extends Controller
 
     public function index(): \Illuminate\Contracts\View\View
     {
-        return View::make('backend.domain.users.admin.index', [
-           'admins' => $this->repository->getUsers(),
-        ]);
+        $admins = $this->repository->getUsers();
+
+        return View::make('backend.domain.users.admin.index', compact('admins'));
     }
 
     public function show(string $key): Renderable
     {
-        $user = $this->repository->showUser(key: $key);
+        $admin = $this->repository->showUser(key: $key);
 
-        return view('backend.domain.users.admin.show', compact('user'));
+        return view('backend.domain.users.admin.show', compact('admin'));
     }
 
     public function create(): Factory|\Illuminate\Contracts\View\View|Application
@@ -52,9 +52,9 @@ final class UsersBackendController extends Controller
 
     public function edit(string $key): Factory|\Illuminate\Contracts\View\View|Application
     {
-        return view('backend.domain.users.admin.edit', [
-            'administrator' => $this->repository->showUser(key: $key),
-        ]);
+        $admin = $this->repository->showUser(key: $key);
+
+        return view('backend.domain.users.admin.edit', compact('admin'));
     }
 
     public function update(UserRequest $attributes, string $key): RedirectResponse

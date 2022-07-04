@@ -18,8 +18,6 @@ class ProfessorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::allwos('Personnel-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 
@@ -35,8 +33,9 @@ class ProfessorRequest extends FormRequest
             'lastname' => ['required', 'string', 'min:4', 'max:255'],
             'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique('professors', 'email')],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
-            'gender' => ['required', 'in:male,female'],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
+            'password' => ['required', 'min:6'],
+            'gender' => ['required', 'in:male,female'],
         ];
     }
 }
