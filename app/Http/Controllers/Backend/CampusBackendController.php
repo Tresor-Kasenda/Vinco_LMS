@@ -31,7 +31,7 @@ class CampusBackendController extends Controller
 
     public function index(): Renderable
     {
-        abort_if(Gate::allwos('campus-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('campus-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $faculties = $this->repository->getCampuses();
 
@@ -40,7 +40,7 @@ class CampusBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
-        abort_if(Gate::allwos('campus-show'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('campus-show'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $campus = $this->repository->showCampus(key:  $key);
 
@@ -54,7 +54,7 @@ class CampusBackendController extends Controller
 
     public function store(CampusRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::allwos('campus-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('campus-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
@@ -70,7 +70,7 @@ class CampusBackendController extends Controller
 
     public function update(string $key, CampusUpdateRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::allows('campus-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('campus-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
@@ -79,7 +79,7 @@ class CampusBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
-        abort_if(Gate::allwos('campus-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('campus-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->repository->deleted(key: $key, factory: $this->factory);
 
