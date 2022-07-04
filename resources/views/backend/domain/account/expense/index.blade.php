@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des examens")
+@section('title')
+    Liste des Depenses
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -41,6 +43,9 @@
                                 <th class="nk-tb-col">
                                     <span>AMOUNT</span>
                                 </th>
+                                <th class="nk-tb-col">
+                                    <span>INSTITUTION</span>
+                                </th>
                                 <th class="nk-tb-col nk-tb-col-tools text-center">
                                     <span>ACTION</span>
                                 </th>
@@ -51,7 +56,7 @@
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <h6 class="title">{{ $expense->id }}</h6>
+                                            {{ $expense->id }}
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
@@ -59,6 +64,9 @@
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ $expense->amount ?? 0 }} </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ ucfirst($expense->institution->institution_name ) ?? "-" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">

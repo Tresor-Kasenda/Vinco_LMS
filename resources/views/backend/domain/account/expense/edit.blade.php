@@ -32,17 +32,17 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.announce.expenses.update', $expense->id) }}" method="post" class="form-validate mt-4" novalidate="novalidate">
                                         @csrf
                                         @method('PUT')
@@ -63,6 +63,23 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="institution">Institution</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('institution') error @enderror"
+                                                        id="institution"
+                                                        name="institution"
+                                                        data-placeholder="Select Institution"
+                                                        required>
+                                                        <option value="{{ $expense->institution->id }}">{{ $expense->institution->institution_name }}</option>
+                                                        @foreach(\App\Models\Institution::all() as $institution)
+                                                            <option value="{{ $institution->id }}">{{ ucfirst($institution->institution_name) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="amount">Amount</label>

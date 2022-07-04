@@ -49,6 +49,7 @@ class FeesRepository implements FeesRepositoryInterface
                 'pay_date' => $attributes->input('pay_date'),
                 'description' => $attributes->input('description'),
                 'status' => StatusEnum::FALSE,
+                'institution_id' => $attributes->input('institution')
             ]);
 
         $factory->addSuccess('Fee added with successfully');
@@ -67,6 +68,7 @@ class FeesRepository implements FeesRepositoryInterface
             'due_date' => $attributes->input('dues'),
             'pay_date' => $attributes->input('pay_date'),
             'description' => $attributes->input('description'),
+            'institution_id' => $attributes->input('institution')
         ]);
 
         $factory->addSuccess('Fee updated with successfully');
