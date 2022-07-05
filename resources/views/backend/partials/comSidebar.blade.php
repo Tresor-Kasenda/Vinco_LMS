@@ -105,12 +105,6 @@
                                 'icon' => "ni-bookmark"
                         ])
 
-                        @include('backend.components._link', [
-                                'route' => route('admins.communication.journal.index'),
-                                'name' => "Horaire de la semaine",
-                                'icon' => "ni-bullet"
-                        ])
-
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
@@ -211,12 +205,6 @@
                             'route' => route('admins.academic.resource.index'),
                             'name' => "Resource",
                             'icon' => "ni-bookmark"
-                    ])
-
-                    @include('backend.components._link', [
-                            'route' => route('admins.communication.journal.index'),
-                            'name' => "Horaire de la semaine",
-                            'icon' => "ni-bullet"
                     ])
 
                     <li class="nk-menu-item has-sub">
