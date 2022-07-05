@@ -35,7 +35,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'username',
                 'id',
                 'phones',
-                'email'
+                'email',
             ])
             ->with('user')
             ->orderByDesc('created_at')
@@ -56,7 +56,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         $personnel = Personnel::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (!$personnel) {
+        if (! $personnel) {
             $user = $this->storeCampus($attributes);
             $role = $this->getRole($attributes);
             $user->assignRole($role->id);
@@ -67,6 +67,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             return $personnel;
         }
         $factory->addError('Email deja utiliser par un autre compte');
+
         return back();
     }
 
@@ -134,7 +135,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         $user = User::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (!$user) {
+        if (! $user) {
             return User::query()
                 ->create([
                     'name' => $attributes->input('name'),
@@ -142,6 +143,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }
+
         return back();
     }
 

@@ -32,7 +32,7 @@ class ParentRequest extends FormRequest
             'password' => ['required', 'string', 'min:6'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/', Rule::unique('guardians', 'phones')],
             'gender' => ['required', 'in:male,female'],
-            'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg']
+            'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
         ];
     }
 }

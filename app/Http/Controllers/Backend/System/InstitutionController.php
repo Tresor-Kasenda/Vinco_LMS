@@ -47,7 +47,6 @@ class InstitutionController extends Controller
         return view('backend.domain.institution.show', compact('institution'));
     }
 
-
     public function edit(string $id)
     {
         $institution = $this->repository->showInstitution($id);

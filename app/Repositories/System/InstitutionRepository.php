@@ -56,7 +56,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 ]);
         }
 
-        $factory->addError("Le gestionnaire a ete deja affecter a une autre institution");
+        $factory->addError('Le gestionnaire a ete deja affecter a une autre institution');
 
         return back();
     }
@@ -77,7 +77,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
             'institution_description' => $attributes->input('institution_description'),
             'institution_start_time' => $attributes->input('institution_start_time'),
             'institution_end_time' => $attributes->input('institution_end_time'),
-            'institution_routine_time' => $attributes->input('institution_routine')
+            'institution_routine_time' => $attributes->input('institution_routine'),
         ]);
 
         return $institution;
@@ -87,6 +87,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
     {
         $institution = $this->showInstitution(key: $key);
         $institution->delete();
+
         return $institution;
     }
 }

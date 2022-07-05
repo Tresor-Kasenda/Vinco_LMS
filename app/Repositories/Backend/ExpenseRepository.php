@@ -22,7 +22,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'amount',
                 'description',
                 'institution_id',
-                'expense_type_id'
+                'expense_type_id',
             ])
             ->with(['types', 'institution'])
             ->orderByDesc('created_at')
@@ -45,7 +45,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'amount' => $attributes->input('amount'),
                 'description' => $attributes->input('description'),
                 'expense_type_id' => $attributes->input('expense'),
-                'institution_id' => $attributes->input('institution')
+                'institution_id' => $attributes->input('institution'),
             ]);
 
         $factory->addSuccess('Expense added with successfully');
@@ -60,7 +60,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             'amount' => $attributes->input('amount'),
             'description' => $attributes->input('description'),
             'expense_type_id' => $attributes->input('expense'),
-            'institution_id' => $attributes->input('institution')
+            'institution_id' => $attributes->input('institution'),
         ]);
         $factory->addSuccess('Expense updated with successfully');
 

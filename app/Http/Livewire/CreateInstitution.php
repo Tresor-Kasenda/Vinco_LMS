@@ -20,12 +20,19 @@ class CreateInstitution extends Component
     use WithFileUploads;
 
     public $institution_name;
+
     public $institution_country;
+
     public $institution_town;
+
     public $manager;
+
     public $institution_phones;
+
     public $institution_website;
+
     public $institution_address;
+
     public $images;
 
     private SweetAlertFactory $factory;

@@ -25,7 +25,7 @@ class UsersRepository implements UsersRepositoryInterface
                 'name',
                 'email',
                 'status',
-                'id'
+                'id',
             ])
             ->whereHas('roles', function ($query) {
                 $query->whereIn('name', ['Super Admin', 'Admin']);
