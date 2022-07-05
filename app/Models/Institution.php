@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Institution
+ * App\Models\Institution.
  *
  * @property int $id
  * @property int $user_id
@@ -102,5 +102,4 @@ class Institution extends Model
     {
         return $this->hasMany(Campus::class);
     }
-
 }

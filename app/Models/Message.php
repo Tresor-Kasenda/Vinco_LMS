@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Message
+ * App\Models\Message.
  *
  * @property int $id
  * @property int $user_id

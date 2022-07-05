@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ChFavorite
+ * App\Models\ChFavorite.
  *
  * @property int $id
  * @property int $user_id

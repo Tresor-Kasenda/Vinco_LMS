@@ -73,17 +73,19 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
         return $this->end_date;
     }
 
-    public function getSartTime() : DateTime|Carbon {
+    public function getSartTime() : DateTime|Carbon
+    {
         return $this->start_time;
     }
 
-    public function getEndTime() : DateTime|Carbon {
+    public function getEndTime() : DateTime|Carbon
+    {
         return $this->end_time;
     }
 
     public function institution(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(self::class);
     }
 
     public function promotion(): BelongsTo

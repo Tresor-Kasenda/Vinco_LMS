@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Promotion
+ * App\Models\Promotion.
  *
  * @property int $id
  * @property int $subsidiary_id
@@ -82,5 +82,4 @@ class Promotion extends Model
     {
         return $this->hasOne(Schedule::class);
     }
-
 }

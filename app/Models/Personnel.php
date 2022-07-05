@@ -16,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Personnel
+ * App\Models\Personnel.
  *
  * @property int $id
  * @property int $user_id

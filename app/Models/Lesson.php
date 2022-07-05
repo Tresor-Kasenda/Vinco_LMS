@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Lesson
+ * App\Models\Lesson.
  *
  * @property int $id
  * @property int $chapter_id
@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $start_time
  * @property-read Collection|Homework[] $homeworks
  * @property-read int|null $homeworks_count
- * @property-read Collection|Resource[] $resources
+ * @property-read Collection|resource[] $resources
  * @property-read int|null $resources_count
  * @method static Builder|Lesson calendarByRoleOrClassId()
  * @method static Builder|Lesson newModelQuery()

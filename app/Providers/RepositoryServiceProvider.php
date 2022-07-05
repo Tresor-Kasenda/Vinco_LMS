@@ -137,7 +137,7 @@ class RepositoryServiceProvider extends ServiceProvider
         EventRepositoryInterface::class => EventRepository::class,
         NotificationRepositoryInterface::class => NotificationRepository::class,
         JournalRepositoryInterface::class => JournalRepository::class,
-        InstitutionRepositoryInterface::class => InstitutionRepository::class
+        InstitutionRepositoryInterface::class => InstitutionRepository::class,
     ];
 
     /**

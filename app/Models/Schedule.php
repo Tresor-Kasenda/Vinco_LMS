@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Schedule
+ * App\Models\Schedule.
  *
  * @property int $id
  * @property int $promotion_id
