@@ -56,7 +56,7 @@ class ParentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        $parent  = $this->repository->showGuardian(key: $key);
+        $parent = $this->repository->showGuardian(key: $key);
 
         return view('backend.domain.users.parent.edit', compact('parent'));
     }

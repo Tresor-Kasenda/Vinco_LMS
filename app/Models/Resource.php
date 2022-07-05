@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Resource
+ * App\Models\Resource.
  *
  * @property int $id
  * @property int|null $lesson_id

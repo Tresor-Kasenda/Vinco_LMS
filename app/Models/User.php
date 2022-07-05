@@ -28,7 +28,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\Models\User
+ * App\Models\User.
  *
  * @property int $id
  * @property string $name
@@ -142,7 +142,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Guardian::class);
     }
-
 
     public function profile(): HasOne
     {

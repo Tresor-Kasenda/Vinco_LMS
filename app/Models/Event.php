@@ -12,12 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Event
+ * App\Models\Event.
  *
  * @property int $id
  * @property string $title
  * @property Carbon $start_date
  * @property Carbon $end_date
+ * @property Carbon $start_time
+ * @property Carbon $end_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $institution_id
@@ -33,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Event whereInstitutionId($value)
  * @method static Builder|Event wherePromotionId($value)
  * @method static Builder|Event whereStartDate($value)
+ * @method static Builder|Event whereStartTime($value)
  * @method static Builder|Event whereTitle($value)
  * @method static Builder|Event whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -57,7 +60,7 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 
     public function isAllDay(): bool
     {
-        return (bool)$this->all_day;
+        return (bool) $this->all_day;
     }
 
     public function getStart(): DateTime|Carbon
@@ -70,9 +73,19 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
         return $this->end_date;
     }
 
+    public function getSartTime() : DateTime|Carbon
+    {
+        return $this->start_time;
+    }
+
+    public function getEndTime() : DateTime|Carbon
+    {
+        return $this->end_time;
+    }
+
     public function institution(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(self::class);
     }
 
     public function promotion(): BelongsTo

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Journal
+ * App\Models\Journal.
  *
  * @property int $id
  * @property int $course_id
@@ -55,7 +55,7 @@ class Journal extends Model
 
     public function course(): BelongsTo
     {
-        return $this->belongsTo(Journal::class);
+        return $this->belongsTo(self::class);
     }
 
     public function student(): BelongsTo
@@ -67,5 +67,4 @@ class Journal extends Model
     {
         return $this->belongsTo(Professor::class);
     }
-
 }

@@ -52,7 +52,7 @@ class StudentRepository implements StudentRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'password' => \Hash::make($attributes->input('password'))
+                'password' => \Hash::make($attributes->input('password')),
             ]);
 
         $role = Role::query()
@@ -64,7 +64,7 @@ class StudentRepository implements StudentRepositoryInterface
             ->create([
                 'user_id' => $user->id,
                 'department_id' => $attributes->input('department'),
-                'promotion_id' => $attributes->input("class"),
+                'promotion_id' => $attributes->input('class'),
                 'subsidiary_id' => $attributes->input('filiaire'),
                 'firstname' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
@@ -74,7 +74,7 @@ class StudentRepository implements StudentRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'guardian_id' => $attributes->input('parent'),
                 'admission' => $attributes->input('admission'),
-                'matriculate' => $this->generateRandomTransaction(8)
+                'matriculate' => $this->generateRandomTransaction(8),
             ]);
         $factory->addSuccess('Un Etudiant a ete ajouter');
 
@@ -93,7 +93,7 @@ class StudentRepository implements StudentRepositoryInterface
         $this->removePathOfImages($student);
         $student->update([
             'department_id' => $attributes->input('department'),
-            'promotion_id' => $attributes->input("class"),
+            'promotion_id' => $attributes->input('class'),
             'subsidiary_id' => $attributes->input('filiaire'),
             'firstname' => $attributes->input('name'),
             'email' => $attributes->input('email'),
@@ -105,7 +105,6 @@ class StudentRepository implements StudentRepositoryInterface
 
         return $student;
     }
-
 
     public function deleted(string $key, $factory): Model|Student|Builder|RedirectResponse
     {

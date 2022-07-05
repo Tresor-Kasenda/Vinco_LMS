@@ -41,12 +41,12 @@ class EventRepository implements EventRepositoryInterface
                 'selectable' => true,
                 'initialView' => 'timeGridWeek',
                 'headerToolbar' => [
-                    'end' => 'today prev,next dayGridMonth timeGridWeek timeGridDay'
-                ]
+                    'end' => 'today prev,next dayGridMonth timeGridWeek timeGridDay',
+                ],
             ])
             ->setCallbacks([
                 'select' => 'function(selectionInfo){}',
-                'eventClick' => 'function(event){}'
+                'eventClick' => 'function(event){}',
             ]);
     }
 
@@ -63,7 +63,7 @@ class EventRepository implements EventRepositoryInterface
             ->create([
                 'title' => $attributes->input('title'),
                 'start_date' => $attributes->input('start_date'),
-                'end_date' => $attributes->input('end_date')
+                'end_date' => $attributes->input('end_date'),
             ]);
 
         $factory->addSuccess('Event added with successfully');
@@ -77,7 +77,7 @@ class EventRepository implements EventRepositoryInterface
         $event->update([
             'title' => $attributes->input('title'),
             'start_date' => $attributes->input('start_date'),
-            'end_date' => $attributes->input('end_date')
+            'end_date' => $attributes->input('end_date'),
         ]);
 
         $factory->addSuccess('Event modified with successfully');
