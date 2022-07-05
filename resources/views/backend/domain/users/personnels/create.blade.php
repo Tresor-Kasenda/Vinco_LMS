@@ -33,22 +33,22 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.users.staffs.store') }}" method="post" class="form-validate mt-3" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre nom</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -61,22 +61,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="lastName">Votre prenom</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('lastName') error @enderror"
-                                                            id="lastName"
-                                                            name="lastName"
-                                                            value="{{ old('lastName') }}"
-                                                            placeholder="Enter Lastname"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
@@ -92,7 +78,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phones">Telephone</label>
                                                     <div class="form-control-wrap">
@@ -143,11 +129,7 @@
 
                                             @php
                                                 $roles = \Spatie\Permission\Models\Role::query()
-                                                        ->where('name', '!=', 'Super Admin')
-                                                        ->where('name', '!=', 'Admin')
-                                                        ->where('name', '!=', 'Parent')
-                                                        ->where('name', '!=', 'Teacher')
-                                                        ->where('name', '!=', 'Student')
+                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur'])
                                                         ->get()
                                             @endphp
 

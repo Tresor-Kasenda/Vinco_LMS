@@ -15,7 +15,7 @@ use Spatie\Permission\Models\Role;
 
 class CreateUserCommand extends Command
 {
-    protected $signature = 'vinco:add-user';
+    protected $signature = 'vinco:add-user {name?}';
 
     protected $description = 'Creates admins and stored them in the database';
 
@@ -43,7 +43,7 @@ class CreateUserCommand extends Command
                 ]
             );
         }
-        if ($this->confirm('Voulez vous creer un administrateur')) {
+        if ($this->confirm('Voulez vous creer un administrateur ? [Y|N]')) {
             if (! $validator->fails()) {
                 try {
                     $password = Hash::make($password);
@@ -64,7 +64,7 @@ class CreateUserCommand extends Command
                     $progressBar = $this->output->createProgressBar($results->count());
                     $progressBar->start();
 
-                    $role->syncPermissions($permission);
+                    $role->givePermissionTo($permission);
 
                     $user->assignRole($role);
                     sleep(3);
@@ -76,6 +76,7 @@ class CreateUserCommand extends Command
                             'app_name' => $name,
                         ]);
                     $progressBar->finish();
+                    $this->info('Admin create with successfully');
                     exit();
                 } catch (\Exception $exception) {
                     $this->error('Something went wrong run the command with -v for more details');

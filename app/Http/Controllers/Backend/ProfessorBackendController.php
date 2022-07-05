@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-class TeacherBackendController extends Controller
+class ProfessorBackendController extends Controller
 {
     public function __construct(
         protected readonly ProfessorRepositoryInterface $repository,

@@ -26,16 +26,10 @@ class ParentBackendController extends Controller
         protected readonly ParentRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory
     ) {
-        $this->middleware('can:parent-list', ['only' => ['index', 'show']]);
-        $this->middleware('can:parent-create', ['only' => ['create', 'store']]);
-        $this->middleware('can:parent-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('can:parent-delete', ['only' => ['destroy']]);
     }
 
     public function index(): Renderable
     {
-        abort_unless(request()->user()->can('parent-list'), 403);
-
         $parents = $this->repository->guardians();
 
         return view('backend.domain.users.parent.index', compact('parents'));
@@ -43,8 +37,6 @@ class ParentBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
-        abort_if(Gate::denies('parent-view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $parent = $this->repository->showGuardian(key: $key);
 
         return view('backend.domain.users.parent.show', compact('parent'));
@@ -52,8 +44,6 @@ class ParentBackendController extends Controller
 
     public function create(): Renderable
     {
-        abort_if(Gate::denies('parent-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return view('backend.domain.users.parent.create');
     }
 
@@ -83,19 +73,5 @@ class ParentBackendController extends Controller
         $this->repository->deleted(key: $key, factory: $this->factory);
 
         return back();
-    }
-
-    public function activate(ConfirmerProfessorRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
     }
 }

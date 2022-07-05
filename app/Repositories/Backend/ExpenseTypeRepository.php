@@ -18,17 +18,20 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
 
     public function getExpensesTypes(): array|Collection|\Illuminate\Support\Collection
     {
-        return Cache::remember('expenseTypes', 1000, function () {
-            return ExpenseType::query()
-                ->orderByDesc('created_at')
-                ->get();
-        });
+        return ExpenseType::query()
+            ->select([
+                'id',
+                'name',
+                'image'
+            ])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function showExpenseType(string $key): Model|Builder|ExpenseType
     {
         return ExpenseType::query()
-            ->where('id', '=', $key)
+            ->whereId($key)
             ->firstOrFail();
     }
 

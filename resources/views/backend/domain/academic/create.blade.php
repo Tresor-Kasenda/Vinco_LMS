@@ -50,7 +50,7 @@
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('startDate') error @enderror"
+                                                            class="form-control date-picker @error('startDate') error @enderror"
                                                             id="startDate"
                                                             name="startDate"
                                                             value="{{ old('startDate') }}"
@@ -66,7 +66,7 @@
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('endDate') error @enderror"
+                                                            class="form-control date-picker @error('endDate') error @enderror"
                                                             id="endDate"
                                                             name="endDate"
                                                             value="{{ old('endDate') }}"
@@ -92,3 +92,4 @@
         </div>
     </div>
 @endsection
+

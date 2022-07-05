@@ -16,21 +16,26 @@ class ExpenseRepository implements ExpenseRepositoryInterface
 {
     public function getExpenses(): Collection|array
     {
-        return Cache::remember('expenses', 1000, function () {
-            return Expense::query()
-                ->with('types')
-                ->orderByDesc('created_at')
-                ->get();
-        });
+        return Expense::query()
+            ->select([
+                'id',
+                'amount',
+                'description',
+                'institution_id',
+                'expense_type_id'
+            ])
+            ->with(['types', 'institution'])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function showExpense(string $key): Model|Builder|Expense
     {
         $expense = Expense::query()
-            ->where('id', '=', $key)
-            ->firstOrFail();
+            ->whereId($key)
+            ->first();
 
-        return $expense->load('types');
+        return $expense->load(['types', 'institution']);
     }
 
     public function stored($attributes, $factory): Model|Builder|Expense
@@ -40,6 +45,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'amount' => $attributes->input('amount'),
                 'description' => $attributes->input('description'),
                 'expense_type_id' => $attributes->input('expense'),
+                'institution_id' => $attributes->input('institution')
             ]);
 
         $factory->addSuccess('Expense added with successfully');
@@ -54,6 +60,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             'amount' => $attributes->input('amount'),
             'description' => $attributes->input('description'),
             'expense_type_id' => $attributes->input('expense'),
+            'institution_id' => $attributes->input('institution')
         ]);
         $factory->addSuccess('Expense updated with successfully');
 
