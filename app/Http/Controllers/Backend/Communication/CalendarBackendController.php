@@ -22,6 +22,7 @@ class CalendarBackendController extends Controller
         protected readonly SweetAlertFactory $factory
     ) {
     }
+
     /**
      * Display a listing of the resource.
      *
