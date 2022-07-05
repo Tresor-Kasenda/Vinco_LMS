@@ -33,21 +33,20 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.users.teacher.update', $teacher->key) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.users.teacher.update', $teacher->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -111,21 +110,6 @@
                                                                 placeholder="Enter Phones"
                                                                 required>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Images</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            name="images"
-                                                            value="{{ old('images') ?? $teacher->images }}"
-                                                            placeholder="Enter Images"
-                                                        >
                                                     </div>
                                                 </div>
                                             </div>

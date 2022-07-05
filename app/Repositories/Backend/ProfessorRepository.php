@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use LaravelIdea\Helper\App\Models\_IH_User_QB;
 use Spatie\Permission\Models\Role;
 
 class ProfessorRepository implements ProfessorRepositoryInterface
@@ -25,7 +26,15 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getProfessors(): Collection|array
     {
         return Professor::query()
-            ->with(['department', 'user'])
+            ->select([
+                'id',
+                'images',
+                'username',
+                'email',
+                'phones',
+                'matriculate',
+            ])
+            ->with(['departments'])
             ->latest()
             ->get();
     }
@@ -33,10 +42,10 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function showProfessor(string $key): Model|Builder|null
     {
         $professor = Professor::query()
-            ->where('key', '=', $key)
+            ->whereId($key)
             ->first();
 
-        return $professor->load(['user']);
+        return $professor->load(['user', 'departments']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
@@ -44,34 +53,37 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $professor = Professor::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if ($professor) {
-            $factory->addError('Email deja utiliser par un autre compte');
+
+        if (! $professor) {
+            $user = $this->createUser($attributes);
+            if ($user != null) {
+                $role = $this->getRole();
+                $user->assignRole($role->id);
+                $professor = $this->createProfessor($attributes, $user);
+                $factory->addSuccess('Un professeur a ete ajouter');
+
+                return $professor;
+            }
+            $factory->addError('Utilisateur existe avec l\'addresse email choisie');
 
             return back();
         }
-        $user = $this->createUser($attributes);
-        $role = $this->getRole();
-        $user->assignRole($role->id);
+        $factory->addError('Email deja utiliser par un autre compte');
 
-        $professor = $this->createProfessor($attributes, $user);
-
-        $factory->addSuccess('Un professeur a ete ajouter');
-
-        return $professor;
+        return back();
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $professor = $this->showProfessor(key: $key);
-        $this->removePathOfImages(model: $professor);
         $professor->update([
             'username' => $attributes->input('name'),
             'lastname' => $attributes->input('lastname'),
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
-            'images' => self::uploadFiles($attributes),
             'gender' => $attributes->input('gender'),
         ]);
+
         $factory->addSuccess('Une modification a ete effectuer');
 
         return $professor;
@@ -80,11 +92,6 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function deleted(string $key, $factory): RedirectResponse
     {
         $professor = $this->showProfessor(key: $key);
-        if ($professor->status !== StatusEnum::FALSE) {
-            $factory->addError('Veillez desactiver le professeur avant de le mettre dans la corbeille');
-
-            return back();
-        }
         $professor->delete();
         $factory->addSuccess('Un Professeur a ete ajouter  dans la corbeille');
 
@@ -114,22 +121,25 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'images' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
                 'user_id' => $user->id,
-                'matriculate' => $this->generateRandomTransaction(10),
+                'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
             ]);
     }
 
-    /**
-     * @param $attributes
-     * @return User|Builder|Model
-     */
-    public function createUser($attributes): User|Builder|Model
+    public function createUser($attributes): _IH_User_QB|Model|Builder|User|RedirectResponse|null
     {
-        return User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('password')),
-            ]);
+        $user = User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+        if (! $user) {
+            return User::query()
+                ->create([
+                    'name' => $attributes->input('name'),
+                    'email' => $attributes->input('email'),
+                    'password' => Hash::make($attributes->input('password')),
+                ]);
+        }
+
+        return null;
     }
 
     /**
@@ -138,7 +148,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getRole(): Builder|Model
     {
         return Role::query()
-            ->where('name', '=', 'Teacher')
+            ->whereName('Professeur')
             ->firstOrFail();
     }
 }

@@ -23,12 +23,12 @@
                                                 <span>Create</span>
                                             </a>
                                         </li>
-{{--                                        <li class="nk-block-tools-opt">--}}
-{{--                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">--}}
-{{--                                                <em class="icon ni ni-histroy"></em>--}}
-{{--                                                <span>Corbeille</span>--}}
-{{--                                            </a>--}}
-{{--                                        </li>--}}
+                                        <li class="nk-block-tools-opt">
+                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
+                                                <em class="icon ni ni-histroy"></em>
+                                                <span>Corbeille</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -51,16 +51,8 @@
                                 <th class="nk-tb-col tb-col-md">
                                     <span>Role</span>
                                 </th>
-                                <th class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div>
-                                                <a href="#" class="btn btn-icon btn-trigger">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <th class="nk-tb-col tb-col-md">
+                                    <span>ACTIONS</span>
                                 </th>
                             </tr>
                         </thead>
@@ -83,48 +75,30 @@
                                         @endif
                                     </td>
                                     <td class="nk-tb-col">
-                                        <div class="tb-lead d-flex flex-wrap">
+                                        <div class="tb-lead d-flex flex-wrap justify-content-center">
                                             @foreach($administrator->roles as $role)
                                                 <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
                                             @endforeach
                                         </div>
                                     </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1 my-n1">
-                                            <li class="me-n1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-h"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li>
-                                                                <a href="{{ route('admins.users.admin.edit', $administrator->id) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.users.admin.show', $administrator->id) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                        <span>Remove</span>
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.users.admin.show', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye-alt"></em>
+                                                </a>
+                                                <a href="{{ route('admins.users.admin.edit', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit-alt"></em>
+                                                </a>
+                                                <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

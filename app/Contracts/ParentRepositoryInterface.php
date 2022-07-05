@@ -15,6 +15,4 @@ interface ParentRepositoryInterface
     public function updated(string $key, $attributes, $factory);
 
     public function deleted(string $key, $factory);
-
-    public function changeStatus($attributes);
 }

@@ -45,6 +45,7 @@
                                     @endif
                                     <form action="{{ route('admins.users.guardian.update', $parent->id) }}" method="post" class="form-validate mt-2">
                                         @csrf
+                                        @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -74,22 +75,6 @@
                                                             value="{{ old('email') ?? $parent->email_guardian }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter email"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="password">Mot de passe</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="password"
-                                                            class="form-control @error('password') error @enderror"
-                                                            id="password"
-                                                            name="password"
-                                                            value="{{ old('password') }}"
-                                                            placeholder="Saisir votre mot de passe"
                                                             required>
                                                     </div>
                                                 </div>

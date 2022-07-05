@@ -28,7 +28,6 @@ class PersonnelRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:4', 'max:255'],
-            'lastName' => ['required', 'string', 'min:4', 'max:255'],
             'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique('personnels', 'email')],
             'password' => ['required', 'string', 'min:6'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],

@@ -27,20 +27,5 @@ class ViewComposeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer([
-            'backend.domain.*',
-        ], AcademicYearComposer::class);
-
-        View::composer([
-            'backend.domain.*',
-        ], PersonnelComposer::class);
-
-        View::composer([
-            'backend.domain.*',
-        ], CampusComposer::class);
-
-        View::composer([
-            'backend.domain.*',
-        ], DepartmentComposer::class);
     }
 }

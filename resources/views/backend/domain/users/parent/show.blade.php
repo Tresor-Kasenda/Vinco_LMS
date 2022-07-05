@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Detail sur le parent")
+@section('title')
+    Parent Detail
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -10,7 +12,7 @@
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">
-                                Parent Detail
+                                Show Parent
                             </h3>
                         </div>
                         <div class="nk-block-head-content">
@@ -18,7 +20,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.guardian.index') }}">
+                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.guardian.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -30,60 +32,70 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="card">
-                        <div class="card-aside-wrap">
-                            <div class="card-inner card-inner-lg">
-                                <div class="tab-content">
-                                    <div class="tab-pan active" >
-                                        <div class="nk-block-head">
-                                            <div class="nk-block-between d-flex justify-content-between">
-                                                <div class="nk-block-head-content">
-                                                    <h4 class="nk-block-title">Personnel Information</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-block">
-                                            <div class="nk-data data-list">
-                                                <div class="data-head">
-                                                    <div class="tb-lead d-flex flex-wrap">
-                                                        @foreach($parent->user->roles as $role)
-                                                            <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
-                                                        <span class="data-label">Nom</span>
-                                                        <span class="data-value">{{ $parent->name_guardian ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
-                                                        <span class="data-label">Post nom</span>
-                                                        <span class="data-value">{{ $parent->firstName_guardian ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
-                                                        <span class="data-label">Post nom</span>
-                                                        <span class="data-value">{{ $parent->email_guardian ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
-                                                        <span class="data-label">Gender</span>
-                                                        <span class="data-value">{{ ucfirst($parent->gender) ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="data-item">
-                                                    <div class="data-col">
-                                                        <span class="data-label">Phones</span>
-                                                        <span class="data-value">{{ $parent->phones ?? "" }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body border-bottom py-3">
+                                    <div class="text-center">
+                                        <img
+                                            @if($parent->images)
+                                                src="{{ asset('storage/'.$parent->images) }}"
+                                            @else
+                                                src="{{ asset('assets/admins/images/man.webp') }}"
+                                            @endif
+                                            title="{{ $parent->name_guardian }}"
+                                            class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
+                                        >
                                     </div>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td class="justify-content-center">{{ ucfirst($parent->name_guardian) ?? "-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last-Name</th>
+                                            <td class="justify-content-center">{{ ucfirst($parent->firstName_guardian) ?? "-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td class="justify-content-center">{{ $parent->email_guardian ?? "-" }}</td>
+                                        </tr>
+                                        <tr class="text-justify">
+                                            <th>Phones</th>
+                                            <td class="justify-content-center">{{ $parent->phones ?? "-" }}</td>
+                                        </tr>
+                                        <tr class="text-justify">
+                                            <th>Occupation</th>
+                                            <td class="justify-content-center">  {{ $parent->occupation ?? "-" }}</td>
+                                        </tr>
+
+                                        <tr class="text-justify">
+                                            <th>Admission</th>
+                                            <td class="justify-content-center">{{ $parent->created_at->format('M, d Y') ?? "-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Genre</th>
+                                            <td>
+                                                @if($parent->gender == 'male')
+                                                    MASCULIN
+                                                @else
+                                                    FEMININ
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr class="text-justify">
+                                            <th>Roles</th>
+                                            <td>
+                                                <div class="tb-lead d-flex flex-wrap">
+                                                    @foreach($parent->user->roles as $role)
+                                                        <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "-" }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

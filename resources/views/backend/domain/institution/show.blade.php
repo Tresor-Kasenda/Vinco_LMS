@@ -1,7 +1,7 @@
 @extends('backend.layout.base')
 
 @section('title')
-    Professor Detail
+    Show Institution
 @endsection
 
 @section('content')
@@ -11,16 +11,17 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">
-                                Show Professor
-                            </h3>
+                            <h6 class="nk-block-title page-title">
+                                Institution
+                            </h6>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.teacher.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm"
+                                               href="{{ route('admins.institution.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -38,77 +39,66 @@
                                 <div class="card-body border-bottom py-3">
                                     <div class="text-center">
                                         <img
-                                            @if($teacher->images)
-                                                src="{{ asset('storage/'.$teacher->images) }}"
+                                            @if($institution->institution_images)
+                                                src="{{ asset('storage/'.$institution->institution_images) }}"
                                             @else
                                                 src="{{ asset('assets/admins/images/man.webp') }}"
                                             @endif
-                                            title="{{ $teacher->username }}"
+                                            title="{{ $institution->institution_name }}"
                                             class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
                                         >
                                     </div>
                                     <table class="table">
                                         <tbody>
                                         <tr>
-                                            <th>Name</th>
-                                            <td>{{ ucfirst($teacher->username) ?? "" }}</td>
+                                            <th>Name Institution</th>
+                                            <td>{{ strtoupper($institution->institution_name) ?? "" }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Firstname</th>
-                                            <td>{{ ucfirst($teacher->fristname) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Last-Name</th>
-                                            <td>{{ ucfirst($teacher->lastname) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Matricule</th>
-                                            <td>{{ $teacher->matriculate ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ $teacher->email ?? "" }}</td>
+                                            <th>Responsable</th>
+                                            <td>{{ strtoupper($institution->user->name) ?? "" }}</td>
                                         </tr>
 
-                                        <tr class="text-justify">
-                                            <th>Phones</th>
-                                            <td>{{ $teacher->phones ?? "" }}</td>
-                                        </tr>
                                         <tr>
-                                            <th>Genre</th>
+                                            <th>Pays</th>
                                             <td>
-                                                @if($teacher->gender == 'male')
-                                                    MASCULIN
-                                                @else
-                                                    FEMININ
-                                                @endif
+                                                {{ $institution->institution_country ?? "" }}
                                             </td>
                                         </tr>
+
+                                        <tr>
+                                            <th>Ville</th>
+                                            <td>
+                                                {{ $institution->institution_town ?? "" }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>N° de Contact</th>
+                                            <td>
+                                                {{ $institution->institution_phones ?? "" }}
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <th>Address</th>
                                             <td>
-                                                {{ $teacher->location ?? "" }}
+                                                {{ $institution->institution_address ?? "" }}
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <th>Nationalite</th>
+                                            <th>Site web</th>
                                             <td>
-                                                {{ $teacher->nationality ?? "" }}
+                                                <a href="{{ $institution->institution_website ?? "" }}" target="__black">
+                                                    {{ $institution->institution_website ?? "" }}
+                                                </a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th>Date D'inscription</th>
-                                            <td>{{ $teacher->created_at->format('M, d, Y') ?? "" }}</td>
-                                        </tr>
+
                                         <tr class="text-justify">
-                                            <th>Roles</th>
-                                            <td>
-                                                <div class="tb-lead d-flex flex-wrap">
-                                                    @foreach($teacher->user->roles as $role)
-                                                        <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
-                                                    @endforeach
-                                                </div>
-                                            </td>
+                                            <th>Description</th>
+                                            <td>{{ $institution->institution_description ?? "" }}</td>
                                         </tr>
                                         </tbody>
                                     </table>

@@ -362,27 +362,27 @@
                             <ul class="nk-menu-sub">
                                 @include('backend.components._links', [
                                     'route' => route('admins.users.admin.index'),
-                                    'name' => "Admin"
+                                    'name' => "Administrateur"
                                 ])
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.users.staffs.index'),
-                                    'name' => "Staffs"
+                                    'name' => "Gestionnaire"
                                 ])
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.users.teacher.index'),
-                                    'name' => "Teacher"
+                                    'name' => "Professeur"
                                 ])
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.users.student.index'),
-                                    'name' => "Student"
+                                    'name' => "Etudiant"
                                 ])
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.users.guardian.index'),
-                                    'name' => "Parents"
+                                    'name' => "Parent"
                                 ])
                             </ul>
                         </li>

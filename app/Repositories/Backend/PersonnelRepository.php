@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use LaravelIdea\Helper\App\Models\_IH_User_QB;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -27,6 +28,15 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function getPersonnelContent(): Collection|array
     {
         return Personnel::query()
+            ->select([
+                'images_personnel',
+                'matriculate',
+                'gender',
+                'username',
+                'id',
+                'phones',
+                'email',
+            ])
             ->with('user')
             ->orderByDesc('created_at')
             ->get();
@@ -35,8 +45,8 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function showPersonnelContent(string $key): Model|Builder|null
     {
         $personnel = Personnel::query()
-            ->where('key', '=', $key)
-            ->first();
+            ->where('id', '=', $key)
+            ->firstOrFail();
 
         return $personnel->load(['user', 'academic']);
     }
@@ -46,36 +56,38 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         $personnel = Personnel::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if ($personnel) {
-            $factory->addError('Email deja utiliser par un autre compte');
+        if (! $personnel) {
+            $user = $this->storeCampus($attributes);
+            $role = $this->getRole($attributes);
+            $user->assignRole($role->id);
+            $personnel = $this->createPersonnel($attributes, $user);
 
-            return back();
+            $factory->addSuccess('Un personnel a ete ajouter');
+
+            return $personnel;
         }
-        $user = $this->storeCampus($attributes);
-        $role = $this->getRole();
-        $user->assignRole($role->id);
-        $personnel = $this->createPersonnel($attributes, $user);
+        $factory->addError('Email deja utiliser par un autre compte');
 
-        $factory->addSuccess('Un personnel a ete ajouter');
-
-        return $personnel;
+        return back();
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
 
-        $this->removePathOfImages(model: $personnel);
-
         $personnel->update([
             'username' => $attributes->input('name'),
-            'lastname' => $attributes->input('lastName'),
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
-            'images' => self::uploadFiles($attributes),
             'gender' => $attributes->input('gender'),
             'academic_year_id' => $attributes->input('academic'),
         ]);
+
+        $user = User::query()
+            ->whereEmail($attributes->input('email'))
+            ->firstOrFail();
+
+        $user->syncRoles($attributes->input('role'));
 
         $factory->addSuccess('Personnel modifier avec succes');
 
@@ -85,11 +97,6 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function deleted(string $key, $factory): RedirectResponse
     {
         $personnel = $this->showPersonnelContent(key: $key);
-        if ($personnel->status !== StatusEnum::FALSE) {
-            $factory->addError('Veillez desactiver le personnel avant de le mettre dans la corbeille');
-
-            return back();
-        }
         $personnel->delete();
         $factory->addSuccess('Personnel modifier avec succes');
 
@@ -108,43 +115,42 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         return false;
     }
 
-    public function createPersonnel($attributes, $user): Builder|Model
+    private function createPersonnel($attributes, $user): Builder|Model
     {
         return Personnel::query()
             ->create([
                 'username' => $attributes->input('name'),
-                'lastname' => $attributes->input('lastName'),
                 'email' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
-                'images' => self::uploadFiles($attributes),
+                'images_personnel' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
                 'academic_year_id' => $attributes->input('academic'),
                 'user_id' => $user->id,
-                'matriculate' => $this->generateRandomTransaction(10),
+                'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
             ]);
     }
 
-    /**
-     * @param $attributes
-     * @return User|Builder|Model
-     */
-    public function storeCampus($attributes): User|Builder|Model
+    public function storeCampus($attributes): _IH_User_QB|Model|Builder|User|RedirectResponse
     {
-        return User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'password' => Hash::make($attributes->input('password')),
-            ]);
+        $user = User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+        if (! $user) {
+            return User::query()
+                ->create([
+                    'name' => $attributes->input('name'),
+                    'email' => $attributes->input('email'),
+                    'password' => Hash::make($attributes->input('password')),
+                ]);
+        }
+
+        return back();
     }
 
-    /**
-     * @return Builder|Model
-     */
-    public function getRole(): Builder|Model
+    public function getRole($attributes): Builder|Model
     {
         return Role::query()
-            ->where('name', '=', 'Campus')
+            ->where('id', '=', $attributes->input('role'))
             ->firstOrFail();
     }
 }
