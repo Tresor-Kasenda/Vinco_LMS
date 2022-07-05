@@ -98,7 +98,7 @@
                                                     $managers = \App\Models\User::query()
                                                         ->select(['id', 'name'])
                                                         ->whereHas('roles', function ($query) {
-                                                            $query->whereIn('name', ['Admin', 'Gestionnaire']);
+                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable']);
                                                         })
                                                         ->get();
                                                 @endphp

@@ -18,8 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex"
-                                               href="{{ route('admins.academic.campus.index') }}">
+                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.campus.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -34,16 +33,16 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.academic.campus.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
@@ -62,6 +61,53 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                $personnels = \App\Models\User::query()
+                                                    ->select(['id', 'name'])
+                                                    ->whereHas('roles', function ($query) {
+                                                        $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                    })
+                                                    ->get();
+                                            @endphp
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="personnel">Responsable</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('personnel') error @enderror"
+                                                        id="personnel"
+                                                        name="personnel"
+                                                        data-placeholder="Select a manager"
+                                                        required>
+                                                        <option label="role" value=""></option>
+                                                        @foreach($personnels as $personnel)
+                                                            <option
+                                                                value="{{ $personnel->id }}">
+                                                                {{ ucfirst($personnel->name) ?? "" }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="institution">Institution</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('institution') error @enderror"
+                                                        id="institution"
+                                                        name="institution"
+                                                        data-placeholder="Select Institution"
+                                                        required>
+                                                        <option label="role" value=""></option>
+                                                        @foreach(\App\Models\Institution::all() as $institution)
+                                                            <option
+                                                                value="{{ $institution->id }}">
+                                                                {{ ucfirst($institution->institution_name) ?? "" }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="images">Images</label>
@@ -75,25 +121,6 @@
                                                             placeholder="Enter Image"
                                                             required>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="user_id">Responsable</label>
-                                                    <select
-                                                        class="form-control js-select2 @error('user_id') error @enderror"
-                                                        id="user_id"
-                                                        name="user_id"
-                                                        data-placeholder="Select a manager"
-                                                        required>
-                                                        <option label="role" value=""></option>
-                                                        @foreach(\App\Models\Personnel::all() as $personnel)
-                                                            <option
-                                                                value="{{ $personnel->id }}">
-                                                                {{ ucfirst($personnel->username) ?? "" }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

@@ -30,7 +30,8 @@ class CampusRequest extends FormRequest
             'name' => ['required', 'string', 'min:4', Rule::unique('campuses', 'name')],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'description' => ['nullable'],
-            'user_id' => ['required', Rule::exists('personnels', 'id')],
+            'personnel' => ['required', Rule::exists('users', 'id')],
+            'institution' => ['required', Rule::exists('institutions', 'id')]
         ];
     }
 }

@@ -32,8 +32,6 @@ class DepartmentBackendController extends Controller
     {
         $departments = $this->repository->getDepartments();
 
-        $this->authorize('Department-list', $departments);
-
         return view('backend.domain.academic.departments.index', compact('departments'));
     }
 
@@ -51,8 +49,6 @@ class DepartmentBackendController extends Controller
 
     public function store(DepartmentRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::denies('Department-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
         return to_route('admins.academic.departments.index');
@@ -67,8 +63,6 @@ class DepartmentBackendController extends Controller
 
     public function update(string $key, DepartmentRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::denies('Department-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
         return Response::redirectToRoute('admins.academic.departments.index');
@@ -76,8 +70,6 @@ class DepartmentBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
-        abort_if(Gate::denies('Department-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->deleted(key: $key, factory: $this->factory);
 
         return Response::redirectToRoute('admins.academic.departments.index');
