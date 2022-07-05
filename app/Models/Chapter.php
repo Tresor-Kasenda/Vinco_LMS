@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Chapter
+ * App\Models\Chapter.
  *
  * @property int $id
  * @property int $course_id
@@ -33,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $lessons_count
  * @property-read Collection|Question[] $questions
  * @property-read int|null $questions_count
- * @property-read Collection|Resource[] $resources
+ * @property-read Collection|resource[] $resources
  * @property-read int|null $resources_count
  * @method static Builder|Chapter newModelQuery()
  * @method static Builder|Chapter newQuery()
@@ -85,6 +85,4 @@ class Chapter extends Model
     {
         return $this->hasMany(Homework::class);
     }
-
-
 }

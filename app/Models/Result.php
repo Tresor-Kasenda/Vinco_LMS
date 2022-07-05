@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Result
+ * App\Models\Result.
  *
  * @property int $id
  * @property int $course_id
@@ -51,6 +51,4 @@ class Result extends Model
     {
         return $this->belongsTo(Course::class);
     }
-
-
 }

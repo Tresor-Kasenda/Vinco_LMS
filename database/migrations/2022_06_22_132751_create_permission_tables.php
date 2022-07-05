@@ -7,8 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\PermissionRegistrar;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -79,7 +78,7 @@ return new class extends Migration
 
                     $table->primary(
                         [$columnNames['team_foreign_key'],
-                            PermissionRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+                            PermissionRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type', ],
                         'model_has_permissions_permission_model_type_primary'
                     );
                 } else {
@@ -93,7 +92,10 @@ return new class extends Migration
 
         Schema::create(
             $tableNames['model_has_roles'],
-            function (Blueprint $table) use ($tableNames, $columnNames, $teams
+            function (Blueprint $table) use (
+                $tableNames,
+                $columnNames,
+                $teams
             ) {
                 $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
@@ -114,7 +116,7 @@ return new class extends Migration
 
                     $table->primary(
                         [$columnNames['team_foreign_key'],
-                            PermissionRegistrar::$pivotRole, $columnNames['model_morph_key'], 'model_type'],
+                            PermissionRegistrar::$pivotRole, $columnNames['model_morph_key'], 'model_type', ],
                         'model_has_roles_role_model_type_primary'
                     );
                 } else {
