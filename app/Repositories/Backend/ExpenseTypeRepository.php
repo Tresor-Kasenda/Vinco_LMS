@@ -22,7 +22,7 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'image'
+                'image',
             ])
             ->orderByDesc('created_at')
             ->get();

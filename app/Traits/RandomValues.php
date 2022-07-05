@@ -8,7 +8,7 @@ trait RandomValues
 {
     public function generateRandomTransaction(int $values, $name): string
     {
-        $characters = now()->format('Y').'0123456789ABCDEFGHILKMNOPQRSTUVWXYZabcdefghilkmnopqrstuvwxyz' . $name;
+        $characters = now()->format('Y').'0123456789ABCDEFGHILKMNOPQRSTUVWXYZabcdefghilkmnopqrstuvwxyz'.$name;
         $randomString = '';
         for ($i = 0; $i < $values; $i++) {
             $index = rand(0, strlen($characters) - 1);

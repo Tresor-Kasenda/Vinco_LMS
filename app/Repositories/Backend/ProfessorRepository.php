@@ -32,7 +32,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'username',
                 'email',
                 'phones',
-                'matriculate'
+                'matriculate',
             ])
             ->with(['departments'])
             ->latest()
@@ -54,19 +54,22 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->where('email', '=', $attributes->input('email'))
             ->first();
 
-        if (!$professor) {
+        if (! $professor) {
             $user = $this->createUser($attributes);
             if ($user != null) {
                 $role = $this->getRole();
                 $user->assignRole($role->id);
                 $professor = $this->createProfessor($attributes, $user);
                 $factory->addSuccess('Un professeur a ete ajouter');
+
                 return $professor;
             }
             $factory->addError('Utilisateur existe avec l\'addresse email choisie');
+
             return back();
         }
         $factory->addError('Email deja utiliser par un autre compte');
+
         return back();
     }
 
@@ -127,7 +130,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
         $user = User::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (!$user) {
+        if (! $user) {
             return User::query()
                 ->create([
                     'name' => $attributes->input('name'),
@@ -135,6 +138,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }
+
         return null;
     }
 

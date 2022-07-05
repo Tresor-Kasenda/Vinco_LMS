@@ -31,7 +31,7 @@ class ParentRepository implements ParentRepositoryInterface
                 'name_guardian',
                 'email_guardian',
                 'images',
-                'phones'
+                'phones',
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -52,7 +52,7 @@ class ParentRepository implements ParentRepositoryInterface
             ->where('email_guardian', '=', $attributes->input('email'))
             ->exists();
 
-        if (!$parent) {
+        if (! $parent) {
             $user = $this->createParent($attributes);
             if ($user != null) {
                 $role = $this->getParentRole();
@@ -67,12 +67,15 @@ class ParentRepository implements ParentRepositoryInterface
                         'user_id' => $user->id,
                     ]);
                 $factory->addSuccess('Parent added with successfully');
+
                 return $guardian;
             }
             $factory->addError('Utilisateur existe avec l\'addresse email choisie');
+
             return back();
         }
         $factory->addError('Email deja utiliser par un autre compte');
+
         return back();
     }
 
@@ -108,7 +111,7 @@ class ParentRepository implements ParentRepositoryInterface
         $user = User::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (!$user) {
+        if (! $user) {
             return User::query()
                 ->create([
                     'name' => $attributes->input('name'),
@@ -116,6 +119,7 @@ class ParentRepository implements ParentRepositoryInterface
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }
+
         return null;
     }
 
