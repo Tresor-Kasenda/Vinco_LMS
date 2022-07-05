@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->foreignIdFor(\App\Models\Institution::class)
-                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->timestamps();

@@ -67,8 +67,8 @@
                                                     <label class="form-label" for="start_date">Start Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="datetime-local"
-                                                            class="form-control @error('start_date') error @enderror"
+                                                            type="text"
+                                                            class="form-control date-picker @error('start_date') error @enderror"
                                                             id="start_date"
                                                             name="start_date"
                                                             data-date-format="yyyy-mm-dd"
@@ -84,8 +84,8 @@
                                                     <label class="form-label" for="end_date">End Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="datetime-local"
-                                                            class="form-control @error('end_date') error @enderror"
+                                                            type="text"
+                                                            class="form-control date-picker @error('end_date') error @enderror"
                                                             id="end_date"
                                                             name="end_date"
                                                             data-date-format="yyyy-mm-dd"

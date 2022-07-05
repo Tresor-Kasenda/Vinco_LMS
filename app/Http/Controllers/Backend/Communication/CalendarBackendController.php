@@ -60,6 +60,7 @@ class CalendarBackendController extends Controller
             'title'=>$request->title,
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
+            'institution_id' =>\Auth::user()->institution->id
         ]);
 
         return redirect()->route('admins.communication.calendar.index');
