@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Communication;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Journal;
 use Illuminate\Http\Request;
 
 class JournalBackendController extends Controller
@@ -14,7 +16,10 @@ class JournalBackendController extends Controller
      */
     public function index()
     {
-        return view('backend.domain.communication.journal.index');
+        $eloquentEvent = Journal::all(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
+
+        $calendar = \Calendar::addEvents($eloquentEvent);
+        return view('backend.domain.communication.journal.index', compact('calendar'));
     }
 
     /**
@@ -24,7 +29,7 @@ class JournalBackendController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.domain.communication.journal.create');
     }
 
     /**
@@ -35,7 +40,15 @@ class JournalBackendController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Journal::create([
+           'course_id'=>$request->course_id,
+            'student_id'=>\Auth::user()->id,
+            'professor_id'=>Course::where('id', $request->course_id)->first()->professors->id,
+            'title'=>$request->title,
+            'start_time'=>$request->start_date,
+            'end_time'=>$request->end_date
+        ]);
+        return redirect()->route('admins.communication.journal.index');
     }
 
     /**

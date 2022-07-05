@@ -48,6 +48,15 @@ class Journal extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'course_id',
+        'student_id',
+        'professor_id',
+        'title',
+        'start_time',
+        'end_time'
+    ];
+
     public function institution(): BelongsTo
     {
         return $this->belongsTo(Institution::class);
