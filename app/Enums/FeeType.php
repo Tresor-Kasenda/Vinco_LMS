@@ -13,9 +13,4 @@ enum FeeType : string
     case MonthFee = 'Frais mensuel';
 
     case OthersFee = 'Autre frais';
-
-    public static function all(): string
-    {
-        return self::all();
-    }
 }

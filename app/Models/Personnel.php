@@ -76,4 +76,9 @@ class Personnel extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function academic(): BelongsTo
+    {
+        return $this->belongsTo(AcademicYear::class, 'academic_year_id');
+    }
 }

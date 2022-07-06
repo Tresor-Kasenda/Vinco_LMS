@@ -61,15 +61,13 @@
                             <tr class="nk-tb-item text-center">
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        <span class="tb-lead">
-                                            <img
-                                                src="{{ asset('storage/'.$parent->images) }}"
-                                                alt="{{ $parent->name_guardian }}"
-                                                class="img-fluid rounded-circle"
-                                                width="20%"
-                                                height="20%"
-                                            >
-                                        </span>
+                                        <img
+                                            src="{{ asset('storage/'.$parent->images) }}"
+                                            alt="{{ $parent->name_guardian }}"
+                                            class="img-fluid rounded-circle"
+                                            width="15%"
+                                            height="15%"
+                                        >
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
