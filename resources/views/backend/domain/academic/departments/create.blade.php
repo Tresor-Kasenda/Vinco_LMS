@@ -33,16 +33,16 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.academic.departments.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
@@ -76,29 +76,37 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                $users = \App\Models\User::query()
+                                                    ->select(['id', 'name'])
+                                                    ->whereHas('roles', function ($query) {
+                                                        $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                    })
+                                                    ->get();
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Responsable</label>
+                                                    <label class="form-label" for="user">Responsable</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user_id') error @enderror"
-                                                        id="user_id"
-                                                        name="user_id"
-                                                        data-placeholder="Choisir le chef de department"
+                                                        class="form-control js-select2 @error('user') error @enderror"
+                                                        id="user"
+                                                        name="user"
+                                                        data-placeholder="Select Responsable"
                                                         required>
-                                                        <option label="Choisir le chef de department" value=""></option>
-                                                        @foreach($departmentHead as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        <option label="Select Responsable" value=""></option>
+                                                        @foreach($users as $user)
+                                                            <option value="{{ $user->id }}">{{ ucfirst($user->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="campus_id">Campus</label>
+                                                    <label class="form-label" for="campus">Campus</label>
                                                     <select
-                                                        class="form-control js-select2 @error('campus_id') error @enderror"
-                                                        id="campus_id"
-                                                        name="campus_id"
+                                                        class="form-control js-select2 @error('campus') error @enderror"
+                                                        id="campus"
+                                                        name="campus"
                                                         data-placeholder="Choisir la faculte"
                                                         required>
                                                         <option label="Choisir la faculte" value=""></option>

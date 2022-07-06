@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Edition du filiaire")
+@section('title')
+    Edit Filiaire
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Filiaire</h3>
+                            <h3 class="nk-block-title page-title">Edit filiaire</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -31,19 +33,18 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.filiaire.update', $filiaire->key) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.academic.filiaire.update', $filiaire->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
-                                        @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -60,21 +61,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="images">Image</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            id="images"
-                                                            name="images"
-                                                            value="{{ old('images') ?? $filiaire->images }}"
-                                                            placeholder="Enter Image"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @php
+                                                $users = \App\Models\User::query()
+                                                    ->select(['id', 'name'])
+                                                    ->whereHas('roles', function ($query) {
+                                                        $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                    })
+                                                    ->get();
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="user">Responsable</label>
@@ -85,12 +80,13 @@
                                                         data-placeholder="Select Responsable"
                                                         required>
                                                         <option label="Select Responsable" value=""></option>
-                                                        @foreach(\App\Models\Personnel::all() as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                                        @foreach($users as $user)
+                                                            <option value="{{ $user->id }}">{{ ucfirst($user->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="department">Departement</label>
@@ -102,7 +98,7 @@
                                                         required>
                                                         <option label="Select le departement" value=""></option>
                                                         @foreach(\App\Models\Department::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                            <option value="{{ $campus->id }}">{{ ucfirst($campus->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -110,14 +106,30 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="description">Message</label>
+                                                    <label class="form-label" for="images">Image</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="file"
+                                                            class="form-control @error('images') error @enderror"
+                                                            id="images"
+                                                            name="images"
+                                                            value="{{ old('images') }}"
+                                                            placeholder="Enter Image"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
                                                         <textarea
                                                             class="form-control form-control-sm"
                                                             id="description"
                                                             name="description"
                                                             placeholder="Write the description"
-                                                        >{{ old('description') ?? $filiaire->description }}</textarea>
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

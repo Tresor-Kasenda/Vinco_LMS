@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use LaravelIdea\Helper\App\Models\_IH_Subsidiary_QB;
 
 class FiliaireRepository implements FiliaireRepositoryInterface
 {
@@ -20,18 +21,34 @@ class FiliaireRepository implements FiliaireRepositoryInterface
     public function getFiliaires(): array|Collection|\Illuminate\Support\Collection
     {
         return Subsidiary::query()
-            ->with(['department', 'user', 'academic'])
+            ->select([
+                'id',
+                'name',
+                'description',
+                'user_id',
+                'images',
+                'department_id'
+            ])
+            ->with(['department:id,name', 'user:id,name'])
             ->orderByDesc('created_at')
             ->get();
     }
 
-    public function showFiliaire(string $key)
+    public function showFiliaire(string $key): Model|Builder|Subsidiary|_IH_Subsidiary_QB
     {
         $filiaire = Subsidiary::query()
-            ->when('key', fn ($query) => $query->where('key', $key))
+            ->select([
+                'id',
+                'name',
+                'description',
+                'user_id',
+                'images',
+                'department_id'
+            ])
+            ->where('id', '=', $key)
             ->firstOrCreate();
 
-        return $filiaire->load(['department', 'user']);
+        return $filiaire->load(['department', 'user', 'department.campus:id,name']);
     }
 
     public function stored($attributes, $factory): Model|Builder|Subsidiary|RedirectResponse
@@ -60,10 +77,10 @@ class FiliaireRepository implements FiliaireRepositoryInterface
         return back();
     }
 
-    public function updated(string $key, $attributes, $factory)
+    public function updated(string $key, $attributes, $factory): Model|Builder|Subsidiary|_IH_Subsidiary_QB
     {
         $campus = $this->showFiliaire(key: $key);
-        $this->removePathOfImages($campus);
+
         $campus->update([
             'department_id' => $attributes->input('department'),
             'user_id' => $attributes->input('user'),

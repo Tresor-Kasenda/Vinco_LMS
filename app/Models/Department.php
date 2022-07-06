@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -67,12 +68,13 @@ class Department extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_department')
+            ->select(['name', 'email'])
             ->withTimestamps();
     }
 
     public function teachers(): BelongsToMany
     {
-        return $this->belongsToMany(Professor::class);
+        return $this->belongsToMany(Professor::class, 'professors_department');
     }
 
     public function subdsidiaries(): HasMany
@@ -84,4 +86,15 @@ class Department extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function isActive(): int
+    {
+        return $this->status = StatusEnum::TRUE;
+    }
+
+    public function isInactive(): int
+    {
+        return $this->status = StatusEnum::FALSE;
+    }
+
 }

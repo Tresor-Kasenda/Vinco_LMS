@@ -68,17 +68,17 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $department->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($department->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $department->campus->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($department->campus->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @foreach($department->users as $user)
-                                            <span class="tb-lead">{{ strtoupper($user->name) }}</span>
+                                            <span class="tb-lead">{{ ucfirst($user->name) }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
+                                    <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admins.academic.departments.show', $department->id) }}"

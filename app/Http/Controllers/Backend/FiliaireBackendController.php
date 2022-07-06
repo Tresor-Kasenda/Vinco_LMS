@@ -28,18 +28,9 @@ class FiliaireBackendController extends Controller
 
     public function index(): Renderable
     {
-        abort_if(Gate::denies('Subsidiaries-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $filiaires = $this->repository->getFiliaires();
 
         return view('backend.domain.academic.filiaire.index', compact('filiaires'));
-    }
-
-    public function show(string $Key): Factory|View|Application
-    {
-        $filiaire = $this->repository->showFiliaire(key:  $Key);
-
-        return \view('backend.domain.academic.filiaire.show', compact('filiaire'));
     }
 
     public function create(): Factory|View|Application
@@ -54,6 +45,13 @@ class FiliaireBackendController extends Controller
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
         return redirect()->route('admins.academic.filiaire.index');
+    }
+
+    public function show(string $Key): Factory|View|Application
+    {
+        $filiaire = $this->repository->showFiliaire(key:  $Key);
+
+        return \view('backend.domain.academic.filiaire.show', compact('filiaire'));
     }
 
     public function edit(string $key): Factory|View|Application

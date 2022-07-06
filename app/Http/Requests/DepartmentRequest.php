@@ -31,8 +31,8 @@ class DepartmentRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
-            'user_id' => ['required', Rule::exists(User::class, 'id')],
-            'campus_id' => ['required', Rule::exists(Campus::class, 'id')],
+            'user' => ['required', Rule::exists(User::class, 'id')],
+            'campus' => ['required', Rule::exists(Campus::class, 'id')],
             'description' => ['nullable'],
         ];
     }

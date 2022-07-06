@@ -33,6 +33,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Schedule whereStartTime($value)
  * @method static Builder|Schedule whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $date
+ * @method static Builder|Schedule whereDate($value)
  */
 class Schedule extends Model
 {
