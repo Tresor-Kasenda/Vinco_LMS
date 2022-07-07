@@ -26,16 +26,9 @@ class CategoryBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.academic.categories.index', [
-            'categories' => $this->repository->getCategories(),
-        ]);
-    }
+        $categories = $this->repository->getCategories();
 
-    public function show(string $key): Renderable
-    {
-        return view('backend.domain.academic.categories.show', [
-            'category' => $this->repository->showCategory(key: $key),
-        ]);
+        return view('backend.domain.academic.categories.index', compact('categories'));
     }
 
     public function create(): Renderable
@@ -69,19 +62,5 @@ class CategoryBackendController extends Controller
         $this->repository->deleted(key: $key, flash: $this->flasher);
 
         return back();
-    }
-
-    public function activate(ConfirmedCategoryRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
     }
 }

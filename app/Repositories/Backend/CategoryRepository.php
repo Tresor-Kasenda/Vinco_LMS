@@ -17,42 +17,32 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getCategories(): array|Collection
     {
         return Category::query()
+            ->select([
+                'id',
+                'name',
+                'description'
+            ])
             ->orderByDesc('created_at')
-            ->with('academic')
             ->get();
     }
 
     public function showCategory(string $key)
     {
-        $category = Category::query()
-            ->when('key', function ($query) use ($key) {
-                $query->where('key', $key);
-            })
+        return Category::query()
+            ->where('id', '=', $key)
             ->first();
-
-        return $category->load('academic');
     }
 
     public function stored($attributes, $flash): Model|Builder|Category|RedirectResponse
     {
-        $category = Category::query()
-            ->where('name', '=', $attributes->input('name'))
-            ->first();
-        if (! $category) {
-            $faculty = Category::query()
-                ->create([
-                    'name' => $attributes->input('name'),
-                    'status' => StatusEnum::FALSE,
-                    'description' => $attributes->input('description'),
-                    'academic_year_id' => $attributes->input('academic'),
-                ]);
-            $flash->addSuccess('Une nouvelle categorie a ete ajouter');
+        $faculty = Category::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'description' => $attributes->input('description'),
+            ]);
+            $flash->addSuccess('A new Category as added with successfully');
 
             return $faculty;
-        }
-        $flash->addError('Le nom de categorie existe deja');
-
-        return back();
     }
 
     public function updated(string $key, $attributes, $flash)
@@ -61,9 +51,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category->update([
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'academic_year_id' => $attributes->input('academic'),
         ]);
-        $flash->addSuccess('La categorie a ete modifier avec succes');
+        $flash->addSuccess('The Category as updated with successfully');
 
         return $category;
     }
@@ -71,26 +60,9 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function deleted(string $key, $flash): RedirectResponse
     {
         $category = $this->showCategory(key: $key);
-        if ($category->status !== StatusEnum::FALSE) {
-            $flash->addError('Veillez desactiver la categorie avant de le mettre dans la corbeille');
-
-            return back();
-        }
         $category->delete();
-        $flash->addSuccess('la categorie a ete mis dans la corbeille');
+        $flash->addSuccess('The Category as trashed with successfully');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $personnel = $this->showCategory(key: $attributes->input('key'));
-        if ($personnel != null) {
-            return $personnel->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
     }
 }

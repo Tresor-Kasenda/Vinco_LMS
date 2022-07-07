@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des categories")
+@section('title')
+    Categories Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -34,68 +36,40 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
-                        <thead>
-                            <tr class="nk-tb-item nk-tb-head text-center">
-                                <th class="nk-tb-col">
-                                    <span>NOM</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    <span>ANNEE ACADEMIQUE</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    <span>STATUS</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    ACTION
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    @if($categories)
+                        <div class="row">
                             @foreach($categories as $category)
-                                <tr class="nk-tb-item text-center">
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $category->name ?? "" }}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $category->academic->startDate)->format('Y') }}
-                                            -
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $category->academic->endDate)->format('Y') }}
-                                        </span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        @if($category->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead text-center">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.categories.edit', $category->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-inner">
+                                            <h5 class="card-title text-center mb-4">{{ ucfirst($category->name) ?? " " }}</h5>
+                                            <p class="card-text">
+                                                {{ $category->description ?? "" }}
+                                            </p>
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <a class="-mr-2 btn btn-dim btn-primary ml-2" href="{{ route('admins.academic.categories.edit', $category->id) }}">
                                                     <em class="icon ni ni-edit"></em>
                                                 </a>
-                                                    <a href="{{ route('admins.academic.categories.show', $category->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye"></em>
-                                                </a>
-                                                <form action="{{ route('admins.academic.categories.destroy', $category->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <form action="{{ route('admins.academic.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                    <button type="submit" class="btn btn-dim btn-danger">
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
                                             </div>
-                                        </span>
-                                    </td>
-                                </tr>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </div>
+                    @else
+                        <div class="alert alert-icon alert-primary" role="alert">
+                            <em class="icon ni ni-alert-circle"></em>
+                            <strong>Informations</strong>.
+                            Les categories n'exite pas pour l'instant .
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
