@@ -106,22 +106,6 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Image</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            id="images"
-                                                            name="images"
-                                                            value="{{ old('images') }}"
-                                                            placeholder="Enter Image"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
                                                     <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
                                                         <textarea

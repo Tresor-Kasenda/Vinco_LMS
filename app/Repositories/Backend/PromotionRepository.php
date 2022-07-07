@@ -20,7 +20,14 @@ class PromotionRepository implements PromotionRepositoryInterface
     public function getPromotions(): array|Collection|\Illuminate\Support\Collection
     {
         return Promotion::query()
-            ->with(['subsidiary', 'students', 'academic'])
+            ->select([
+                'id',
+                'name',
+                'images',
+                'academic_year_id',
+                'subsidiary_id'
+            ])
+            ->with(['subsidiary:id,name', 'academic:id,start_date,end_date'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -28,49 +35,46 @@ class PromotionRepository implements PromotionRepositoryInterface
     public function showPromotion(string $key): Model|Builder|Promotion
     {
         $promotion = Promotion::query()
-            ->where('key', '=', $key)
+            ->select([
+                'id',
+                'name',
+                'images',
+                'academic_year_id',
+                'subsidiary_id'
+            ])
+            ->where('id', '=', $key)
             ->firstOrCreate();
 
-        return $promotion->load(['subsidiary', 'academic']);
+        return $promotion->load(['subsidiary:id,name,department_id', 'academic:id,start_date,end_date']);
     }
 
     public function stored($attributes, $factory): Model|Builder|Promotion|RedirectResponse
     {
-        $promotion = Promotion::query()
-            ->when('subsidiary_id', function ($query) use ($attributes) {
-                $query->where('subsidiary_id', $attributes->input('filiaire'));
-            })
-            ->first();
-        if (! $promotion) {
-            $faculty = Promotion::query()
-                ->create([
-                    'subsidiary_id' => $attributes->input('filiaire'),
-                    'name' => $attributes->input('name'),
-                    'description' => $attributes->input('description'),
-                    'images' => self::uploadFiles($attributes),
-                    'academic_year_id' => $attributes->input('academic'),
-                ]);
-            $factory->addSuccess('Une mouvelle filiaire a ete ajouter');
+        $faculty = Promotion::query()
+            ->create([
+                'subsidiary_id' => $attributes->input('filiaire'),
+                'name' => $attributes->input('name'),
+                'description' => $attributes->input('description'),
+                'images' => self::uploadFiles($attributes),
+                'academic_year_id' => $attributes->input('academic'),
+            ]);
+        $factory->addSuccess('Une mouvelle promotion a ete ajouter');
 
-            return $faculty;
-        }
-        $factory->addError('Le responsable choisie a ete deja affecter dans un autre campus');
-
-        return back();
+        return $faculty;
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|Promotion
     {
         $promotion = $this->showPromotion(key: $key);
-        $this->removePathOfImages($promotion);
+
         $promotion->update([
             'subsidiary_id' => $attributes->input('filiaire'),
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'images' => self::uploadFiles($attributes),
             'academic_year_id' => $attributes->input('academic'),
         ]);
-        $factory->addSuccess('Un campus a ete modifier');
+
+        $factory->addSuccess('Promotion updated with successfully');
 
         return $promotion;
     }
@@ -78,14 +82,8 @@ class PromotionRepository implements PromotionRepositoryInterface
     public function deleted(string $key, $factory): RedirectResponse
     {
         $promotion = $this->showPromotion(key: $key);
-        if ($promotion->status !== StatusEnum::FALSE) {
-            $factory->addError('Veillez desactiver avant de le mettre dans la corbeille');
-
-            return back();
-        }
         $promotion->delete();
-        $factory->addSuccess('Un campus a ete modifier');
-
+        $factory->addSuccess('Promotion trashed with successfully');
         return back();
     }
 

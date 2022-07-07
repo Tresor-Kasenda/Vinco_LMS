@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title')
+    Edit Promotion
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,14 +11,14 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Promotion</h3>
+                            <h3 class="nk-block-title page-title">Edit Promotion</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.promotion.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.promotion.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -41,7 +43,7 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.promotion.update', $promotion->key) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.academic.promotion.update', $promotion->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -55,26 +57,12 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') ?? $promotion->name }}"
-                                                            placeholder="Saisir le nom du promotion"
+                                                            placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="images">Logo</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            id="images"
-                                                            name="images"
-                                                            value="{{ old('images') ?? $promotion->images }}"
-                                                            placeholder="Choisir le logo du campus"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="filiaire">FIliaire</label>
@@ -84,7 +72,7 @@
                                                         name="filiaire"
                                                         data-placeholder="Choisir le filiaire"
                                                         required>
-                                                        <option label="Choisir le filiaire" value=""></option>
+                                                        <option value="{{ $promotion->subsidiary->id }}">{{ $promotion->subsidiary->name }}</option>
                                                         @foreach(\App\Models\Subsidiary::all() as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endforeach
@@ -100,9 +88,22 @@
                                                         name="academic"
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
-                                                        <option label="Choisir l'annee academique" value=""></option>
+                                                        <option value="{{ $promotion->academic->id }}">
+                                                            {{
+                                                                \Carbon\Carbon::createFromFormat('Y-m-d', $promotion->academic->start_date)->format('Y')
+                                                                ?? ""
+                                                            }}-
+                                                            {{
+                                                                \Carbon\Carbon::createFromFormat('Y-m-d', $promotion->academic->end_date)->format('Y')
+                                                                ?? ""
+                                                            }}
+                                                        </option>
                                                         @foreach(\App\Models\AcademicYear::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->startDate }}/{{ $campus->endDate }}</option>
+                                                            <option value="{{ $campus->id }}">
+                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
+                                                                -
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $campus->end_date)->format('Y') }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -111,12 +112,12 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Message</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') ?? $promotion->description }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Enter the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

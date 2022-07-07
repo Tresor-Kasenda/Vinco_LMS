@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\PromotionRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PromotionRequest;
+use App\Http\Requests\PromotionUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -29,13 +30,6 @@ class PromotionBackendController extends Controller
         return view('backend.domain.academic.promotion.index', compact('promotions'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $promotion = $this->repository->showPromotion($key);
-
-        return view('backend.domain.academic.promotion.show', compact('promotion'));
-    }
-
     public function create(): Factory|View|Application
     {
         return view('backend.domain.academic.promotion.create');
@@ -48,6 +42,13 @@ class PromotionBackendController extends Controller
         return redirect()->route('admins.academic.promotion.index');
     }
 
+    public function show(string $key): Factory|View|Application
+    {
+        $promotion = $this->repository->showPromotion($key);
+
+        return view('backend.domain.academic.promotion.show', compact('promotion'));
+    }
+
     public function edit(string $key): Factory|View|Application
     {
         $promotion = $this->repository->showPromotion($key);
@@ -55,7 +56,7 @@ class PromotionBackendController extends Controller
         return  view('backend.domain.academic.promotion.edit', compact('promotion'));
     }
 
-    public function update(string $key, PromotionRequest $request): RedirectResponse
+    public function update(string $key, PromotionUpdateRequest $request): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $request, factory: $this->factory);
 
