@@ -45,7 +45,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->whereId($key)
             ->first();
 
-        return $professor->load(['user', 'departments']);
+        return $professor->load(['user', 'courses:id,name']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse

@@ -64,7 +64,7 @@
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.course.index'),
-                                    'name' => "Syllabus"
+                                    'name' => "Cours"
                                 ])
 
                                 @include('backend.components._links', [
@@ -216,7 +216,7 @@
 
                             @include('backend.components._links', [
                                 'route' => route('admins.academic.course.index'),
-                                'name' => "Syllabus"
+                                'name' => "Cours"
                             ])
 
                             @include('backend.components._links', [
@@ -422,7 +422,7 @@
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.course.index'),
-                                    'name' => "Syllabus"
+                                    'name' => "Cours"
                                 ])
 
                                 @include('backend.components._links', [

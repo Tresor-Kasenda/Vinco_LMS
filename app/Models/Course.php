@@ -83,7 +83,7 @@ class Course extends Model
 
     public function professors(): BelongsToMany
     {
-        return $this->belongsToMany(Professor::class);
+        return $this->belongsToMany(Professor::class, 'professor_course');
     }
 
     public function category(): BelongsTo
@@ -124,5 +124,10 @@ class Course extends Model
     public function homeworks(): HasMany
     {
         return $this->hasMany(Homework::class);
+    }
+
+    public function ponderation(): string
+    {
+        return $this->weighting . " points ";
     }
 }

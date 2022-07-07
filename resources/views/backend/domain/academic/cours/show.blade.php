@@ -6,13 +6,6 @@
     <div class="container-fluid">
         <div class="nk-content-inner">
             <div class="nk-content-body">
-                @if($course->status == \App\Enums\StatusEnum::FALSE)
-                    <div class="alert alert-fill alert-danger alert-icon">
-                        <em class="icon ni ni-cross-circle"></em>
-                        <strong>Course activation</strong>!
-                        The course does not yet active.
-                    </div>
-                @endif
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
@@ -53,6 +46,13 @@
                 <div class="nk-block">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
+                            @if($course->status == \App\Enums\StatusEnum::FALSE)
+                                <div class="alert alert-danger alert-icon">
+                                    <em class="icon ni ni-cross-circle"></em>
+                                    <strong>Course activation</strong>!
+                                    The course does not yet active.
+                                </div>
+                            @endif
                             <div class="card">
                                 <div class="card-body border-bottom py-3">
                                     <div class="text-center">
@@ -69,36 +69,59 @@
                                     <table class="table">
                                         <tbody>
                                         <tr>
-                                            <th>Name</th>
-                                            <td>{{ strtoupper($course->name) ?? "" }}</td>
+                                            <th>Nom du cours</th>
+                                            <td>{{ ucfirst($course->name) ?? "" }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Responsable</th>
-                                            <td>{{ strtoupper($course->user->name) ?? "" }} {{ strtoupper($course->user->firstName) ?? "" }}</td>
+                                            <th>Professeurs</th>
+                                            @if($course->professors)
+                                                <td>
+                                                    <ul class="link-list-opt">
+                                                        @foreach($course->professors as $professor)
+                                                            <li>
+                                                                <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                    <em class="icon ni ni-user"></em>
+                                                                    <span>{{ ucfirst($professor->username) ?? "" }} {{ ucfirst($professor->lastname) ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                    <em class="icon ni ni-emails"></em>
+                                                                    <span>{{ $professor->email ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                            @endif
                                         </tr>
+                                        <tr>
+                                            <th>Nb des chapitres</th>
+                                            <td>
+                                                @if($course->chapters)
+                                                    @foreach($course->chapters as $chapter)
+                                                        <li>
+                                                            <a href="{{ route('admins.academic.chapter.show', $chapter->id) }}">
+                                                                <em class="icon ni ni-book-fill"></em>
+                                                                <span>{{ ucfirst($chapter->name) ?? "" }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <th>Categorie</th>
-                                            <td>{{ strtoupper($course->category->name) ?? "" }}</td>
+                                            <td>{{ ucfirst($course->category->name) ?? "" }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Duration</th>
-                                            <td>{{ strtoupper($course->duration) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Date de debut</th>
-                                            <td>
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->startDate)->format('d F Y') }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Date de fin</th>
-                                            <td>
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $course->endDate)->format('d F Y') }}
-                                            </td>
+                                            <th>Ponderation</th>
+                                            <td>{{ $course->ponderation() ?? "" }}</td>
                                         </tr>
                                         <tr class="text-justify">
                                             <th>Sous description</th>
-                                            <td>{{ $course->subDescription ?? "" }}</td>
+                                            <td>{{ $course->sub_description ?? "" }}</td>
                                         </tr>
                                         <tr class="text-justify">
                                             <th>Description</th>
@@ -123,7 +146,7 @@
                 const status = $("#status option:selected").val()
                 $.ajax({
                     type: "put",
-                    url: `{{ route('admins.course.active', $course->key) }}`,
+                    url: `{{ route('admins.course.active', $course->id) }}`,
                     data: {
                         status: status,
                         key: `{{ $course->key }}`,

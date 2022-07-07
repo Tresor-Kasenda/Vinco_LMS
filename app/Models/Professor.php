@@ -84,14 +84,9 @@ class Professor extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function departments(): BelongsToMany
-    {
-        return $this->belongsToMany(Department::class, 'professors_department');
-    }
-
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'professor_course');
     }
 
     public function journals(): HasMany

@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation du cours")
+@section('title')
+    Create Course
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Creation des cours</h3>
+                            <h3 class="nk-block-title page-title">Create course</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -32,12 +34,21 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.course.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.academic.course.store') }}" method="post" class="form-validate mt-4" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du cours</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -45,73 +56,28 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du cours"
+                                                            placeholder="Enter course name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Image du cours</label>
+                                                    <label class="form-label" for="weighting">Ponderation</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            id="images"
-                                                            name="images"
-                                                            value="{{ old('images') }}"
-                                                            placeholder="Selectionner la photo du cours"
+                                                            type="number"
+                                                            class="form-control @error('weighting') error @enderror"
+                                                            id="weighting"
+                                                            name="weighting"
+                                                            value="{{ old('weighting') }}"
+                                                            placeholder="Select weighting"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="duration">Duree du cours</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('duration') error @enderror"
-                                                            id="duration"
-                                                            name="duration"
-                                                            value="{{ old('duration') }}"
-                                                            placeholder="Saisir la duree du cours"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="startDate">Date de debut</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control date-picker-alt @error('startDate') error @enderror"
-                                                            id="startDate"
-                                                            name="startDate"
-                                                            value="{{ old('startDate') }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Choisir la date de debut"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="endDate">Date de fin</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control date-picker-alt @error('endDate') error @enderror"
-                                                            id="endDate"
-                                                            name="endDate"
-                                                            value="{{ old('endDate') }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Choisir la date de fin"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="category">Categorie</label>
@@ -154,16 +120,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="subDescription">Sous description</label>
+                                                    <label class="form-label" for="images">Images</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm @error('subDescription') error @enderror"
-                                                    id="subDescription"
-                                                    name="subDescription"
-                                                    placeholder="Write the description"
-                                                >{{ old('subDescription') }}</textarea>
+                                                        <input
+                                                            type="file"
+                                                            class="form-control @error('images') error @enderror"
+                                                            id="images"
+                                                            name="images"
+                                                            value="{{ old('images') }}"
+                                                            placeholder="Select Images"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="sub_description">Sous description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea
+                                                            class="form-control form-control-sm @error('sub_description') error @enderror"
+                                                            id="sub_description"
+                                                            name="sub_description"
+                                                            rows="2"
+                                                            placeholder="Write the description"
+                                                        >{{ old('sub_description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,12 +155,12 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm @error('description') error @enderror"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm @error('description') error @enderror"
+                                                            id="description"
+                                                            name="description"
+                                                            placeholder="Write the description"
+                                                        >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
