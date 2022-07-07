@@ -56,6 +56,11 @@ class Chapter extends Model
 
     protected $guarded = [];
 
+    protected $hidden = [
+        'created_at',
+        'deleted_at'
+    ];
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');

@@ -52,7 +52,7 @@ class CourseRepository implements CourseRepositoryInterface
             ->where('id', '=', $key)
             ->first();
 
-        return $course->load(['category:id,name', 'professors:id,username,lastname,email,phones', 'chapters:id,name']);
+        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters']);
     }
 
     public function stored($attributes, $flash): Model|Builder|Course

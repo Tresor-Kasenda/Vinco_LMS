@@ -96,7 +96,7 @@
                                             @endif
                                         </tr>
                                         <tr>
-                                            <th>Nb des chapitres</th>
+                                            <th>Liste des chapitres</th>
                                             <td>
                                                 @if($course->chapters)
                                                     @foreach($course->chapters as $chapter)

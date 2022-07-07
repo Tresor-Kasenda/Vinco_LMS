@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Administration")
+@section('title')
+    Create Chapter
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -23,7 +25,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Titre du chapitre</label>
+                                                    <label class="form-label" for="name">Titre</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -40,12 +42,13 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="course">Cours</label>
                                                     <select
-                                                        class="form-control js-select2 @error('course') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('course') error @enderror"
+                                                        data-search="on"
                                                         id="course"
                                                         name="course"
-                                                        data-placeholder="Choisir le cours"
+                                                        data-placeholder="Select Course"
                                                         required>
-                                                        <option label="Choisir le cours" value=""></option>
+                                                        <option label="Select Course" value=""></option>
                                                         @foreach(\App\Models\Course::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
                                                         @endforeach
@@ -54,29 +57,14 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="displayType">Type d'affichage</label>
+                                                    <label class="form-label" for="content">Description</label>
                                                     <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('displayType') error @enderror"
-                                                            id="displayType"
-                                                            name="displayType"
-                                                            value="{{ old('displayType') }}"
-                                                            placeholder="type d'affichage"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="description">Description</label>
-                                                    <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm @error('description') error @enderror"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="Write the description"
-                                                >{{ old('description') }}</textarea>
+                                                        <textarea
+                                                            class="form-control form-control-sm @error('content') error @enderror"
+                                                            id="content"
+                                                            name="content"
+                                                            placeholder="Write the content"
+                                                        >{{ old('content') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

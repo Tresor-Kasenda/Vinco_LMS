@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Detail sur le chapitre du cours")
+@section('title')
+    Chapter Details
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -39,34 +41,66 @@
                                             @if($chapter->course->images)
                                                 src="{{ asset('storage/'.$chapter->course->images) }}"
                                             @else
-                                                src="{{ asset('assets/admins/images/default.png') }}"
+                                                src="{{ asset('assets/admins/images/man.webp') }}"
                                             @endif
                                             title="{{ $chapter->name }}"
                                             class="img-fluid user-avatar-xl mb-3 rounded-circle border-danger"
-                                        >
+                                         alt="{{ $chapter->name }}">
                                     </div>
                                     <table class="table">
                                         <tbody>
-                                            <tr></tr>
                                             <tr>
-                                                <th>Cours</th>
-                                                <td>{{ ucwords($chapter->course->name) ?? "" }}</td>
+                                                <th>Nom du cours</th>
+                                                <td>
+                                                    <a href="{{ route('admins.academic.course.show', $chapter->course->id) }}">
+                                                        <em class="icon ni ni-book-read"></em>
+                                                        {{ ucfirst($chapter->course->name) ?? "" }}
+                                                    </a>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <th>Professeur</th>
-                                                <td>{{ ucwords($chapter->course->user->name) ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nom du chapter</th>
+                                                <th>Titre du chapitre</th>
                                                 <td>{{ ucfirst($chapter->name) ?? "" }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Type d'affichage</th>
-                                                <td>{{ ucfirst($chapter->displayType) ?? "" }}</td>
+                                                <th>Leçons</th>
+                                                <td>
+                                                    @if($chapter->lessons)
+                                                        @foreach($chapter->lessons as $lesson)
+                                                            <li>
+                                                                <a href="{{ route('admins.academic.lessons.show', $lesson->id) }}">
+                                                                    <em class="icon ni ni-book"></em>
+                                                                    <span>{{ ucfirst($lesson->name) ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Professeurs</th>
+                                                <td>
+                                                    @if($chapter->course->professors)
+                                                        @foreach($chapter->course->professors as $professor)
+                                                            <li>
+                                                                <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                    <em class="icon ni ni-user"></em>
+                                                                    <span>{{ ucfirst($professor->username) ?? "" }} {{ ucfirst($professor->lastname) ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                    <em class="icon ni ni-emails"></em>
+                                                                    <span>{{ $professor->email ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Description</th>
-                                                <td>{{ $chapter->description ?? "" }}</td>
+                                                <td>{!! $chapter->content ?? ""  !!}</td>
                                             </tr>
                                             <tr></tr>
                                         </tbody>

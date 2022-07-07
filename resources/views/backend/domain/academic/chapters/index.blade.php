@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des chaptires des cours")
+@section('title')
+    Chapters Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Chapitres</h3>
+                            <h3 class="nk-block-title page-title">Liste des chapitres</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -38,19 +40,16 @@
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
                             <th class="nk-tb-col">
-                                <span>Numero</span>
+                                <span>N° CHAPITRE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Cours</span>
+                                <span>COURS</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Titre du chapitre</span>
+                                <span>TITRE DU CHAPITRE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Lesson</span>
-                            </th>
-                            <th class="nk-tb-col">
-                                <span>Professeur</span>
+                                <span>LEÇONS</span>
                             </th>
                             <th class="nk-tb-col nk-tb-col-tools text-center">
                                 <span>ACTION</span>
@@ -65,7 +64,7 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ strtoupper(substr($chapter->course->name, 0, 16)) ?? ""}}...
+                                        {{ ucfirst(substr($chapter->course->name, 0, 16)) ?? ""}}...
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
@@ -73,23 +72,19 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        Total Lesson : {{ $chapter->lessons_count ?? 0 }}
+                                        Nb Leçons : {{ $chapter->lessons_count ?? 0 }}
                                     </span>
-                                </td>
-
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $chapter->course->user->name }} {{ $chapter->course->user->firstName }}</span>
                                 </td>
                                 <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.chapter.edit', $chapter->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.chapter.show', $chapter->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.chapter.show', $chapter->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.chapter.destroy', $chapter->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.chapter.edit', $chapter->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.chapter.destroy', $chapter->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">
