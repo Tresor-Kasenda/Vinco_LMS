@@ -16,7 +16,6 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

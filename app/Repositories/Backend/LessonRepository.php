@@ -48,7 +48,8 @@ class LessonRepository implements LessonRepositoryInterface
             'type:id,name',
             'chapter:id,name,course_id',
             'chapter.course:id,name,professor_id,images',
-            'chapter.course.professors:id,username,email'
+            'chapter.course.professors:id,username,email',
+            'resources:id,name,path'
         ]);
     }
 

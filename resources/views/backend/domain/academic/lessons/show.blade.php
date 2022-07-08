@@ -89,6 +89,28 @@
                                             <td>{{ ucfirst($lesson->name) ?? "" }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Resource</th>
+                                            <td>
+                                                @if($lesson->resources)
+                                                    @foreach($lesson->resources as $resource)
+                                                        <li>
+                                                            <a href="{{ route('admins.users.teacher.show', $resource->id) }}">
+                                                                <em class="icon ni ni-user"></em>
+                                                                <span>{{ ucfirst($resource->name) ?? "" }}</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <img
+                                                                class="img-fluid img-thumbnail round-sm"
+                                                                src="{{ asset('storage/'.$resource->path) }}"
+                                                                alt="{{ $resource->name }}"
+                                                                title="{{ $resource->name }}">
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Description</th>
                                             <td>{!! $lesson->content ?? "" !!}</td>
                                         </tr>

@@ -46,7 +46,8 @@ class ChapterRepository implements ChapterRepositoryInterface
         return $chapter->load([
             'lessons:id,name',
             'course:id,name,professor_id,images',
-            'course.professors:id,username,email,lastname'
+            'course.professors:id,username,email,lastname',
+            'resources:id,name,path'
         ]);
     }
 

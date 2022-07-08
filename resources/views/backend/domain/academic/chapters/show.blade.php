@@ -78,6 +78,21 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <th>Resources</th>
+                                                <td>
+                                                    @if($chapter->resources)
+                                                        @foreach($chapter->resources as $resource)
+                                                            <li>
+                                                                <a href="{{ route('admins.academic.lessons.show', $resource->id) }}">
+                                                                    <em class="icon ni ni-book"></em>
+                                                                    <span>{{ ucfirst($resource->name) ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th>Professeurs</th>
                                                 <td>
                                                     @if($chapter->course->professors)

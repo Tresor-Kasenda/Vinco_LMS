@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des resources")
+@section('title')
+    Resource Listes
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -32,16 +34,16 @@
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
                             <th class="nk-tb-col">
-                                <span>Numero</span>
+                                <span>NUMERO</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Titre</span>
+                                <span>TITRE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Lesson</span>
+                                <span>LEÇONS</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Fichier</span>
+                                <span>FICHIER</span>
                             </th>
                             <th class="nk-tb-col">
                                 <span>ACTION</span>
@@ -59,7 +61,7 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ strtoupper($resource->lesson->name) ?? 0 }}
+                                        {{ ucfirst($resource->lesson->name) ?? 0 }}
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
@@ -72,14 +74,14 @@
                                 </td>
                                 <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.resource.edit', $resource->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.resource.show', $resource->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.resource.show', $resource->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.resource.destroy', $resource->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.resource.edit', $resource->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.resource.destroy', $resource->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">

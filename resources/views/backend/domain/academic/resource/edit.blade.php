@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <form action="{{ route('admins.academic.resource.update',$resource->key) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.academic.resource.update',$resource->id) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -32,37 +32,56 @@
                                                             id="name"
                                                             name="name"
                                                             value="{{ old('name') ?? $resource->name }}"
-                                                            placeholder="Saisir le nom du cours"
+                                                            placeholder="Enter name of Resource"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <label class="form-label" for="chapter">Chapitre</label>
+                                                    <select
+                                                        class="form-control js-select2 select2-hidden-accessible @error('chapter') error @enderror"
+                                                        id="chapter"
+                                                        data-search="on"
+                                                        name="chapter"
+                                                        data-placeholder="Select Chapter"
+                                                        required>
+                                                        <option value="{{ $resource->chapter->id }}">{{ ucfirst($resource->chapter->name) }}</option>
+                                                        @foreach(\App\Models\Chapter::all() as $chapter)
+                                                            <option value="{{ $chapter->id }}">{{ ucfirst($chapter->name) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label class="form-label" for="lesson">Lecon</label>
                                                     <select
-                                                        class="form-control js-select2 @error('lesson') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('lesson') error @enderror"
                                                         id="lesson"
+                                                        data-search="on"
                                                         name="lesson"
-                                                        data-placeholder="Choisir le lesson"
+                                                        data-placeholder="Select Lesson"
                                                         required>
-                                                        <option label="Choisir le lesson" value=""></option>
-                                                        @foreach(\App\Models\Lesson::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        <option value="{{ $resource->lesson->id }}">{{ ucfirst($resource->lesson->name) }}</option>
+                                                        @foreach(\App\Models\Lesson::all() as $lesson)
+                                                            <option value="{{ $lesson->id }}">{{ ucfirst($lesson->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="content">Fichier</label>
+                                                    <label class="form-label" for="files">Fichier</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="file"
-                                                            class="form-control @error('content') error @enderror"
-                                                            id="content"
-                                                            name="content"
-                                                            value="{{ old('content') ?? $resource->path }}"
+                                                            class="form-control @error('files') error @enderror"
+                                                            id="files"
+                                                            name="files"
+                                                            value="{{ old('files') }}"
                                                             placeholder="Saisir le nom du cours"
                                                             required>
                                                     </div>

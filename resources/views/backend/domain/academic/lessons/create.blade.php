@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-md-7 mt-4">
+                                <div class="col-md-10 mt-4">
                                     <form action="{{ route('admins.academic.lessons.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
                                         <div class="row g-gs">
@@ -78,7 +78,7 @@
                                                     <label class="form-label" for="content">Contenue</label>
                                                     <div class="form-control-wrap">
                                                         <textarea
-                                                            class="form-control form-control-sm quill-basic ql-toolbar @error('content') error @enderror"
+                                                            class="form-control form-control-sm @error('content') error @enderror"
                                                             id="content"
                                                             name="content"
                                                             rows="5"
@@ -105,13 +105,23 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#content'), {
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#content').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        });
     </script>
 @endsection
