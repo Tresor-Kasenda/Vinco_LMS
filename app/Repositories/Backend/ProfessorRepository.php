@@ -34,7 +34,6 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'phones',
                 'matriculate',
             ])
-            ->with(['departments'])
             ->latest()
             ->get();
     }

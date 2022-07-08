@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\HomeworkRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HomeworkRequest;
+use App\Http\Requests\HomeworkUpdateRequest;
 use App\Http\Requests\LessonRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,9 +28,21 @@ class HomeworkBackendController extends Controller
 
     public function index(): Renderable
     {
-        $homeworks = [];
+        $homeworks = $this->repository->homeworks();
 
         return view('backend.domain.academic.homework.index', compact('homeworks'));
+    }
+
+    public function create(): Renderable
+    {
+        return view('backend.domain.academic.homework.create');
+    }
+
+    public function store(HomeworkRequest $attributes): RedirectResponse
+    {
+        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+
+        return to_route('admins.academic.homework.index');
     }
 
     public function show(string $key): Factory|View|Application
@@ -38,20 +52,6 @@ class HomeworkBackendController extends Controller
         return view('backend.domain.academic.homework.show', compact('homework'));
     }
 
-    public function create(): Renderable
-    {
-        $chapters = [];
-
-        return view('backend.domain.academic.homework.create', compact('chapters'));
-    }
-
-    public function store(LessonRequest $attributes): RedirectResponse
-    {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
-
-        return to_route('admins.academic.homework.index');
-    }
-
     public function edit(string $key): HttpResponse
     {
         $homework = $this->repository->showHomework(key:  $key);
@@ -59,7 +59,7 @@ class HomeworkBackendController extends Controller
         return Response::view('backend.domain.academic.homework.edit', compact('homework'));
     }
 
-    public function update(string $key, LessonRequest $attributes): RedirectResponse
+    public function update(string $key, HomeworkUpdateRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
