@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Backend;
 
-use App\Contracts\ChapterRepositoryInterface;
-use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\LessonRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonRequest;
+use App\Http\Requests\LessonUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -33,13 +32,6 @@ class LessonBackendController extends Controller
         return view('backend.domain.academic.lessons.index', compact('lessons'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $lesson = $this->repository->showLesson(key:  $key);
-
-        return view('backend.domain.academic.lessons.show', compact('lesson'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.academic.lessons.create');
@@ -52,6 +44,13 @@ class LessonBackendController extends Controller
         return to_route('admins.academic.lessons.index');
     }
 
+    public function show(string $key): Factory|View|Application
+    {
+        $lesson = $this->repository->showLesson(key:  $key);
+
+        return view('backend.domain.academic.lessons.show', compact('lesson'));
+    }
+
     public function edit(string $key): HttpResponse
     {
         $lesson = $this->repository->showLesson(key:  $key);
@@ -59,7 +58,7 @@ class LessonBackendController extends Controller
         return Response::view('backend.domain.academic.lessons.edit', compact('lesson'));
     }
 
-    public function update(string $key, LessonRequest $attributes): RedirectResponse
+    public function update(string $key, LessonUpdateRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
 

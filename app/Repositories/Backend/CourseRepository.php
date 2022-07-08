@@ -47,7 +47,7 @@ class CourseRepository implements CourseRepositoryInterface
                 'images',
                 'weighting',
                 'description',
-                'sub_description'
+                'sub_description',
             ])
             ->where('id', '=', $key)
             ->first();

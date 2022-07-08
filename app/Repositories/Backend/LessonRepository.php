@@ -13,71 +13,78 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use LaravelIdea\Helper\App\Models\_IH_Lesson_QB;
 
 class LessonRepository implements LessonRepositoryInterface
 {
     public function getLessons(): array|Collection
     {
         return Lesson::query()
-            ->with('chapter')
+            ->select([
+                'id',
+                'name',
+                'chapter_id',
+                'lesson_type_id'
+            ])
+            ->with(['chapter:id,name,course_id', 'chapter.course:id,name', 'type:id,name'])
             ->orderByDesc('created_at')
             ->get();
     }
 
-    public function showLesson(string $key)
+    public function showLesson(string $key): Model|_IH_Lesson_QB|Lesson|Builder|null
     {
         $lesson = Lesson::query()
-            ->when('key', fn ($query) => $query->where('key', $key))
+            ->select([
+                'id',
+                'name',
+                'chapter_id',
+                'content',
+                'lesson_type_id'
+            ])
+            ->where('id', '=', $key)
             ->first();
 
-        return $lesson->load('chapter');
+        return $lesson->load([
+            'type:id,name',
+            'chapter:id,name,course_id',
+            'chapter.course:id,name,professor_id,images',
+            'chapter.course.professors:id,username,email'
+        ]);
     }
 
     public function stored($attributes, $flash): Lesson|Builder|Model|RedirectResponse
     {
         $lesson = Lesson::query()
-            ->when('name', function ($query) use ($attributes) {
-                $query->where('name', $attributes->input('name'));
-            })
-            ->first();
-        if (! $lesson) {
-            $lesson = Lesson::query()
-                ->create([
-                    'chapter_id' => $attributes->input('chapter'),
-                    'status' => StatusEnum::TRUE,
-                    'name' => $attributes->input('name'),
-                    'shortContent' => $attributes->input('short_content'),
-                    'content' => $attributes->input('content'),
-                ]);
-            $flash->addSuccess('Une nouvelle lecon a ete ajouter');
+            ->create([
+                'chapter_id' => $attributes->input('chapter'),
+                'name' => $attributes->input('name'),
+                'content' => $attributes->input('content'),
+                'lesson_type_id' => $attributes->input('type')
+            ]);
+        $flash->addSuccess('Une nouvelle lecon a ete ajouter');
 
-            return $lesson;
-        }
-        $flash->addError('Nom du lecon existe deja pour ce chapitre');
-
-        return back();
+        return $lesson;
     }
 
-    public function updated(string $key, $attributes, $flash)
+    public function updated(string $key, $attributes, $flash): Model|_IH_Lesson_QB|Lesson|Builder|null
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->update([
             'chapter_id' => $attributes->input('chapter'),
             'name' => $attributes->input('name'),
-            'shortContent' => $attributes->input('short_content'),
             'content' => $attributes->input('content'),
+            'lesson_type_id' => $attributes->input('type')
         ]);
         $flash->addSuccess('Une lecon a ete mise a jours avec success');
 
         return $lesson;
     }
 
-    public function deleted(string $key, $flash): array
+    public function deleted(string $key, $flash): Lesson|Builder|Model|_IH_Lesson_QB
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->delete();
         $flash->addSuccess('La lesson a ete supprimer avec success');
-
         return $lesson;
     }
 }

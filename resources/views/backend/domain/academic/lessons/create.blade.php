@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation du lesson")
+@section('title')
+    Create Lesson
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -17,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-md-7">
+                                <div class="col-md-7 mt-4">
                                     <form action="{{ route('admins.academic.lessons.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
                                         <div class="row g-gs">
@@ -38,41 +40,48 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="chapter">Chapitre</label>
+                                                    <label class="form-label" for="type">Type</label>
                                                     <select
-                                                        class="form-control js-select2 @error('chapter') error @enderror"
-                                                        id="chapter"
-                                                        name="chapter"
-                                                        data-placeholder="Choisir le chapter"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('type') error @enderror"
+                                                        data-search="on"
+                                                        id="type"
+                                                        name="type"
+                                                        data-placeholder="Select Type"
                                                         required>
-                                                        <option label="Choisir le chapter" value=""></option>
-                                                        @foreach(\App\Models\Chapter::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        <option label="Select Type" value=""></option>
+                                                        @foreach(\App\Models\LessonType::all() as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="short_content">Sous contenue</label>
-                                                    <div class="form-control-wrap">
-                                                        <textarea
-                                                            class="form-control form-control-sm @error('short_content') error @enderror"
-                                                            id="short_content"
-                                                            name="short_content"
-                                                            placeholder="Write the description"
-                                                        >{{ old('short_content') }}</textarea>
-                                                    </div>
+                                                    <label class="form-label" for="chapter">Chapitre</label>
+                                                    <select
+                                                        class="form-control js-select2 select2-hidden-accessible @error('chapter') error @enderror"
+                                                        data-search="on"
+                                                        id="chapter"
+                                                        name="chapter"
+                                                        data-placeholder="Select chapter"
+                                                        required>
+                                                        <option label="Select chapter" value=""></option>
+                                                        @foreach(\App\Models\Chapter::all() as $campus)
+                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-12" id="text">
                                                 <div class="form-group">
                                                     <label class="form-label" for="content">Contenue</label>
                                                     <div class="form-control-wrap">
                                                         <textarea
-                                                            class="form-control form-control-sm @error('content') error @enderror"
+                                                            class="form-control form-control-sm quill-basic ql-toolbar @error('content') error @enderror"
                                                             id="content"
                                                             name="content"
+                                                            rows="5"
                                                             placeholder="Write the description"
                                                         >{{ old('content') }}</textarea>
                                                     </div>
@@ -93,4 +102,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#content'), {
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    </script>
 @endsection

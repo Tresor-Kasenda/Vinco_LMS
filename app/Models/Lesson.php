@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,6 +53,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $lesson_type_id
+ * @property-read \App\Models\LessonType|null $type
+ * @method static Builder|Lesson whereLessonTypeId($value)
  */
 class Lesson extends Model
 {
@@ -162,5 +164,10 @@ class Lesson extends Model
     public function homeworks(): HasMany
     {
         return $this->hasMany(Homework::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(LessonType::class, 'lesson_type_id');
     }
 }

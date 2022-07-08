@@ -16,8 +16,6 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('short_content');
-            $table->enum('content_type', ['text', 'video']);
             $table->text('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
