@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Exercice;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,15 +28,12 @@ class ExerciseRequest extends FormRequest
     public function rules()
     {
         return [
-            'course' => ['required', Rule::exists('courses', 'id')],
-            'chapter' => ['required', Rule::exists('chapters', 'id')],
-            'lesson' => ['required', Rule::exists('lessons', 'id')],
-            'name' => ['required', 'string', 'min:3'],
+            'course' => ['nullable', Rule::exists('courses', 'id')],
+            'chapter' => ['nullable', Rule::exists('chapters', 'id')],
+            'lesson' => ['nullable', Rule::exists('lessons', 'id')],
+            'name' => ['required', 'string', 'min:3', Rule::unique(Exercice::class, 'name')],
             'date' => ['required', 'date'],
-            'duration' => ['required', 'string'],
-            'weighting' => ['required', 'string'],
-            'condition' => ['required', 'string'],
-            'schedule' => ['required', 'string'],
+            'rating' => ['required', 'string'],
         ];
     }
 }

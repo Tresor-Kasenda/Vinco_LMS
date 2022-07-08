@@ -18,7 +18,16 @@ class ExerciseRepository implements ExerciseRepositoryInterface
     public function exercises(): array|Collection|\Illuminate\Support\Collection
     {
         return Exercice::query()
-            ->with(['course', 'chapter', 'lesson'])
+            ->select([
+                'id',
+                'name',
+                'lesson_id',
+                'chapter_id',
+                'status',
+                'rating',
+                'filling_date'
+            ])
+            ->with(['chapter:id,name', 'lesson:id,name'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -26,40 +35,41 @@ class ExerciseRepository implements ExerciseRepositoryInterface
     public function showExercise(string $key): Model|Builder|Exercice
     {
         $exercise = Exercice::query()
-            ->where('key', '=', $key)
-            ->firstOrCreate();
+            ->select([
+                'id',
+                'name',
+                'lesson_id',
+                'chapter_id',
+                'course_id',
+                'status',
+                'rating',
+                'filling_date'
+            ])
+            ->where('id', '=', $key)
+            ->first();
 
-        return $exercise->load(['course', 'chapter', 'lesson']);
+        return $exercise->load([
+            'course:id,name,images',
+            'chapter:id,name',
+            'lesson:id,name'
+        ]);
     }
 
     public function stored($attributes, $factory): Model|Builder|Exercice|RedirectResponse
     {
         $lesson = Exercice::query()
-            ->when('name', function ($query) use ($attributes) {
-                $query->where('name', $attributes->input('name'));
-            })
-            ->first();
-        if (! $lesson) {
-            $lesson = Exercice::query()
-                ->create([
-                    'lesson_id' => $attributes->input('lesson'),
-                    'status' => StatusEnum::TRUE,
-                    'chapter_id' => $attributes->input('chapter'),
-                    'course_id' => $attributes->input('course'),
-                    'name' => $attributes->input('name'),
-                    'condition' => $attributes->input('condition'),
-                    'weighting' => $attributes->input('weighting'),
-                    'date' => $attributes->input('date'),
-                    'schedule' => $attributes->input('schedule'),
-                    'duration' => $attributes->input('duration'),
-                ]);
-            $factory->addSuccess('Une nouvelle resource ajouter a la lecon');
+            ->create([
+                'lesson_id' => $attributes->input('lesson'),
+                'chapter_id' => $attributes->input('chapter'),
+                'course_id' => $attributes->input('course'),
+                'name' => $attributes->input('name'),
+                'rating' => $attributes->input('rating'),
+                'filling_date' => $attributes->input('date'),
+                'status' => StatusEnum::FALSE,
+            ]);
+        $factory->addSuccess('Une nouvelle resource ajouter a la lecon');
 
-            return $lesson;
-        }
-        $factory->addError('Nom du resource existe deja pour ce chapitre');
-
-        return back();
+        return $lesson;
     }
 
     public function updated(string $key, $attributes, $factory): Model|Builder|Exercice
@@ -70,11 +80,8 @@ class ExerciseRepository implements ExerciseRepositoryInterface
             'chapter_id' => $attributes->input('chapter'),
             'course_id' => $attributes->input('course'),
             'name' => $attributes->input('name'),
-            'condition' => $attributes->input('condition'),
-            'weighting' => $attributes->input('weighting'),
-            'date' => $attributes->input('date'),
-            'schedule' => $attributes->input('schedule'),
-            'duration' => $attributes->input('duration'),
+            'rating' => $attributes->input('rating'),
+            'filling_date' => $attributes->input('date'),
         ]);
         $factory->addSuccess('Une lecon a ete mise a jours avec success');
 

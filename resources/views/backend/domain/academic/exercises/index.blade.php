@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des exercises")
+@section('title')
+    Liste des Exercices
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -38,22 +40,22 @@
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
                             <th class="nk-tb-col">
-                                <span>Numero</span>
+                                <span>NUMERO</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Titre du chapitre</span>
+                                <span>CHAPITRE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Lesson</span>
+                                <span>LECON</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Professeur</span>
+                                <span>EXERCICE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Date de depot</span>
+                                <span>DATE DEPOT</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Ponderation</span>
+                                <span>PONDERATION</span>
                             </th>
                             <th class="nk-tb-col">
                                 <span>ACTION</span>
@@ -67,38 +69,38 @@
                                     <span class="tb-lead">{{ $exercise->id ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ ucfirst($exercise->name) }}</span>
-                                </td>
-                                <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ ucfirst($exercise->lesson->name) }}
+                                        {{ ucfirst(substr($exercise->chapter->name, 0, 16)) ?? "" }}...
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ strtoupper($exercise->course->user->name) }}
+                                        {{ ucfirst($exercise->lesson->name) ?? "" }}
+                                    </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ ucfirst($exercise->name) ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ $exercise->filling_date ?? "" }}
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ $exercise->schedule }}
-                                    </span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        {{ $exercise->weighting }}
+                                        {{ $exercise->rating ?? "" }}
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.exercice.edit', $exercise->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.exercice.show', $exercise->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.exercice.show', $exercise->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.exercice.destroy', $exercise->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.exercice.edit', $exercise->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.exercice.destroy', $exercise->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">

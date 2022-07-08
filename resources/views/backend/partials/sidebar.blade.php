@@ -79,7 +79,7 @@
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.homework.index'),
-                                    'name' => "Homework"
+                                    'name' => "Devoir (TP)"
                                 ])
 
                                 @include('backend.components._links', [
@@ -137,7 +137,7 @@
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.homework.index'),
-                                    'name' => "Homework"
+                                    'name' => "Devoir (TP)"
                                 ])
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.interro.index'),
@@ -241,7 +241,7 @@
 
                             @include('backend.components._links', [
                                 'route' => route('admins.academic.homework.index'),
-                                'name' => "Homework"
+                                'name' => "Devoir (TP)"
                             ])
                             @include('backend.components._links', [
                                 'route' => route('admins.academic.interro.index'),
@@ -447,7 +447,7 @@
 
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.homework.index'),
-                                    'name' => "Homework"
+                                    'name' => "Devoir (TP)"
                                 ])
                                 @include('backend.components._links', [
                                     'route' => route('admins.academic.interro.index'),
