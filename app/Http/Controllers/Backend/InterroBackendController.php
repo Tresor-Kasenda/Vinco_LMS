@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\InterroRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InterroRequest;
+use App\Http\Requests\InterroUpdateRequest;
 use App\Http\Requests\LessonRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,9 +28,20 @@ class InterroBackendController extends Controller
 
     public function index(): Renderable
     {
-        $interros = [];
+        $interros = $this->repository->interros();
 
         return view('backend.domain.academic.interro.index', compact('interros'));
+    }
+    public function create(): Renderable
+    {
+        return view('backend.domain.academic.interro.create');
+    }
+
+    public function store(InterroRequest $attributes): RedirectResponse
+    {
+        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+
+        return to_route('admins.academic.interro.index');
     }
 
     public function show(string $key): Factory|View|Application
@@ -38,28 +51,14 @@ class InterroBackendController extends Controller
         return view('backend.domain.academic.interro.show', compact('interro'));
     }
 
-    public function create(): Renderable
-    {
-        $interro = [];
-
-        return view('backend.domain.academic.interro.create', compact('interro'));
-    }
-
-    public function store(LessonRequest $attributes): RedirectResponse
-    {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
-
-        return to_route('admins.academic.interro.index');
-    }
-
     public function edit(string $key): HttpResponse
     {
-        $homework = $this->repository->showInterro(key:  $key);
+        $interro = $this->repository->showInterro(key:  $key);
 
-        return Response::view('backend.domain.academic.interro.edit', compact('homework'));
+        return Response::view('backend.domain.academic.interro.edit', compact('interro'));
     }
 
-    public function update(string $key, LessonRequest $attributes): RedirectResponse
+    public function update(string $key, InterroUpdateRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 

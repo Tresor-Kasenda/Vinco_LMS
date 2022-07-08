@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation des interro")
+@section('title')
+    Interrogation Create
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -32,12 +34,38 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.academic.interro.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="chapter">Cours</label>
+                                                    <label class="form-label" for="course">Cours</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('course') error @enderror"
+                                                        id="course"
+                                                        name="course"
+                                                        data-placeholder="Choisir le cours"
+                                                        required>
+                                                        <option label="Choisir le cours" value=""></option>
+                                                        @foreach(\App\Models\Course::all() as $course)
+                                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="chapter">Chapitre</label>
                                                     <select
                                                         class="form-control js-select2 @error('chapter') error @enderror"
                                                         id="chapter"
@@ -45,82 +73,56 @@
                                                         data-placeholder="Choisir le chapter"
                                                         required>
                                                         <option label="Choisir le chapter" value=""></option>
-                                                        @foreach(\App\Models\Course::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        @foreach(\App\Models\Chapter::all() as $chapter)
+                                                            <option value="{{ $chapter->id }}">{{ $chapter->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom</label>
+                                                    <label class="form-label" for="rating">Cote</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') }}"
-                                                            placeholder="Saisir le nom du Leçon"
+                                                            class="form-control @error('rating') error @enderror"
+                                                            id="rating"
+                                                            name="rating"
+                                                            value="{{ old('rating') }}"
+                                                            placeholder="Saisir le cote"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="shortContent">Bref contenue</label>
+                                                    <label class="form-label" for="duration">Duree</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control @error('shortContent') error @enderror"
-                                                            id="shortContent"
-                                                            name="shortContent"
-                                                            value="{{ old('shortContent') }}"
-                                                            placeholder="une breve contenue"
+                                                            type="time"
+                                                            class="form-control @error('duration') error @enderror"
+                                                            id="duration"
+                                                            name="duration"
+                                                            value="{{ old('duration') }}"
+                                                            placeholder="Select duration"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="chapter">Nom du cours</label>
+                                                    <label class="form-label" for="date">Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control @error('chapter') error @enderror"
-                                                            id="chapter"
-                                                            name="chapter"
-                                                            value="{{ old('chapter') }}"
-                                                            placeholder="Nom du leçon"
+                                                            type="date"
+                                                            class="form-control @error('date') error @enderror"
+                                                            id="date"
+                                                            name="date"
+                                                            value="{{ old('date') }}"
+                                                            placeholder="Select Date"
                                                             required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="chapter">Nom du chapitre</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('chapter') error @enderror"
-                                                            id="chapter"
-                                                            name="chapter"
-                                                            value="{{ old('chapter') }}"
-                                                            placeholder="Nom du leçon"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="content">Contenue du Leçon</label>
-                                                    <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm @error('content') error @enderror"
-                                                    id="content"
-                                                    name="content"
-                                                    placeholder="Write the description"
-                                                >{{ old('content') }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>

@@ -54,7 +54,7 @@
                             <th class="nk-tb-col">
                                 <span>TYPES</span>
                             </th>
-                            <th class="nk-tb-col nk-tb-col-tools text-center">
+                            <th class="nk-tb-col text-center">
                                <span>ACTIONS</span>
                             </th>
                         </tr>
