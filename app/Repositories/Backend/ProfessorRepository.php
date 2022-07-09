@@ -34,7 +34,6 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'phones',
                 'matriculate',
             ])
-            ->with(['departments'])
             ->latest()
             ->get();
     }
@@ -148,7 +147,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getRole(): Builder|Model
     {
         return Role::query()
-            ->whereName('Professeur')
+            ->whereName('Teacher')
             ->firstOrFail();
     }
 }
