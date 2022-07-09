@@ -116,6 +116,10 @@
                                                 </div>
                                             </div>
 
+                                            @php
+                                                $academicYear = \App\Models\AcademicYear::all();
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="academic">Annee academique</label>
