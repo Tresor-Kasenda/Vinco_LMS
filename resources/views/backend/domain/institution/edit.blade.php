@@ -106,11 +106,10 @@
                                                                 data-placeholder="Select Manager of School"
                                                                 required>
                                                                 <option label="class" value=""></option>
-                                                                {{}}
                                                                 @foreach(\App\Models\Personnel::all() as $manager)
                                                                     <option
                                                                         value="{!! $manager->id !!}"
-                                                                    >{{ ucfirst($manager->name ) ?? "" }}</option>
+                                                                    >{{ ucfirst($manager->username ) ?? "" }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
