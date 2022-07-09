@@ -33,6 +33,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'email',
                 'phones',
                 'matriculate',
+                'institution_id'
             ])
             ->latest()
             ->get();
@@ -121,6 +122,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
+                'institution_id'=>\Auth::user()->institution->id
             ]);
     }
 
