@@ -90,7 +90,7 @@
 
                                             @php
                                                 $roles = \Spatie\Permission\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur'])
+                                                        ->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Professeur'])
                                                         ->get()
                                             @endphp
 
