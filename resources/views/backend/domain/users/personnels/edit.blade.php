@@ -34,9 +34,10 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.users.staffs.update', $employee->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.users.staffs.update', $employee->id) }}"
+                                          method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
-                                        @method('PUT')
+                                        {{method_field('PUT')}}
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">

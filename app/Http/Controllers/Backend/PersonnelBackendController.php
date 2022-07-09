@@ -61,7 +61,7 @@ final class PersonnelBackendController extends Controller
     public function update(UpdatePersonnelRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
-
+        dd('belhanda');
         return to_route('admins.users.staffs.index');
     }
 
