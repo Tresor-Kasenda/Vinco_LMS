@@ -97,7 +97,7 @@
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="user">Dirigeant</label>
+                                                        <label class="form-label" for="user">Dirigeant / Gestionnaire</label>
                                                         <div class="form-control-wrap">
                                                             <select
                                                                 class="form-control js-select2 @error('manager') error @enderror"
@@ -106,7 +106,8 @@
                                                                 data-placeholder="Select Manager of School"
                                                                 required>
                                                                 <option label="class" value=""></option>
-                                                                @foreach(\App\Models\User::all() as $manager)
+                                                                {{}}
+                                                                @foreach(\App\Models\Personnel::all() as $manager)
                                                                     <option
                                                                         value="{!! $manager->id !!}"
                                                                     >{{ ucfirst($manager->name ) ?? "" }}</option>

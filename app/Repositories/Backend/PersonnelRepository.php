@@ -87,6 +87,10 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             ->whereEmail($attributes->input('email'))
             ->firstOrFail();
 
+        $user->update([
+            'name' => $attributes->input('name'),
+            'email' => $attributes->input('email'),
+        ]);
         $user->syncRoles($attributes->input('role'));
 
         $factory->addSuccess('Personnel modifier avec succes');
