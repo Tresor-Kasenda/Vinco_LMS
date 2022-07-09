@@ -89,7 +89,7 @@
                                                         <option label="role" value=""></option>
                                                         @foreach(\App\Models\Professor::where('institution_id', Auth::user()->institution->id)->get() as $personnel)
                                                             <option
-                                                                value="{{ $personnel->id }}">
+                                                                value="{{ $personnel->user_id }}">
                                                                 {{ ucfirst($personnel->username) ?? "" }} {{ ucfirst($personnel->lastname) ?? "" }}
                                                             </option>
                                                         @endforeach
