@@ -108,7 +108,7 @@
                                                                 <option label="class" value=""></option>
                                                                 @foreach(\App\Models\Personnel::all() as $manager)
                                                                     <option
-                                                                        value="{!! $manager->id !!}"
+                                                                        value="{!! $manager->user_id !!}"
                                                                     >{{ ucfirst($manager->username ) ?? "" }}</option>
                                                                 @endforeach
                                                             </select>
