@@ -14,10 +14,15 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
 {
     public function getAcademicsYears(): Collection|array
     {
-        return AcademicYear::query()
-            ->where('institution_id', '=', \Auth::user()->institution->id)
-            ->latest()
-            ->get();
+        if(\Auth::user()->institution != null){
+            return AcademicYear::query()
+                ->where('institution_id', '=', \Auth::user()->institution->id)
+                ->get();
+        } else {
+            return AcademicYear::query()
+                ->where('institution_id', '=', 'A')
+                ->get();
+        }
     }
 
     public function showAcademicYear(string $key): Model|Builder|null
