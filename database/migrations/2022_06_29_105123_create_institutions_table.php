@@ -18,6 +18,7 @@ return new class extends Migration {
         Schema::create('institutions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('institution_name', 40);

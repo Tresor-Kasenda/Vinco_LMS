@@ -1,7 +1,7 @@
-@extends('backend.layout.base')
+@extends('frontend.layout.register')
 
 @section('title')
-    Create Institution
+    Register Institution
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Create Institution</h3>
+                                <h3 class="nk-block-title page-title">Register Institution</h3>
                             </div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -20,7 +20,7 @@
                                         <ul class="nk-block-tools g-3">
                                             <li class="nk-block-tools-opt">
                                                 <a class="btn btn-dim btn-primary btn-sm"
-                                                   href="{{ route('admins.institution.index') }}">
+                                                   href="{{ route('home.index') }}">
                                                     <em class="icon ni ni-arrow-left"></em>
                                                     <span>Back</span>
                                                 </a>
@@ -45,7 +45,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form method="post" action="{{ route('admins.institution.store') }}"
+                                        <form method="post" action="{{ route('home.institution.store') }}"
                                               class="form-validate mt-2" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row g-gs">
@@ -95,36 +95,6 @@
                                                     </div>
                                                 </div>
 
-                                                @php
-                                                    $managers = \App\Models\User::query()
-                                                        ->select(['id', 'name'])
-                                                        ->whereHas('roles', function ($query) {
-                                                            $query->whereIn('name', ['Admin', 'Gestionnaire']);
-                                                        })
-                                                        ->get();
-                                                @endphp
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="user">Gestionnaire</label>
-                                                        <div class="form-control-wrap">
-                                                            <select
-                                                                class="form-control js-select2 @error('manager') error @enderror"
-                                                                id="user"
-                                                                name="manager"
-                                                                data-placeholder="Select Manager of School"
-                                                                required>
-                                                                <option label="class" value=""></option>
-                                                                @foreach($managers as $manager)
-                                                                    <option
-                                                                        value="{!! $manager->id !!}"
-                                                                    >{{ ucfirst($manager->name ) ?? "" }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label" for="phones">Telephone</label>
@@ -143,7 +113,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
+                                                        <label class="form-label" for="website">Name of responsable</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
@@ -151,7 +121,7 @@
                                                                 id="website"
                                                                 name="institution_website"
                                                                 value="{{ old('institution_website') }}"
-                                                                placeholder="Enter Website"
+                                                                placeholder="Enter Name"
                                                                 required>
                                                         </div>
                                                     </div>
