@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear
+ * App\Models\AcademicYear.
  *
  * @property int $id
  * @property string $title
@@ -36,7 +36,7 @@ class Calendar extends Model implements \MaddHatter\LaravelFullcalendar\Event
       'title',
         'start_date',
         'end_date',
-        'institution_id'
+        'institution_id',
     ];
 
     protected $dates = ['start_date', 'end_date'];

@@ -69,7 +69,7 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
     {
         return $this->end_date;
     }
-    
+
     public function institution(): BelongsTo
     {
         return $this->belongsTo(self::class);
