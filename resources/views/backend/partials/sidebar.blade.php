@@ -317,11 +317,6 @@
                             <ul class="nk-menu-sub">
 
                             @include('backend.components._links', [
-                                'route' => route('admins.users.staffs.index'),
-                                'name' => "Staffs"
-                            ])
-
-                            @include('backend.components._links', [
                                 'route' => route('admins.users.teacher.index'),
                                 'name' => "Teacher"
                             ])
