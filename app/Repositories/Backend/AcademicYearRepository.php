@@ -14,7 +14,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
 {
     public function getAcademicsYears(): Collection|array
     {
-        if(\Auth::user()->institution != null){
+        if (\Auth::user()->institution != null) {
             return AcademicYear::query()
                 ->where('institution_id', '=', \Auth::user()->institution->id)
                 ->get();

@@ -25,7 +25,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
 
     public function getProfessors(): Collection|array
     {
-        if(\Auth::user()->institution != null){
+        if (\Auth::user()->institution != null) {
             return Professor::query()
                 ->select([
                     'id',
@@ -34,7 +34,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                     'email',
                     'phones',
                     'matriculate',
-                    'institution_id'
+                    'institution_id',
                 ])
                 ->where('institution_id', '=', \Auth::user()->institution->id)
                 ->latest()
@@ -48,7 +48,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                     'email',
                     'phones',
                     'matriculate',
-                    'institution_id'
+                    'institution_id',
                 ])
                 ->where('institution_id', '=', 'A')
                 ->latest()
@@ -139,7 +139,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
-                'institution_id'=>\Auth::user()->institution->id
+                'institution_id'=>\Auth::user()->institution->id,
             ]);
     }
 
