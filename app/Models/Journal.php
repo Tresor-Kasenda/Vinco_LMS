@@ -54,7 +54,7 @@ class Journal extends Model
         'professor_id',
         'title',
         'start_time',
-        'end_time'
+        'end_time',
     ];
 
     public function institution(): BelongsTo

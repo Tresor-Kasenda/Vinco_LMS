@@ -21,6 +21,7 @@ class HomeFrontendController extends Controller
         protected readonly SweetAlertFactory $factory
     ) {
     }
+
     public function index(): Renderable
     {
         return view('frontend.index');
@@ -30,10 +31,12 @@ class HomeFrontendController extends Controller
     {
         $this->repository->stored($request, $this->factory);
         $this->factory->addSuccess('A new institution has been successfully added');
+
         return redirect()->route('home.index');
     }
 
-    public function register(){
+    public function register()
+    {
         return view('frontend.domain.institution.create');
     }
 
@@ -44,7 +47,8 @@ class HomeFrontendController extends Controller
         return to_route('home.index');
     }
 
-    public function registerStudent(){
+    public function registerStudent()
+    {
         return view('frontend.domain.student.create');
     }
 }

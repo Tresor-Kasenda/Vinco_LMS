@@ -19,6 +19,7 @@ class JournalBackendController extends Controller
         $eloquentEvent = Journal::all(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
 
         $calendar = \Calendar::addEvents($eloquentEvent);
+
         return view('backend.domain.communication.journal.index', compact('calendar'));
     }
 
@@ -46,8 +47,9 @@ class JournalBackendController extends Controller
             'professor_id'=>Course::where('id', $request->course_id)->first()->professors->id,
             'title'=>$request->title,
             'start_time'=>$request->start_date,
-            'end_time'=>$request->end_date
+            'end_time'=>$request->end_date,
         ]);
+
         return redirect()->route('admins.communication.journal.index');
     }
 
