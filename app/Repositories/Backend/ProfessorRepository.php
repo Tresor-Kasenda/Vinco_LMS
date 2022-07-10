@@ -25,6 +25,18 @@ class ProfessorRepository implements ProfessorRepositoryInterface
 
     public function getProfessors(): Collection|array
     {
+        return Professor::query()
+            ->select([
+                'id',
+                'images',
+                'username',
+                'email',
+                'phones',
+                'matriculate',
+            ])
+            ->with(['departments'])
+            ->latest()
+            ->get();
         if (\Auth::user()->institution != null) {
             return Professor::query()
                 ->select([
