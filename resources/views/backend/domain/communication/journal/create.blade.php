@@ -1,7 +1,7 @@
 @extends('backend.layout.communication')
 
 @section('title')
-    Create Event
+    Create Courses
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Event Create</h3>
+                            <h3 class="nk-block-title page-title">Create</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -44,12 +44,28 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.communication.calendar.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.communication.journal.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="title">Title</label>
+                                                    <label class="form-label" for="title">Cours</label>
+                                                    <div class="form-control-wrap">
+                                                        <select name="course_id"
+                                                                class="form-control"
+                                                                id="course_id">
+                                                            @forelse(\App\Models\Course::all() as $cours)
+                                                                <option value="{{$cours->id}}">{{$cours->name}}</option>
+                                                            @empty
+                                                                <option value="">No Course</option>
+                                                            @endforelse
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="title">Lecon</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -64,14 +80,14 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="start_date">Start Date</label>
+                                                    <label class="form-label" for="start_date">Start Date/Hours</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control date-picker @error('start_date') error @enderror"
+                                                            type="datetime-local"
+                                                            class="form-control @error('start_date') error @enderror"
                                                             id="start_date"
                                                             name="start_date"
-                                                            data-date-format="yyyy-mm-dd"
+                                                            data-date-format="yyyy-mm-dd H:i:s"
                                                             value="{{ old('start_date') }}"
                                                             placeholder="Select Admission Date"
                                                             required>
@@ -81,14 +97,14 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="end_date">End Date</label>
+                                                    <label class="form-label" for="end_date">End Date/Hours</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control date-picker @error('end_date') error @enderror"
+                                                            type="datetime-local"
+                                                            class="form-control @error('end_date') error @enderror"
                                                             id="end_date"
                                                             name="end_date"
-                                                            data-date-format="yyyy-mm-dd"
+                                                            data-date-format="yyyy-mm-dd H:i:s"
                                                             value="{{ old('end_date') }}"
                                                             placeholder="Select Admission Date"
                                                             required>

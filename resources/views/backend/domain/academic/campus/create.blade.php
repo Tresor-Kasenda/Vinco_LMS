@@ -99,10 +99,10 @@
                                                         data-placeholder="Select Institution"
                                                         required>
                                                         <option label="role" value=""></option>
-                                                        @foreach(\App\Models\Institution::all() as $institution)
+                                                        @foreach(\App\Models\Professor::where('institution_id', Auth::user()->institution->id)->get() as $personnel)
                                                             <option
-                                                                value="{{ $institution->id }}">
-                                                                {{ ucfirst($institution->institution_name) ?? "" }}
+                                                                value="{{ $personnel->user_id }}">
+                                                                {{ ucfirst($personnel->username) ?? "" }} {{ ucfirst($personnel->lastname) ?? "" }}
                                                             </option>
                                                         @endforeach
                                                     </select>

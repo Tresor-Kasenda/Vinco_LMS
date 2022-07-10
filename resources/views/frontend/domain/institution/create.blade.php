@@ -1,7 +1,7 @@
-@extends('backend.layout.base')
+@extends('frontend.layout.register')
 
 @section('title')
-    Edit Institution
+    Register Institution
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Edit Student</h3>
+                                <h3 class="nk-block-title page-title">Register Institution</h3>
                             </div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -20,7 +20,7 @@
                                         <ul class="nk-block-tools g-3">
                                             <li class="nk-block-tools-opt">
                                                 <a class="btn btn-dim btn-primary btn-sm"
-                                                   href="{{ route('admins.institution.index') }}">
+                                                   href="{{ route('home.index') }}">
                                                     <em class="icon ni ni-arrow-left"></em>
                                                     <span>Back</span>
                                                 </a>
@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-inner">
                                 <div class="row justify-content-center">
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 <ul>
@@ -45,9 +45,9 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form method="post" action="{{ route('admins.institution.update', $institution->id) }}" class="form-validate mt-2" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('home.institution.store') }}"
+                                              class="form-validate mt-2" enctype="multipart/form-data">
                                             @csrf
-                                            @method('PUT')
                                             <div class="row g-gs">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -58,7 +58,7 @@
                                                                 class="form-control @error('institution_name') error @enderror"
                                                                 id="name"
                                                                 name="institution_name"
-                                                                value="{{ old('institution_name') ?? $institution->institution_name }}"
+                                                                value="{{ old('institution_name') }}"
                                                                 placeholder="Enter Institution Name"
                                                                 required>
                                                         </div>
@@ -73,7 +73,7 @@
                                                                 class="form-control @error('institution_country') error @enderror"
                                                                 id="country"
                                                                 name="institution_country"
-                                                                value="{{ old('institution_country') ?? $institution->institution_country }}"
+                                                                value="{{ old('institution_country') }}"
                                                                 placeholder="Enter Country"
                                                                 required>
                                                         </div>
@@ -88,30 +88,9 @@
                                                                 class="form-control @error('institution_town') error @enderror"
                                                                 id="town"
                                                                 name="institution_town"
-                                                                value="{{ old('institution_town') ?? $institution->institution_town }}"
+                                                                value="{{ old('institution_town') }}"
                                                                 placeholder="Enter Town of Institution"
                                                                 required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="user">Dirigeant / Gestionnaire</label>
-                                                        <div class="form-control-wrap">
-                                                            <select
-                                                                class="form-control js-select2 @error('manager') error @enderror"
-                                                                id="user"
-                                                                name="manager"
-                                                                data-placeholder="Select Manager of School"
-                                                                required>
-                                                                <option label="class" value=""></option>
-                                                                @foreach(\App\Models\Personnel::all() as $manager)
-                                                                    <option
-                                                                        value="{!! $manager->user_id !!}"
-                                                                    >{{ ucfirst($manager->username ) ?? "" }}</option>
-                                                                @endforeach
-                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,7 +104,7 @@
                                                                 class="form-control @error('institution_phones') error @enderror"
                                                                 id="institution_phones"
                                                                 name="institution_phones"
-                                                                value="{{ old('institution_phones') ?? $institution->institution_phones }}"
+                                                                value="{{ old('institution_phones') }}"
                                                                 placeholder="Enter phones Number"
                                                                 required>
                                                         </div>
@@ -134,15 +113,15 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
+                                                        <label class="form-label" for="website">Name of responsable</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
                                                                 class="form-control @error('institution_website') error @enderror"
                                                                 id="website"
                                                                 name="institution_website"
-                                                                value="{{ old('institution_website') ?? $institution->institution_website }}"
-                                                                placeholder="Enter Website"
+                                                                value="{{ old('institution_website') }}"
+                                                                placeholder="Enter Name"
                                                                 required>
                                                         </div>
                                                     </div>
@@ -157,7 +136,7 @@
                                                                 class="form-control @error('institution_address') error @enderror"
                                                                 id="address"
                                                                 name="institution_address"
-                                                                value="{{ old('institution_address')  ?? $institution->institution_address }}"
+                                                                value="{{ old('institution_address') }}"
                                                                 placeholder="Enter Address"
                                                                 required>
                                                         </div>

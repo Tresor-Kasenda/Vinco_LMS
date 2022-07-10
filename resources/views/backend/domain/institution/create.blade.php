@@ -12,7 +12,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Create Student</h3>
+                                <h3 class="nk-block-title page-title">Create Institution</h3>
                             </div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -45,7 +45,8 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form method="post" action="{{ route('admins.institution.store') }}" class="form-validate mt-2" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('admins.institution.store') }}"
+                                              class="form-validate mt-2" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row g-gs">
                                                 <div class="col-md-12">

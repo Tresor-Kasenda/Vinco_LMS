@@ -54,7 +54,7 @@ class CampusRepository implements CampusRepositoryInterface
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
-                    'institution_id' => $attributes->input('institution')
+                    'institution_id'=>\Auth::user()->institution->id,
                 ]);
             $factory->addSuccess('Campus add with successfully');
 
