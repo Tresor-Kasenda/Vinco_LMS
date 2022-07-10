@@ -20,11 +20,6 @@ return new class extends Migration {
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->foreignIdFor(\App\Models\Institution::class)
-                ->nullable()
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\Promotion::class)
-                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->timestamps();

@@ -45,6 +45,7 @@
                                                 src="{{ asset('assets/admins/images/man.webp') }}"
                                             @endif
                                             title="{{ $institution->institution_name }}"
+                                            style="object-fit: contain"
                                             class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
                                         >
                                     </div>

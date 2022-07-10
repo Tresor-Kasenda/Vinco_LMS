@@ -194,6 +194,10 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');
+Route::get('institutionRegister', [HomeFrontendController::class, 'register'])->name('home.institution.register');
+Route::post('institionStore', [HomeFrontendController::class, 'store'])->name('home.institution.store');
+Route::get('studentRegister', [HomeFrontendController::class, 'registerStudent'])->name('home.student.register');
+Route::post('studentStore', [HomeFrontendController::class, 'storeStudent'])->name('home.student.store');
 Route::get('about', [AboutAppController::class, 'index'])->name('about.index');
 Route::get('short-courses', [ShortCoursesAppController::class, 'index'])->name('courses.index');
 Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.index');

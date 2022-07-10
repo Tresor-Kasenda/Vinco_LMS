@@ -14,9 +14,15 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
 {
     public function getAcademicsYears(): Collection|array
     {
-        return AcademicYear::query()
-            ->latest()
-            ->get();
+        if (\Auth::user()->institution != null) {
+            return AcademicYear::query()
+                ->where('institution_id', '=', \Auth::user()->institution->id)
+                ->get();
+        } else {
+            return AcademicYear::query()
+                ->where('institution_id', '=', 'A')
+                ->get();
+        }
     }
 
     public function showAcademicYear(string $key): Model|Builder|null
@@ -30,6 +36,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = AcademicYear::query()
             ->create([
+                'institution_id'=>\Auth::user()->institution->id,
                 'start_date' => $attributes->input('startDate'),
                 'end_date' => $attributes->input('endDate'),
             ]);
@@ -42,6 +49,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = $this->showAcademicYear(key: $key);
         $academic->update([
+            'institution_id'=>\Auth::user()->institution->id,
             'startDate' => $attributes->input('startDate'),
             'endDate' => $attributes->input('endDate'),
         ]);

@@ -102,4 +102,9 @@ class Institution extends Model
     {
         return $this->hasMany(Campus::class);
     }
+
+    public function professors(): HasMany
+    {
+        return $this->hasMany(Professor::class);
+    }
 }

@@ -216,7 +216,7 @@
 
                             @include('backend.components._links', [
                                 'route' => route('admins.academic.course.index'),
-                                'name' => "Syllabus"
+                                'name' => "Cours"
                             ])
 
                             @include('backend.components._links', [
@@ -315,11 +315,6 @@
                                 <span class="nk-menu-text">Users</span>
                             </a>
                             <ul class="nk-menu-sub">
-
-                            @include('backend.components._links', [
-                                'route' => route('admins.users.staffs.index'),
-                                'name' => "Staffs"
-                            ])
 
                             @include('backend.components._links', [
                                 'route' => route('admins.users.teacher.index'),

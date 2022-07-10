@@ -37,6 +37,35 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->with(['departments'])
             ->latest()
             ->get();
+        if (\Auth::user()->institution != null) {
+            return Professor::query()
+                ->select([
+                    'id',
+                    'images',
+                    'username',
+                    'email',
+                    'phones',
+                    'matriculate',
+                    'institution_id',
+                ])
+                ->where('institution_id', '=', \Auth::user()->institution->id)
+                ->latest()
+                ->get();
+        } else {
+            return Professor::query()
+                ->select([
+                    'id',
+                    'images',
+                    'username',
+                    'email',
+                    'phones',
+                    'matriculate',
+                    'institution_id',
+                ])
+                ->where('institution_id', '=', 'A')
+                ->latest()
+                ->get();
+        }
     }
 
     public function showProfessor(string $key): Model|Builder|null
@@ -122,6 +151,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
+                'institution_id'=>\Auth::user()->institution->id,
             ]);
     }
 
@@ -148,7 +178,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getRole(): Builder|Model
     {
         return Role::query()
-            ->whereName('Professeur')
+            ->whereName('Teacher')
             ->firstOrFail();
     }
 }
