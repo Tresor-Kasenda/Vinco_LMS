@@ -7,6 +7,7 @@ namespace App\Repositories\Backend;
 use App\Contracts\FeesRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Fee;
+use App\Models\FeeType;
 use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,12 +20,17 @@ class FeesRepository implements FeesRepositoryInterface
 
     public function getFees(): Collection|array
     {
-        return Cache::remember('fees', 1000, function () {
-            return Fee::query()
-                ->with(['student', 'feeType'])
-                ->orderByDesc('created_at')
-                ->get();
-        });
+        return Fee::query()
+            ->select([
+                'student_id',
+                'fee_type_id',
+                'amount',
+                'due_date',
+                'status'
+            ])
+            ->with(['student', 'feeType'])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function showFee(int $key)

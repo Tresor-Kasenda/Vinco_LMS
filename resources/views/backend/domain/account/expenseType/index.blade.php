@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des examens")
+@section('title')
+    Expenses Types
+@endsection
 
 @section('content')
     <div class="container-fluid">
