@@ -25,7 +25,7 @@ class PromotionRepository implements PromotionRepositoryInterface
                 'name',
                 'images',
                 'academic_year_id',
-                'subsidiary_id'
+                'subsidiary_id',
             ])
             ->with(['subsidiary:id,name', 'academic:id,start_date,end_date'])
             ->orderByDesc('created_at')
@@ -40,7 +40,7 @@ class PromotionRepository implements PromotionRepositoryInterface
                 'name',
                 'images',
                 'academic_year_id',
-                'subsidiary_id'
+                'subsidiary_id',
             ])
             ->where('id', '=', $key)
             ->firstOrCreate();
@@ -84,6 +84,7 @@ class PromotionRepository implements PromotionRepositoryInterface
         $promotion = $this->showPromotion(key: $key);
         $promotion->delete();
         $factory->addSuccess('Promotion trashed with successfully');
+
         return back();
     }
 

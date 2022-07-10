@@ -34,7 +34,7 @@ class StudentRepository implements StudentRepositoryInterface
                 'department_id',
                 'subsidiary_id',
                 'email',
-                'images'
+                'images',
             ])
             ->with(['department:id,name', 'subsidiary:id,name'])
             ->orderByDesc('created_at')
@@ -72,7 +72,7 @@ class StudentRepository implements StudentRepositoryInterface
                 'gender',
                 'guardian_id',
                 'admission_date',
-                'user_id'
+                'user_id',
             ])
             ->where('id', '=', $key)
             ->firstOrFail();
@@ -83,7 +83,7 @@ class StudentRepository implements StudentRepositoryInterface
             'subsidiary:id,name',
             'user:id',
             'user.roles:id,name',
-            'parent:id,name_guardian'
+            'parent:id,name_guardian',
         ]);
     }
 
@@ -97,12 +97,12 @@ class StudentRepository implements StudentRepositoryInterface
         $user = User::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (!$user) {
+        if (! $user) {
             $user = User::query()
                 ->create([
                     'name' => $attributes->input('name'),
                     'email' => $attributes->input('email'),
-                    'password' => \Hash::make($attributes->input('password'))
+                    'password' => \Hash::make($attributes->input('password')),
                 ]);
 
             $role = Role::query()
@@ -124,14 +124,14 @@ class StudentRepository implements StudentRepositoryInterface
                     'gender' => $attributes->input('gender'),
                     'guardian_id' => $attributes->input('parent'),
                     'admission_date' => $attributes->input('admission'),
-                    'matriculate' => $this->generateRandomTransaction(8, $attributes->input("name")),
+                    'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
                 ]);
             $factory->addSuccess('Un Etudiant a ete ajouter');
 
             return $student;
         }
 
-        $factory->addErrors("Cette email a ete deja utiliser sur un autre compte");
+        $factory->addErrors('Cette email a ete deja utiliser sur un autre compte');
 
         return back();
     }

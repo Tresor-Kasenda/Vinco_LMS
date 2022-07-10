@@ -24,7 +24,7 @@ class LessonRepository implements LessonRepositoryInterface
                 'id',
                 'name',
                 'chapter_id',
-                'lesson_type_id'
+                'lesson_type_id',
             ])
             ->with(['chapter:id,name,course_id', 'chapter.course:id,name', 'type:id,name'])
             ->orderByDesc('created_at')
@@ -39,7 +39,7 @@ class LessonRepository implements LessonRepositoryInterface
                 'name',
                 'chapter_id',
                 'content',
-                'lesson_type_id'
+                'lesson_type_id',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -49,7 +49,7 @@ class LessonRepository implements LessonRepositoryInterface
             'chapter:id,name,course_id',
             'chapter.course:id,name,professor_id,images',
             'chapter.course.professors:id,username,email',
-            'resources:id,name,path'
+            'resources:id,name,path',
         ]);
     }
 
@@ -60,7 +60,7 @@ class LessonRepository implements LessonRepositoryInterface
                 'chapter_id' => $attributes->input('chapter'),
                 'name' => $attributes->input('name'),
                 'content' => $attributes->input('content'),
-                'lesson_type_id' => $attributes->input('type')
+                'lesson_type_id' => $attributes->input('type'),
             ]);
         $flash->addSuccess('Une nouvelle lecon a ete ajouter');
 
@@ -74,7 +74,7 @@ class LessonRepository implements LessonRepositoryInterface
             'chapter_id' => $attributes->input('chapter'),
             'name' => $attributes->input('name'),
             'content' => $attributes->input('content'),
-            'lesson_type_id' => $attributes->input('type')
+            'lesson_type_id' => $attributes->input('type'),
         ]);
         $flash->addSuccess('Une lecon a ete mise a jours avec success');
 
@@ -86,6 +86,7 @@ class LessonRepository implements LessonRepositoryInterface
         $lesson = $this->showLesson(key: $key);
         $lesson->delete();
         $flash->addSuccess('La lesson a ete supprimer avec success');
+
         return $lesson;
     }
 }

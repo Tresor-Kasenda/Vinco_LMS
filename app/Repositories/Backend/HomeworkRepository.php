@@ -24,12 +24,12 @@ class HomeworkRepository implements HomeworkRepositoryInterface
                 'filling_date',
                 'lesson_id',
                 'course_id',
-                'chapter_id'
+                'chapter_id',
             ])
             ->with([
                 'chapter:id,name',
                 'course:id,name,images',
-                'lesson:id,name'
+                'lesson:id,name',
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -46,7 +46,7 @@ class HomeworkRepository implements HomeworkRepositoryInterface
                 'lesson_id',
                 'course_id',
                 'chapter_id',
-                'status'
+                'status',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -54,7 +54,7 @@ class HomeworkRepository implements HomeworkRepositoryInterface
         return $homework->load([
             'chapter:id,name',
             'course:id,name,images',
-            'lesson:id,name'
+            'lesson:id,name',
         ]);
     }
 
@@ -68,7 +68,7 @@ class HomeworkRepository implements HomeworkRepositoryInterface
                 'status' => StatusEnum::FALSE,
                 'course_id' => $attributes->input('course'),
                 'chapter_id' => $attributes->input('chapter'),
-                'lesson_id' => $attributes->input('lesson')
+                'lesson_id' => $attributes->input('lesson'),
             ]);
 
         $factory->addSuccess('Un TP a ete ajouter');
@@ -85,7 +85,7 @@ class HomeworkRepository implements HomeworkRepositoryInterface
             'filling_date' => $attributes->input('date'),
             'course_id' => $attributes->input('course'),
             'chapter_id' => $attributes->input('chapter'),
-            'lesson_id' => $attributes->input('lesson')
+            'lesson_id' => $attributes->input('lesson'),
         ]);
 
         $factory->addSuccess('Un TP a ete modifier');
@@ -98,6 +98,7 @@ class HomeworkRepository implements HomeworkRepositoryInterface
         $homework = $this->showHomework($key);
         $homework->delete();
         $factory->addSuccess('Un TP a ete supprimer avec succes');
+
         return $homework;
     }
 }

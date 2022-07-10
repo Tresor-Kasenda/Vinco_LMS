@@ -18,7 +18,7 @@ class InterroUpdateRequest extends FormRequest
             'duration' => ['required'],
             'date' => ['required', 'date'],
             'course' => ['required', Rule::exists(Course::class, 'id')],
-            'chapter' => ['required', Rule::exists(Chapter::class, 'id')]
+            'chapter' => ['required', Rule::exists(Chapter::class, 'id')],
         ];
     }
 

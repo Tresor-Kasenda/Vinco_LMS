@@ -27,7 +27,7 @@ class CourseRepository implements CourseRepositoryInterface
                 'status',
                 'category_id',
                 'images',
-                'weighting'
+                'weighting',
             ])
             ->with(['category:id,name'])
             ->withCount('chapters')

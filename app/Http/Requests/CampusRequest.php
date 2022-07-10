@@ -31,7 +31,7 @@ class CampusRequest extends FormRequest
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'description' => ['nullable'],
             'personnel' => ['required', Rule::exists('users', 'id')],
-            'institution' => ['required', Rule::exists('institutions', 'id')]
+            'institution' => ['required', Rule::exists('institutions', 'id')],
         ];
     }
 }

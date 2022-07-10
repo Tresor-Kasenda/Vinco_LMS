@@ -20,7 +20,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'description'
+                'description',
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -40,9 +40,9 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'name' => $attributes->input('name'),
                 'description' => $attributes->input('description'),
             ]);
-            $flash->addSuccess('A new Category as added with successfully');
+        $flash->addSuccess('A new Category as added with successfully');
 
-            return $faculty;
+        return $faculty;
     }
 
     public function updated(string $key, $attributes, $flash)

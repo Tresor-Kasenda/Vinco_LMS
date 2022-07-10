@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\LessonType
+ * App\Models\LessonType.
  *
  * @property int $id
  * @property string $name

@@ -23,7 +23,7 @@ class InterroRepository implements InterroRepositoryInterface
                 'date',
                 'duration',
                 'course_id',
-                'chapter_id'
+                'chapter_id',
             ])
             ->with(['course:id,name', 'chapter:id,name'])
             ->orderByDesc('created_at')
@@ -40,7 +40,7 @@ class InterroRepository implements InterroRepositoryInterface
                 'duration',
                 'course_id',
                 'chapter_id',
-                'status'
+                'status',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -57,7 +57,7 @@ class InterroRepository implements InterroRepositoryInterface
                 'duration' => $attributes->input('duration'),
                 'status' => StatusEnum::FALSE,
                 'course_id' => $attributes->input('course'),
-                'chapter_id' => $attributes->input('chapter')
+                'chapter_id' => $attributes->input('chapter'),
             ]);
 
         $factory->addSuccess('Une nouvelle Interrogation a ete ajouter');
@@ -73,9 +73,10 @@ class InterroRepository implements InterroRepositoryInterface
             'date' => $attributes->input('date'),
             'duration' => $attributes->input('duration'),
             'course_id' => $attributes->input('course'),
-            'chapter_id' => $attributes->input('chapter')
+            'chapter_id' => $attributes->input('chapter'),
         ]);
         $factory->addSuccess('Une nouvelle Interrogation a ete modifier');
+
         return $interro;
     }
 
@@ -84,6 +85,7 @@ class InterroRepository implements InterroRepositoryInterface
         $interro = $this->showInterro($key);
         $interro->delete();
         $factory->addSuccess('Une nouvelle Interrogation a ete supprimer');
+
         return $interro;
     }
 }

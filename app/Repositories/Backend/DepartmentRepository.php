@@ -24,7 +24,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
                 'id',
                 'name',
                 'campus_id',
-                'images'
+                'images',
             ])
             ->with(['campus:id,name', 'users'])
             ->latest()
@@ -39,7 +39,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
                 'name',
                 'id',
                 'description',
-                'images'
+                'images',
             ])
             ->where('id', '=', $key)
             ->first();

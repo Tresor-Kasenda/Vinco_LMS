@@ -22,7 +22,7 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'images'
+                'images',
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -34,7 +34,7 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'images'
+                'images',
             ])
             ->where('id', '=', $key)
             ->first();

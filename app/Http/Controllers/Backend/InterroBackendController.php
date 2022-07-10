@@ -32,6 +32,7 @@ class InterroBackendController extends Controller
 
         return view('backend.domain.academic.interro.index', compact('interros'));
     }
+
     public function create(): Renderable
     {
         return view('backend.domain.academic.interro.create');

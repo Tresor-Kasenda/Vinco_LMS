@@ -24,7 +24,7 @@ class ResourceRepository implements ResourceRepositoryInterface
                 'id',
                 'name',
                 'lesson_id',
-                'chapter_id'
+                'chapter_id',
             ])
             ->with(['lesson:id,name', 'chapter:id,name,course_id'])
             ->orderByDesc('created_at')
@@ -40,7 +40,7 @@ class ResourceRepository implements ResourceRepositoryInterface
                 'lesson_id',
                 'chapter_id',
                 'files',
-                'path'
+                'path',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -48,7 +48,7 @@ class ResourceRepository implements ResourceRepositoryInterface
         return $resource->load([
             'lesson:id,name,chapter_id',
             'chapter:id,name,course_id',
-            'chapter.course:id,name,images'
+            'chapter.course:id,name,images',
         ]);
     }
 
