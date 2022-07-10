@@ -23,7 +23,7 @@ class ChapterRepository implements ChapterRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'course_id'
+                'course_id',
             ])
             ->with('course:id,name')
             ->withCount(['lessons'])
@@ -38,7 +38,7 @@ class ChapterRepository implements ChapterRepositoryInterface
                 'id',
                 'name',
                 'course_id',
-                'content'
+                'content',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -47,7 +47,7 @@ class ChapterRepository implements ChapterRepositoryInterface
             'lessons:id,name',
             'course:id,name,professor_id,images',
             'course.professors:id,username,email,lastname',
-            'resources:id,name,path'
+            'resources:id,name,path',
         ]);
     }
 

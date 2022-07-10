@@ -12,7 +12,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class DepartmentUpdateRequest extends FormRequest
 {
-    #[ArrayShape(['name' => "string[]", 'user' => "array", 'campus' => "array", 'description' => "string[]"])]
+    #[ArrayShape(['name' => 'string[]', 'user' => 'array', 'campus' => 'array', 'description' => 'string[]'])]
     public function rules(): array
     {
         return [

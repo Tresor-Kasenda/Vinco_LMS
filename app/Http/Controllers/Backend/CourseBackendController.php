@@ -57,6 +57,7 @@ class CourseBackendController extends Controller
     public function edit(string $key): HttpResponse
     {
         $course = $this->repository->showCourse($key);
+
         return Response::view('backend.domain.academic.cours.edit', compact('course'));
     }
 

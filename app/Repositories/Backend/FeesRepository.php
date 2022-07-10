@@ -26,7 +26,7 @@ class FeesRepository implements FeesRepositoryInterface
                 'fee_type_id',
                 'amount',
                 'due_date',
-                'status'
+                'status',
             ])
             ->with(['student', 'feeType'])
             ->orderByDesc('created_at')

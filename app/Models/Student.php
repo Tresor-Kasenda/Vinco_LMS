@@ -145,6 +145,6 @@ class Student extends Model
 
     public function getImages(): string
     {
-        return asset('storage/'. $this->images);
+        return asset('storage/'.$this->images);
     }
 }

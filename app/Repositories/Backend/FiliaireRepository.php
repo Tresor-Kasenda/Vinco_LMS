@@ -27,7 +27,7 @@ class FiliaireRepository implements FiliaireRepositoryInterface
                 'description',
                 'user_id',
                 'images',
-                'department_id'
+                'department_id',
             ])
             ->with(['department:id,name', 'user:id,name'])
             ->orderByDesc('created_at')
@@ -43,7 +43,7 @@ class FiliaireRepository implements FiliaireRepositoryInterface
                 'description',
                 'user_id',
                 'images',
-                'department_id'
+                'department_id',
             ])
             ->where('id', '=', $key)
             ->firstOrCreate();

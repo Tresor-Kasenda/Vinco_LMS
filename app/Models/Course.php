@@ -128,6 +128,6 @@ class Course extends Model
 
     public function ponderation(): string
     {
-        return $this->weighting . " points ";
+        return $this->weighting.' points ';
     }
 }

@@ -25,7 +25,7 @@ class CampusRepository implements CampusRepositoryInterface
                 'name',
                 'images',
                 'institution_id',
-                'user_id'
+                'user_id',
             ])
             ->with(['institution', 'user'])
             ->get();
@@ -44,7 +44,7 @@ class CampusRepository implements CampusRepositoryInterface
     {
         $campus = Campus::query()
             ->where('user_id', '=', $attributes->input('personnel'))
-            ->orWhere('name', '=', $attributes->input("name"))
+            ->orWhere('name', '=', $attributes->input('name'))
             ->first();
 
         if (! $campus) {
@@ -73,7 +73,7 @@ class CampusRepository implements CampusRepositoryInterface
             'user_id' => $attributes->input('user_id'),
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'institution_id' => $attributes->input('institution')
+            'institution_id' => $attributes->input('institution'),
         ]);
         $factory->addSuccess('Un campus a ete modifier');
 

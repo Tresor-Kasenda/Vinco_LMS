@@ -52,6 +52,7 @@ class ChapterBackendController extends Controller
 
         return view('backend.domain.academic.chapters.show', compact('chapter'));
     }
+
     public function edit(string $key): HttpResponse
     {
         $chapter = $this->repository->showChapter(key:  $key);

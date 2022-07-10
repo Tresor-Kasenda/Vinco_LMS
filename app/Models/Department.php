@@ -96,5 +96,4 @@ class Department extends Model
     {
         return $this->status = StatusEnum::FALSE;
     }
-
 }

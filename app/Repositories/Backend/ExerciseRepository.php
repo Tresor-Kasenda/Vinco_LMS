@@ -25,7 +25,7 @@ class ExerciseRepository implements ExerciseRepositoryInterface
                 'chapter_id',
                 'status',
                 'rating',
-                'filling_date'
+                'filling_date',
             ])
             ->with(['chapter:id,name', 'lesson:id,name'])
             ->orderByDesc('created_at')
@@ -43,7 +43,7 @@ class ExerciseRepository implements ExerciseRepositoryInterface
                 'course_id',
                 'status',
                 'rating',
-                'filling_date'
+                'filling_date',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -51,7 +51,7 @@ class ExerciseRepository implements ExerciseRepositoryInterface
         return $exercise->load([
             'course:id,name,images',
             'chapter:id,name',
-            'lesson:id,name'
+            'lesson:id,name',
         ]);
     }
 

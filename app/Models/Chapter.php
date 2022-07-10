@@ -58,7 +58,7 @@ class Chapter extends Model
 
     protected $hidden = [
         'created_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     public function course(): BelongsTo
