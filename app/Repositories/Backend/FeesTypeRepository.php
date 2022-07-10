@@ -18,16 +18,24 @@ class FeesTypeRepository implements FeesTypeRepositoryInterface
 
     public function getFeesTypes(): Collection|array
     {
-        return Cache::remember('feesTypes', 1000, function () {
-            return FeeType::query()
-                ->orderByDesc('created_at')
-                ->get();
-        });
+        return FeeType::query()
+            ->select([
+                'id',
+                'name',
+                'images'
+            ])
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function showFeeType(string $key): Model|Builder|null
     {
         return FeeType::query()
+            ->select([
+                'id',
+                'name',
+                'images'
+            ])
             ->where('id', '=', $key)
             ->first();
     }

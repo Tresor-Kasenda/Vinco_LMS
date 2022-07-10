@@ -20,7 +20,8 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.teacher.index') }}">
+                                            <a class="btn btn-outline-light d-none d-md-inline-flex"
+                                               href="{{ route('admins.users.teacher.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -70,6 +71,24 @@
                                             <td>{{ $teacher->email ?? "" }}</td>
                                         </tr>
 
+                                        <tr>
+                                            <th>Liste des cours</th>
+                                            @if($teacher->courses)
+                                                <td>
+                                                    <ul class="link-list-opt">
+                                                        @foreach($teacher->courses as $course)
+                                                            <li>
+                                                                <a href="{{ route('admins.academic.course.show', $course->id) }}">
+                                                                    <em class="icon ni ni-book-read"></em>
+                                                                    <span>{{ ucfirst($course->name) ?? "" }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                            @endif
+                                        </tr>
+
                                         <tr class="text-justify">
                                             <th>Phones</th>
                                             <td>{{ $teacher->phones ?? "" }}</td>
@@ -105,7 +124,8 @@
                                             <td>
                                                 <div class="tb-lead d-flex flex-wrap">
                                                     @foreach($teacher->user->roles as $role)
-                                                        <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
+                                                        <span
+                                                            class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
                                                     @endforeach
                                                 </div>
                                             </td>

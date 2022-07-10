@@ -20,29 +20,37 @@ class CampusRepository implements CampusRepositoryInterface
     public function getCampuses(): Collection|array
     {
         return Campus::query()
-            ->with('user')
+            ->select([
+                'id',
+                'name',
+                'images',
+                'institution_id',
+                'user_id'
+            ])
+            ->with(['institution', 'user'])
             ->get();
     }
 
     public function showCampus(string $key): Model|Builder|null
     {
         $campus = Campus::query()
-            ->where('key', '=', $key)
+            ->where('id', '=', $key)
             ->first();
 
-        return $campus->load(['user']);
+        return $campus->load(['user', 'institution', 'departments']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse
     {
         $campus = Campus::query()
-            ->when('user_id', fn ($query) => $query->where('user_id', $attributes->input('user_id')))
+            ->where('user_id', '=', $attributes->input('personnel'))
+            ->orWhere('name', '=', $attributes->input("name"))
             ->first();
 
         if (! $campus) {
             $faculty = Campus::query()
                 ->create([
-                    'user_id' => $attributes->input('user_id'),
+                    'user_id' => $attributes->input('personnel'),
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
@@ -65,7 +73,7 @@ class CampusRepository implements CampusRepositoryInterface
             'user_id' => $attributes->input('user_id'),
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'images' => self::uploadFiles($attributes),
+            'institution_id' => $attributes->input('institution')
         ]);
         $factory->addSuccess('Un campus a ete modifier');
 
@@ -88,7 +96,7 @@ class CampusRepository implements CampusRepositoryInterface
 
     public function changeStatus($attributes): bool|int
     {
-        $personnel = $this->showCampus(key: $attributes->input('key'));
+        $personnel = $this->showCampus(key: $attributes->input('id'));
         if ($personnel != null) {
             return $personnel->update([
                 'status' => $attributes->input('status'),

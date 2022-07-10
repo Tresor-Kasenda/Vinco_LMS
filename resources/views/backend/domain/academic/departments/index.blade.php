@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des departements")
+@section('title')
+    Department Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Departements</h3>
+                            <h3 class="nk-block-title page-title">Department Lists</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -38,30 +40,19 @@
                         <thead>
                             <tr class="nk-tb-item nk-tb-head  text-center">
                                 <th class="nk-tb-col tb-col-sm">
-                                    <span>Image</span>
+                                    <span>IMAGES</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nom du department</span>
+                                    <span>NOM</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nom du Campus</span>
+                                    <span>NOM DU CAMPUS</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Responsable</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    <span>Status</span>
+                                    <span>RESPONSABLE</span>
                                 </th>
                                 <th class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div>
-                                                <a href="#" class="btn btn-icon btn-trigger">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <span>ACTIONS</span>
                                 </th>
                             </tr>
                         </thead>
@@ -77,61 +68,37 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $department->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($department->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $department->campus->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($department->campus->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @foreach($department->users as $user)
-                                            <span class="tb-lead">{{ strtoupper($user->name) }}</span>
+                                            <span class="tb-lead">{{ ucfirst($user->name) }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="nk-tb-col tb-col-md">
-                                        @if($department->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
-                                    </td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1 my-n1">
-                                            <li class="me-n1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-h"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.departments.edit', $department->key) }}">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                    <span>Edit</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.departments.show', $department->key) }}">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>View</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form action="{{ route('admins.academic.departments.destroy', $department->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                    @method('DELETE')
-                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                    <button type="submit" class="btn btn-dim">
-                                                                        <em class="icon ni ni-trash"></em>
-                                                                        <span>Remove</span>
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.departments.show', $department->id) }}"
+                                                   class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye-alt"></em>
+                                                </a>
+                                                <a href="{{ route('admins.academic.departments.edit', $department->id) }}"
+                                                   class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit-alt"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.departments.destroy', $department->id) }}"
+                                                      method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

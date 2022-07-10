@@ -105,22 +105,22 @@ class Student extends Model
 
     public function promotion(): BelongsTo
     {
-        return $this->belongsTo(Promotion::class, 'promotion');
+        return $this->belongsTo(Promotion::class, 'promotion_id');
     }
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'promotion');
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function subsidiary(): BelongsTo
     {
-        return $this->belongsTo(Subsidiary::class, 'promotion');
+        return $this->belongsTo(Subsidiary::class, 'subsidiary_id');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'promotion');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function fees(): HasMany
@@ -140,6 +140,11 @@ class Student extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Guardian::class);
+        return $this->belongsTo(Guardian::class, 'guardian_id');
+    }
+
+    public function getImages(): string
+    {
+        return asset('storage/'. $this->images);
     }
 }

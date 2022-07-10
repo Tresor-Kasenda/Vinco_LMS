@@ -10,6 +10,7 @@ use App\Http\Requests\ConfirmerProfessorRequest;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
 use App\Http\Requests\StudentRequest;
+use App\Http\Requests\StudentUpdateRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -34,13 +35,6 @@ class StudentBackendController extends Controller
         return view('backend.domain.users.student.index', compact('students'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $student = $this->repository->showStudent($key);
-
-        return view('backend.domain.users.student.show', compact('student'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.users.student.create');
@@ -53,6 +47,13 @@ class StudentBackendController extends Controller
         return to_route('admins.users.student.index');
     }
 
+    public function show(string $key): Factory|View|Application
+    {
+        $student = $this->repository->showStudent($key);
+
+        return view('backend.domain.users.student.show', compact('student'));
+    }
+
     public function edit(string $key): Factory|View|Application
     {
         $student = $this->repository->showStudent($key);
@@ -60,7 +61,7 @@ class StudentBackendController extends Controller
         return view('backend.domain.users.student.edit', compact('student'));
     }
 
-    public function update(UpdateStudentRequest $attributes, string $key): RedirectResponse
+    public function update(StudentUpdateRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 

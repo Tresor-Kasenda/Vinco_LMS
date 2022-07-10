@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des cours")
+@section('title')
+    Cours Lists
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -38,22 +40,22 @@
                         <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
                                 <th class="nk-tb-col">
-                                    <span>Images</span>
+                                    <span>IMAGES</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nom du cours</span>
+                                    <span>NAME</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Categorie</span>
+                                    <span>CATEGORIES</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Nombre des chapitres</span>
+                                    <span>CHAPTERS</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Status</span>
+                                    <span>STATUS</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Date de debut</span>
+                                    <span>PONDERATION</span>
                                 </th>
                                 <th class="nk-tb-col nk-tb-col-tools text-center">
                                     <span>ACTION</span>
@@ -76,14 +78,14 @@
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <h6 class="title">{{ substr($course->name, 0, 20) ?? "" }}...</h6>
+                                            <h6 class="title">{{ ucfirst(substr($course->name, 0, 20)) ?? "" }}...</h6>
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $course->category->name ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($course->category->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">Total chapitres : {{ $course->chapters_count ?? "" }} </span>
+                                        <span class="tb-lead">Nb Chapitres : {{ $course->chapters_count ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @if($course->status)
@@ -95,18 +97,18 @@
                                         @endif
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $course->startDate ?? "" }} </span>
+                                        <span class="tb-lead">{{ $course->weighting ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex">
-                                                <a href="{{ route('admins.academic.course.edit', $course->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.course.show', $course->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.course.destroy', $course->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.course.edit', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.course.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">

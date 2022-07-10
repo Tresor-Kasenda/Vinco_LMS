@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CampusRequest;
 use App\Http\Requests\CampusStatusRequest;
 use App\Http\Requests\CampusUpdateRequest;
+use App\Http\Requests\DepartmentStatusRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -31,17 +32,13 @@ class CampusBackendController extends Controller
 
     public function index(): Renderable
     {
-        abort_if(Gate::denies('campus-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        $campuses = $this->repository->getCampuses();
 
-        $faculties = $this->repository->getCampuses();
-
-        return view('backend.domain.academic.campus.index', compact('faculties'));
+        return view('backend.domain.academic.campus.index', compact('campuses'));
     }
 
     public function show(string $key): Factory|View|Application
     {
-        abort_if(Gate::denies('campus-show'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $campus = $this->repository->showCampus(key:  $key);
 
         return view('backend.domain.academic.campus.show', compact('campus'));
@@ -54,8 +51,6 @@ class CampusBackendController extends Controller
 
     public function store(CampusRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::denies('campus-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
         return redirect()->route('admins.academic.campus.index');
@@ -70,8 +65,6 @@ class CampusBackendController extends Controller
 
     public function update(string $key, CampusUpdateRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::denies('campus-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 
         return Response::redirectToRoute('admins.academic.campus.index');
@@ -79,8 +72,6 @@ class CampusBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
-        abort_if(Gate::denies('campus-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->deleted(key: $key, factory: $this->factory);
 
         return Response::redirectToRoute('admins.academic.campus.index');
@@ -88,15 +79,10 @@ class CampusBackendController extends Controller
 
     public function activate(CampusStatusRequest $request): JsonResponse
     {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
+        $campus = $this->repository->changeStatus(attributes: $request);
 
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
+        return response()->json(['message' => 'The status has been successfully updated'])
+            ??
+            response()->json(['message' => 'Desoler']);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
+use App\Models\Professor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,14 +29,12 @@ class CourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category' => ['required', Rule::exists('categories', 'id')],
-            'professor' => ['nullable', Rule::exists('users', 'id')],
-            'name' => ['required', 'string', 'min:4'],
+            'name' => ['required', 'string', 'min:4', 'unique:courses'],
+            'weighting' => ['required', 'integer'],
+            'category' => ['required', Rule::exists(Category::class, 'id')],
+            'professor' => ['nullable', Rule::exists(Professor::class, 'id')],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
-            'duration' => ['required', 'string', 'min:3'],
-            'startDate' => ['required', 'date', 'date_format:Y-m-d', 'before:endDate'],
-            'endDate' => ['required', 'date', 'date_format:Y-m-d', 'after:startDate'],
-            'subDescription' => ['required', 'string', 'min:20'],
+            'sub_description' => ['required', 'string', 'min:20'],
             'description' => ['nullable', 'string'],
         ];
     }

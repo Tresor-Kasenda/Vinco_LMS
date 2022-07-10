@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Chapter;
+use App\Models\Lesson;
+use App\Models\Resource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,9 +30,10 @@ class ResourceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:3'],
-            'lesson' => ['required', Rule::exists('lessons', 'id')],
-            'content' => ['required', 'mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf,sgv'],
+            'name' => ['required', 'string', 'min:3', Rule::unique(Resource::class, 'name')],
+            'chapter' => ['required', Rule::exists(Chapter::class, 'id')],
+            'lesson' => ['required', Rule::exists(Lesson::class, 'id')],
+            'files' => ['required', 'mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf,sgv'],
         ];
     }
 }

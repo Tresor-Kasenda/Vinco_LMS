@@ -21,3 +21,11 @@ $(document).ready(function () {
         })
     })
 })
+
+export  default function (change) {
+    let field = document.querySelector('#status')
+    field.addEventListener('change', (event) => {
+        event.preventDefault();
+        event.target
+    })
+}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,10 +28,9 @@ class ChapterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:6'],
-            'course' => ['required', Rule::exists('courses', 'id')],
-            'displayType' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
+            'name' => ['required', 'string', 'min:6', 'unique:chapters'],
+            'course' => ['required', Rule::exists(Course::class, 'id')],
+            'content' => ['nullable', 'string'],
         ];
     }
 }

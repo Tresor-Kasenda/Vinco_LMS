@@ -49,9 +49,6 @@
                                 <th class="nk-tb-col">
                                     <span>ANNEE ACADEMIC</span>
                                 </th>
-                                <th class="nk-tb-col">
-                                    <span>STATUS</span>
-                                </th>
                                 <th class="nk-tb-col nk-tb-col-tools">
                                     <span>ACTION</span>
                                 </th>
@@ -69,37 +66,28 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($promotion->name) ?? ""}}</span>
+                                        <span class="tb-lead">{{ ucfirst($promotion->name) ?? ""}}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($promotion->subsidiary->name) ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($promotion->subsidiary->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            {{ $promotion->academic->startDate ?? ""}}
+                                            {{ $promotion->academic->start_date ?? ""}}
                                             -
-                                            {{ $promotion->academic->endDate ?? ""}}
+                                            {{ $promotion->academic->end_date ?? ""}}
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        @if($promotion->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
-                                    </td>
-                                    <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.promotion.edit', $promotion->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.promotion.show', $promotion->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.promotion.show', $promotion->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.promotion.destroy', $promotion->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.promotion.edit', $promotion->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.promotion.destroy', $promotion->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">

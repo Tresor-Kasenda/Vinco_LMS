@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use App\Models\Department;
 use App\Models\Guardian;
 use App\Models\Promotion;
+use App\Models\Student;
 use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -32,16 +33,18 @@ class StudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
-            'password' => ['required', 'string', 'min:6'],
-            'parent' => ['required', Rule::exists(Guardian::class, 'id')],
             'department' => ['required', Rule::exists(Department::class, 'id')],
+            'promotion' => ['required', Rule::exists(Promotion::class, 'id')],
             'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')],
-            'class' => ['required', Rule::exists(Promotion::class, 'id')],
-            'admission' => ['required', 'date'],
-            'gender' => ['required', 'in:male,female'],
+            'name' => ['required', 'string'],
+            'firstname' => ['required', 'string'],
+            'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique(Student::class, 'email')],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
+            'gender' => ['required', 'in:male,female'],
+            'parent' => ['required', Rule::exists(Guardian::class, 'id')],
+            'admission' => ['required', 'date'],
+            'password' => ['required', 'string', 'min:6'],
+
         ];
     }
 }

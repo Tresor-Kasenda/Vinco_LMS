@@ -91,8 +91,9 @@
 
                                             @php
                                                 $roles = \Spatie\Permission\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Professeur'])
-                                                        ->get()
+                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur'])
+                                                        ->get();
+
                                             @endphp
 
                                             <div class="col-md-12">

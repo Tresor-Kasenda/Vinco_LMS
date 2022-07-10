@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FiliaireRequest;
+use App\Http\Requests\FiliaireUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -15,7 +16,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use function PHPUnit\Framework\at;
 use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 
 class FiliaireBackendController extends Controller
@@ -28,18 +28,9 @@ class FiliaireBackendController extends Controller
 
     public function index(): Renderable
     {
-        abort_if(Gate::denies('Subsidiaries-list'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $filiaires = $this->repository->getFiliaires();
 
         return view('backend.domain.academic.filiaire.index', compact('filiaires'));
-    }
-
-    public function show(string $Key): Factory|View|Application
-    {
-        $filiaire = $this->repository->showFiliaire(key:  $Key);
-
-        return \view('backend.domain.academic.filiaire.show', compact('filiaire'));
     }
 
     public function create(): Factory|View|Application
@@ -56,6 +47,13 @@ class FiliaireBackendController extends Controller
         return redirect()->route('admins.academic.filiaire.index');
     }
 
+    public function show(string $Key): Factory|View|Application
+    {
+        $filiaire = $this->repository->showFiliaire(key:  $Key);
+
+        return \view('backend.domain.academic.filiaire.show', compact('filiaire'));
+    }
+
     public function edit(string $key): Factory|View|Application
     {
         $filiaire = $this->repository->showFiliaire(key: $key);
@@ -63,10 +61,8 @@ class FiliaireBackendController extends Controller
         return  view('backend.domain.academic.filiaire.edit', compact('filiaire'));
     }
 
-    public function update(FiliaireRequest $request, string $key): RedirectResponse
+    public function update(FiliaireUpdateRequest $request, string $key): RedirectResponse
     {
-        abort_if(Gate::denies('Subsidiaries-edit'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->updated(key: $key, attributes:  $request, factory: $this->factory);
 
         return redirect()->route('admins.academic.filiaire.index');
@@ -74,8 +70,6 @@ class FiliaireBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
-        abort_if(Gate::denies('Subsidiaries-delete'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->deleted(key: $key, factory: $this->factory);
 
         return back();

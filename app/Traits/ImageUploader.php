@@ -18,7 +18,7 @@ trait ImageUploader
 
     public function uploadPDFFile(Request $request): bool|string
     {
-        return $request->file('content')
+        return $request->file('files')
             ->storePublicly('/resource', ['disk' => 'public']);
     }
 

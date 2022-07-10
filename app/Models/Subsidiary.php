@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -65,11 +64,6 @@ class Subsidiary extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function academic(): BelongsTo
-    {
-        return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 
     public function promotions(): HasMany

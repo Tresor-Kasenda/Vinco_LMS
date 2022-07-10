@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Creation des exercice")
+@section('title')
+    Exercice Create
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -17,13 +19,22 @@
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-md-7">
+                                <div class="col-md-6">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form action="{{ route('admins.academic.exercice.store') }}" method="post" class="form-validate" novalidate="novalidate">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Titre du l'exercice</label>
+                                                    <label class="form-label" for="name">Titre</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -44,7 +55,7 @@
                                                         id="course"
                                                         name="course"
                                                         data-placeholder="Choisir le course"
-                                                        required>
+                                                        >
                                                         <option label="Choisir le course" value=""></option>
                                                         @foreach(\App\Models\Course::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
@@ -60,7 +71,7 @@
                                                         id="chapter"
                                                         name="chapter"
                                                         data-placeholder="Choisir le chapter"
-                                                        required>
+                                                        >
                                                         <option label="Choisir le chapter" value=""></option>
                                                         @foreach(\App\Models\Chapter::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
@@ -76,7 +87,7 @@
                                                         id="lesson"
                                                         name="lesson"
                                                         data-placeholder="Choisir la lesson"
-                                                        required>
+                                                        >
                                                         <option label="Choisir la lesson" value=""></option>
                                                         @foreach(\App\Models\Lesson::all() as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
@@ -87,11 +98,11 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="date">Date</label>
+                                                    <label class="form-label" for="date">Date Depot</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="date"
-                                                            class="form-control ql-picker @error('date') error @enderror"
+                                                            class="form-control datepicker @error('date') error @enderror"
                                                             id="date"
                                                             name="date"
                                                             value="{{ old('date') }}"
@@ -100,63 +111,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="duration">Duree</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('duration') error @enderror"
-                                                            id="duration"
-                                                            name="duration"
-                                                            value="{{ old('duration') }}"
-                                                            placeholder="Saisir la duree"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="weighting">Ponderation</label>
+                                                    <label class="form-label" for="rating">Cotation</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('weighting') error @enderror"
-                                                            id="weighting"
-                                                            name="weighting"
-                                                            value="{{ old('weighting') }}"
-                                                            placeholder="Saisir la ponderation"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="condition">Condition</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('condition') error @enderror"
-                                                            id="condition"
-                                                            name="condition"
-                                                            value="{{ old('condition') }}"
-                                                            placeholder="Saisir la condition"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="schedule">Date de depot</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="datetime-local"
-                                                            class="form-control @error('schedule') error @enderror"
-                                                            id="schedule"
-                                                            name="schedule"
-                                                            value="{{ old('schedule') }}"
-                                                            placeholder="Saisir la date de depot"
+                                                            class="form-control @error('rating') error @enderror"
+                                                            id="rating"
+                                                            name="rating"
+                                                            value="{{ old('rating') }}"
+                                                            placeholder="Saisir la cotation"
                                                             required>
                                                     </div>
                                                 </div>

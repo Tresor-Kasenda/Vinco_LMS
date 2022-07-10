@@ -15,6 +15,4 @@ interface CategoryRepositoryInterface
     public function updated(string $key, $attributes, $flash);
 
     public function deleted(string $key, $flash);
-
-    public function changeStatus($attributes);
 }

@@ -4,33 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Chapter;
+use App\Models\LessonType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class LessonRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3'],
-            'chapter' => ['required', Rule::exists('chapters', 'id')],
-            'short_content' => ['required', 'string', 'min:4'],
-            'content' => ['nullable', 'string', 'min:20'],
+            'name' => ['required', 'string', 'min:3', 'unique:lessons'],
+            'type' => ['required', Rule::exists(LessonType::class, 'id')],
+            'chapter' => ['required', Rule::exists(Chapter::class, 'id')],
+            'content' => ['nullable', 'string'],
         ];
     }
 }

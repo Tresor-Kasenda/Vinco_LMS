@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ResourceRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LessonRequest;
 use App\Http\Requests\ResourceRequest;
+use App\Http\Requests\ResourceUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -32,13 +32,6 @@ class ResourceBackendController extends Controller
         return view('backend.domain.academic.resource.index', compact('resources'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $resource = $this->repository->showResource(key:  $key);
-
-        return view('backend.domain.academic.resource.show', compact('resource'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.academic.resource.create');
@@ -51,6 +44,13 @@ class ResourceBackendController extends Controller
         return to_route('admins.academic.resource.index');
     }
 
+    public function show(string $key): Factory|View|Application
+    {
+        $resource = $this->repository->showResource(key:  $key);
+
+        return view('backend.domain.academic.resource.show', compact('resource'));
+    }
+
     public function edit(string $key): HttpResponse
     {
         $resource = $this->repository->showResource(key:  $key);
@@ -58,7 +58,7 @@ class ResourceBackendController extends Controller
         return Response::view('backend.domain.academic.resource.edit', compact('resource'));
     }
 
-    public function update(string $key, ResourceRequest $attributes): RedirectResponse
+    public function update(string $key, ResourceUpdateRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
 

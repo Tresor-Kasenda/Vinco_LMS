@@ -20,7 +20,13 @@ class ResourceRepository implements ResourceRepositoryInterface
     public function resources(): array|Collection
     {
         return Resource::query()
-            ->with('lesson')
+            ->select([
+                'id',
+                'name',
+                'lesson_id',
+                'chapter_id'
+            ])
+            ->with(['lesson:id,name', 'chapter:id,name,course_id'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -28,35 +34,37 @@ class ResourceRepository implements ResourceRepositoryInterface
     public function showResource(string $key): Model|Resource|Builder
     {
         $resource = Resource::query()
-            ->where('key', '=', $key)
-            ->firstOrCreate();
+            ->select([
+                'id',
+                'name',
+                'lesson_id',
+                'chapter_id',
+                'files',
+                'path'
+            ])
+            ->where('id', '=', $key)
+            ->first();
 
-        return $resource->load('lesson');
+        return $resource->load([
+            'lesson:id,name,chapter_id',
+            'chapter:id,name,course_id',
+            'chapter.course:id,name,images'
+        ]);
     }
 
     public function stored($attributes, $factory): Model|Resource|Builder|RedirectResponse
     {
         $lesson = Resource::query()
-            ->when('name', function ($query) use ($attributes) {
-                $query->where('name', $attributes->input('name'));
-            })
-            ->first();
-        if (! $lesson) {
-            $lesson = Resource::query()
-                ->create([
-                    'lesson_id' => $attributes->input('lesson'),
-                    'status' => StatusEnum::TRUE,
-                    'name' => $attributes->input('name'),
-                    'files' => $attributes->file('content')->getClientOriginalName(),
-                    'path' => self::uploadPDFFile($attributes),
-                ]);
-            $factory->addSuccess('Une nouvelle resource ajouter a la lecon');
+            ->create([
+                'lesson_id' => $attributes->input('lesson'),
+                'chapter_id' => $attributes->input('chapter'),
+                'name' => $attributes->input('name'),
+                'files' => $attributes->file('files')->getClientOriginalName(),
+                'path' => self::uploadPDFFile($attributes),
+            ]);
+        $factory->addSuccess('Une nouvelle resource ajouter a la lecon');
 
-            return $lesson;
-        }
-        $factory->addError('Nom du resource existe deja pour ce chapitre');
-
-        return back();
+        return $lesson;
     }
 
     public function updated(string $key, $attributes, $factory): Model|Resource|Builder
@@ -65,8 +73,9 @@ class ResourceRepository implements ResourceRepositoryInterface
         $this->removePDFFiles($lesson);
         $lesson->update([
             'lesson_id' => $attributes->input('lesson'),
+            'chapter_id' => $attributes->input('chapter'),
             'name' => $attributes->input('name'),
-            'files' => $attributes->file('content')->getClientOriginalName(),
+            'files' => $attributes->file('files')->getClientOriginalName(),
             'path' => self::uploadPDFFile($attributes),
         ]);
         $factory->addSuccess('Une lecon a ete mise a jours avec success');

@@ -29,7 +29,6 @@ class CategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4'],
             'description' => ['nullable'],
-            'academic' => ['required', Rule::exists('academic_years', 'id')],
         ];
     }
 }

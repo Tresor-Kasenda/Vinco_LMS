@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Detail sur la lecon")
+@section('title')
+    Show Resource
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -47,7 +49,6 @@
                                     </div>
                                     <table class="table">
                                         <tbody>
-                                        <tr></tr>
                                         <tr>
                                             <th>Cours</th>
                                             <td>{{ ucwords($resource->lesson->chapter->course->name) ?? "" }}</td>
@@ -57,17 +58,23 @@
                                             <td>{{ ucwords($resource->lesson->chapter->name) ?? "" }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Professeur</th>
-                                            <td>{{ ucwords($resource->lesson->chapter->course->user->name) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Title du lecon</th>
                                             <td>{{ ucfirst($resource->name) ?? "" }}</td>
                                         </tr>
-                                        <tr class="text-center">
+                                        <tr>
+                                            <th>Contenue</th>
+                                            <td>
+                                                <img
+                                                    class="img-fluid img-thumbnail round-sm"
+                                                    src="{{ asset('storage/'.$resource->path) }}"
+                                                    alt="{{ $resource->name }}"
+                                                    title="{{ $resource->name }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Resource</th>
                                             <td>
-                                                <a class="btn btn-sm btn-secondary btn-dim text-center" href="{{ asset('storage/'. $resource->path) }}" download>
+                                                <a class="btn btn-sm btn-secondary btn-dim justify-content-center" href="{{ asset('storage/'. $resource->path) }}" download>
                                                     Telecharger <em class="icon ni ni-download"></em>
                                                 </a>
                                             </td>

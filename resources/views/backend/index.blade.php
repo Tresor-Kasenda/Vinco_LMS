@@ -30,7 +30,7 @@
                                     />
 
                                     <x-statistic
-                                        name="Expenses"
+                                        name="Cours"
                                         number="{{ \App\Models\Course::all()->count() }}"
                                         route="{{ route('admins.accounting.fees.index') }}"
                                     />
@@ -50,7 +50,7 @@
                                     />
 
                                     <x-statistic
-                                        name="Stafs"
+                                        name="Personnels"
                                         number="{{ \App\Models\Personnel::all()->count() }}"
                                         route="{{ route('admins.users.staffs.index') }}"
                                     />
@@ -62,7 +62,7 @@
                                     />
                                     <x-statistic
                                         name="Expenses"
-                                        number="{{ \App\Models\Course::all()->count() }}"
+                                        number="{{ \App\Models\Expense::all()->count() }}"
                                         route="{{ route('admins.accounting.expenses.index') }}"
                                     />
                                     <x-statistic
@@ -77,7 +77,7 @@
                                     />
                                     <x-statistic
                                         name="Events"
-                                        number="{{ \App\Models\Exam::all()->count() }}"
+                                        number="{{ \App\Models\Event::all()->count() }}"
                                         route="{{ route('admins.exam.exam.index') }}"
                                     />
                                 @endrole

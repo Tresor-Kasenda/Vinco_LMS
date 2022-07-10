@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des filiaire")
+@section('title')
+    Gestion des filiaire
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -50,9 +52,6 @@
                                     <span>Departement</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>Status</span>
-                                </th>
-                                <th class="nk-tb-col">
                                     Action
                                 </th>
                             </tr>
@@ -69,33 +68,24 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($filiaire->name) ?? ""}}</span>
+                                        <span class="tb-lead">{{ ucfirst($filiaire->name) ?? ""}}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ strtoupper($filiaire->user->name) ?? "" }}</span>
+                                        <span class="tb-lead">{{ ucfirst($filiaire->user->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $filiaire->department->name ?? ""}}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
-                                        @if($filiaire->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
+                                        <span class="tb-lead">{{ ucfirst($filiaire->department->name) ?? ""}}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <div class="d-flex">
-                                                <a href="{{ route('admins.academic.filiaire.edit', $filiaire->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                    <a href="{{ route('admins.academic.filiaire.show', $filiaire->key) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admins.academic.filiaire.show', $filiaire->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                                <form action="{{ route('admins.academic.filiaire.destroy', $filiaire->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                <a href="{{ route('admins.academic.filiaire.edit', $filiaire->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                                <form action="{{ route('admins.academic.filiaire.destroy', $filiaire->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-dim btn-danger btn-sm">

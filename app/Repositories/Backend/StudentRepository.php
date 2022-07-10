@@ -26,6 +26,17 @@ class StudentRepository implements StudentRepositoryInterface
     public function students(): array|Collection
     {
         return Student::query()
+            ->select([
+                'id',
+                'name',
+                'firstname',
+                'matriculate',
+                'department_id',
+                'subsidiary_id',
+                'email',
+                'images'
+            ])
+            ->with(['department:id,name', 'subsidiary:id,name'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -36,49 +47,93 @@ class StudentRepository implements StudentRepositoryInterface
      */
     public function showStudent(string $key): Model|Student|Builder
     {
-        return Student::query()
+        $student = Student::query()
+            ->select([
+                'id',
+                'name',
+                'firstname',
+                'matriculate',
+                'department_id',
+                'subsidiary_id',
+                'email',
+                'lastname',
+                'phone_number',
+                'images',
+                'nationality',
+                'location',
+                'promotion_id',
+                'identity_card',
+                'birthdays',
+                'born_city',
+                'born_town',
+                'parent_name',
+                'parent_phone',
+                'born_town',
+                'gender',
+                'guardian_id',
+                'admission_date',
+                'user_id'
+            ])
             ->where('id', '=', $key)
             ->firstOrFail();
+
+        return $student->load([
+            'parent:id,name_guardian,email_guardian,phones',
+            'department:id,name',
+            'subsidiary:id,name',
+            'user:id',
+            'user.roles:id,name',
+            'parent:id,name_guardian'
+        ]);
     }
 
     /**
      * @param $attributes
      * @param $factory
-     * @return Student|Model|Builder
+     * @return Student|Model|Builder|RedirectResponse
      */
-    public function stored($attributes, $factory): Student|Model|Builder
+    public function stored($attributes, $factory): Student|Model|Builder|RedirectResponse
     {
         $user = User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'password' => \Hash::make($attributes->input('password')),
-            ]);
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+        if (!$user) {
+            $user = User::query()
+                ->create([
+                    'name' => $attributes->input('name'),
+                    'email' => $attributes->input('email'),
+                    'password' => \Hash::make($attributes->input('password'))
+                ]);
 
-        $role = Role::query()
-            ->where('name', '=', 'Student')
-            ->firstOrFail();
-        $user->assignRole($role->id);
+            $role = Role::query()
+                ->where('name', '=', 'Etudiant')
+                ->first();
+            $user->assignRole($role->id);
 
-        $student = Student::query()
-            ->create([
-                'user_id' => $user->id,
-                'department_id' => $attributes->input('department'),
-                'promotion_id' => $attributes->input('class'),
-                'subsidiary_id' => $attributes->input('filiaire'),
-                'firstname' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'middlename' =>$attributes->input('name'),
-                'images' => self::uploadFiles($attributes),
-                'status' => StatusEnum::TRUE,
-                'gender' => $attributes->input('gender'),
-                'guardian_id' => $attributes->input('parent'),
-                'admission' => $attributes->input('admission'),
-                'matriculate' => $this->generateRandomTransaction(8),
-            ]);
-        $factory->addSuccess('Un Etudiant a ete ajouter');
+            $student = Student::query()
+                ->create([
+                    'user_id' => $user->id,
+                    'department_id' => $attributes->input('department'),
+                    'promotion_id' => $attributes->input('promotion'),
+                    'subsidiary_id' => $attributes->input('filiaire'),
+                    'name' => $attributes->input('name'),
+                    'firstname' => $attributes->input('firstname'),
+                    'email' => $attributes->input('email'),
+                    'images' => self::uploadFiles($attributes),
+                    'status' => StatusEnum::TRUE,
+                    'gender' => $attributes->input('gender'),
+                    'guardian_id' => $attributes->input('parent'),
+                    'admission_date' => $attributes->input('admission'),
+                    'matriculate' => $this->generateRandomTransaction(8, $attributes->input("name")),
+                ]);
+            $factory->addSuccess('Un Etudiant a ete ajouter');
 
-        return $student;
+            return $student;
+        }
+
+        $factory->addErrors("Cette email a ete deja utiliser sur un autre compte");
+
+        return back();
     }
 
     /**
@@ -90,16 +145,16 @@ class StudentRepository implements StudentRepositoryInterface
     public function updated(string $key, $attributes, $factory): Model|Student|Builder
     {
         $student = $this->showStudent($key);
-        $this->removePathOfImages($student);
         $student->update([
             'department_id' => $attributes->input('department'),
-            'promotion_id' => $attributes->input('class'),
+            'promotion_id' => $attributes->input('promotion'),
             'subsidiary_id' => $attributes->input('filiaire'),
-            'firstname' => $attributes->input('name'),
+            'name' => $attributes->input('name'),
+            'firstname' => $attributes->input('firstname'),
             'email' => $attributes->input('email'),
             'gender' => $attributes->input('gender'),
             'guardian_id' => $attributes->input('parent'),
-            'admission' => $attributes->input('admission'),
+            'admission_date' => $attributes->input('admission'),
         ]);
         $factory->addSuccess('Un Etudiant a ete modifier');
 

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use function PHPUnit\Framework\assertTrue;
+use LaravelIdea\Helper\App\Models\_IH_Course_QB;
 
 class CourseRepository implements CourseRepositoryInterface
 {
@@ -21,67 +21,75 @@ class CourseRepository implements CourseRepositoryInterface
     public function getCourses(): array|Collection
     {
         return Course::query()
-            ->with(['category', 'user'])
+            ->select([
+                'id',
+                'name',
+                'status',
+                'category_id',
+                'images',
+                'weighting'
+            ])
+            ->with(['category:id,name'])
             ->withCount('chapters')
             ->orderByDesc('created_at')
             ->get();
     }
 
-    public function showCourse(string $key)
+    public function showCourse(string $key): Model|_IH_Course_QB|Builder|Course|\Illuminate\Database\Query\Builder|null
     {
         $course = Course::query()
-            ->when('key', function ($query) use ($key) {
-                $query->where('key', $key);
-            })
+            ->select([
+                'id',
+                'name',
+                'status',
+                'description',
+                'category_id',
+                'images',
+                'weighting',
+                'description',
+                'sub_description',
+            ])
+            ->where('id', '=', $key)
             ->first();
 
-        return $course->load(['category', 'user']);
+        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters']);
     }
 
-    public function stored($attributes, $flash): Model|Builder|Course|RedirectResponse
+    public function stored($attributes, $flash): Model|Builder|Course
     {
         $course = Course::query()
-            ->where('name', '=', $attributes->input('name'))
-            ->first();
+            ->create([
+                'name' => $attributes->input('name'),
+                'weighting' => $attributes->input('weighting'),
+                'category_id' => $attributes->input('category'),
+                'professor_id' => $attributes->input('professor'),
+                'sub_description' => $attributes->input('sub_description'),
+                'description' => $attributes->input('description'),
+                'images' => self::uploadFiles($attributes),
+                'status' => StatusEnum::FALSE,
+            ]);
 
-        if (! $course) {
-            $course = Course::query()
-                ->create([
-                    'category_id' => $attributes->input('category'),
-                    'user_id' => $attributes->input('professor'),
-                    'name' => $attributes->input('name'),
-                    'subDescription' => $attributes->input('subDescription'),
-                    'description' => $attributes->input('description'),
-                    'images' => self::uploadFiles($attributes),
-                    'startDate' => $attributes->input('startDate'),
-                    'endDate' => $attributes->input('endDate'),
-                    'duration' => $attributes->input('duration'),
-                    'status' => StatusEnum::FALSE,
-                ]);
-            $flash->addSuccess('Un nouveau cours a ete ajouter');
+        $course->professors()->sync($attributes->input('professor'));
+        $flash->addSuccess('Un nouveau cours a ete ajouter');
 
-            return $course;
-        }
-        $flash->addError('Nom du cours ou le professeur a existe deja pour ce cours');
-
-        return back();
+        return $course;
     }
 
-    public function updated(string $key, $attributes, $flash)
+    public function updated(string $key, $attributes, $flash): _IH_Course_QB|Model|Builder|Course|null
     {
         $course = $this->showCourse(key: $key);
         $this->removePathOfImages($course);
+        $course->professors()->detach();
         $course->update([
-            'category_id' => $attributes->input('category'),
-            'user_id' => $attributes->input('professor'),
             'name' => $attributes->input('name'),
-            'subDescription' => $attributes->input('subDescription'),
+            'weighting' => $attributes->input('weighting'),
+            'category_id' => $attributes->input('category'),
+            'professor_id' => $attributes->input('professor'),
+            'sub_description' => $attributes->input('sub_description'),
             'description' => $attributes->input('description'),
             'images' => self::uploadFiles($attributes),
-            'startDate' => $attributes->input('startDate'),
-            'endDate' => $attributes->input('endDate'),
-            'duration' => $attributes->input('duration'),
         ]);
+        $course->professors()->sync($attributes->input('professor'));
         $flash->addSuccess('Un nouveau cours a ete ajouter');
 
         return $course;

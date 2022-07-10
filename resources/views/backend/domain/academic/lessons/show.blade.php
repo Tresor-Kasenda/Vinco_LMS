@@ -47,32 +47,73 @@
                                     </div>
                                     <table class="table">
                                         <tbody>
-                                        <tr></tr>
                                         <tr>
                                             <th>Cours</th>
-                                            <td>{{ ucwords($lesson->chapter->course->name) ?? "" }}</td>
+                                            <td>
+                                                <a href="{{ route('admins.academic.course.show', $lesson->chapter->course->id) }}">
+                                                    {{ ucwords($lesson->chapter->course->name) ?? "" }}
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Chapitre</th>
-                                            <td>{{ ucwords($lesson->chapter->name) ?? "" }}</td>
+                                            <td>
+                                                <a href="{{ route('admins.academic.chapter.show', $lesson->chapter->id) }}">
+                                                    {{ ucwords($lesson->chapter->name) ?? "" }}
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Professeur</th>
-                                            <td>{{ ucwords($lesson->chapter->course->user->name) ?? "" }}</td>
+                                            <td>
+                                                @if($lesson->chapter->course->professors)
+                                                    @foreach($lesson->chapter->course->professors as $professor)
+                                                        <li>
+                                                            <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                <em class="icon ni ni-user"></em>
+                                                                <span>{{ ucfirst($professor->username) ?? "" }} {{ ucfirst($professor->lastname) ?? "" }}</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('admins.users.teacher.show', $professor->id) }}">
+                                                                <em class="icon ni ni-emails"></em>
+                                                                <span>{{ $professor->email ?? "" }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Title du lecon</th>
                                             <td>{{ ucfirst($lesson->name) ?? "" }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Sous description</th>
-                                            <td>{{ ucfirst($lesson->shortContent) ?? "" }}</td>
+                                            <th>Resource</th>
+                                            <td>
+                                                @if($lesson->resources)
+                                                    @foreach($lesson->resources as $resource)
+                                                        <li>
+                                                            <a href="{{ route('admins.users.teacher.show', $resource->id) }}">
+                                                                <em class="icon ni ni-user"></em>
+                                                                <span>{{ ucfirst($resource->name) ?? "" }}</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <img
+                                                                class="img-fluid img-thumbnail round-sm"
+                                                                src="{{ asset('storage/'.$resource->path) }}"
+                                                                alt="{{ $resource->name }}"
+                                                                title="{{ $resource->name }}">
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Description</th>
-                                            <td>{{ $lesson->content ?? "" }}</td>
+                                            <td>{!! $lesson->content ?? "" !!}</td>
                                         </tr>
-                                        <tr></tr>
                                         </tbody>
                                     </table>
                                 </div>

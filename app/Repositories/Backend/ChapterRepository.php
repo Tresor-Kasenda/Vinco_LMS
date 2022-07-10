@@ -20,7 +20,13 @@ class ChapterRepository implements ChapterRepositoryInterface
     public function getChapters(): array|Collection
     {
         return Chapter::query()
-            ->withCount(['lessons', 'exercises'])
+            ->select([
+                'id',
+                'name',
+                'course_id'
+            ])
+            ->with('course:id,name')
+            ->withCount(['lessons'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -28,35 +34,34 @@ class ChapterRepository implements ChapterRepositoryInterface
     public function showChapter(string $key): Model|Builder|Chapter|null|array
     {
         $chapter = Chapter::query()
-            ->where('key', '=', $key)
+            ->select([
+                'id',
+                'name',
+                'course_id',
+                'content'
+            ])
+            ->where('id', '=', $key)
             ->first();
 
-        return $chapter->load('lessons');
+        return $chapter->load([
+            'lessons:id,name',
+            'course:id,name,professor_id,images',
+            'course.professors:id,username,email,lastname',
+            'resources:id,name,path'
+        ]);
     }
 
     public function stored($attributes, $flash): Model|Builder|Chapter|RedirectResponse|array
     {
         $chapter = Chapter::query()
-            ->when('name', function ($query) use ($attributes) {
-                $query->where('name', $attributes->input('name'));
-            })
-            ->first();
-        if (! $chapter) {
-            $chapter = Chapter::query()
-                ->create([
-                    'course_id' => $attributes->input('course'),
-                    'status' => StatusEnum::TRUE,
-                    'name' => $attributes->input('name'),
-                    'displayType' => $attributes->input('displayType'),
-                    'description' => $attributes->input('description'),
-                ]);
-            $flash->addSuccess('Un nouveau cours a ete ajouter');
+            ->create([
+                'course_id' => $attributes->input('course'),
+                'name' => $attributes->input('name'),
+                'content' => $attributes->input('content'),
+            ]);
+        $flash->addSuccess('Un nouveau cours a ete ajouter');
 
-            return $chapter;
-        }
-        $flash->addError('Nom du cours ou le professeur a existe deja pour ce cours');
-
-        return back();
+        return $chapter;
     }
 
     public function updated(string $key, $attributes, $flash): Model|Builder|array|Chapter|null
@@ -66,8 +71,7 @@ class ChapterRepository implements ChapterRepositoryInterface
         $chapter->update([
             'course_id' => $attributes->input('course'),
             'name' => $attributes->input('name'),
-            'displayType' => $attributes->input('displayType'),
-            'description' => $attributes->input('description'),
+            'content' => $attributes->input('content'),
         ]);
         $flash->addSuccess('Un cours a ete mise a jours avec success');
 

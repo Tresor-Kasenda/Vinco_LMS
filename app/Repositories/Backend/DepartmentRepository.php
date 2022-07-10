@@ -20,7 +20,13 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function getDepartments(): Collection|array
     {
         return Department::query()
-            ->with(['campus', 'users'])
+            ->select([
+                'id',
+                'name',
+                'campus_id',
+                'images'
+            ])
+            ->with(['campus:id,name', 'users'])
             ->latest()
             ->get();
     }
@@ -28,7 +34,14 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function showDepartment(string $key): Model|Department|Builder|null
     {
         $department = Department::query()
-            ->where('key', '=', $key)
+            ->select([
+                'campus_id',
+                'name',
+                'id',
+                'description',
+                'images'
+            ])
+            ->where('id', '=', $key)
             ->first();
 
         return $department->load(['campus', 'users', 'teachers']);
@@ -47,9 +60,9 @@ class DepartmentRepository implements DepartmentRepositoryInterface
                     'name' => $attributes->input('name'),
                     'description' => $attributes->input('description'),
                     'images' => self::uploadFiles($attributes),
-                    'campus_id' => $attributes->input('campus_id'),
+                    'campus_id' => $attributes->input('campus'),
                 ]);
-            $faculty->users()->attach($attributes->input('user_id'));
+            $faculty->users()->sync($attributes->input('user'));
             $factory->addSuccess('Un nouvaux campus a ete ajouter');
 
             return $faculty;
@@ -62,15 +75,13 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function updated(string $key, $attributes, $factory): Model|Department|Builder|null
     {
         $department = $this->showDepartment(key: $key);
-        $this->removePathOfImages($department);
         $department->users()->detach();
         $department->update([
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'images' => self::uploadFiles($attributes),
-            'campus_id' => $attributes->input('campus_id'),
+            'campus_id' => $attributes->input('campus'),
         ]);
-        $department->users()->attach($attributes->input('user_id'));
+        $department->users()->sync($attributes->input('user'));
         $factory->addSuccess('Un campus a ete modifier');
 
         return $department;

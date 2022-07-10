@@ -17,7 +17,7 @@ class CreateUserCommand extends Command
 {
     protected $signature = 'vinco:add-user {name?}';
 
-    protected $description = 'Creates admins and stored them in the database';
+    protected $description = 'Creates admins and stored them in the database 🖱';
 
     public function __construct()
     {

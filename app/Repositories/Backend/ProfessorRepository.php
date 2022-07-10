@@ -25,18 +25,6 @@ class ProfessorRepository implements ProfessorRepositoryInterface
 
     public function getProfessors(): Collection|array
     {
-        return Professor::query()
-            ->select([
-                'id',
-                'images',
-                'username',
-                'email',
-                'phones',
-                'matriculate',
-            ])
-            ->with(['departments'])
-            ->latest()
-            ->get();
         if (\Auth::user()->institution != null) {
             return Professor::query()
                 ->select([
@@ -74,7 +62,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             ->whereId($key)
             ->first();
 
-        return $professor->load(['user', 'departments']);
+        return $professor->load(['user', 'courses:id,name']);
     }
 
     public function stored($attributes, $factory): Model|Builder|RedirectResponse

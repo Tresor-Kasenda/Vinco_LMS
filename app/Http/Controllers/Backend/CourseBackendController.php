@@ -35,13 +35,6 @@ class CourseBackendController extends Controller
         return view('backend.domain.academic.cours.index', compact('courses'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $course = $this->repository->showCourse(key:  $key);
-
-        return view('backend.domain.academic.cours.show', compact('course'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.academic.cours.create');
@@ -54,11 +47,17 @@ class CourseBackendController extends Controller
         return to_route('admins.academic.course.index');
     }
 
+    public function show(string $key): Factory|View|Application
+    {
+        $course = $this->repository->showCourse(key:  $key);
+
+        return view('backend.domain.academic.cours.show', compact('course'));
+    }
+
     public function edit(string $key): HttpResponse
     {
-        return Response::view('backend.domain.academic.cours.edit', [
-            'course' => $this->repository->showCourse(key: $key),
-        ]);
+        $course = $this->repository->showCourse($key);
+        return Response::view('backend.domain.academic.cours.edit', compact('course'));
     }
 
     public function update(string $key, UpdateCourseRequest $attributes): RedirectResponse

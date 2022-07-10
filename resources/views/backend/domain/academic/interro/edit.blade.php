@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Mise a jours de l'interro")
+@section('title')
+    Edit Interro
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Edition de l'interro ({{ $lesson->name }} )</h3>
+                            <h3 class="nk-block-title page-title">Edition de l'interro</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -30,82 +32,98 @@
                 <div class="nk-block">
                     <div class="card">
                         <div class="card-inner">
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.interro.update', ['interro' => $lesson->key]) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.academic.interro.update', $interro->id) }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom du Leçon</label>
+                                                    <label class="form-label" for="course">Cours</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('course') error @enderror"
+                                                        id="course"
+                                                        name="course"
+                                                        data-placeholder="Choisir le cours"
+                                                        required>
+                                                        <option value="{{ $interro->course->id }}">{{ ucfirst($interro->course->name) }}</option>
+                                                        @foreach(\App\Models\Course::all() as $course)
+                                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="chapter">Chapitre</label>
+                                                    <select
+                                                        class="form-control js-select2 @error('chapter') error @enderror"
+                                                        id="chapter"
+                                                        name="chapter"
+                                                        data-placeholder="Choisir le chapter"
+                                                        required>
+                                                        <option value="{{ $interro->chapter->id }}">{{ ucfirst($interro->chapter->name) }}</option>
+                                                        @foreach(\App\Models\Chapter::all() as $chapter)
+                                                            <option value="{{ $chapter->id }}">{{ $chapter->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="rating">Cote</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') ?? $lesson->name }}"
-                                                            placeholder="Saisir le nom du Leçon"
+                                                            class="form-control @error('rating') error @enderror"
+                                                            id="rating"
+                                                            name="rating"
+                                                            value="{{ old('rating') ?? $interro->rating }}"
+                                                            placeholder="Saisir le cote"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="shortContent">Bref contenue</label>
+                                                    <label class="form-label" for="duration">Duree</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control @error('shortContent') error @enderror"
-                                                            id="shortContent"
-                                                            name="shortContent"
-                                                            value="{{ old('shortContent') ?? $lesson->shortContent }}"
-                                                            placeholder="une breve contenue"
+                                                            type="time"
+                                                            class="form-control @error('duration') error @enderror"
+                                                            id="duration"
+                                                            name="duration"
+                                                            value="{{ old('duration') ?? $interro->duration }}"
+                                                            placeholder="Select duration"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="chapter">Nom du cours</label>
+                                                    <label class="form-label" for="date">Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control @error('chapter') error @enderror"
-                                                            id="chapter"
-                                                            name="chapter"
-                                                            value="{{ old('chapter') ?? $chapter->name }}"
-                                                            placeholder="Nom du leçon"
+                                                            type="date"
+                                                            class="form-control @error('date') error @enderror"
+                                                            id="date"
+                                                            name="date"
+                                                            value="{{ old('date') ?? $interro->date }}"
+                                                            placeholder="Select Date"
                                                             required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="chapter">Nom du chapitre</label>
-                                                    <div class="form-control-wrap">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control @error('chapter') error @enderror"
-                                                            id="chapter"
-                                                            name="chapter"
-                                                            value="{{ old('chapter') ?? $chapter->name }}"
-                                                            placeholder="Nom du leçon"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="content">Contenue du Leçon</label>
-                                                    <div class="form-control-wrap">
-                                                <textarea
-                                                    class="form-control form-control-sm @error('content') error @enderror"
-                                                    id="content"
-                                                    name="content"
-                                                    placeholder="Write the description"
-                                                >{{ old('content') ?? $lesson->content }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
