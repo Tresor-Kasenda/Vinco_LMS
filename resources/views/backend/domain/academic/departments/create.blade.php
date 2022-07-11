@@ -80,6 +80,8 @@
                                                 $users = \App\Models\Professor::
                                                     where('institution_id', Auth::user()->teacher->institution_id)
                                                     ->get();
+                                                $camprus = \App\Models\Campus::where('institution_id', Auth::user()->teacher->institution_id)
+                                                    ->get();
                                             @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -109,7 +111,7 @@
                                                         data-placeholder="Choisir la faculte"
                                                         required>
                                                         <option label="Choisir la faculte" value=""></option>
-                                                        @foreach(\App\Models\Campus::all() as $campus)
+                                                        @foreach($camprus as $campus)
                                                             <option value="{{ $campus->id }}">{{ $campus->name }}</option>
                                                         @endforeach
                                                     </select>

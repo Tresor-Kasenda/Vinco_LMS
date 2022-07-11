@@ -74,6 +74,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                $professor = \App\Models\Professor::where('user_id', Auth::user()->id)
+                                                    ->first();
+                                                $users = \App\Models\User::where('id', $professor->user_id)->first();
+                                                $institution = $professor->institution_id;
+                                                $academic = \App\Models\AcademicYear::where('institution_id', $institution)->get();
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="filiaire">FIliaire</label>
@@ -100,7 +107,7 @@
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
                                                         <option label="Choisir l'annee academique" value=""></option>
-                                                        @foreach(\App\Models\AcademicYear::all() as $campus)
+                                                        @foreach($academic as $campus)
                                                             <option value="{{ $campus->id }}">
                                                                 {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
                                                                 -
