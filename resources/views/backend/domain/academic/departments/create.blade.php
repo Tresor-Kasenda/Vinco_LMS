@@ -77,11 +77,8 @@
                                                 </div>
                                             </div>
                                             @php
-                                                $users = \App\Models\User::query()
-                                                    ->select(['id', 'name'])
-                                                    ->whereHas('roles', function ($query) {
-                                                        $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                    })
+                                                $users = \App\Models\Professor::
+                                                    where('institution_id', Auth::user()->teacher->institution_id)
                                                     ->get();
                                             @endphp
                                             <div class="col-md-12">
@@ -95,7 +92,9 @@
                                                         required>
                                                         <option label="Select Responsable" value=""></option>
                                                         @foreach($users as $user)
-                                                            <option value="{{ $user->id }}">{{ ucfirst($user->name) }}</option>
+                                                            <option value="{{ $user->user_id }}">
+                                                                {{ ucfirst($user->username . ' ' . $user->lastname) }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
