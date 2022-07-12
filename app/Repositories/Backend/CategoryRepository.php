@@ -35,7 +35,7 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'id',
                 'name',
                 'description',
-                'institution_id'
+                'institution_id',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -81,10 +81,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Professor::query()
             ->select([
                 'id',
-                'institution_id'
+                'institution_id',
             ])
             ->where('user_id', '=', auth()->user()->id)
             ->first();
     }
-
 }
