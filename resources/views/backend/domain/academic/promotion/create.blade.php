@@ -80,6 +80,18 @@
                                                 $users = \App\Models\User::where('id', $professor->user_id)->first();
                                                 $institution = $professor->institution_id;
                                                 $academic = \App\Models\AcademicYear::where('institution_id', $institution)->get();
+                                                $filiaire = \App\Models\Subsidiary::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'department_id'
+                                                        ])
+                                                        ->with([
+                                                            'department:id,name,campus_id',
+                                                            'department.campus:id,institution_id',
+                                                            'department.campus.institution:id,institution_name'
+                                                        ])
+                                                        ->get();
                                             @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -91,7 +103,7 @@
                                                         data-placeholder="Choisir le filiaire"
                                                         required>
                                                         <option label="Choisir le filiaire" value=""></option>
-                                                        @foreach(\App\Models\Subsidiary::all() as $user)
+                                                        @foreach($filiaire as $user)
                                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                         @endforeach
                                                     </select>

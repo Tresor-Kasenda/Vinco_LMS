@@ -1,22 +1,47 @@
+@php
+    $role = '';
+    $roles = Auth::user()->roles;
+    foreach ($roles as $rol){
+        $role = $rol;
+    }
+@endphp
 <div class="nk-sidebar nk-sidebar-fixed is-light" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admins.backend.home') }}" class="logo-link nk-sidebar-logo">
-                <img
-                    class="logo-light logo-img h-100 w-100"
-                    src="{{ asset('assets/favicon.svg') }}"
-                    srcset="{{ asset('assets/favicon.svg') }} 3x"
-                    alt="logo">
-                <img
-                    class="logo-dark logo-img h-100 w-100"
-                    src="{{ asset('assets/favicon.svg') }}"
-                    srcset="{{ asset('assets/favicon.svg') }} 3x"
-                    alt="logo-dark">
-                <img
-                    class="logo-small logo-img h-100 w-100"
-                    src="{{ asset('assets/favicon.svg') }}"
-                    srcset="{{ asset('assets/favicon.svg') }} 3x"
-                    alt="logo-small">
+                @if($role->name == 'Super Admin')
+                    <img
+                        class="logo-light logo-img h-100 w-100"
+                        src="{{ asset('assets/favicon.svg') }}"
+                        srcset="{{ asset('assets/favicon.svg') }} 3x"
+                        alt="logo">
+                    <img
+                        class="logo-dark logo-img h-100 w-100"
+                        src="{{ asset('assets/favicon.svg') }}"
+                        srcset="{{ asset('assets/favicon.svg') }} 3x"
+                        alt="logo-dark">
+                    <img
+                        class="logo-small logo-img h-100 w-100"
+                        src="{{ asset('assets/favicon.svg') }}"
+                        srcset="{{ asset('assets/favicon.svg') }} 3x"
+                        alt="logo-small">
+                @else
+                    <img
+                        class="logo-light logo-img h-100 w-100"
+                        src="{{ asset('storage/'.Auth::user()->institution->institution_images) }}"
+                        srcset="{{ asset('storage/'.Auth::user()->institution->institution_images) }} 3x"
+                        alt="logo">
+                    <img
+                        class="logo-dark logo-img h-100 w-100"
+                        src="{{ asset('storage/'.Auth::user()->institution->institution_images) }}"
+                        srcset="{{ asset('storage/'.Auth::user()->institution->institution_images) }} 3x"
+                        alt="logo-dark">
+                    <img
+                        class="logo-small logo-img h-100 w-100"
+                        src="{{ asset('storage/'.Auth::user()->institution->institution_images) }}"
+                        srcset="{{ asset('storage/'.Auth::user()->institution->institution_images) }} 3x"
+                        alt="logo-small">
+                @endif
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">

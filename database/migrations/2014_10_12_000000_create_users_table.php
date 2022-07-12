@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
+use App\Models\Institution;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

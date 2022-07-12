@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -38,6 +39,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin Eloquent
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|Category whereInstitutionId($value)
  */
 class Category extends Model
 {
@@ -48,5 +52,10 @@ class Category extends Model
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class, 'institution_id');
     }
 }
