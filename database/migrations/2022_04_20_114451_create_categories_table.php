@@ -16,9 +16,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name', '30')->unique();
             $table->text('description')->nullable();
-            $table->foreignIdFor(Institution::class)
-                ->constrained()
-                ->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
