@@ -49,7 +49,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom Etudiant</label>
+                                                    <label class="form-label" for="name">Prénom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstname">Post-Nom Etudiant</label>
+                                                    <label class="form-label" for="name">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -72,7 +72,22 @@
                                                             id="firstname"
                                                             name="firstname"
                                                             value="{{ old('firstname') }}"
-                                                            placeholder="Enter First Name"
+                                                            placeholder="Enter a FirstName"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="firstname">Post-Nom</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control @error('lastname') error @enderror"
+                                                            id="lastname"
+                                                            name="lastname"
+                                                            value="{{ old('lastname') }}"
+                                                            placeholder="Enter Last Name"
                                                             required>
                                                     </div>
                                                 </div>

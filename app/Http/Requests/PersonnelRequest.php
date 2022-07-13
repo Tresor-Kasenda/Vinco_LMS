@@ -32,7 +32,6 @@ class PersonnelRequest extends FormRequest
             'password' => ['required', 'string', 'min:6'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'gender' => ['required', 'in:male,female'],
-            'academic' => ['required', Rule::exists('academic_years', 'id')],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
         ];
     }

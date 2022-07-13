@@ -48,8 +48,9 @@ class CreateUserCommand extends Command
                 try {
                     $password = Hash::make($password);
                     $status = StatusEnum::TRUE;
+                    $institution_id = 1;
                     $user = User::query()
-                        ->create(compact('name', 'email', 'password', 'status'));
+                        ->create(compact('name', 'email', 'password', 'status', 'institution_id'));
                     $user->save();
                     $role = Role::create(['name' => 'Super Admin']);
 

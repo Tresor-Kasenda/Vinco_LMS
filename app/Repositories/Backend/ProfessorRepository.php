@@ -166,7 +166,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getRole(): Builder|Model
     {
         return Role::query()
-            ->whereName('Teacher')
+            ->whereName('Professeur')
             ->firstOrFail();
     }
 }

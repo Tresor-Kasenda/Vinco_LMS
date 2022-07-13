@@ -30,6 +30,7 @@ class StudentRepository implements StudentRepositoryInterface
                 'id',
                 'name',
                 'firstname',
+                'lastname',
                 'matriculate',
                 'department_id',
                 'subsidiary_id',
@@ -52,11 +53,11 @@ class StudentRepository implements StudentRepositoryInterface
                 'id',
                 'name',
                 'firstname',
+                'lastname',
                 'matriculate',
                 'department_id',
                 'subsidiary_id',
                 'email',
-                'lastname',
                 'phone_number',
                 'images',
                 'nationality',
@@ -100,7 +101,7 @@ class StudentRepository implements StudentRepositoryInterface
         if (! $user) {
             $user = User::query()
                 ->create([
-                    'name' => $attributes->input('name'),
+                    'name' => $attributes->input('name') . ' ' . $attributes->input('firstname') . ' ' . $attributes->input('lastname'),
                     'email' => $attributes->input('email'),
                     'password' => \Hash::make($attributes->input('password')),
                 ]);
@@ -118,6 +119,7 @@ class StudentRepository implements StudentRepositoryInterface
                     'subsidiary_id' => $attributes->input('filiaire'),
                     'name' => $attributes->input('name'),
                     'firstname' => $attributes->input('firstname'),
+                    'lastname' => $attributes->input('lastname'),
                     'email' => $attributes->input('email'),
                     'images' => self::uploadFiles($attributes),
                     'status' => StatusEnum::TRUE,
@@ -151,6 +153,7 @@ class StudentRepository implements StudentRepositoryInterface
             'subsidiary_id' => $attributes->input('filiaire'),
             'name' => $attributes->input('name'),
             'firstname' => $attributes->input('firstname'),
+            'lastname' => $attributes->input('lastname'),
             'email' => $attributes->input('email'),
             'gender' => $attributes->input('gender'),
             'guardian_id' => $attributes->input('parent'),

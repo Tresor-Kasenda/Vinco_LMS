@@ -1,7 +1,7 @@
 @extends('frontend.layout.register')
 
 @section('title')
-    Register Student
+    Create an account
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Register Student</h3>
+                            <h3 class="nk-block-title page-title">Create an account</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -49,7 +49,7 @@
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre nom</label>
+                                                    <label class="form-label" for="name">Votre Prénom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -58,6 +58,52 @@
                                                             name="name"
                                                             value="{{ old('name') }}"
                                                             placeholder="Enter Name"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Votre Nom</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control @error('name') error @enderror"
+                                                            id="name"
+                                                            name="name"
+                                                            value="{{ old('name') }}"
+                                                            placeholder="Enter Name"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">Votre PostNom</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control @error('name') error @enderror"
+                                                            id="name"
+                                                            name="name"
+                                                            value="{{ old('name') }}"
+                                                            placeholder="Enter Name"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="startDate">Date de naissance</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control date-picker @error('startDate') error @enderror"
+                                                            id="startDate"
+                                                            name="startDate"
+                                                            value="{{ old('startDate') }}"
+                                                            data-date-format="yyyy-mm-dd"
+                                                            placeholder="Enter Birthday Date"
                                                             required>
                                                     </div>
                                                 </div>
@@ -93,41 +139,36 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="admission">Admission Date</label>
+                                                    <label class="form-label" for="name">Votre Pays</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker @error('admission') error @enderror"
-                                                            id="admission"
-                                                            name="admission"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            value="{{ old('admission') }}"
-                                                            placeholder="Select Admission Date"
+                                                            class="form-control @error('name') error @enderror"
+                                                            id="name"
+                                                            name="name"
+                                                            value="{{ old('name') }}"
+                                                            placeholder="Enter Country"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="images">Image</label>
+                                                    <label class="form-label" for="name">Votre Ville</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="file"
-                                                            class="form-control @error('images') error @enderror"
-                                                            id="images"
-                                                            name="images"
-                                                            value="{{ old('images') }}"
-                                                            placeholder="Select image"
+                                                            type="text"
+                                                            class="form-control @error('name') error @enderror"
+                                                            id="name"
+                                                            name="name"
+                                                            value="{{ old('name') }}"
+                                                            placeholder="Enter City"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="gender">Gender</label> <br>

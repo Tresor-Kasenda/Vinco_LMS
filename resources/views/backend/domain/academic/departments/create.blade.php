@@ -78,9 +78,9 @@
                                             </div>
                                             @php
                                                 $users = \App\Models\Professor::
-                                                    where('institution_id', Auth::user()->teacher->institution_id)
+                                                    where('institution_id', Auth::user()->institution->id)
                                                     ->get();
-                                                $camprus = \App\Models\Campus::where('institution_id', Auth::user()->teacher->institution_id)
+                                                $camprus = \App\Models\Campus::where('institution_id', Auth::user()->institution->id)
                                                     ->get();
                                             @endphp
                                             <div class="col-md-12">

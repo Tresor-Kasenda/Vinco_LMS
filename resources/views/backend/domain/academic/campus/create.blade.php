@@ -64,6 +64,9 @@
                                             @php
                                                 $personnels = \App\Models\User::query()
                                                     ->select(['id', 'name'])
+                                                    ->with(['institution' => function($querys){
+                                                        $querys->where('id', '=', auth()->user()->institution_id);
+                                                    }])
                                                     ->whereHas('roles', function ($query) {
                                                         $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
                                                     })
@@ -99,10 +102,10 @@
                                                         data-placeholder="Select Institution"
                                                         required>
                                                         <option label="role" value=""></option>
-                                                        @foreach(\App\Models\Professor::where('institution_id', Auth::user()->institution->id)->get() as $personnel)
+                                                        @foreach(\App\Models\Institution::where('id', Auth::user()->institution->id)->get() as $personnel)
                                                             <option
-                                                                value="{{ $personnel->user_id }}">
-                                                                {{ ucfirst($personnel->username) ?? "" }} {{ ucfirst($personnel->lastname) ?? "" }}
+                                                                value="{{ $personnel->id }}">
+                                                                {{ ucfirst($personnel->institution_name) ?? "" }}
                                                             </option>
                                                         @endforeach
                                                     </select>

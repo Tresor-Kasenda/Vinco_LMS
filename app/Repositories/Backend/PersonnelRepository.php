@@ -80,7 +80,6 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
             'gender' => $attributes->input('gender'),
-            'academic_year_id' => $attributes->input('academic'),
         ]);
 
         $user = User::query()
@@ -128,7 +127,6 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'phones' => $attributes->input('phones'),
                 'images_personnel' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
-                'academic_year_id' => $attributes->input('academic'),
                 'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
             ]);

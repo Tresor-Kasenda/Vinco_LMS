@@ -115,7 +115,7 @@
                     <div class="modal-body">
                         @forelse(\App\Models\Institution::all() as $institution)
                             <div class="row m-2">
-                                <a type="button" class="btn btn-outline-light" href="">
+                                <a type="button" class="btn btn-outline-light" href="{{route('login')}}">
                                     {{$institution->institution_name}} / {{$institution->institution_town}} / {{$institution->institution_country}}
                                 </a>
                             </div>

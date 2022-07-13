@@ -6,32 +6,6 @@
                     <em class="icon ni ni-menu"></em>
                 </a>
             </div>
-            @php
-                $role = '';
-                $roles = Auth::user()->roles;
-                foreach ($roles as $rol){
-                    $role = $rol;
-                }
-            @endphp
-            @if($role->name = 'Super Admin')
-                <div class="nk-header-brand d-xl-none">
-                    <a class="logo-link">
-                        <img class="logo-light logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo">
-                        <img class="logo-dark logo-img" src="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }}" srcset="{{ asset('assets/apps/images/VincoWhite/1x/Vinco White Engmdpi.png') }} 2x" alt="logo-dark">
-                    </a>
-                </div>
-            @else
-                <div class="nk-header-brand d-xl-none">
-                    <a class="logo-link">
-                        <img class="logo-light logo-img"
-                             src="{{ asset(Auth::user()->institution->institution_images) }}"
-                             srcset="{{ asset(Auth::user()->institution->institution_images) }} 2x" alt="logo">
-                        <img class="logo-dark logo-img"
-                             src="{{ asset(Auth::user()->institution->institution_images) }}"
-                             srcset="{{ asset(Auth::user()->institution->institution_images) }} 2x" alt="logo-dark">
-                    </a>
-                </div>
-            @endif
             <div class="nk-header-search ms-3 ms-xl-0">
                 <span class="badge bg-secondary">
                     {{Auth::user()->institution->institution_name}}

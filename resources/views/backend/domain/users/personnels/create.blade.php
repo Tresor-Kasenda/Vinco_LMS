@@ -129,9 +129,8 @@
 
                                             @php
                                                 $roles = \Spatie\Permission\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur'])
+                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable'])
                                                         ->get();
-                                                $academicYear = \App\Models\AcademicYear::all();
                                             @endphp
 
                                             <div class="col-md-12">
@@ -149,30 +148,6 @@
                                                             @foreach($roles as $role)
                                                                 <option value="{{ $role->id }}">
                                                                     {{ ucfirst($role->name) ?? "" }}
-                                                                </option>
-                                                            @endforeach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="academic">Annee academique</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 @error('academic') error @enderror"
-                                                            data-value="{{ old('academic') }}"
-                                                            id="academic"
-                                                            name="academic"
-                                                            data-placeholder="Select a academic year"
-                                                            required>
-                                                            <option label="genre" value=""></option>
-                                                            @foreach($academicYear as $year)
-                                                                <option value="{{ $year->id }}">
-                                                                    {{  \Carbon\Carbon::createFromFormat('Y-m-d', $year->start_date)->format('Y') }}
-                                                                    -
-                                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $year->end_date)->format('Y') }}
                                                                 </option>
                                                             @endforeach>
                                                         </select>
