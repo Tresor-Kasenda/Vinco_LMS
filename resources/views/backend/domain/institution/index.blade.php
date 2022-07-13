@@ -82,11 +82,19 @@
                                         {{ $institution->institution_address }}
                                     </span>
                                 </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        {{ ucfirst($institution->user->name) }}
-                                    </span>
-                                </td>
+                                @if($institution->user != null)
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            {{ ucfirst($institution->user->name) }}
+                                        </span>
+                                    </td>
+                                @else
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            Pas de gestionnaire
+                                        </span>
+                                    </td>
+                                @endif
                                 <td class="nk-tb-col text-center">
                                     <span class="tb-lead text-center">
                                         <div class="d-flex">
