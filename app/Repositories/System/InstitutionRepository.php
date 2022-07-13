@@ -52,6 +52,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                     'institution_town' => $attributes->input('institution_town'),
                     'institution_images' => self::uploadFiles($attributes),
                     'institution_website' => $attributes->input('institution_website'),
+                    'institution_email' => $attributes->input('institution_email'),
                     'institution_description' => $attributes->input('institution_description'),
                 ]);
         }
@@ -74,6 +75,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
             'institution_town' => $attributes->input('institution_town'),
             'institution_images' => self::uploadFiles($attributes),
             'institution_website' => $attributes->input('institution_website'),
+            'institution_email' => $attributes->input('institution_email'),
             'institution_description' => $attributes->input('institution_description'),
             'institution_start_time' => $attributes->input('institution_start_time'),
             'institution_end_time' => $attributes->input('institution_end_time'),
