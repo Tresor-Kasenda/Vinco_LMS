@@ -28,10 +28,8 @@ return new class extends Migration
             $table->string('institution_address')->nullable();
             $table->string('institution_phones', 15)->nullable();
             $table->string('institution_website')->nullable();
+            $table->string('institution_email')->nullable();
             $table->string('institution_images')->nullable();
-            $table->time('institution_start_time')->nullable();
-            $table->time('institution_end_time')->nullable();
-            $table->integer('institution_routine_time')->nullable(); //Différence horaire de routine
             $table->text('institution_description')->nullable();
             $table->timestamps();
             $table->softDeletes();

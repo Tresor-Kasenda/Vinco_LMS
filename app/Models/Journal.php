@@ -42,6 +42,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Journal whereStudentId($value)
  * @method static Builder|Journal whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $title
+ * @method static Builder|Journal whereTitle($value)
  */
 class Journal extends Model
 {

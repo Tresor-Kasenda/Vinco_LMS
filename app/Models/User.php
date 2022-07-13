@@ -145,9 +145,9 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function institution(): HasOne
+    public function institution(): BelongsTo
     {
-        return $this->hasOne(Institution::class);
+        return $this->belongsTo(Institution::class, 'institution_id');
     }
 
     protected $hidden = [

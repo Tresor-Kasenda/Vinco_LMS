@@ -69,7 +69,7 @@
                                         <span class="tb-lead">
                                             <img
                                                 src="{{ asset('storage/'.$course->images) }}"
-                                                alt="{{ $course->name }}"
+                                                alt="{{ ucfirst(substr($course->name, 0, 20)) ?? "" }}"
                                                 class="img-fluid rounded-circle"
                                                 width="20%"
                                                 height="20%"

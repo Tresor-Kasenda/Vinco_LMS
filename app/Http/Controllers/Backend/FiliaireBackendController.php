@@ -40,7 +40,7 @@ class FiliaireBackendController extends Controller
 
     public function store(FiliaireRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::denies('Subsidiaries-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::allows('Subsidiaries-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 

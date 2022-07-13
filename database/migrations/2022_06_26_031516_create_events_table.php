@@ -20,9 +20,6 @@ return new class extends Migration
             $table->string('title');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->foreignIdFor(\App\Models\Institution::class)
-                ->constrained()
-                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

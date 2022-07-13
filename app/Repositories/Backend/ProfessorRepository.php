@@ -151,6 +151,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 ->create([
                     'name' => $attributes->input('name'),
                     'email' => $attributes->input('email'),
+                    'institution_id'=> \Auth::user()->institution_id,
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }
@@ -164,7 +165,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
     public function getRole(): Builder|Model
     {
         return Role::query()
-            ->whereName('Teacher')
+            ->whereName('Professeur')
             ->firstOrFail();
     }
 }

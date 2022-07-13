@@ -66,7 +66,8 @@ class CourseRepository implements CourseRepositoryInterface
                 'sub_description' => $attributes->input('sub_description'),
                 'description' => $attributes->input('description'),
                 'images' => self::uploadFiles($attributes),
-                'status' => StatusEnum::FALSE,
+                'status' => StatusEnum::TRUE,
+                'institution_id'=> \Auth::user()->institution->id,
             ]);
 
         $course->professors()->sync($attributes->input('professor'));

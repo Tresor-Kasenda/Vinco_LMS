@@ -55,9 +55,6 @@
                             <th class="nk-tb-col tb-col-md">
                                 <span>EMAIL</span>
                             </th>
-                            <th class="nk-tb-col tb-col-md">
-                                <span>DEPARTEMENT</span>
-                            </th>
                             <th class="nk-tb-col text-center">
                                 <span>ACTIONS</span>
                             </th>
@@ -87,9 +84,6 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $student->email ?? "" }}</span>
-                                </td>
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ ucfirst($student->department->name) ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
