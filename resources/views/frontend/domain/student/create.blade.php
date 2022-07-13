@@ -69,30 +69,30 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre Nom</label>
+                                                    <label class="form-label" for="firstname">Votre Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') }}"
-                                                            placeholder="Enter Name"
+                                                            class="form-control @error('firstname') error @enderror"
+                                                            id="firstname"
+                                                            name="firstname"
+                                                            value="{{ old('firstname') }}"
+                                                            placeholder="Enter First Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre PostNom</label>
+                                                    <label class="form-label" for="lastname">Votre PostNom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') }}"
-                                                            placeholder="Enter Name"
+                                                            class="form-control @error('lastname') error @enderror"
+                                                            id="lastname"
+                                                            name="lastname"
+                                                            value="{{ old('lastname') }}"
+                                                            placeholder="Enter Last Name"
                                                             required>
                                                     </div>
                                                 </div>
@@ -146,14 +146,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre Pays</label>
+                                                    <label class="form-label" for="nationality">Votre Pays</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') }}"
+                                                            class="form-control @error('nationality') error @enderror"
+                                                            id="nationality"
+                                                            name="nationality"
+                                                            value="{{ old('nationality') }}"
                                                             placeholder="Enter Country"
                                                             required>
                                                     </div>
@@ -161,14 +161,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Votre Ville</label>
+                                                    <label class="form-label" for="location">Votre Ville</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') }}"
+                                                            class="form-control @error('location') error @enderror"
+                                                            id="location"
+                                                            name="location"
+                                                            value="{{ old('location') }}"
                                                             placeholder="Enter City"
                                                             required>
                                                     </div>

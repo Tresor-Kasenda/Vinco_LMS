@@ -112,23 +112,46 @@ class StudentRepository implements StudentRepositoryInterface
                 ->first();
             $user->assignRole($role->id);
 
-            $student = Student::query()
-                ->create([
-                    'user_id' => $user->id,
-                    'department_id' => $attributes->input('department'),
-                    'promotion_id' => $attributes->input('promotion'),
-                    'subsidiary_id' => $attributes->input('filiaire'),
-                    'name' => $attributes->input('name'),
-                    'firstname' => $attributes->input('firstname'),
-                    'lastname' => $attributes->input('lastname'),
-                    'email' => $attributes->input('email'),
-                    'images' => self::uploadFiles($attributes),
-                    'status' => StatusEnum::TRUE,
-                    'gender' => $attributes->input('gender'),
-                    'guardian_id' => $attributes->input('parent'),
-                    'admission_date' => $attributes->input('admission'),
-                    'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
-                ]);
+            if($attributes->file('images') != null){
+                $student = Student::query()
+                    ->create([
+                        'user_id' => $user->id,
+                        'department_id' => $attributes->input('department'),
+                        'promotion_id' => $attributes->input('promotion'),
+                        'subsidiary_id' => $attributes->input('filiaire'),
+                        'name' => $attributes->input('name'),
+                        'firstname' => $attributes->input('firstname'),
+                        'lastname' => $attributes->input('lastname'),
+                        'nationality' => $attributes->input('nationality'),
+                        'location' => $attributes->input('location'),
+                        'email' => $attributes->input('email'),
+                        'images' => self::uploadFiles($attributes),
+                        'status' => StatusEnum::TRUE,
+                        'gender' => $attributes->input('gender'),
+                        'guardian_id' => $attributes->input('parent'),
+                        'admission_date' => $attributes->input('admission'),
+                        'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
+                    ]);
+            } else {
+                $student = Student::query()
+                    ->create([
+                        'user_id' => $user->id,
+                        'department_id' => $attributes->input('department'),
+                        'promotion_id' => $attributes->input('promotion'),
+                        'subsidiary_id' => $attributes->input('filiaire'),
+                        'name' => $attributes->input('name'),
+                        'firstname' => $attributes->input('firstname'),
+                        'lastname' => $attributes->input('lastname'),
+                        'nationality' => $attributes->input('nationality'),
+                        'location' => $attributes->input('location'),
+                        'email' => $attributes->input('email'),
+                        'status' => StatusEnum::TRUE,
+                        'gender' => $attributes->input('gender'),
+                        'guardian_id' => $attributes->input('parent'),
+                        'admission_date' => $attributes->input('admission'),
+                        'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
+                    ]);
+            }
             $factory->addSuccess('Un Etudiant a ete ajouter');
 
             return $student;

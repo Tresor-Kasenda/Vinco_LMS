@@ -33,16 +33,17 @@ class StudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'department' => ['required', Rule::exists(Department::class, 'id')],
-            'promotion' => ['required', Rule::exists(Promotion::class, 'id')],
-            'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')],
+            'department' => [Rule::exists(Department::class, 'id')],
+            'promotion' => [Rule::exists(Promotion::class, 'id')],
+            'filiaire' => [Rule::exists(Subsidiary::class, 'id')],
             'name' => ['required', 'string'],
             'firstname' => ['required', 'string'],
+            'lastname' => ['required', 'string'],
             'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique(Student::class, 'email')],
-            'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
+            'images' => ['image', 'mimes:jpg,png,gif,svg,jpeg'],
             'gender' => ['required', 'in:male,female'],
-            'parent' => ['required', Rule::exists(Guardian::class, 'id')],
-            'admission' => ['required', 'date'],
+            'parent' => [Rule::exists(Guardian::class, 'id')],
+            'admission' => ['date'],
             'password' => ['required', 'string', 'min:6'],
 
         ];
