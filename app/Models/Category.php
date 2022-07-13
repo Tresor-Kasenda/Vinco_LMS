@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property-read AcademicYear|null $academic
  * @property-read Collection|Course[] $courses
  * @property-read int|null $courses_count
+ *
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()

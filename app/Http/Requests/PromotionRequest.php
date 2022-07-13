@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Models\AcademicYear;
-use App\Models\Department;
 use App\Models\Subsidiary;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;

@@ -7,8 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\TrashedChapterRepositoryInterface;
 use App\Models\Chapter;
 use App\Models\Course;
-use App\Traits\ImageUploader;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 
 class TrashedChapterRepository implements TrashedChapterRepositoryInterface

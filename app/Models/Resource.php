@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property-read Chapter|null $chapter
  * @property-read Lesson|null $lesson
+ *
  * @method static Builder|Resource newModelQuery()
  * @method static Builder|Resource newQuery()
  * @method static \Illuminate\Database\Query\Builder|Resource onlyTrashed()

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\ResourceRepositoryInterface;
-use App\Enums\StatusEnum;
 use App\Models\Resource;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;

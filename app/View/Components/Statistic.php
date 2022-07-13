@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\View\Components;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
 class Statistic extends Component

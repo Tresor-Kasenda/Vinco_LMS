@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $fees_count
  * @property-read Journal|null $journals
  * @property-read User $user
+ *
  * @method static Builder|Institution newModelQuery()
  * @method static Builder|Institution newQuery()
  * @method static \Illuminate\Database\Query\Builder|Institution onlyTrashed()

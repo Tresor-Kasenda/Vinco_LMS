@@ -6,11 +6,9 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ExpenseRepositoryInterface;
 use App\Models\Expense;
-use App\Models\ExpenseType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 class ExpenseRepository implements ExpenseRepositoryInterface
 {

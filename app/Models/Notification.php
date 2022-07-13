@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Notification newModelQuery()
  * @method static Builder|Notification newQuery()
  * @method static Builder|Notification query()

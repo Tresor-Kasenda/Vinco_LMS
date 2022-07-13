@@ -42,7 +42,7 @@ class StudentRepository implements StudentRepositoryInterface
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @return Model|Student|Builder
      */
     public function showStudent(string $key): Model|Student|Builder
@@ -137,7 +137,7 @@ class StudentRepository implements StudentRepositoryInterface
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @param $attributes
      * @param $factory
      * @return Model|Student|Builder

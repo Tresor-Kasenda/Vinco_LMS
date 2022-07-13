@@ -6,7 +6,6 @@ namespace App\Repositories\System;
 
 use App\Contracts\InstitutionRepositoryInterface;
 use App\Models\Institution;
-use App\Models\User;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

@@ -8,6 +8,6 @@ class Active extends ActivationState
 {
     public function color(): string
     {
-        // TODO: Implement color() method.
+        return 'primary';
     }
 }

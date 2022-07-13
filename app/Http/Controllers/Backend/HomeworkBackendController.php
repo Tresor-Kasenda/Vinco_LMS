@@ -8,7 +8,6 @@ use App\Contracts\HomeworkRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HomeworkRequest;
 use App\Http\Requests\HomeworkUpdateRequest;
-use App\Http\Requests\LessonRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;

@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Course $course
  * @property-read Promotion $promotion
+ *
  * @method static Builder|Schedule newModelQuery()
  * @method static Builder|Schedule newQuery()
  * @method static Builder|Schedule query()
@@ -33,7 +34,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Schedule whereStartTime($value)
  * @method static Builder|Schedule whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property string $date
+ *
  * @method static Builder|Schedule whereDate($value)
  */
 class Schedule extends Model

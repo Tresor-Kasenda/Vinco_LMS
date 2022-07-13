@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\TrashedLessonRepositoryInterface;
-use App\Models\Chapter;
-use App\Models\Course;
 use App\Models\Lesson;
 
 class TrashedLessonRepository implements TrashedLessonRepositoryInterface

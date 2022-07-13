@@ -36,7 +36,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = AcademicYear::query()
             ->create([
-                'institution_id'=>\Auth::user()->institution->id,
+                'institution_id' => \Auth::user()->institution->id,
                 'start_date' => $attributes->input('startDate'),
                 'end_date' => $attributes->input('endDate'),
             ]);
@@ -49,7 +49,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = $this->showAcademicYear(key: $key);
         $academic->update([
-            'institution_id'=>\Auth::user()->institution->id,
+            'institution_id' => \Auth::user()->institution->id,
             'startDate' => $attributes->input('startDate'),
             'endDate' => $attributes->input('endDate'),
         ]);

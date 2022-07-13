@@ -42,12 +42,12 @@ class JournalBackendController extends Controller
     public function store(Request $request)
     {
         Journal::create([
-           'course_id'=>$request->course_id,
-            'student_id'=>\Auth::user()->id,
-            'professor_id'=>Course::where('id', $request->course_id)->first()->professors->id,
-            'title'=>$request->title,
-            'start_time'=>$request->start_date,
-            'end_time'=>$request->end_date,
+            'course_id' => $request->course_id,
+            'student_id' => \Auth::user()->id,
+            'professor_id' => Course::where('id', $request->course_id)->first()->professors->id,
+            'title' => $request->title,
+            'start_time' => $request->start_date,
+            'end_time' => $request->end_date,
         ]);
 
         return redirect()->route('admins.communication.journal.index');

@@ -10,7 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NotificationBackendController extends Controller
@@ -46,7 +45,7 @@ class NotificationBackendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param NotificationRequest $request
+     * @param  NotificationRequest  $request
      * @return RedirectResponse
      */
     public function store(NotificationRequest $request): RedirectResponse
@@ -70,7 +69,7 @@ class NotificationBackendController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return Application|Factory|View
      */
     public function edit(string $id): View|Factory|Application
@@ -83,8 +82,8 @@ class NotificationBackendController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param NotificationRequest $request
-     * @param string $id
+     * @param  NotificationRequest  $request
+     * @param  string  $id
      * @return RedirectResponse
      */
     public function update(NotificationRequest $request, string $id): RedirectResponse

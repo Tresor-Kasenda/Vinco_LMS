@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Fee[] $feeType
  * @property-read int|null $fee_type_count
+ *
  * @method static Builder|FeeType newModelQuery()
  * @method static Builder|FeeType newQuery()
  * @method static Builder|FeeType query()

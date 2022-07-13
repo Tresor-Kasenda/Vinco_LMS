@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property-read string $date_time
  * @property-read Group|null $group
  * @property-read User $user
+ *
  * @method static Builder|Message newModelQuery()
  * @method static Builder|Message newQuery()
  * @method static Builder|Message query()

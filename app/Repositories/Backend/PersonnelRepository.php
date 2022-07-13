@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\PersonnelRepositoryInterface;
-use App\Enums\StatusEnum;
 use App\Models\Personnel;
 use App\Models\User;
 use App\Traits\ImageUploader;

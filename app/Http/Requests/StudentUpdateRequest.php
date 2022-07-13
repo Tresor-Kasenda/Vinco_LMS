@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\Department;
 use App\Models\Guardian;
 use App\Models\Promotion;
-use App\Models\Student;
 use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

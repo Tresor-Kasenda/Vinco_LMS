@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
  * @property-read Subsidiary $subsidiary
+ *
  * @method static Builder|Promotion newModelQuery()
  * @method static Builder|Promotion newQuery()
  * @method static \Illuminate\Database\Query\Builder|Promotion onlyTrashed()

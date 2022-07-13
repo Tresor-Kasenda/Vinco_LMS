@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ExamListRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmerProfessorRequest;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
@@ -14,7 +13,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class ExamListBackendController extends Controller

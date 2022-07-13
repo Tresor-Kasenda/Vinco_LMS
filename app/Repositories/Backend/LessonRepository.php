@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\LessonRepositoryInterface;
-use App\Enums\StatusEnum;
-use App\Models\Chapter;
-use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

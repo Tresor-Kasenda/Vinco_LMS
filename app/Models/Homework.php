@@ -27,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @property-read Chapter|null $chapter
  * @property-read Course|null $course
  * @property-read Lesson|null $lesson
+ *
  * @method static Builder|Homework newModelQuery()
  * @method static Builder|Homework newQuery()
  * @method static Builder|Homework query()

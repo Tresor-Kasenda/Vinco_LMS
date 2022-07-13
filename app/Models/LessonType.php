@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Lesson|null $lesson
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|LessonType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LessonType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LessonType query()

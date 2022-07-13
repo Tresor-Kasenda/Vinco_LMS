@@ -27,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @property-read Institution $institution
  * @property-read Student|null $student
  * @property-read Professor|null $teacher
+ *
  * @method static Builder|Journal newModelQuery()
  * @method static Builder|Journal newQuery()
  * @method static Builder|Journal query()

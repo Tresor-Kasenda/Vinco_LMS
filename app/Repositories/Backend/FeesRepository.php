@@ -7,12 +7,10 @@ namespace App\Repositories\Backend;
 use App\Contracts\FeesRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Fee;
-use App\Models\FeeType;
 use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 class FeesRepository implements FeesRepositoryInterface
 {

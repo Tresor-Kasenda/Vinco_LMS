@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\ProfessorRepositoryInterface;
-use App\Enums\RoleEnum;
-use App\Enums\StatusEnum;
 use App\Models\Professor;
 use App\Models\User;
 use App\Traits\ImageUploader;
@@ -139,7 +137,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender' => $attributes->input('gender'),
                 'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
-                'institution_id'=>\Auth::user()->institution->id,
+                'institution_id' => \Auth::user()->institution->id,
             ]);
     }
 

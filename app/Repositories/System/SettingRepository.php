@@ -27,11 +27,11 @@ class SettingRepository implements SettingRepositoryInterface
             ->create([
                 'app_name' => $request->input('app_name'),
                 'short_name' => $request->input('short_name'),
-                'app_email' =>  $request->input('app_email'),
-                'app_phone' =>  $request->input('app_phone'),
-                'app_address' =>  $request->input('app_address'),
-                'app_icons' =>  self::uploadIcons(request: $request),
-                'app_images' =>  self::uploadLogo(request: $request),
+                'app_email' => $request->input('app_email'),
+                'app_phone' => $request->input('app_phone'),
+                'app_address' => $request->input('app_address'),
+                'app_icons' => self::uploadIcons(request: $request),
+                'app_images' => self::uploadLogo(request: $request),
                 'user_id' => auth()->id(),
             ]);
         $factory->addSuccess('Configuration enregistrer avec succes');
@@ -40,7 +40,7 @@ class SettingRepository implements SettingRepositoryInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @param $request
      * @param $factory
      * @return Builder|Builder[]|Collection|Model|mixed|object|null
@@ -61,11 +61,11 @@ class SettingRepository implements SettingRepositoryInterface
         $setting->update([
             'app_name' => $request->input('app_name'),
             'short_name' => $request->input('short_name'),
-            'app_email' =>  $request->input('app_email'),
-            'app_phone' =>  $request->input('app_phone'),
-            'app_address' =>  $request->input('app_address'),
-            'app_icons' =>  self::uploadIcons(request: $request),
-            'app_images' =>  self::uploadLogo(request: $request),
+            'app_email' => $request->input('app_email'),
+            'app_phone' => $request->input('app_phone'),
+            'app_address' => $request->input('app_address'),
+            'app_icons' => self::uploadIcons(request: $request),
+            'app_images' => self::uploadLogo(request: $request),
         ]);
 
         $factory->addSuccess('Configuration modifier avec succes');

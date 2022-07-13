@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Course $course
  * @property-read Student $student
+ *
  * @method static Builder|Result newModelQuery()
  * @method static Builder|Result newQuery()
  * @method static Builder|Result query()

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -50,6 +48,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $results_count
  * @property-read Collection|Schedule[] $schedules
  * @property-read int|null $schedules_count
+ *
  * @method static Builder|Course newModelQuery()
  * @method static Builder|Course newQuery()
  * @method static \Illuminate\Database\Query\Builder|Course onlyTrashed()

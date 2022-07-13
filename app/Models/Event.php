@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $promotion_id
  * @property-read Event $institution
  * @property-read Promotion|null $promotion
+ *
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()

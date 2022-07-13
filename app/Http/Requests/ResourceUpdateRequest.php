@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\Chapter;
 use App\Models\Lesson;
-use App\Models\Resource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

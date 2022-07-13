@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $homeworks_count
  * @property-read Collection|resource[] $resources
  * @property-read int|null $resources_count
+ *
  * @method static Builder|Lesson calendarByRoleOrClassId()
  * @method static Builder|Lesson newModelQuery()
  * @method static Builder|Lesson newQuery()
@@ -53,8 +54,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
+ *
  * @property int|null $lesson_type_id
- * @property-read \App\Models\LessonType|null $type
+ * @property-read LessonType|null $type
+ *
  * @method static Builder|Lesson whereLessonTypeId($value)
  */
 class Lesson extends Model
@@ -79,12 +82,12 @@ class Lesson extends Model
         '7' => 'Sunday',
     ];
 
-    public function getDifferenceAttribute(): int
+    public function getDifference(): int
     {
         return Carbon::parse($this->end_time)->diffInMinutes($this->start_time);
     }
 
-    public function getStartTimeAttribute($value): ?string
+    public function getStartTime($value): ?string
     {
         return $value ? Carbon::createFromFormat('H:i:s', $value)
             ->format(config('panel.lesson_time_format')) : null;

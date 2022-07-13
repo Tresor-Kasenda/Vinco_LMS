@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property-read Institution $institution
  * @property-read Guardian|null $parent
  * @property-read Student $student
+ *
  * @method static Builder|Fee newModelQuery()
  * @method static Builder|Fee newQuery()
  * @method static Builder|Fee query()

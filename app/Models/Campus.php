@@ -31,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $departments_count
  * @property-read Institution $institution
  * @property-read User $user
+ *
  * @method static Builder|Campus newModelQuery()
  * @method static Builder|Campus newQuery()
  * @method static \Illuminate\Database\Query\Builder|Campus onlyTrashed()

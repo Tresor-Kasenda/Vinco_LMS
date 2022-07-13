@@ -12,13 +12,12 @@ use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Jackiedo\Timezonelist\Facades\Timezonelist;
 
 class SettingsBackendController extends Controller
 {
     /**
-     * @param SettingRepositoryInterface $repository
-     * @param SweetAlertFactory $factory
+     * @param  SettingRepositoryInterface  $repository
+     * @param  SweetAlertFactory  $factory
      */
     public function __construct(
         protected readonly SettingRepositoryInterface $repository,
@@ -37,7 +36,7 @@ class SettingsBackendController extends Controller
     }
 
     /**
-     * @param SettingRequest $request
+     * @param  SettingRequest  $request
      * @return RedirectResponse
      */
     public function store(SettingRequest $request): RedirectResponse
@@ -48,8 +47,8 @@ class SettingsBackendController extends Controller
     }
 
     /**
-     * @param int $id
-     * @param SettingRequest $request
+     * @param  int  $id
+     * @param  SettingRequest  $request
      * @return RedirectResponse
      */
     public function update(int $id, SettingRequest $request): RedirectResponse
@@ -60,8 +59,8 @@ class SettingsBackendController extends Controller
     }
 
     /**
-     * @param int $id
-     * @param SystemRequest $request
+     * @param  int  $id
+     * @param  SystemRequest  $request
      * @return RedirectResponse
      */
     public function updateSystem(int $id, Request $request): RedirectResponse

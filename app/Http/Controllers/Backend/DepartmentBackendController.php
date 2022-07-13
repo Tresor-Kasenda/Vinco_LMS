@@ -16,10 +16,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
-use function Pest\Laravel\delete;
-use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 
 class DepartmentBackendController extends Controller
 {

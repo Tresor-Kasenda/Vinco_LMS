@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $categories_count
  * @property-read Collection|AcademicYear[] $personnel
  * @property-read int|null $personnel_count
+ *
  * @method static Builder|AcademicYear newModelQuery()
  * @method static Builder|AcademicYear newQuery()
  * @method static Builder|AcademicYear query()

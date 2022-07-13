@@ -1,13 +1,10 @@
 <?php
 
-namespace Tests\Repositories\Backend;
 
-use App\Repositories\Backend\ProfessorRepository;
-use PHPUnit\Framework\TestCase;
+use function Pest\Laravel\get;
 
-class ProfessorRepositoryTest extends TestCase
-{
-    public function testCreateUser()
-    {
-    }
-}
+test('asserts true is true', function () {
+    $this->assertTrue(true);
+
+    expect(true)->toBeTrue();
+});
