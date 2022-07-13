@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Institution_QB;
+use Mail;
 
 class InstitutionRepository implements InstitutionRepositoryInterface
 {
@@ -36,11 +37,26 @@ class InstitutionRepository implements InstitutionRepositoryInterface
 
     public function stored($attributes, $factory): Model|Institution|Builder|RedirectResponse
     {
-        $institution = Institution::query()
-            ->where('user_id', '=', $attributes->input('manager'))
-            ->first();
+        if ($attributes->input('manager') != null) {
+            $institution = Institution::query()
+                ->where('user_id', '=', $attributes->input('manager'))
+                ->first();
+        } else {
+            $institution = null;
+        }
 
         if (! $institution) {
+            if ($attributes->input('manager') == null) {
+                $emails = $attributes->input('institution_email');
+                $names = $attributes->input('institution_name');
+
+                $data = ['name'=>$names];
+                Mail::send('mail.institution.register', $data, function ($message) use ($emails, $names) {
+                    $message->to($emails, $names)->subject('Institution Register');
+                    $message->from('institution@vinco.digital', 'Vinco Education');
+                });
+            }
+
             return Institution::query()
                 ->create([
                     'institution_name' => $attributes->input('institution_name'),

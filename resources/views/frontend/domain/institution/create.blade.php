@@ -79,7 +79,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="form-label" for="town">Ville</label>
                                                         <div class="form-control-wrap">
@@ -90,6 +90,22 @@
                                                                 name="institution_town"
                                                                 value="{{ old('institution_town') }}"
                                                                 placeholder="Enter Town of Institution"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="email">Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_email') error @enderror"
+                                                                id="email"
+                                                                name="institution_email"
+                                                                value="{{ old('institution_email') }}"
+                                                                placeholder="Enter Email"
                                                                 required>
                                                         </div>
                                                     </div>
@@ -113,7 +129,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="website">Name of responsable</label>
+                                                        <label class="form-label" for="website">Website</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
@@ -121,7 +137,7 @@
                                                                 id="website"
                                                                 name="institution_website"
                                                                 value="{{ old('institution_website') }}"
-                                                                placeholder="Enter Name"
+                                                                placeholder="Enter Website"
                                                                 required>
                                                         </div>
                                                     </div>

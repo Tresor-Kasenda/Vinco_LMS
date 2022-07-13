@@ -50,6 +50,7 @@ use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
+use App\Http\Controllers\Mail\InstitutionMailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
