@@ -101,7 +101,7 @@ class StudentRepository implements StudentRepositoryInterface
         if (! $user) {
             $user = User::query()
                 ->create([
-                    'name' => $attributes->input('name') . ' ' . $attributes->input('firstname') . ' ' . $attributes->input('lastname'),
+                    'name' => $attributes->input('name').' '.$attributes->input('firstname').' '.$attributes->input('lastname'),
                     'email' => $attributes->input('email'),
                     'institution_id'=> $attributes->input('institution_id'),
                     'password' => \Hash::make($attributes->input('password')),
@@ -112,7 +112,7 @@ class StudentRepository implements StudentRepositoryInterface
                 ->first();
             $user->assignRole($role->id);
 
-            if($attributes->file('images') != null){
+            if ($attributes->file('images') != null) {
                 $student = Student::query()
                     ->create([
                         'user_id' => $user->id,
