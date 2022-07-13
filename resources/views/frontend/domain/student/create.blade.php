@@ -44,8 +44,13 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('home.student.register') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
+                                    <form action="{{ route('home.student.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
+                                        <input type="hidden"
+                                               id="institution_id"
+                                               name="institution_id"
+                                               value="{{ request('institution_id') }}"
+                                        >
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">

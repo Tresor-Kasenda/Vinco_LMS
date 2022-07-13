@@ -103,6 +103,7 @@ class StudentRepository implements StudentRepositoryInterface
                 ->create([
                     'name' => $attributes->input('name') . ' ' . $attributes->input('firstname') . ' ' . $attributes->input('lastname'),
                     'email' => $attributes->input('email'),
+                    'institution_id'=> $attributes->input('institution_id'),
                     'password' => \Hash::make($attributes->input('password')),
                 ]);
 

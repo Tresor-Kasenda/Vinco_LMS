@@ -142,6 +142,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 ->create([
                     'name' => $attributes->input('name'),
                     'email' => $attributes->input('email'),
+                    'institution_id'=> \Auth::user()->institution_id,
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }

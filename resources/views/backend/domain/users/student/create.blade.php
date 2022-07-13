@@ -46,6 +46,11 @@
                                     @endif
                                     <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
+                                        <input type="hidden"
+                                            id="institution_id"
+                                               name="institution_id"
+                                               value="{{ Auth::user()->institution_id }}"
+                                            >
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -134,8 +139,7 @@
                                                             id="department"
                                                             name="department"
                                                             data-search="on"
-                                                            data-placeholder="Select Department"
-                                                            required>
+                                                            data-placeholder="Select Department">
                                                             <option label="department" value=""></option>
                                                             @foreach(\App\Models\Department::all() as $department)
                                                                 <option
@@ -157,7 +161,7 @@
                                                             name="filiaire"
                                                             data-search="on"
                                                             data-placeholder="Select Filiaire"
-                                                            required>
+                                                            >
                                                             <option label="filiaire" value=""></option>
                                                             @foreach(\App\Models\Subsidiary::all() as $filiaire)
                                                                 <option
@@ -179,7 +183,7 @@
                                                             name="promotion"
                                                             data-search="on"
                                                             data-placeholder="Select Promotion"
-                                                            required>
+                                                            >
                                                             <option label="class" value=""></option>
                                                             @foreach(\App\Models\Promotion::all() as $promotion)
                                                                 <option
@@ -202,7 +206,7 @@
                                                             name="parent"
                                                             data-search="on"
                                                             data-placeholder="Select Parent"
-                                                            required>
+                                                            >
                                                             <option label="parent" value=""></option>
                                                             @foreach(\App\Models\Guardian::all() as $parent)
                                                                 <option
