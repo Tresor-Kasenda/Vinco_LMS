@@ -6,6 +6,7 @@ namespace App\Repositories\Com;
 
 use App\Contracts\EventRepositoryInterface;
 use App\Models\Event as EventModel;
+use Auth;
 use Calendar;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
