@@ -64,6 +64,7 @@ class EventRepository implements EventRepositoryInterface
                 'title' => $attributes->input('title'),
                 'start_date' => $attributes->input('start_date'),
                 'end_date' => $attributes->input('end_date'),
+                'institution_id'=>Auth::user()->institution_id,
             ]);
 
         $factory->addSuccess('Event added with successfully');
@@ -78,6 +79,7 @@ class EventRepository implements EventRepositoryInterface
             'title' => $attributes->input('title'),
             'start_date' => $attributes->input('start_date'),
             'end_date' => $attributes->input('end_date'),
+            'institution_id'=>Auth::user()->institution_id,
         ]);
 
         $factory->addSuccess('Event modified with successfully');
