@@ -23,9 +23,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Collection|\App\Models\Course[] $courses
+ * @property-read Collection|Course[] $courses
  * @property-read int|null $courses_count
- * @property-read \App\Models\Institution|null $institution
+ * @property-read Institution|null $institution
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()

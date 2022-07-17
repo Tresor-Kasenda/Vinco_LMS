@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * App\Models\Event
  *
  * @property-read Event|null $institution
- * @property-read \App\Models\Promotion|null $promotion
+ * @property-read Promotion|null $promotion
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()

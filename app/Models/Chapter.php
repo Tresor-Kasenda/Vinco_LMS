@@ -28,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $exercises_count
  * @property-read Collection|\App\Models\Homework[] $homeworks
  * @property-read int|null $homeworks_count
- * @property-read Collection|\App\Models\Lesson[] $lessons
+ * @property-read Collection|Lesson[] $lessons
  * @property-read int|null $lessons_count
  * @property-read Collection|\App\Models\Question[] $questions
  * @property-read int|null $questions_count

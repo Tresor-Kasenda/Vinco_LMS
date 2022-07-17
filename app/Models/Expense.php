@@ -20,8 +20,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $expense_type_id
- * @property-read \App\Models\Institution|null $institution
- * @property-read \App\Models\ExpenseType $types
+ * @property-read Institution|null $institution
+ * @property-read ExpenseType $types
  * @method static Builder|Expense newModelQuery()
  * @method static Builder|Expense newQuery()
  * @method static Builder|Expense query()
