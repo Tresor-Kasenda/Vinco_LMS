@@ -56,7 +56,7 @@ class UsersRepository implements UsersRepositoryInterface
                 'password' => Hash::make($attributes->input('password')),
             ]);
 
-        $user->assignRole($attributes->input('role_id'));
+        $user->attachRole($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur ajouter avec succes');
 
         return $user;
@@ -70,7 +70,7 @@ class UsersRepository implements UsersRepositoryInterface
             'email' => $attributes->input('email'),
             'password' => Hash::make($attributes->input('password')),
         ]);
-        $user->assignRole($attributes->input('role_id'));
+        $user->syncRoles($attributes->input('role_id'));
         $flash->addSuccess('Utilisateur mise a jours avec succes');
 
         return $user;
@@ -84,6 +84,7 @@ class UsersRepository implements UsersRepositoryInterface
 
             return back();
         }
+        $user->roles()->detach();
         $user->delete();
         $flash->addSuccess('Utilisateur supprimer avec succes');
 

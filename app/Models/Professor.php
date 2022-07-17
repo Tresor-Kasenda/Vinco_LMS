@@ -19,7 +19,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Professor.
+ * App\Models\Professor
  *
  * @property int $id
  * @property int $user_id
@@ -38,16 +38,14 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Collection|Course[] $courses
+ * @property-read Collection|\App\Models\Course[] $courses
  * @property-read int|null $courses_count
- * @property-read Collection|Department[] $departments
- * @property-read int|null $departments_count
- * @property-read Collection|Journal[] $journals
+ * @property-read \App\Models\Institution|null $institution
+ * @property-read Collection|\App\Models\Journal[] $journals
  * @property-read int|null $journals_count
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Professor newModelQuery()
  * @method static Builder|Professor newQuery()
  * @method static \Illuminate\Database\Query\Builder|Professor onlyTrashed()
@@ -72,9 +70,6 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Professor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Professor withoutTrashed()
  * @mixin Eloquent
- * @property int $institution_id
- * @property-read \App\Models\Institution $institution
- * @method static Builder|Professor whereInstitutionId($value)
  */
 class Professor extends Model
 {

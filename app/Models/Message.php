@@ -10,27 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Message.
+ * App\Models\Message
  *
- * @property int $id
- * @property int $user_id
- * @property int $group_id
- * @property string $message
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  * @property-read string $date_time
- * @property-read Group|null $group
- * @property-read User $user
- *
+ * @property-read \App\Models\Group|null $group
+ * @property-read \App\Models\User $user
  * @method static Builder|Message newModelQuery()
  * @method static Builder|Message newQuery()
  * @method static Builder|Message query()
- * @method static Builder|Message whereCreatedAt($value)
- * @method static Builder|Message whereGroupId($value)
- * @method static Builder|Message whereId($value)
- * @method static Builder|Message whereMessage($value)
- * @method static Builder|Message whereUpdatedAt($value)
- * @method static Builder|Message whereUserId($value)
  * @mixin \Eloquent
  */
 class Message extends Model

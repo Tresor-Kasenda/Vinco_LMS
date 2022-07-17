@@ -171,7 +171,6 @@ return [
         Flasher\Laravel\FlasherServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 

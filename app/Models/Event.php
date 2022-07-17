@@ -12,30 +12,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Event.
+ * App\Models\Event
  *
- * @property int $id
- * @property string $title
- * @property Carbon $start_date
- * @property Carbon $end_date
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property int $institution_id
- * @property int|null $promotion_id
- * @property-read Event $institution
- * @property-read Promotion|null $promotion
- *
+ * @property-read Event|null $institution
+ * @property-read \App\Models\Promotion|null $promotion
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()
- * @method static Builder|Event whereCreatedAt($value)
- * @method static Builder|Event whereEndDate($value)
- * @method static Builder|Event whereId($value)
- * @method static Builder|Event whereInstitutionId($value)
- * @method static Builder|Event wherePromotionId($value)
- * @method static Builder|Event whereStartDate($value)
- * @method static Builder|Event whereTitle($value)
- * @method static Builder|Event whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event

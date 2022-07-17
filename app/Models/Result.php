@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Result.
+ * App\Models\Result
  *
  * @property int $id
  * @property int $course_id
@@ -21,9 +21,8 @@ use Illuminate\Support\Carbon;
  * @property int|null $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Course $course
- * @property-read Student $student
- *
+ * @property-read \App\Models\Course $course
+ * @property-read \App\Models\Student $student
  * @method static Builder|Result newModelQuery()
  * @method static Builder|Result newQuery()
  * @method static Builder|Result query()

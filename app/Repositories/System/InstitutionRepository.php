@@ -21,7 +21,14 @@ class InstitutionRepository implements InstitutionRepositoryInterface
     public function getInstitutions(): array|Collection|\Illuminate\Support\Collection
     {
         return Institution::query()
-            ->with(['campuses', 'events'])
+            ->select([
+                'id',
+                'institution_images',
+                'institution_name',
+                'institution_town',
+                'institution_address',
+            ])
+            ->with('user')
             ->orderByDesc('created_at')
             ->get();
     }
@@ -32,7 +39,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
             ->whereId($key)
             ->firstOrFail();
 
-        return $institution->load(['campuses', 'events']);
+        return $institution->load(['campuses', 'events', 'user']);
     }
 
     public function stored($attributes, $factory): Model|Institution|Builder|RedirectResponse

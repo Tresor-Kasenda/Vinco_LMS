@@ -17,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Guardian.
+ * App\Models\Guardian
  *
  * @property int $id
  * @property int $user_id
@@ -30,14 +30,13 @@ use Illuminate\Support\Carbon;
  * @property string|null $occupation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Fee[] $fees
+ * @property-read Collection|\App\Models\Fee[] $fees
  * @property-read int|null $fees_count
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read Collection|Student[] $students
+ * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Guardian newModelQuery()
  * @method static Builder|Guardian newQuery()
  * @method static Builder|Guardian query()

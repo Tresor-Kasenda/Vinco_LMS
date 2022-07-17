@@ -6,6 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\PersonnelRepositoryInterface;
 use App\Models\Personnel;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValues;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
-use Spatie\Permission\Models\Role;
 
 /**
  * class PersonnelRepository.
@@ -58,7 +58,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         if (! $personnel) {
             $user = $this->storeCampus($attributes);
             $role = $this->getRole($attributes);
-            $user->assignRole($role->id);
+            $user->attachRole($role->id);
             $personnel = $this->createPersonnel($attributes, $user);
 
             $factory->addSuccess('Un personnel a ete ajouter');

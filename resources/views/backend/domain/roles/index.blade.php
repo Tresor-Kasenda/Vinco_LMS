@@ -64,14 +64,13 @@
                                 <td class="nk-tb-col text-center">
                                     <span class="tb-lead text-center">
                                         <div class="d-flex">
-                                            @can('role-edit')
-                                            <a href="{{ route('admins.roles.edit', $role->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-edit"></em>
-                                            </a>
-                                            @endcan
+                                            @permission('role-edit')
+                                                <a href="{{ route('admins.roles.edit', $role->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                            @endpermission
 
-                                            @can('role-delete')
-                                                @role('Super Admin')
+                                            @permission('role-delete')
                                                 <form action="{{ route('admins.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -79,8 +78,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
-                                                @endrole
-                                            @endcan
+                                            @endpermission
                                         </div>
                                     </span>
                                 </td>

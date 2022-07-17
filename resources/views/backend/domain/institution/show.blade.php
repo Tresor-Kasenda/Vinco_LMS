@@ -97,6 +97,19 @@
                                             </td>
                                         </tr>
 
+                                        <tr>
+                                            <th>Liste des campus</th>
+                                            <td>
+                                                @if($institution->campuses)
+                                                    @foreach($institution->campuses as $campus)
+                                                        <a href="{{ route('admins.academic.campus.show', $campus->id) }}">
+                                                            {{ ucfirst($campus->name) ?? "" }}
+                                                        </a>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+
                                         <tr class="text-justify">
                                             <th>Description</th>
                                             <td>{{ $institution->institution_description ?? "" }}</td>

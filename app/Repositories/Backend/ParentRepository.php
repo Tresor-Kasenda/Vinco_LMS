@@ -6,6 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ParentRepositoryInterface;
 use App\Models\Guardian;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,9 +14,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use LaravelIdea\Helper\App\Models\_IH_Guardian_QB;
-use LaravelIdea\Helper\App\Models\_IH_User_QB;
-use Spatie\Permission\Models\Role;
 
 class ParentRepository implements ParentRepositoryInterface
 {
@@ -44,7 +42,7 @@ class ParentRepository implements ParentRepositoryInterface
         return $parent->load(['user', 'students']);
     }
 
-    public function stored($attributes, $factory): Model|_IH_Guardian_QB|Guardian|Builder|RedirectResponse
+    public function stored($attributes, $factory): Model|Guardian|Builder|RedirectResponse
     {
         $parent = Guardian::query()
             ->where('email_guardian', '=', $attributes->input('email'))
@@ -54,7 +52,7 @@ class ParentRepository implements ParentRepositoryInterface
             $user = $this->createParent($attributes);
             if ($user != null) {
                 $role = $this->getParentRole();
-                $user->assignRole($role);
+                $user->attachRole($role);
                 $guardian = Guardian::query()
                     ->create([
                         'name_guardian' => $attributes->input('name'),
@@ -104,7 +102,7 @@ class ParentRepository implements ParentRepositoryInterface
         return $parent;
     }
 
-    public function createParent($attributes): _IH_User_QB|Model|Builder|User|null
+    public function createParent($attributes): Model|Builder|User|null
     {
         $user = User::query()
             ->where('email', '=', $attributes->input('email'))
@@ -128,7 +126,7 @@ class ParentRepository implements ParentRepositoryInterface
     public function getParentRole(): Builder|Model
     {
         return Role::query()
-            ->whereName('Parent')
+            ->where('name', '=', 'Parent')
             ->firstOrFail();
     }
 }

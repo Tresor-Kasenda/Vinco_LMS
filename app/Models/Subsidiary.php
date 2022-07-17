@@ -14,8 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+
 /**
- * App\Models\Subsidiary.
+ * App\Models\Subsidiary
  *
  * @property int $id
  * @property int $department_id
@@ -26,14 +27,12 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read AcademicYear $academic
- * @property-read Department $department
- * @property-read Collection|Promotion[] $promotions
+ * @property-read \App\Models\Department $department
+ * @property-read Collection|\App\Models\Promotion[] $promotions
  * @property-read int|null $promotions_count
- * @property-read Collection|Student[] $students
+ * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Subsidiary newModelQuery()
  * @method static Builder|Subsidiary newQuery()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary onlyTrashed()

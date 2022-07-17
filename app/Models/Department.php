@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Department.
+ * App\Models\Department
  *
  * @property int $id
  * @property int $campus_id
@@ -36,7 +36,6 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $teachers_count
  * @property-read Collection|User[] $users
  * @property-read int|null $users_count
- *
  * @method static Builder|Department newModelQuery()
  * @method static Builder|Department newQuery()
  * @method static \Illuminate\Database\Query\Builder|Department onlyTrashed()

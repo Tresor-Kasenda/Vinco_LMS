@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Expense.
+ * App\Models\Expense
  *
  * @property int $id
  * @property string $amount
@@ -20,10 +20,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $expense_type_id
- * @property int $institution_id
- * @property-read Institution $institution
- * @property-read ExpenseType $types
- *
+ * @property-read \App\Models\Institution|null $institution
+ * @property-read \App\Models\ExpenseType $types
  * @method static Builder|Expense newModelQuery()
  * @method static Builder|Expense newQuery()
  * @method static Builder|Expense query()
@@ -32,7 +30,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Expense whereDescription($value)
  * @method static Builder|Expense whereExpenseTypeId($value)
  * @method static Builder|Expense whereId($value)
- * @method static Builder|Expense whereInstitutionId($value)
  * @method static Builder|Expense whereUpdatedAt($value)
  * @mixin Eloquent
  */

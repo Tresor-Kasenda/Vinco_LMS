@@ -7,15 +7,13 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\RoleRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
+use App\Models\Permission;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
-use Spatie\Permission\Models\Permission;
-use Symfony\Component\HttpFoundation\Response;
 
 class RoleBackendController extends Controller
 {
@@ -27,8 +25,6 @@ class RoleBackendController extends Controller
 
     public function index(): Renderable
     {
-        abort_if(Gate::denies('role-list'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $roles = $this->repository->getRoles();
 
         return view('backend.domain.roles.index', compact('roles'));
@@ -36,8 +32,6 @@ class RoleBackendController extends Controller
 
     public function create(): Factory|View|Application
     {
-        abort_if(Gate::denies('role-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $permissions = Permission::query()->get();
 
         return view('backend.domain.roles.create', compact('permissions'));
@@ -45,15 +39,11 @@ class RoleBackendController extends Controller
 
     public function store(RoleRequest $request): RedirectResponse
     {
-        $this->repository->stored(attributes: $request, flash: $this->factory);
-
         return redirect()->route('admins.roles.index');
     }
 
     public function edit(int $id): Factory|View|Application
     {
-        abort_if(Gate::denies('role-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $role = $this->repository->showRole(key: $id);
         $roleHasPermissions = $role->permissions->pluck('id')->toArray();
         $permissions = Permission::query()->get();
@@ -72,8 +62,6 @@ class RoleBackendController extends Controller
 
     public function destroy(int $id): RedirectResponse
     {
-        abort_if(Gate::denies('role-delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->deleted(key: $id, flash: $this->factory);
 
         return back()->with('success', 'The role has remove with successfull');

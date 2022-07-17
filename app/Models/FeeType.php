@@ -12,16 +12,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\FeeType.
+ * App\Models\FeeType
  *
  * @property int $id
  * @property string $name
  * @property string $images
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Fee[] $feeType
+ * @property-read Collection|\App\Models\Fee[] $feeType
  * @property-read int|null $fee_type_count
- *
  * @method static Builder|FeeType newModelQuery()
  * @method static Builder|FeeType newQuery()
  * @method static Builder|FeeType query()

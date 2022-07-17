@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Chapter.
+ * App\Models\Chapter
  *
  * @property int $id
  * @property int $course_id
@@ -23,18 +23,17 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Course $course
- * @property-read Collection|Exercice[] $exercises
+ * @property-read \App\Models\Course $course
+ * @property-read Collection|\App\Models\Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read Collection|Homework[] $homeworks
+ * @property-read Collection|\App\Models\Homework[] $homeworks
  * @property-read int|null $homeworks_count
- * @property-read Collection|Lesson[] $lessons
+ * @property-read Collection|\App\Models\Lesson[] $lessons
  * @property-read int|null $lessons_count
- * @property-read Collection|Question[] $questions
+ * @property-read Collection|\App\Models\Question[] $questions
  * @property-read int|null $questions_count
- * @property-read Collection|resource[] $resources
+ * @property-read Collection|\App\Models\Resource[] $resources
  * @property-read int|null $resources_count
- *
  * @method static Builder|Chapter newModelQuery()
  * @method static Builder|Chapter newQuery()
  * @method static \Illuminate\Database\Query\Builder|Chapter onlyTrashed()

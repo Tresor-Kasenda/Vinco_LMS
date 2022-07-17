@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Promotion.
+ * App\Models\Promotion
  *
  * @property int $id
  * @property int $subsidiary_id
@@ -27,14 +27,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property int $academic_year_id
- * @property-read AcademicYear $academic
- * @property-read Collection|Event[] $events
+ * @property-read \App\Models\AcademicYear $academic
+ * @property-read Collection|\App\Models\Event[] $events
  * @property-read int|null $events_count
- * @property-read Schedule|null $schedules
- * @property-read Collection|Student[] $students
+ * @property-read \App\Models\Schedule|null $schedules
+ * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
- * @property-read Subsidiary $subsidiary
- *
+ * @property-read \App\Models\Subsidiary $subsidiary
  * @method static Builder|Promotion newModelQuery()
  * @method static Builder|Promotion newQuery()
  * @method static \Illuminate\Database\Query\Builder|Promotion onlyTrashed()

@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.admin.update', $administrator->id) }}" method="post" class="form-validate mt-2">
+                                    <form action="{{ route('admins.users.admin.update', $admin->id) }}" method="post" class="form-validate mt-2">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -56,7 +56,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $administrator->name }}"
+                                                            value="{{ old('name') ?? $admin->name }}"
                                                             placeholder="Enter name"
                                                             required>
                                                     </div>
@@ -72,7 +72,7 @@
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $administrator->email }}"
+                                                            value="{{ old('email') ?? $admin->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter email"
                                                             required>
@@ -82,8 +82,7 @@
 
                                             @php
                                                 $roles  = \Spatie\Permission\Models\Role::query()
-                                                    ->where('name', '=', 'Admin')
-                                                    ->orWhere('name', '=', 'Super Admin')
+                                                    ->whereIn('name', ['Admin', 'Super Admin'])
                                                     ->get()
                                             @endphp
 

@@ -13,18 +13,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear.
+ * App\Models\AcademicYear
  *
  * @property int $id
  * @property string $start_date
  * @property string $end_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Category[] $categories
+ * @property-read Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
  * @property-read Collection|AcademicYear[] $personnel
  * @property-read int|null $personnel_count
- *
  * @method static Builder|AcademicYear newModelQuery()
  * @method static Builder|AcademicYear newQuery()
  * @method static Builder|AcademicYear query()
@@ -34,8 +33,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AcademicYear whereStartDate($value)
  * @method static Builder|AcademicYear whereUpdatedAt($value)
  * @mixin Eloquent
- * @property int $institution_id
- * @method static Builder|AcademicYear whereInstitutionId($value)
  */
 class AcademicYear extends Model
 {

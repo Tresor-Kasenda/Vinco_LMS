@@ -13,29 +13,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear.
+ * App\Models\Calendar
  *
- * @property int $id
- * @property string $title
- * @property Carbon $start_date
- * @property Carbon $end_date
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @mixin Eloquent
- *
- * @property int|null $institution_id
  * @property-read \App\Models\Event|null $institution
- *
  * @method static Builder|Calendar newModelQuery()
  * @method static Builder|Calendar newQuery()
  * @method static Builder|Calendar query()
- * @method static Builder|Calendar whereCreatedAt($value)
- * @method static Builder|Calendar whereEndDate($value)
- * @method static Builder|Calendar whereId($value)
- * @method static Builder|Calendar whereInstitutionId($value)
- * @method static Builder|Calendar whereStartDate($value)
- * @method static Builder|Calendar whereTitle($value)
- * @method static Builder|Calendar whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Calendar extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {

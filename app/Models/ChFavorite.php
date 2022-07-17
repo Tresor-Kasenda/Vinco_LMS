@@ -9,14 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ChFavorite.
+ * App\Models\ChFavorite
  *
  * @property int $id
  * @property int $user_id
  * @property int $favorite_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|ChFavorite newModelQuery()
  * @method static Builder|ChFavorite newQuery()
  * @method static Builder|ChFavorite query()

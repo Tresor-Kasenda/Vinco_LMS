@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\StatusEnum;
+use App\Models\Institution;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class CreateUserCommand extends Command
 {
@@ -35,49 +39,33 @@ class CreateUserCommand extends Command
         $password_confirmation = $this->secret('confirm password');
 
         $validator = validator(
-                compact('name', 'email', 'password', 'password_confirmation'),
-                [
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => ['required', 'string', 'min:8', 'confirmed'],
-                ]
-            );
+            compact('name', 'email', 'password', 'password_confirmation'),
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]
+        );
 
         if ($this->confirm('Voulez vous creer un administrateur ? [Y|N]')) {
             if (! $validator->fails()) {
                 try {
                     $password = Hash::make($password);
                     $status = StatusEnum::TRUE;
-                    $institution_id = 1;
+                    $institution = $this->createInstitution();
+                    $institution_id = $institution->id;
                     $user = User::query()
                         ->create(compact('name', 'email', 'password', 'status', 'institution_id'));
                     $user->save();
-                    $role = Role::create(['name' => 'Super Admin']);
-
-                    Artisan::call('db:seed');
-
-                    $results = Permission::all();
-
-                    $permission = Permission::query()
-                        ->pluck('id', 'id')
-                        ->all();
+                    list($role, $results, $permission) = $this->assignRoleToUser();
 
                     $progressBar = $this->output->createProgressBar($results->count());
                     $progressBar->start();
 
-                    $role->givePermissionTo($permission);
+                    $this->giveRoles($role, $permission, $user, $progressBar, $name);
 
-                    $user->assignRole($role);
-                    sleep(3);
-                    $progressBar->advance();
-
-                    Setting::query()
-                        ->create([
-                            'user_id' => $user->id,
-                            'app_name' => $name,
-                        ]);
                     $progressBar->finish();
-                    $this->info('Admin create with successfully');
+                    $this->line('Admin create with successfully');
                     exit();
                 } catch (\Exception $exception) {
                     $this->error('Something went wrong run the command with -v for more details');
@@ -89,5 +77,58 @@ class CreateUserCommand extends Command
                 goto process;
             }
         }
+    }
+
+    public function createInstitution(): Model|Institution|Builder
+    {
+        return Institution::query()
+            ->create([
+                'institution_name' => 'Vinco',
+                'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
+                'institution_country' => 'Congo DR',
+                'institution_phones' => '+243818045132',
+                'institution_town' => 'Lubumbashi',
+                'institution_images' => asset('assets/favicon.svg'),
+                'institution_website' => 'https://www.vinco.digital',
+            ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function assignRoleToUser(): array
+    {
+        $role = Role::create(['name' => 'Super Admin']);
+
+        Artisan::call('db:seed');
+
+        $results = Permission::all();
+
+        $permission = Permission::query()
+            ->pluck('id', 'id')
+            ->all();
+        return array($role, $results, $permission);
+    }
+
+
+    public function giveRoles(
+        mixed $role,
+        mixed $permission,
+        $user,
+        ProgressBar $progressBar,
+        string $name
+    ): void {
+        $role->syncPermissions($permission);
+
+        $user->attachRole($role);
+        $user->syncPermissions($permission);
+        sleep(3);
+        $progressBar->advance();
+
+        Setting::query()
+            ->create([
+                'user_id' => $user->id,
+                'app_name' => $name,
+            ]);
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd2ab6cc64a7112038f0474429a80d96",
+    "content-hash": "4b67dd747fc434bc42107b7c4a2dc80d",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -1205,17 +1205,67 @@
             "time": "2022-03-17T15:36:13+00:00"
         },
         {
-            "name": "laravel/framework",
-            "version": "v9.19.0",
+            "name": "kkszymanowski/traitor",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "bbce25bd823133f6a5a724f2d62680b711f1d0df"
+                "url": "https://github.com/KKSzymanowski/Traitor.git",
+                "reference": "c16d90149e807d71562953eb5c9279e75170b63f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/bbce25bd823133f6a5a724f2d62680b711f1d0df",
-                "reference": "bbce25bd823133f6a5a724f2d62680b711f1d0df",
+                "url": "https://api.github.com/repos/KKSzymanowski/Traitor/zipball/c16d90149e807d71562953eb5c9279e75170b63f",
+                "reference": "c16d90149e807d71562953eb5c9279e75170b63f",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^1.0|^2.0|^3.0|^4.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Traitor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kuba Szymanowski",
+                    "email": "kuba.szymanowski@inf24.pl"
+                }
+            ],
+            "description": "Add a trait use statement to existing PHP class",
+            "keywords": [
+                "add",
+                "php",
+                "trait"
+            ],
+            "support": {
+                "email": "kuba.szymanowski@inf24.pl",
+                "issues": "https://github.com/kkszymanowski/traitor/issues",
+                "source": "https://github.com/kkszymanowski/traitor"
+            },
+            "time": "2022-03-02T17:32:19+00:00"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "v9.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "c99868f1c9bf2f5d250993121838db905591864f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c99868f1c9bf2f5d250993121838db905591864f",
+                "reference": "c99868f1c9bf2f5d250993121838db905591864f",
                 "shasum": ""
             },
             "require": {
@@ -1381,7 +1431,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-28T14:33:19+00:00"
+            "time": "2022-07-13T13:26:22+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -3995,6 +4045,81 @@
             "time": "2022-03-27T21:42:02+00:00"
         },
         {
+            "name": "santigarcor/laratrust",
+            "version": "7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/santigarcor/laratrust.git",
+                "reference": "8a18c70bb1ced09baed361b68c432b0bedb74f16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/8a18c70bb1ced09baed361b68c432b0bedb74f16",
+                "reference": "8a18c70bb1ced09baed361b68c432b0bedb74f16",
+                "shasum": ""
+            },
+            "require": {
+                "kkszymanowski/traitor": "^1.0",
+                "laravel/framework": "~6.0|~7.0|~8.0|^9.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.2",
+                "orchestra/testbench": "4.*|5.*|6.*|7.*",
+                "phpunit/phpunit": "^7.5.15|^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laratrust\\LaratrustServiceProvider"
+                    ],
+                    "aliases": {
+                        "Laratrust": "Laratrust\\LaratrustFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laratrust\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Santiago Garcia",
+                    "homepage": "http://santigarcor.me"
+                }
+            ],
+            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+            "keywords": [
+                "Teams",
+                "acl",
+                "authorization",
+                "laratrust",
+                "laravel",
+                "multiusers",
+                "permissions",
+                "php",
+                "rbac",
+                "roles"
+            ],
+            "support": {
+                "issues": "https://github.com/santigarcor/laratrust/issues",
+                "source": "https://github.com/santigarcor/laratrust/tree/7.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/santigarcor",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-03-04T15:28:43+00:00"
+        },
+        {
             "name": "simple-cli/simple-cli",
             "version": "1.6.0",
             "source": {
@@ -4260,88 +4385,6 @@
                 }
             ],
             "time": "2022-06-28T14:29:26+00:00"
-        },
-        {
-            "name": "spatie/laravel-permission",
-            "version": "5.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "f2303a70be60919811ca8afc313e8244fda00974"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/f2303a70be60919811ca8afc313e8244fda00974",
-                "reference": "f2303a70be60919811ca8afc313e8244fda00974",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/auth": "^7.0|^8.0|^9.0",
-                "illuminate/container": "^7.0|^8.0|^9.0",
-                "illuminate/contracts": "^7.0|^8.0|^9.0",
-                "illuminate/database": "^7.0|^8.0|^9.0",
-                "php": "^7.3|^8.0|^8.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^5.0|^6.0|^7.0",
-                "phpunit/phpunit": "^9.4",
-                "predis/predis": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Permission\\PermissionServiceProvider"
-                    ]
-                },
-                "branch-alias": {
-                    "dev-main": "5.x-dev",
-                    "dev-master": "5.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Spatie\\Permission\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Permission handling for Laravel 6.0 and up",
-            "homepage": "https://github.com/spatie/laravel-permission",
-            "keywords": [
-                "acl",
-                "laravel",
-                "permission",
-                "permissions",
-                "rbac",
-                "roles",
-                "security",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/5.5.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-06-29T23:11:42+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7982,16 +8025,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.9.2",
+            "version": "v3.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "9b23c42f4d063f9e3aad823500e0940348b5ed63"
+                "reference": "093466b1c3ff3e3b469bdbc9827bb2362de6b2fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/9b23c42f4d063f9e3aad823500e0940348b5ed63",
-                "reference": "9b23c42f4d063f9e3aad823500e0940348b5ed63",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/093466b1c3ff3e3b469bdbc9827bb2362de6b2fa",
+                "reference": "093466b1c3ff3e3b469bdbc9827bb2362de6b2fa",
                 "shasum": ""
             },
             "require": {
@@ -8059,7 +8102,7 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues",
-                "source": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/v3.9.2"
+                "source": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/v3.9.4"
             },
             "funding": [
                 {
@@ -8067,7 +8110,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-11T17:53:00+00:00"
+            "time": "2022-07-15T21:04:49+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -8192,16 +8235,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v0.2.3",
+            "version": "v0.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "d0829631687c1238abdd660daac3d7218254b65c"
+                "reference": "45c9fe899abfeeb7794c5a8c4074c140250a84c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/d0829631687c1238abdd660daac3d7218254b65c",
-                "reference": "d0829631687c1238abdd660daac3d7218254b65c",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/45c9fe899abfeeb7794c5a8c4074c140250a84c2",
+                "reference": "45c9fe899abfeeb7794c5a8c4074c140250a84c2",
                 "shasum": ""
             },
             "require": {
@@ -8254,7 +8297,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2022-07-04T16:04:06+00:00"
+            "time": "2022-07-13T17:57:52+00:00"
         },
         {
             "name": "laravel/sail",

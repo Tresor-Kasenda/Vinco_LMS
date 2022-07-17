@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
+
 /**
- * App\Models\Setting.
+ * App\Models\Setting
  *
  * @property int $id
  * @property int $user_id
@@ -29,8 +30,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Setting newModelQuery()
  * @method static Builder|Setting newQuery()
  * @method static \Illuminate\Database\Query\Builder|Setting onlyTrashed()

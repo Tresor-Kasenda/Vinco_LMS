@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Group.
+ * App\Models\Group
  *
  * @property int $id
  * @property string $name
@@ -22,12 +22,11 @@ use Illuminate\Support\Carbon;
  * @property int $admin_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Message[] $messages
+ * @property-read Collection|\App\Models\Message[] $messages
  * @property-read int|null $messages_count
- * @property-read Collection|User[] $participants
+ * @property-read Collection|\App\Models\User[] $participants
  * @property-read int|null $participants_count
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()

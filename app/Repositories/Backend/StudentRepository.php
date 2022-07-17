@@ -6,6 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\StudentRepositoryInterface;
 use App\Enums\StatusEnum;
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
 use App\Traits\ImageUploader;
@@ -14,7 +15,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Spatie\Permission\Models\Role;
 
 class StudentRepository implements StudentRepositoryInterface
 {
@@ -110,7 +110,7 @@ class StudentRepository implements StudentRepositoryInterface
             $role = Role::query()
                 ->where('name', '=', 'Etudiant')
                 ->first();
-            $user->assignRole($role->id);
+            $user->attachRole($role->id);
 
             if ($attributes->file('images') != null) {
                 $student = Student::query()

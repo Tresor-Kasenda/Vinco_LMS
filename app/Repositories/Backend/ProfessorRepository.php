@@ -6,6 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ProfessorRepositoryInterface;
 use App\Models\Professor;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValues;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
-use Spatie\Permission\Models\Role;
 
 class ProfessorRepository implements ProfessorRepositoryInterface
 {
@@ -73,7 +73,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
             $user = $this->createUser($attributes);
             if ($user != null) {
                 $role = $this->getRole();
-                $user->assignRole($role->id);
+                $user->attachRole($role->id);
                 $professor = $this->createProfessor($attributes, $user);
                 $factory->addSuccess('Un professeur a ete ajouter');
 

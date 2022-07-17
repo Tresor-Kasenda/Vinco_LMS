@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ChMessage.
+ * App\Models\ChMessage
  *
  * @property int $id
  * @property string $type
@@ -20,7 +20,6 @@ use Illuminate\Support\Carbon;
  * @property int $seen
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|ChMessage newModelQuery()
  * @method static Builder|ChMessage newQuery()
  * @method static Builder|ChMessage query()

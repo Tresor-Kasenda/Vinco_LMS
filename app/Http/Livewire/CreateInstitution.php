@@ -41,7 +41,7 @@ class CreateInstitution extends Component
 
         $repository = new InstitutionRepository();
 
-        $repository->stored($institution);
+        $repository->stored($institution, $this->factory);
 
         $this->factory->addSuccess('A new institution has been successfully added');
 

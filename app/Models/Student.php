@@ -17,8 +17,9 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
+
 /**
- * App\Models\Student.
+ * App\Models\Student
  *
  * @property int $id
  * @property int $user_id
@@ -46,27 +47,23 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property int|null $guardian_id
- * @property string|null $admission_date
- * @property-read Department|null $department
- * @property-read Collection|Fee[] $fees
+ * @property-read \App\Models\Department|null $department
+ * @property-read Collection|\App\Models\Fee[] $fees
  * @property-read int|null $fees_count
- * @property-read Journal|null $journal
+ * @property-read \App\Models\Journal|null $journal
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read Guardian|null $parent
- * @property-read Promotion|null $promotion
- * @property-read Collection|Result[] $results
+ * @property-read \App\Models\Guardian $parent
+ * @property-read \App\Models\Promotion|null $promotion
+ * @property-read Collection|\App\Models\Result[] $results
  * @property-read int|null $results_count
- * @property-read Subsidiary|null $subsidiary
- * @property-read User|null $user
- *
+ * @property-read \App\Models\Subsidiary|null $subsidiary
+ * @property-read \App\Models\User $user
  * @method static Builder|Student newModelQuery()
  * @method static Builder|Student newQuery()
  * @method static \Illuminate\Database\Query\Builder|Student onlyTrashed()
  * @method static Builder|Student query()
  * @method static Builder|Student whereAddress($value)
- * @method static Builder|Student whereAdmissionDate($value)
  * @method static Builder|Student whereBirthdays($value)
  * @method static Builder|Student whereBornCity($value)
  * @method static Builder|Student whereBornTown($value)
@@ -76,7 +73,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Student whereEmail($value)
  * @method static Builder|Student whereFirstname($value)
  * @method static Builder|Student whereGender($value)
- * @method static Builder|Student whereGuardianId($value)
  * @method static Builder|Student whereId($value)
  * @method static Builder|Student whereIdentityCard($value)
  * @method static Builder|Student whereImages($value)

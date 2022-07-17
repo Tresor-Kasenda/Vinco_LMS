@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\RoleRepositoryInterface;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Models\Role;
 
 class RoleRepository implements RoleRepositoryInterface
 {
@@ -32,7 +32,7 @@ class RoleRepository implements RoleRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
             ]);
-        $role->givePermissionTo($attributes->input('permission'));
+        $role->syncPermissions($attributes->input('permission'));
 
         $flash->addSuccess('New role as added with successfully');
 

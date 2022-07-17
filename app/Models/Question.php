@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Question.
+ * App\Models\Question
  *
  * @property int $id
  * @property int|null $course_id
@@ -24,9 +24,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Chapter|null $chapter
- * @property-read Course|null $course
- *
+ * @property-read \App\Models\Chapter|null $chapter
+ * @property-read \App\Models\Course|null $course
  * @method static Builder|Question newModelQuery()
  * @method static Builder|Question newQuery()
  * @method static \Illuminate\Database\Query\Builder|Question onlyTrashed()

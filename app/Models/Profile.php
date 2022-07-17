@@ -11,15 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Profile.
+ * App\Models\Profile
  *
  * @property int $id
  * @property int $user_id
  * @property string $images
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read User $user
- *
+ * @property-read \App\Models\User $user
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()
