@@ -93,9 +93,6 @@ class CreateUserCommand extends Command
             ]);
     }
 
-    /**
-     * @return array
-     */
     public function assignRoleToUser(): array
     {
         $role = Role::create(['name' => 'Super Admin']);
@@ -109,7 +106,6 @@ class CreateUserCommand extends Command
             ->all();
         return array($role, $results, $permission);
     }
-
 
     public function giveRoles(
         mixed $role,
