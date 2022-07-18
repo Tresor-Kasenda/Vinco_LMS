@@ -21,6 +21,26 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Journal newQuery()
  * @method static Builder|Journal query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $course_id
+ * @property int|null $student_id
+ * @property int|null $professor_id
+ * @property string $title
+ * @property string $start_time
+ * @property string $end_time
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property int $institution_id
+ * @method static Builder|Journal whereCourseId($value)
+ * @method static Builder|Journal whereCreatedAt($value)
+ * @method static Builder|Journal whereEndTime($value)
+ * @method static Builder|Journal whereId($value)
+ * @method static Builder|Journal whereInstitutionId($value)
+ * @method static Builder|Journal whereProfessorId($value)
+ * @method static Builder|Journal whereStartTime($value)
+ * @method static Builder|Journal whereStudentId($value)
+ * @method static Builder|Journal whereTitle($value)
+ * @method static Builder|Journal whereUpdatedAt($value)
  */
 class Journal extends Model
 {

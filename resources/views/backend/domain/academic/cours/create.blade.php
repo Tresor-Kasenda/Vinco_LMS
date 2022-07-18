@@ -83,8 +83,9 @@
                                                     <label class="form-label" for="category">Categorie</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control @error('category') error @enderror"
+                                                            class="form-control  js-select2  select2-hidden-accessible @error('category') error @enderror"
                                                             data-value="{{ old('category') }}"
+                                                            data-search="on"
                                                             id="category"
                                                             name="category"
                                                             data-placeholder="Select a category"
@@ -104,8 +105,9 @@
                                                     <label class="form-label" for="professor">Professeur</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control @error('professor') error @enderror"
+                                                            class="form-control js-select2  select2-hidden-accessible @error('professor') error @enderror"
                                                             data-value="{{ old('professor') }}"
+                                                            data-search="on"
                                                             id="professor"
                                                             name="professor"
                                                             data-placeholder="Select a professor"

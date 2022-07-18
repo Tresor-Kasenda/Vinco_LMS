@@ -52,6 +52,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
  */
 class Department extends Model
 {

@@ -19,6 +19,18 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Message newQuery()
  * @method static Builder|Message query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $user_id
+ * @property int $group_id
+ * @property string $message
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Message whereCreatedAt($value)
+ * @method static Builder|Message whereGroupId($value)
+ * @method static Builder|Message whereId($value)
+ * @method static Builder|Message whereMessage($value)
+ * @method static Builder|Message whereUpdatedAt($value)
+ * @method static Builder|Message whereUserId($value)
  */
 class Message extends Model
 {

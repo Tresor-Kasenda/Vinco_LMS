@@ -70,6 +70,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Professor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Professor withoutTrashed()
  * @mixin Eloquent
+ * @property int $institution_id
+ * @method static Builder|Professor whereInstitutionId($value)
  */
 class Professor extends Model
 {

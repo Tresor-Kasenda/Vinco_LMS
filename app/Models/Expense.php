@@ -32,6 +32,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Expense whereId($value)
  * @method static Builder|Expense whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property int $institution_id
+ * @method static \Database\Factories\ExpenseFactory factory(...$parameters)
+ * @method static Builder|Expense whereInstitutionId($value)
  */
 class Expense extends Model
 {

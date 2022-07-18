@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\CampusFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,10 +26,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Collection|\App\Models\Department[] $departments
+ * @property-read Collection|Department[] $departments
  * @property-read int|null $departments_count
- * @property-read \App\Models\Institution|null $institution
- * @property-read \App\Models\User $user
+ * @property-read Institution|null $institution
+ * @property-read User $user
  * @method static Builder|Campus newModelQuery()
  * @method static Builder|Campus newQuery()
  * @method static \Illuminate\Database\Query\Builder|Campus onlyTrashed()
@@ -45,6 +46,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Campus withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Campus withoutTrashed()
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @method static CampusFactory factory(...$parameters)
+ * @method static Builder|Campus whereInstitutionId($value)
  */
 class Campus extends Model
 {

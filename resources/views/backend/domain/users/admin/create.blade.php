@@ -91,8 +91,9 @@
                                                     <label class="form-label" for="role_id">Select Role</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('role_id') error @enderror"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('role_id') error @enderror"
                                                             id="role_id"
+                                                            data-search="on"
                                                             name="role_id"
                                                             data-placeholder="Select a role"
                                                             required>

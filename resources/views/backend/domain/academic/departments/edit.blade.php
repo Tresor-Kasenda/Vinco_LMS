@@ -75,7 +75,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="user">Responsable</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('user') error @enderror"
+                                                        data-search="on"
                                                         id="user"
                                                         name="user"
                                                         data-placeholder="Select Responsable"
@@ -91,7 +92,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="campus">Campus</label>
                                                     <select
-                                                        class="form-control js-select2 @error('campus') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('campus') error @enderror"
+                                                        data-search="on"
                                                         id="campus"
                                                         name="campus"
                                                         data-placeholder="Choisir la faculte"

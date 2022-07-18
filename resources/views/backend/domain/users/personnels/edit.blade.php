@@ -101,8 +101,9 @@
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('role') error @enderror"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('role') error @enderror"
                                                             data-value="{{ old('role') }}"
+                                                            data-search="on"
                                                             id="role"
                                                             name="role"
                                                             data-placeholder="Select Role"

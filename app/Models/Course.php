@@ -67,6 +67,9 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @method static \Database\Factories\CourseFactory factory(...$parameters)
+ * @method static Builder|Course whereInstitutionId($value)
  */
 class Course extends Model
 {

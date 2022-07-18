@@ -46,6 +46,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exercice withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exercice withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Database\Factories\ExerciceFactory factory(...$parameters)
  */
 class Exercice extends Model
 {

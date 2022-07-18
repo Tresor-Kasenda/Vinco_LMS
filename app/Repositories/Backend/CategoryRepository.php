@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use LaravelIdea\Helper\App\Models\_IH_Category_QB;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -27,7 +28,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->get();
     }
 
-    public function showCategory(string $key)
+    public function showCategory(string $key): Model|Builder|_IH_Category_QB|Category|\Illuminate\Database\Query\Builder|null
     {
         return Category::query()
             ->select([
@@ -45,7 +46,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $faculty = Category::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'institution_id'=> $this->institution()->institution_id,
+                'institution_id'=> $this->institution()->institution_id ?? auth()->user()->institution->id,
                 'description' => $attributes->input('description'),
             ]);
         $flash->addSuccess('A new Category as added with successfully');

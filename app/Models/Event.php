@@ -20,6 +20,23 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $title
+ * @property Carbon $start_date
+ * @property Carbon $end_date
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property int $institution_id
+ * @property int|null $promotion_id
+ * @method static \Database\Factories\EventFactory factory(...$parameters)
+ * @method static Builder|Event whereCreatedAt($value)
+ * @method static Builder|Event whereEndDate($value)
+ * @method static Builder|Event whereId($value)
+ * @method static Builder|Event whereInstitutionId($value)
+ * @method static Builder|Event wherePromotionId($value)
+ * @method static Builder|Event whereStartDate($value)
+ * @method static Builder|Event whereTitle($value)
+ * @method static Builder|Event whereUpdatedAt($value)
  */
 class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {

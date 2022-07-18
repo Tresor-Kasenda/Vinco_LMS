@@ -90,6 +90,8 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $institution_id
+ * @method static Builder|User whereInstitutionId($value)
  */
 class User extends Authenticatable
 {

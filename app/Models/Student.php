@@ -92,6 +92,11 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Student withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Student withoutTrashed()
  * @mixin \Eloquent
+ * @property int|null $guardian_id
+ * @property string|null $admission_date
+ * @method static \Database\Factories\StudentFactory factory(...$parameters)
+ * @method static Builder|Student whereAdmissionDate($value)
+ * @method static Builder|Student whereGuardianId($value)
  */
 class Student extends Model
 {

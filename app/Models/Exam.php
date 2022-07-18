@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\ExamFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \App\Models\Course $course
+ * @property-read Course $course
  * @method static Builder|Exam newModelQuery()
  * @method static Builder|Exam newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exam onlyTrashed()
@@ -39,7 +41,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Exam whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Exam withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exam withoutTrashed()
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property string|null $start_time
+ * @property int $exam_id
+ * @property-read ExamSession|null $examSession
+ * @method static ExamFactory factory(...$parameters)
+ * @method static Builder|Exam whereExamId($value)
+ * @method static Builder|Exam whereStartTime($value)
  */
 class Exam extends Model
 {
@@ -50,5 +58,10 @@ class Exam extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function examSession(): BelongsTo
+    {
+        return $this->belongsTo(ExamSession::class);
     }
 }

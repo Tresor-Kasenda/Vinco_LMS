@@ -15,11 +15,26 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Calendar
  *
- * @property-read \App\Models\Event|null $institution
+ * @property-read Event|null $institution
  * @method static Builder|Calendar newModelQuery()
  * @method static Builder|Calendar newQuery()
  * @method static Builder|Calendar query()
  * @mixin Eloquent
+ * @property int $id
+ * @property string $title
+ * @property Carbon $start_date
+ * @property Carbon $end_date
+ * @property int $institution_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static \Database\Factories\CalendarFactory factory(...$parameters)
+ * @method static Builder|Calendar whereCreatedAt($value)
+ * @method static Builder|Calendar whereEndDate($value)
+ * @method static Builder|Calendar whereId($value)
+ * @method static Builder|Calendar whereInstitutionId($value)
+ * @method static Builder|Calendar whereStartDate($value)
+ * @method static Builder|Calendar whereTitle($value)
+ * @method static Builder|Calendar whereUpdatedAt($value)
  */
 class Calendar extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {

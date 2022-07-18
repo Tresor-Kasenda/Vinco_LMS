@@ -17,6 +17,14 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|LessonType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LessonType query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $name
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|LessonType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LessonType whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LessonType whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LessonType whereUpdatedAt($value)
  */
 class LessonType extends Model
 {

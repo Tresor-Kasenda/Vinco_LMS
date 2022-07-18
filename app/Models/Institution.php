@@ -39,6 +39,32 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Institution withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Institution withoutTrashed()
  * @mixin Eloquent
+ * @property int $id
+ * @property string $institution_name
+ * @property string|null $institution_country
+ * @property string|null $institution_town
+ * @property string|null $institution_address
+ * @property string|null $institution_phones
+ * @property string|null $institution_website
+ * @property string|null $institution_email
+ * @property string|null $institution_images
+ * @property string|null $institution_description
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @method static Builder|Institution whereCreatedAt($value)
+ * @method static Builder|Institution whereDeletedAt($value)
+ * @method static Builder|Institution whereId($value)
+ * @method static Builder|Institution whereInstitutionAddress($value)
+ * @method static Builder|Institution whereInstitutionCountry($value)
+ * @method static Builder|Institution whereInstitutionDescription($value)
+ * @method static Builder|Institution whereInstitutionEmail($value)
+ * @method static Builder|Institution whereInstitutionImages($value)
+ * @method static Builder|Institution whereInstitutionName($value)
+ * @method static Builder|Institution whereInstitutionPhones($value)
+ * @method static Builder|Institution whereInstitutionTown($value)
+ * @method static Builder|Institution whereInstitutionWebsite($value)
+ * @method static Builder|Institution whereUpdatedAt($value)
  */
 class Institution extends Model
 {

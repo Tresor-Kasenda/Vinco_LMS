@@ -47,6 +47,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $lesson_type_id
+ * @property string|null $content
+ * @method static Builder|Lesson whereContent($value)
+ * @method static Builder|Lesson whereLessonTypeId($value)
  */
 class Lesson extends Model
 {

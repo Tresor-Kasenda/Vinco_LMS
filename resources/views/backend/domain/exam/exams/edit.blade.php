@@ -9,9 +9,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">
-                                Edit Schedule List
-                            </h3>
+                            <h3 class="nk-block-title page-title">Edit Exams</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -34,38 +32,98 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.exam.exam.update', $academic->key) }}" method="post" class="form-validate" novalidate="novalidate">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.exam.exam.update', $exam->id) }}" method="post" class="form-validate mt-4" novalidate="novalidate">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="startDate">Annee debut</label>
+                                                    <label class="form-label" for="course">Cours</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2  select2-hidden-accessible @error('course') error @enderror"
+                                                            data-value="{{ old('course') }}"
+                                                            data-search="on"
+                                                            id="category"
+                                                            name="category"
+                                                            data-placeholder="Select a course"
+                                                            required>
+                                                            <option value="{{ $exam->course->id }}">{{ ucfirst($exam->course->name) }}</option>
+                                                            @foreach(\App\Models\Course::all() as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ ucfirst($course->name) ?? "" }}
+                                                                </option>
+                                                            @endforeach>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="rating">Ponderation</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('startDate') error @enderror"
-                                                            id="startDate"
-                                                            name="startDate"
-                                                            value="{{ old('startDate' ) ?? $academic->startDate }}"
-                                                            data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir le debut de l'annee"
+                                                            class="form-control @error('rating') error @enderror"
+                                                            id="rating"
+                                                            name="rating"
+                                                            value="{{ old('rating') ?? $exam->rating }}"
+                                                            placeholder="Saisir la ponderation"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="endDate">Annee de fin</label>
+                                                    <label class="form-label" for="date">Date</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
-                                                            class="form-control date-picker-alt @error('endDate') error @enderror"
-                                                            id="endDate"
-                                                            name="endDate"
-                                                            value="{{ old('endDate' ) ?? $academic->endDate }}"
+                                                            class="form-control date-picker @error('date') error @enderror"
+                                                            id="date"
+                                                            name="date"
                                                             data-date-format="yyyy-mm-dd"
-                                                            placeholder="Saisir la fin de l'annee"
+                                                            value="{{ old('date') ?? $exam->date }}"
+                                                            placeholder="Selectionnez la date"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="start_time">Heure de debut</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control time-picker @error('start_time') error @enderror"
+                                                            id="start_time"
+                                                            name="start_time"
+                                                            value="{{ old('start_time') ?? $exam->start_time }}"
+                                                            placeholder="Select Start Time"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="duration">Durée d'examen</label>
+                                                    <div class="form-control-wrap">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control @error('duration') error @enderror"
+                                                            id="duration"
+                                                            name="duration"
+                                                            value="{{ old('duration') ?? $exam->duration }}"
+                                                            placeholder="Saisir la durée d'examen"
                                                             required>
                                                     </div>
                                                 </div>

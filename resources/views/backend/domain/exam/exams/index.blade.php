@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Gestion des examens")
+@section('title')
+    Liste des examens
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -9,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Exams List</h3>
+                            <h3 class="nk-block-title page-title">Liste des Examens</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -28,55 +30,84 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="row g-gs">
-                        @forelse($exams as $academic)
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card h-100">
-                                    <div class="card-inner">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="ms-3">
-                                                    <h6 class="title mb-1">
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->startDate)->format('Y') }}
-                                                        -
-                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->endDate)->format('Y') }}</h6>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger mt-n1 me-n1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <em class="icon ni ni-more-h"></em>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end" style="">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a class="-mr-2 btn btn-dim" href="{{ route('admins.exam.exam.edit', $academic->key) }}">
-                                                                <em class="icon ni ni-edit"></em>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('admins.exam.exam.destroy', $academic->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                @method('DELETE')
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                <button type="submit" class="btn btn-dim">
-                                                                    <em class="icon ni ni-delete"></em>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                    <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
+                        <thead>
+                            <tr class="nk-tb-item nk-tb-head text-center">
+                                <th class="nk-tb-col">
+                                    <span>ID</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>COURS</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>PONDERATION</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>DATE</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>DUREE</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>STATUS</span>
+                                </th>
+                                <th class="nk-tb-col">
+                                    <span>ACTION</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($exams as $exam)
+                            <tr class="nk-tb-item text-center">
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ $exam->id ?? "" }}
+                                    </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ ucfirst($exam->course->name) ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $exam->rating ?? "" }} </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $exam->date ?? "" }} </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $exam->duration ?? "" }} </span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    @if($exam->status)
+                                        <span class="dot bg-success d-sm-none"></span>
+                                        <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
+                                    @else
+                                        <span class="dot bg-warning d-sm-none"></span>
+                                        <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
+                                    @endif
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        <div class="d-flex">
+                                            <a href="{{ route('admins.exam.exam.show', $exam->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                <em class="icon ni ni-eye"></em>
+                                            </a>
+                                            <a href="{{ route('admins.exam.exam.edit', $exam->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                <em class="icon ni ni-edit"></em>
+                                            </a>
+                                            <form action="{{ route('admins.exam.exam.destroy', $exam->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                @method('DELETE')
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                    <em class="icon ni ni-trash"></em>
+                                                </button>
+                                            </form>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-center mt-4 text-azure">
-                                Pas des sessions disponible
-                            </div>
-                        @endforelse
-                    </div>
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@
         $role = $rol;
     }
 @endphp
+
 <div class="nk-sidebar nk-sidebar-fixed is-light" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
@@ -867,8 +868,6 @@
                             'icon' => "ni-book"
                         ])
                     @endrole
-
-
 
                     <li class="nk-menu-item">
                         <a class="nk-menu-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

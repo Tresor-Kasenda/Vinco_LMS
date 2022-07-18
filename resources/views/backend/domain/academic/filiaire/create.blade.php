@@ -71,9 +71,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="user">Responsable</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('user') error @enderror"
                                                         id="user"
                                                         name="user"
+                                                        data-search="on"
                                                         data-placeholder="Select Responsable"
                                                         required>
                                                         <option label="Select Responsable" value=""></option>
@@ -90,8 +91,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="department">Departement</label>
                                                     <select
-                                                        class="form-control js-select2 @error('department') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('department') error @enderror"
                                                         id="department"
+                                                        data-search="on"
                                                         name="department"
                                                         data-placeholder="Select le departement"
                                                         required>

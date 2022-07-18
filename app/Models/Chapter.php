@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\ChapterFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,16 +24,16 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \App\Models\Course $course
- * @property-read Collection|\App\Models\Exercice[] $exercises
+ * @property-read Course $course
+ * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read Collection|\App\Models\Homework[] $homeworks
+ * @property-read Collection|Homework[] $homeworks
  * @property-read int|null $homeworks_count
  * @property-read Collection|Lesson[] $lessons
  * @property-read int|null $lessons_count
- * @property-read Collection|\App\Models\Question[] $questions
+ * @property-read Collection|Question[] $questions
  * @property-read int|null $questions_count
- * @property-read Collection|\App\Models\Resource[] $resources
+ * @property-read Collection|Resource[] $resources
  * @property-read int|null $resources_count
  * @method static Builder|Chapter newModelQuery()
  * @method static Builder|Chapter newQuery()
@@ -48,6 +49,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Chapter withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Chapter withoutTrashed()
  * @mixin \Eloquent
+ * @method static ChapterFactory factory(...$parameters)
  */
 class Chapter extends Model
 {

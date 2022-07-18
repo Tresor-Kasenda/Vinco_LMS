@@ -19,7 +19,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->float('rating')->nullable(); // cote d'examen
             $table->date('date')->nullable();
-            $table->time('duration')->nullable();
+            $table->time('start_time')->nullable();
+            $table->string('duration')->nullable();
             $table->boolean('status')->default(StatusEnum::FALSE);
             $table->timestamps();
             $table->softDeletes();

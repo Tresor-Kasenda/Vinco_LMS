@@ -67,8 +67,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="filiaire">FIliaire</label>
                                                     <select
-                                                        class="form-control js-select2 @error('filiaire') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
                                                         id="filiaire"
+                                                        data-search="on"
                                                         name="filiaire"
                                                         data-placeholder="Choisir le filiaire"
                                                         required>
@@ -83,9 +84,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="academic">Annee academique</label>
                                                     <select
-                                                        class="form-control js-select2 @error('academic') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('academic') error @enderror"
                                                         id="academic"
                                                         name="academic"
+                                                        data-search="on"
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
                                                         <option value="{{ $promotion->academic->id }}">
