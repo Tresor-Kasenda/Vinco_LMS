@@ -66,6 +66,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Institution withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Institution withoutTrashed()
  * @mixin \Eloquent
+ * @property-read Collection|\App\Models\Professor[] $professors
+ * @property-read int|null $professors_count
  */
 class Institution extends Model
 {
@@ -73,9 +75,9 @@ class Institution extends Model
 
     protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function user(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function fees(): HasMany
@@ -106,5 +108,10 @@ class Institution extends Model
     public function professors(): HasMany
     {
         return $this->hasMany(Professor::class);
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
     }
 }

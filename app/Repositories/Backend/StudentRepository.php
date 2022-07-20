@@ -30,6 +30,7 @@ class StudentRepository implements StudentRepositoryInterface
                 'id',
                 'name',
                 'firstname',
+                'lastname',
                 'matriculate',
                 'department_id',
                 'subsidiary_id',
@@ -52,11 +53,11 @@ class StudentRepository implements StudentRepositoryInterface
                 'id',
                 'name',
                 'firstname',
+                'lastname',
                 'matriculate',
                 'department_id',
                 'subsidiary_id',
                 'email',
-                'lastname',
                 'phone_number',
                 'images',
                 'nationality',
@@ -100,8 +101,9 @@ class StudentRepository implements StudentRepositoryInterface
         if (! $user) {
             $user = User::query()
                 ->create([
-                    'name' => $attributes->input('name'),
+                    'name' => $attributes->input('name').' '.$attributes->input('firstname').' '.$attributes->input('lastname'),
                     'email' => $attributes->input('email'),
+                    'institution_id'=> $attributes->input('institution_id'),
                     'password' => \Hash::make($attributes->input('password')),
                 ]);
 
@@ -126,6 +128,46 @@ class StudentRepository implements StudentRepositoryInterface
                     'admission_date' => $attributes->input('admission'),
                     'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
                 ]);
+            if ($attributes->file('images') != null) {
+                $student = Student::query()
+                    ->create([
+                        'user_id' => $user->id,
+                        'department_id' => $attributes->input('department'),
+                        'promotion_id' => $attributes->input('promotion'),
+                        'subsidiary_id' => $attributes->input('filiaire'),
+                        'name' => $attributes->input('name'),
+                        'firstname' => $attributes->input('firstname'),
+                        'lastname' => $attributes->input('lastname'),
+                        'nationality' => $attributes->input('nationality'),
+                        'location' => $attributes->input('location'),
+                        'email' => $attributes->input('email'),
+                        'images' => self::uploadFiles($attributes),
+                        'status' => StatusEnum::TRUE,
+                        'gender' => $attributes->input('gender'),
+                        'guardian_id' => $attributes->input('parent'),
+                        'admission_date' => $attributes->input('admission'),
+                        'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
+                    ]);
+            } else {
+                $student = Student::query()
+                    ->create([
+                        'user_id' => $user->id,
+                        'department_id' => $attributes->input('department'),
+                        'promotion_id' => $attributes->input('promotion'),
+                        'subsidiary_id' => $attributes->input('filiaire'),
+                        'name' => $attributes->input('name'),
+                        'firstname' => $attributes->input('firstname'),
+                        'lastname' => $attributes->input('lastname'),
+                        'nationality' => $attributes->input('nationality'),
+                        'location' => $attributes->input('location'),
+                        'email' => $attributes->input('email'),
+                        'status' => StatusEnum::TRUE,
+                        'gender' => $attributes->input('gender'),
+                        'guardian_id' => $attributes->input('parent'),
+                        'admission_date' => $attributes->input('admission'),
+                        'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
+                    ]);
+            }
             $factory->addSuccess('Un Etudiant a ete ajouter');
 
             return $student;
@@ -151,6 +193,7 @@ class StudentRepository implements StudentRepositoryInterface
             'subsidiary_id' => $attributes->input('filiaire'),
             'name' => $attributes->input('name'),
             'firstname' => $attributes->input('firstname'),
+            'lastname' => $attributes->input('lastname'),
             'email' => $attributes->input('email'),
             'gender' => $attributes->input('gender'),
             'guardian_id' => $attributes->input('parent'),

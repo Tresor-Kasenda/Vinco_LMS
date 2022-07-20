@@ -7,6 +7,8 @@ namespace App\Repositories\Backend;
 use App\Contracts\CategoryRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Category;
+use App\Models\Institution;
+use App\Models\Professor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +31,12 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function showCategory(string $key)
     {
         return Category::query()
+            ->select([
+                'id',
+                'name',
+                'description',
+                'institution_id',
+            ])
             ->where('id', '=', $key)
             ->first();
     }
@@ -38,6 +46,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $faculty = Category::query()
             ->create([
                 'name' => $attributes->input('name'),
+                'institution_id'=> $this->institution()->institution_id,
                 'description' => $attributes->input('description'),
             ]);
         $flash->addSuccess('A new Category as added with successfully');
@@ -50,6 +59,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = $this->showCategory(key: $key);
         $category->update([
             'name' => $attributes->input('name'),
+            'institution_id'=> $this->institution()->institution_id,
             'description' => $attributes->input('description'),
         ]);
         $flash->addSuccess('The Category as updated with successfully');
@@ -64,5 +74,16 @@ class CategoryRepository implements CategoryRepositoryInterface
         $flash->addSuccess('The Category as trashed with successfully');
 
         return back();
+    }
+
+    protected function institution(): Model|Professor|Builder|\Illuminate\Database\Query\Builder|null
+    {
+        return Professor::query()
+            ->select([
+                'id',
+                'institution_id',
+            ])
+            ->where('user_id', '=', auth()->user()->id)
+            ->first();
     }
 }

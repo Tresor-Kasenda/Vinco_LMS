@@ -34,6 +34,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AcademicYear whereStartDate($value)
  * @method static Builder|AcademicYear whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property int $institution_id
+ * @method static Builder|AcademicYear whereInstitutionId($value)
  */
 class AcademicYear extends Model
 {
