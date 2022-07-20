@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Laratrust\Models\LaratrustRole;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class CreateUserCommand extends Command
@@ -57,14 +58,11 @@ class CreateUserCommand extends Command
                     $user = User::query()
                         ->create(compact('name', 'email', 'password', 'status', 'institution_id'));
                     $user->save();
-                    list($role, $results, $permission) = $this->assignRoleToUser();
+                    Artisan::call('db:seed');
 
-                    $progressBar = $this->output->createProgressBar($results->count());
-                    $progressBar->start();
+                    $role = $this->assignRoleToUser();
 
-                    $this->giveRoles($role, $permission, $user, $progressBar, $name);
-
-                    $progressBar->finish();
+                    $this->giveRoles($role, $user, $name);
                     $this->line('Admin create with successfully');
                     exit();
                 } catch (\Exception $exception) {
@@ -93,33 +91,22 @@ class CreateUserCommand extends Command
             ]);
     }
 
-    public function assignRoleToUser(): array
+    public function assignRoleToUser(): LaratrustRole|Role
     {
-        $role = Role::create(['name' => 'Super Admin']);
+        return Role::where('name', '=', 'Super Admin')->first();
+    }
 
-        Artisan::call('db:seed');
-
-        $results = Permission::all();
+    public function giveRoles(
+        $role,
+        $user,
+        string $name
+    ): void {
 
         $permission = Permission::query()
             ->pluck('id', 'id')
             ->all();
-        return array($role, $results, $permission);
-    }
-
-    public function giveRoles(
-        mixed $role,
-        mixed $permission,
-        $user,
-        ProgressBar $progressBar,
-        string $name
-    ): void {
-        $role->syncPermissions($permission);
-
         $user->attachRole($role);
         $user->syncPermissions($permission);
-        sleep(3);
-        $progressBar->advance();
 
         Setting::query()
             ->create([

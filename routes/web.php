@@ -205,12 +205,6 @@ Route::get('institutionRegister', [HomeFrontendController::class, 'register'])->
 Route::post('institionStore', [HomeFrontendController::class, 'store'])->name('home.institution.store');
 Route::get('studentRegister', [HomeFrontendController::class, 'registerStudent'])->name('home.student.register');
 Route::post('studentStore', [HomeFrontendController::class, 'storeStudent'])->name('home.student.store');
-Route::get('about', [AboutAppController::class, 'index'])->name('about.index');
-Route::get('short-courses', [ShortCoursesAppController::class, 'index'])->name('courses.index');
-Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.index');
-Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
-Route::get('events', [EventAppController::class, 'index'])->name('events.index');
-Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
 
 //Add chat group test
 Route::get('/group/create', [GroupController::class, 'create_form']);
