@@ -29,13 +29,12 @@ class CalendarBackendController extends Controller
      */
     public function index(): View|Factory|Application
     {
-//        $calendar = $this->repository->events();
 
         $eloquentEvent = Calendar::all(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
 
         $calendar = \Calendar::addEvents($eloquentEvent);
 
-        return view('backend.domain.communication.calendar.index', compact('calendar'));
+        return view('backend.domain.communication.calendar.index', compact('calendar', 'eloquentEvent'));
     }
 
     /**

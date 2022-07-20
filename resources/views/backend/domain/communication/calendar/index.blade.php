@@ -20,9 +20,29 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="card">
-                        <div class="card-inner">
-                            {!! $calendar->calendar() !!}
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="card-inner">
+                                    {!! $calendar->calendar() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-inner">
+                                    <h5 class="card-title">Liste des calendriers</h5>
+                                    <ul class="link-list-plain">
+                                        @foreach($eloquentEvent as $event)
+                                            <li>
+                                                <a href="#">
+                                                    <span>{{ ucfirst($event->title) ?? "" }}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

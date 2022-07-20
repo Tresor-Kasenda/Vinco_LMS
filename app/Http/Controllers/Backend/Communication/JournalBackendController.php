@@ -20,7 +20,7 @@ class JournalBackendController extends Controller
 
         $calendar = \Calendar::addEvents($eloquentEvent);
 
-        return view('backend.domain.communication.journal.index', compact('calendar'));
+        return view('backend.domain.communication.journal.index', compact('calendar', 'eloquentEvent'));
     }
 
     /**
