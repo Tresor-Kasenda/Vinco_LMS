@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ExamListRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActivateExamRequest;
 use App\Http\Requests\ExamListRequest;
 use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
@@ -37,12 +38,18 @@ class ExamListBackendController extends Controller
         return view('backend.domain.exam.exams.create');
     }
 
-    public function store(Request $attributes): RedirectResponse
+    public function store(ExamListRequest $attributes): RedirectResponse
     {
-        dd($attributes);
         $this->repository->stored(attributes: $attributes, factory: $this->factory);
 
         return to_route('admins.exam.exam.index');
+    }
+
+    public function show(string $key)
+    {
+        $exam = $this->repository->showExam($key);
+
+        return \Illuminate\Support\Facades\View::make('backend.domain.exam.exams.show')->with('exam', $exam);
     }
 
     public function edit(string $key): Factory|View|Application
@@ -62,6 +69,13 @@ class ExamListBackendController extends Controller
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key, factory: $this->factory);
+
+        return back();
+    }
+
+    public function active(ActivateExamRequest $request)
+    {
+        $this->repository->activate($request);
 
         return back();
     }

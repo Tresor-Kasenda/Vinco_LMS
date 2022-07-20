@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
+use App\Http\Controllers\Backend\ExamSessionController;
 use App\Http\Controllers\Backend\ExerciseBackendController;
 use App\Http\Controllers\Backend\ExpenseBackendController;
 use App\Http\Controllers\Backend\ExpenseTypeBackendController;
@@ -53,6 +54,7 @@ use App\Http\Controllers\Frontend\HomeFrontendController;
 use App\Http\Controllers\Mail\InstitutionMailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use function Symfony\Component\String\u;
 
 Auth::routes();
 
@@ -92,9 +94,13 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {
+            Route::resource('session-exams', ExamSessionController::class)->except(['show']);
             Route::resource('exam', ExamListBackendController::class);
             Route::resource('schedule', SchedulerBackendController::class);
             Route::resource('exam-result', ResultBackendController::class);
+
+            Route::put('exam/{key}/active', [ExamListBackendController::class, 'active'])
+                ->name('exam.active');
         });
 
         Route::group(['prefix' => 'announce', 'as' => 'announce.'], routes: function () {

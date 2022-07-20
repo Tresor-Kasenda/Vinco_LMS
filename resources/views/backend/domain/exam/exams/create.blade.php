@@ -70,6 +70,28 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <label class="form-label" for="exam_session">Session Examen</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2  select2-hidden-accessible @error('exam_session') error @enderror"
+                                                            data-value="{{ old('exam_session') }}"
+                                                            data-search="on"
+                                                            id="exam_session"
+                                                            name="exam_session"
+                                                            data-placeholder="Select Session exam"
+                                                            required>
+                                                            <option label="Choisir une course" value=""></option>
+                                                            @foreach(\App\Models\ExamSession::all() as $exam_session)
+                                                                <option value="{{ $exam_session->id }}">
+                                                                    {{ ucfirst($exam_session->name) ?? "" }}
+                                                                </option>
+                                                            @endforeach>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label class="form-label" for="rating">Ponderation</label>
                                                     <div class="form-control-wrap">
                                                         <input

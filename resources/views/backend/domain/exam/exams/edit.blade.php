@@ -53,14 +53,36 @@
                                                             class="form-control js-select2  select2-hidden-accessible @error('course') error @enderror"
                                                             data-value="{{ old('course') }}"
                                                             data-search="on"
-                                                            id="category"
-                                                            name="category"
+                                                            id="course"
+                                                            name="course"
                                                             data-placeholder="Select a course"
                                                             required>
                                                             <option value="{{ $exam->course->id }}">{{ ucfirst($exam->course->name) }}</option>
                                                             @foreach(\App\Models\Course::all() as $course)
                                                                 <option value="{{ $course->id }}">
                                                                     {{ ucfirst($course->name) ?? "" }}
+                                                                </option>
+                                                            @endforeach>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="exam_session">Session Examen</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2  select2-hidden-accessible @error('exam_session') error @enderror"
+                                                            data-value="{{ old('exam_session') }}"
+                                                            data-search="on"
+                                                            id="exam_session"
+                                                            name="exam_session"
+                                                            data-placeholder="Select Session exam"
+                                                            required>
+                                                            <option value="{{ $exam->examSession->id }}">{{ ucfirst($exam->examSession->name) }}</option>
+                                                            @foreach(\App\Models\ExamSession::all() as $exam_session)
+                                                                <option value="{{ $exam_session->id }}">
+                                                                    {{ ucfirst($exam_session->name) ?? "" }}
                                                                 </option>
                                                             @endforeach>
                                                         </select>

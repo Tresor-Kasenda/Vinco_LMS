@@ -128,7 +128,7 @@
                                             </div>
 
                                             @php
-                                                $roles = \Spatie\Permission\Models\Role::query()
+                                                $roles = \App\Models\Role::query()
                                                         ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable'])
                                                         ->get();
                                             @endphp

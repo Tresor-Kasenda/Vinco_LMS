@@ -13,6 +13,7 @@ use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Contracts\EventRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
+use App\Contracts\ExamSessionRepositoryInterface;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Contracts\ExpenseRepositoryInterface;
 use App\Contracts\ExpenseTypeRepositoryInterface;
@@ -53,6 +54,7 @@ use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\ExamListRepository;
+use App\Repositories\Backend\ExamSessionRepository;
 use App\Repositories\Backend\ExerciseRepository;
 use App\Repositories\Backend\ExpenseRepository;
 use App\Repositories\Backend\ExpenseTypeRepository;
@@ -138,6 +140,7 @@ class RepositoryServiceProvider extends ServiceProvider
         NotificationRepositoryInterface::class => NotificationRepository::class,
         JournalRepositoryInterface::class => JournalRepository::class,
         InstitutionRepositoryInterface::class => InstitutionRepository::class,
+        ExamSessionRepositoryInterface::class => ExamSessionRepository::class,
     ];
 
     /**

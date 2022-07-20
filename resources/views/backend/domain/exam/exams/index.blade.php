@@ -49,9 +49,6 @@
                                     <span>DUREE</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>STATUS</span>
-                                </th>
-                                <th class="nk-tb-col">
                                     <span>ACTION</span>
                                 </th>
                             </tr>
@@ -77,17 +74,8 @@
                                     <span class="tb-lead">{{ $exam->duration ?? "" }} </span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    @if($exam->status)
-                                        <span class="dot bg-success d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                    @else
-                                        <span class="dot bg-warning d-sm-none"></span>
-                                        <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                    @endif
-                                </td>
-                                <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        <div class="d-flex">
+                                        <div class="d-flex justify-content-center">
                                             <a href="{{ route('admins.exam.exam.show', $exam->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                 <em class="icon ni ni-eye"></em>
                                             </a>

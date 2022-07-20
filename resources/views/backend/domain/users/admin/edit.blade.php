@@ -81,7 +81,7 @@
                                             </div>
 
                                             @php
-                                                $roles  = \Spatie\Permission\Models\Role::query()
+                                                $roles  = \App\Models\Role::query()
                                                     ->whereIn('name', ['Admin', 'Super Admin'])
                                                     ->get()
                                             @endphp
