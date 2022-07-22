@@ -71,7 +71,6 @@ use App\Repositories\Backend\ProfileRepository;
 use App\Repositories\Backend\PromotionRepository;
 use App\Repositories\Backend\ResourceRepository;
 use App\Repositories\Backend\ResultRepository;
-use App\Repositories\Backend\RoleRepository;
 use App\Repositories\Backend\SchedulerRepository;
 use App\Repositories\Backend\StudentRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
@@ -89,6 +88,7 @@ use App\Repositories\Com\JournalRepository;
 use App\Repositories\Com\NotificationRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\InstitutionRepository;
+use App\Repositories\System\RoleRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 

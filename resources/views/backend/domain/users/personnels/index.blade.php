@@ -17,6 +17,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @permission('gestionnaire-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.staffs.create') }}">
                                                 <em class="icon ni ni-plus"></em>
@@ -29,6 +30,7 @@
                                                 <span>Corbeille</span>
                                             </a>
                                         </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -88,9 +90,12 @@
                                                 <a href="{{ route('admins.users.staffs.show', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye-alt"></em>
                                                 </a>
+                                                @permission('gestionnaire-update')
                                                 <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit-alt"></em>
                                                 </a>
+                                                @endpermission
+                                                @permission('gestionnaire-delete')
                                                 <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -98,6 +103,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
+                                                @endpermission
                                             </div>
                                         </span>
                                     </td>

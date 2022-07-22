@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Backend;
+namespace App\Repositories\System;
 
 use App\Contracts\RoleRepositoryInterface;
 use App\Models\Role;

@@ -17,18 +17,20 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.guardian.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
+                                        @permission('parent-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.guardian.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
+                                                    <em class="icon ni ni-histroy"></em>
+                                                    <span>Corbeille</span>
+                                                </a>
+                                            </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -88,16 +90,21 @@
                                             <a href="{{ route('admins.users.guardian.show', $parent->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                 <em class="icon ni ni-eye-alt"></em>
                                             </a>
-                                            <a href="{{ route('admins.users.guardian.edit', $parent->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-edit-alt"></em>
-                                            </a>
-                                            <form action="{{ route('admins.users.guardian.destroy', $parent->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                @method('DELETE')
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                    <em class="icon ni ni-trash"></em>
-                                                </button>
-                                            </form>
+                                            @permission('parent-update')
+                                                <a href="{{ route('admins.users.guardian.edit', $parent->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit-alt"></em>
+                                                </a>
+                                            @endpermission
+
+                                            @permission('parent-delete')
+                                                <form action="{{ route('admins.users.guardian.destroy', $parent->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            @endpermission
                                         </div>
                                     </span>
                                 </td>

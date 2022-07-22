@@ -17,12 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.session.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
+                                        @permission('academic-year-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.session.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -45,16 +47,21 @@
                                         </div>
 
                                         <div class="d-flex justify-content-center mt-3">
-                                            <a class="-mr-2 btn btn-dim btn-primary ml-2" href="{{ route('admins.academic.session.edit', $academic->id) }}">
-                                                <em class="icon ni ni-edit"></em>
-                                            </a>
-                                            <form action="{{ route('admins.academic.session.destroy', $academic->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                @method('DELETE')
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-dim btn-danger">
-                                                    <em class="icon ni ni-trash"></em>
-                                                </button>
-                                            </form>
+                                            @permission('academic-year-update')
+                                                <a class="-mr-2 btn btn-dim btn-primary ml-2" href="{{ route('admins.academic.session.edit', $academic->id) }}">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                            @endpermission
+
+                                            @permission('academic-year-delete')
+                                                <form action="{{ route('admins.academic.session.destroy', $academic->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            @endpermission
                                         </div>
                                     </div>
                                 </div>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\System;
 
 use App\Contracts\RoleRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -39,6 +39,7 @@ class RoleBackendController extends Controller
 
     public function store(RoleRequest $request): RedirectResponse
     {
+        $this->repository->stored(attributes: $request, flash: $this->factory);
         return redirect()->route('admins.roles.index');
     }
 
@@ -53,8 +54,6 @@ class RoleBackendController extends Controller
 
     public function update(int $id, RoleRequest $request): RedirectResponse
     {
-        $role = $this->repository->showRole(key: $id);
-
         $this->repository->updated(key: $id, attributes: $request, flash: $this->factory);
 
         return redirect()->route('admins.roles.index');
