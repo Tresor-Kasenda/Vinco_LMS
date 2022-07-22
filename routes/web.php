@@ -118,6 +118,17 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('journal', JournalBackendController::class);
         });
 
+        Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
+            Route::resource('fees', FeesBackendController::class);
+            Route::resource('expenses', ExpenseBackendController::class);
+        });
+
+        Route::resource('roles', RoleBackendController::class);
+        Route::resource('settings', SettingsBackendController::class);
+        Route::put('setting/{system}', [SettingsBackendController::class, 'updateSystem'])->name('system.update');
+        Route::controller(ProfileBackendController::class)->group(function () {
+            Route::get('profile', 'index')->name('admins.profile');
+        });
 
         Route::controller(TrashedCampusBackendController::class)->group(function () {
             Route::get('historyCampus/', 'index')->name('campus.history');
@@ -194,6 +205,12 @@ Route::get('institutionRegister', [HomeFrontendController::class, 'register'])->
 Route::post('institionStore', [HomeFrontendController::class, 'store'])->name('home.institution.store');
 Route::get('studentRegister', [HomeFrontendController::class, 'registerStudent'])->name('home.student.register');
 Route::post('studentStore', [HomeFrontendController::class, 'storeStudent'])->name('home.student.store');
+Route::get('about', [AboutAppController::class, 'index'])->name('about.index');
+Route::get('short-courses', [ShortCoursesAppController::class, 'index'])->name('courses.index');
+Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.index');
+Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
+Route::get('events', [EventAppController::class, 'index'])->name('events.index');
+Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
 
 //Add chat group test
 Route::get('/group/create', [GroupController::class, 'create_form']);

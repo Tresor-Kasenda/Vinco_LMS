@@ -13,14 +13,14 @@
                                 @role('Parent')
                                     <x-statistic
                                         name="Due Fees"
-                                        number="{{ \App\Models\Course::all()->count() }}"
+                                        number="{{ \App\Models\Fee::all()->count() }}"
                                         route="{{ route('admins.accounting.fees.index') }}"
                                     />
 
                                     <x-statistic
                                         name="Events"
-                                        number="{{ \App\Models\Course::all()->count() }}"
-                                        route="{{ route('admins.accounting.fees.index') }}"
+                                        number="{{ \App\Models\Event::all()->count() }}"
+                                        route="{{ route('admins.communication.events.index') }}"
                                     />
 
                                     <x-statistic
@@ -32,7 +32,7 @@
                                     <x-statistic
                                         name="Cours"
                                         number="{{ \App\Models\Course::all()->count() }}"
-                                        route="{{ route('admins.accounting.fees.index') }}"
+                                        route="{{ route('admins.academic.course.index') }}"
                                     />
                                 @endrole
 
