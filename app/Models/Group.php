@@ -22,11 +22,11 @@ use Illuminate\Support\Carbon;
  * @property int $admin_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|\App\Models\Message[] $messages
+ * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
- * @property-read Collection|\App\Models\User[] $participants
+ * @property-read Collection|User[] $participants
  * @property-read int|null $participants_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()

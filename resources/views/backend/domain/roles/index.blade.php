@@ -64,7 +64,7 @@
                                 <td class="nk-tb-col text-center">
                                     <span class="tb-lead text-center">
                                         <div class="d-flex">
-                                            @permission('role-edit')
+                                            @permission('role-update')
                                                 <a href="{{ route('admins.roles.edit', $role->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit"></em>
                                                 </a>

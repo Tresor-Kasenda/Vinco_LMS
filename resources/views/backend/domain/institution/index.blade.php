@@ -1,7 +1,7 @@
 @extends('backend.layout.base')
 
 @section('title')
-    Institution Lister
+    Institutions
 @endsection
 
 @section('content')
@@ -17,12 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.institution.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
+                                        @permission('institution-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.institution.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -98,19 +100,25 @@
                                 <td class="nk-tb-col text-center">
                                     <span class="tb-lead text-center">
                                         <div class="d-flex">
-                                            <a href="{{ route('admins.institution.show', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-eye"></em>
-                                            </a>
-                                            <a href="{{ route('admins.institution.edit', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-edit"></em>
-                                            </a>
-                                            <form action="{{ route('admins.institution.destroy', $institution->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                @method('DELETE')
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                    <em class="icon ni ni-trash"></em>
-                                                </button>
-                                            </form>
+                                            @permission('institution-read')
+                                                <a href="{{ route('admins.institution.show', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-eye"></em>
+                                                </a>
+                                            @endpermission
+                                            @permission('institution-update')
+                                                <a href="{{ route('admins.institution.edit', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                    <em class="icon ni ni-edit"></em>
+                                                </a>
+                                            @endpermission
+                                            @permission('institution-delete')
+                                                <form action="{{ route('admins.institution.destroy', $institution->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                        <em class="icon ni ni-trash"></em>
+                                                    </button>
+                                                </form>
+                                            @endpermission
                                         </div>
                                     </span>
                                 </td>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\StudentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,18 +48,18 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \App\Models\Department|null $department
- * @property-read Collection|\App\Models\Fee[] $fees
+ * @property-read Department|null $department
+ * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
- * @property-read \App\Models\Journal|null $journal
+ * @property-read Journal|null $journal
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\Guardian $parent
- * @property-read \App\Models\Promotion|null $promotion
- * @property-read Collection|\App\Models\Result[] $results
+ * @property-read Guardian $parent
+ * @property-read Promotion|null $promotion
+ * @property-read Collection|Result[] $results
  * @property-read int|null $results_count
- * @property-read \App\Models\Subsidiary|null $subsidiary
- * @property-read \App\Models\User $user
+ * @property-read Subsidiary|null $subsidiary
+ * @property-read User $user
  * @method static Builder|Student newModelQuery()
  * @method static Builder|Student newQuery()
  * @method static \Illuminate\Database\Query\Builder|Student onlyTrashed()
@@ -94,7 +95,7 @@ use Illuminate\Support\Carbon;
  * @mixin \Eloquent
  * @property int|null $guardian_id
  * @property string|null $admission_date
- * @method static \Database\Factories\StudentFactory factory(...$parameters)
+ * @method static StudentFactory factory(...$parameters)
  * @method static Builder|Student whereAdmissionDate($value)
  * @method static Builder|Student whereGuardianId($value)
  */

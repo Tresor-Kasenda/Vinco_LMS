@@ -12,7 +12,7 @@
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h6 class="nk-block-title page-title">
-                                Institution
+                                Show Institution
                             </h6>
                         </div>
                         <div class="nk-block-head-content">

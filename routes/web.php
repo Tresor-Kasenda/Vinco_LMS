@@ -118,17 +118,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('journal', JournalBackendController::class);
         });
 
-        Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
-            Route::resource('fees', FeesBackendController::class);
-            Route::resource('expenses', ExpenseBackendController::class);
-        });
-
-        Route::resource('roles', RoleBackendController::class);
-        Route::resource('settings', SettingsBackendController::class);
-        Route::put('setting/{system}', [SettingsBackendController::class, 'updateSystem'])->name('system.update');
-        Route::controller(ProfileBackendController::class)->group(function () {
-            Route::get('profile', 'index')->name('admins.profile');
-        });
 
         Route::controller(TrashedCampusBackendController::class)->group(function () {
             Route::get('historyCampus/', 'index')->name('campus.history');

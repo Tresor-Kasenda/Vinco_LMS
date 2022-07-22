@@ -23,12 +23,14 @@
                                                 <span>Create</span>
                                             </a>
                                         </li>
+                                        @permission('admin-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
                                                 <em class="icon ni ni-histroy"></em>
                                                 <span>Corbeille</span>
                                             </a>
                                         </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -87,10 +89,13 @@
                                                 <a href="{{ route('admins.users.admin.show', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye-alt"></em>
                                                 </a>
+                                                @permission('admin-update')
                                                 <a href="{{ route('admins.users.admin.edit', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit-alt"></em>
                                                 </a>
+                                                @endpermission
 
+                                                @permission('admin-delete')
                                                 <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -98,6 +103,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
+                                                @endpermission
                                             </div>
                                         </span>
                                     </td>

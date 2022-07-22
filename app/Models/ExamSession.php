@@ -35,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ExamSession whereStartDate($value)
  * @method static Builder|ExamSession whereUpdatedAt($value)
  * @mixin Eloquent
+ * @method static \Database\Factories\ExamSessionFactory factory(...$parameters)
  */
 class ExamSession extends Model
 {

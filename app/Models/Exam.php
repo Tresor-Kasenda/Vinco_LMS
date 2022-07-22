@@ -48,6 +48,8 @@ use Illuminate\Support\Carbon;
  * @method static ExamFactory factory(...$parameters)
  * @method static Builder|Exam whereExamId($value)
  * @method static Builder|Exam whereStartTime($value)
+ * @property int $exam_session_id
+ * @method static Builder|Exam whereExamSessionId($value)
  */
 class Exam extends Model
 {

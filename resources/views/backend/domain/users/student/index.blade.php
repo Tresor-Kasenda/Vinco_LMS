@@ -24,15 +24,14 @@
                                                 <span>Create</span>
                                             </a>
                                         </li>
-                                        @role('Super Admin')
+                                        @permission('student-create')
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm"
-                                               href="{{ route('admins.administrator.history') }}">
+                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
                                                 <em class="icon ni ni-histroy"></em>
                                                 <span>Corbeille</span>
                                             </a>
                                         </li>
-                                        @endrole
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -92,10 +91,13 @@
                                                    class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
+                                                @permission('student-update')
                                                 <a href="{{ route('admins.users.student.edit', $student->id) }}"
                                                    class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit"></em>
                                                 </a>
+                                                @endpermission
+                                                @permission('student-delete')
                                                 <form action="{{ route('admins.users.student.destroy', $student->id) }}"
                                                       method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
@@ -104,6 +106,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
+                                                @endpermission
                                             </div>
                                         </span>
                                 </td>

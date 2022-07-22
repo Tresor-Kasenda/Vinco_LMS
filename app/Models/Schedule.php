@@ -14,8 +14,8 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Schedule
  *
- * @property-read \App\Models\Course $course
- * @property-read \App\Models\Promotion|null $promotion
+ * @property-read Course $course
+ * @property-read Promotion|null $promotion
  * @method static Builder|Schedule newModelQuery()
  * @method static Builder|Schedule newQuery()
  * @method static Builder|Schedule query()

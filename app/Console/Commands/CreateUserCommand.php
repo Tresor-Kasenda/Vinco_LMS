@@ -35,18 +35,18 @@ class CreateUserCommand extends Command
 
         process :
             $name = ucwords($this->anticipate('name', ['admin', 'Place manager']));
-        $email = strtolower($this->ask('email'));
-        $password = $this->secret('password');
-        $password_confirmation = $this->secret('confirm password');
+            $email = strtolower($this->ask('email'));
+            $password = $this->secret('password');
+            $password_confirmation = $this->secret('confirm password');
 
-        $validator = validator(
-            compact('name', 'email', 'password', 'password_confirmation'),
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]
-        );
+            $validator = validator(
+                compact('name', 'email', 'password', 'password_confirmation'),
+                [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]
+            );
 
         if ($this->confirm('Voulez vous creer un administrateur ? [Y|N]')) {
             if (! $validator->fails()) {
