@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmPersonnelRequest;
 use App\Http\Requests\PersonnelRequest;
 use App\Http\Requests\UpdatePersonnelRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -20,8 +19,7 @@ use Illuminate\Http\RedirectResponse;
 final class PersonnelBackendController extends Controller
 {
     public function __construct(
-        private readonly PersonnelRepositoryInterface $repository,
-        private readonly SweetAlertFactory $factory
+        private readonly PersonnelRepositoryInterface $repository
     ) {
     }
 
@@ -32,13 +30,6 @@ final class PersonnelBackendController extends Controller
         return view('backend.domain.users.personnels.index', compact('employees'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $employee = $this->repository->showPersonnelContent(key:  $key);
-
-        return view('backend.domain.users.personnels.show', compact('employee'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.users.personnels.create');
@@ -46,9 +37,16 @@ final class PersonnelBackendController extends Controller
 
     public function store(PersonnelRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.users.staffs.index');
+    }
+
+    public function show(string $key): Factory|View|Application
+    {
+        $employee = $this->repository->showPersonnelContent(key:  $key);
+
+        return view('backend.domain.users.personnels.show', compact('employee'));
     }
 
     public function edit(string $key): Factory|View|Application
@@ -60,14 +58,14 @@ final class PersonnelBackendController extends Controller
 
     public function update(UpdatePersonnelRequest $attributes, string $key): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.users.staffs.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

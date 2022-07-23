@@ -64,7 +64,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="email">Email </label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
@@ -80,7 +80,11 @@
                                             </div>
 
                                             @php
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get();
+                                                $roles  = \App\Models\Role::query()
+                                                    ->select(['id', 'name'])
+                                                    ->whereIn('name', ['Admin', 'Super Admin'])
+                                                    ->get();
                                             @endphp
 
                                             <div class="col-md-12">
@@ -96,19 +100,14 @@
                                                             required>
                                                             <option label="role" value=""></option>
                                                             @foreach($institutions as $institution)
-                                                                <option value="{{ $institution->id }}">{{ ucfirst($institution->institution_name) }}</option>
+                                                                <option value="{{ $institution->id }}">
+                                                                    {{ ucfirst($institution->institution_name) }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            @php
-                                                $roles  = \App\Models\Role::query()
-                                                    ->select(['id', 'name'])
-                                                    ->whereIn('name', ['Admin', 'Super Admin'])
-                                                    ->get()
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -123,12 +122,15 @@
                                                             required>
                                                             <option label="role" value=""></option>
                                                             @foreach($roles as $role)
-                                                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                                                                <option value="{{ $role->id }}">
+                                                                    {{ ucfirst($role->name) }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Mot de passe</label>

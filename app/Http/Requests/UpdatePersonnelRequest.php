@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\AcademicYear;
+use App\Models\Institution;
+use App\Models\Personnel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -16,8 +19,6 @@ class UpdatePersonnelRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(Gate::denies('Personnel-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 
@@ -35,6 +36,7 @@ class UpdatePersonnelRequest extends FormRequest
             'role' => ['required', Rule::exists('roles', 'id')],
             'academic' => ['required', Rule::exists('academic_years', 'id')],
             'gender' => ['required', 'in:male,female'],
+            'institution' => ['required', Rule::exists(Institution::class, 'id')]
         ];
     }
 }

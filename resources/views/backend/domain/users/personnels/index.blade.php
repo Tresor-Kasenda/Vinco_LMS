@@ -45,6 +45,9 @@
                                     <span>Image</span>
                                 </th>
                                 <th class="nk-tb-col">
+                                    <span>Matricule</span>
+                                </th>
+                                <th class="nk-tb-col">
                                     <span>name</span>
                                 </th>
                                 <th class="nk-tb-col">
@@ -52,9 +55,6 @@
                                 </th>
                                 <th class="nk-tb-col">
                                     <span>Phones</span>
-                                </th>
-                                <th class="nk-tb-col">
-                                    <span>Matricule</span>
                                 </th>
                                 <th class="nk-tb-col tb-col-md">
                                     <span>ACTIONS</span>
@@ -65,12 +65,15 @@
                             @foreach($employees as $personnel)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col tb-col-sm">
-                                    <span class="tb-product justify-content-center">
-                                        <img
-                                            src="{{ asset('storage/'. $personnel->images_personnel) }}"
-                                            alt="{{ $personnel->firstName }}"
-                                            class="thumb">
-                                    </span>
+                                        <span class="tb-product justify-content-center">
+                                            <img
+                                                src="{{ asset('storage/'. $personnel->images_personnel) }}"
+                                                alt="{{ $personnel->firstName }}"
+                                                class="thumb">
+                                        </span>
+                                    </td>
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $personnel->matriculate ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ ucfirst($personnel->username) ?? "" }}</span>
@@ -82,27 +85,26 @@
                                         <span class="tb-lead">{{ $personnel->phones ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $personnel->matriculate ?? "" }}</span>
-                                    </td>
-                                    <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('admins.users.staffs.show', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye-alt"></em>
-                                                </a>
+                                                @permission('gestionnaire-read')
+                                                    <a href="{{ route('admins.users.staffs.show', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-eye-alt"></em>
+                                                    </a>
+                                                @endpermission
                                                 @permission('gestionnaire-update')
-                                                <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit-alt"></em>
-                                                </a>
+                                                    <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-edit-alt"></em>
+                                                    </a>
                                                 @endpermission
                                                 @permission('gestionnaire-delete')
-                                                <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
+                                                    <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                        @method('DELETE')
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                            <em class="icon ni ni-trash"></em>
+                                                        </button>
+                                                    </form>
                                                 @endpermission
                                             </div>
                                         </span>

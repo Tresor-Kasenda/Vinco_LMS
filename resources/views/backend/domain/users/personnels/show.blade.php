@@ -74,6 +74,14 @@
                                                 </td>
                                             </tr>
                                             <tr class="text-justify">
+                                                <th>Institution</th>
+                                                <td>
+                                                    <div class="tb-lead d-flex flex-wrap">
+                                                        <span class="badge bg-primary mx-1 mb-1">{{ ucfirst($employee->user->institution->institution_name ) ?? "" }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-justify">
                                                 <th>Phones</th>
                                                 <td>{{ $employee->phones ?? "" }}</td>
                                             </tr>
