@@ -37,16 +37,15 @@
                             <div class="col-sm-6 col-lg-3 col-xxl-3">
                                 <div class="card h-100">
                                     <div class="card-inner">
-                                        <h3 class="text-center text-gray h4 font-weight-light mb-3">Session</h3>
-                                        <div class="text-center font-weight-bold">
-                                            <h5>
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
+                                        <div class="text-center font-weight-bold mt-3">
+                                            <h6>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('M Y') }}
                                                 -
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
-                                            </h5>
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('M Y') }}
+                                            </h6>
                                         </div>
 
-                                        <div class="d-flex justify-content-center mt-3">
+                                        <div class="d-flex justify-content-center mt-3 pb-3">
                                             @permission('academic-year-update')
                                                 <a class="-mr-2 btn btn-dim btn-primary ml-2" href="{{ route('admins.academic.session.edit', $academic->id) }}">
                                                     <em class="icon ni ni-edit"></em>

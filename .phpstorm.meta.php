@@ -11,7 +11,7 @@ namespace PHPSTORM_META {
     */
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -149,7 +149,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -287,7 +287,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::get(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -425,7 +425,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -563,7 +563,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -701,7 +701,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::get(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -839,7 +839,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::make(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -977,7 +977,7 @@ namespace PHPSTORM_META {
         ]));
     override(\App::makeWith(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -1115,7 +1115,7 @@ namespace PHPSTORM_META {
         ]));
     override(\app(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -1253,7 +1253,7 @@ namespace PHPSTORM_META {
         ]));
     override(\resolve(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
@@ -1391,7 +1391,7 @@ namespace PHPSTORM_META {
         ]));
     override(\Psr\Container\ContainerInterface::get(0), map([
         '' => '@',
-            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\AcademicYearRepository::class,
+            'App\Contracts\AcademicYearRepositoryInterface' => \App\Repositories\Backend\SessionRepository::class,
             'App\Contracts\CampusRepositoryInterface' => \App\Repositories\Backend\CampusRepository::class,
             'App\Contracts\CategoryRepositoryInterface' => \App\Repositories\Backend\CategoryRepository::class,
             'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,

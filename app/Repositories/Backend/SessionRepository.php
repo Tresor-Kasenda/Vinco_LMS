@@ -6,12 +6,17 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Models\AcademicYear;
+use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class AcademicYearRepository implements AcademicYearRepositoryInterface
+class SessionRepository implements AcademicYearRepositoryInterface
 {
+    public function __construct(public ToastMessageService $service)
+    {
+    }
+
     public function getAcademicsYears(): Collection|array
     {
         if (\Auth::user()->institution != null) {
@@ -40,8 +45,7 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
                 'start_date' => $attributes->input('startDate'),
                 'end_date' => $attributes->input('endDate'),
             ]);
-        $flash->addSuccess('Une nouvelle annee a ete ajouter');
-
+        $this->service->success('Une nouvelle annee a ete ajouter');
         return $academic;
     }
 
@@ -49,12 +53,10 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = $this->showAcademicYear(key: $key);
         $academic->update([
-            'institution_id' => \Auth::user()->institution->id,
-            'startDate' => $attributes->input('startDate'),
-            'endDate' => $attributes->input('endDate'),
+            'start_date' => $attributes->input('startDate'),
+            'end_date' => $attributes->input('endDate'),
         ]);
-        $flash->addSuccess('l\'annee academique a ete modifier');
-
+        $this->service->success("l'annee academique a ete modifier");
         return $academic;
     }
 
@@ -62,8 +64,8 @@ class AcademicYearRepository implements AcademicYearRepositoryInterface
     {
         $academic = $this->showAcademicYear(key: $key);
         $academic->delete();
-        $flash->addSuccess('l\'annee academique a ete supprimer');
 
+        $this->service->success("l'annee academique a ete supprimer");
         return $academic;
     }
 }

@@ -47,7 +47,7 @@ use App\Contracts\TrashedPersonnelRepositoryInterface;
 use App\Contracts\TrashedProfessorRepositoryInterface;
 use App\Contracts\TrashedUsersRepositoryInterface;
 use App\Contracts\UsersRepositoryInterface;
-use App\Repositories\Backend\AcademicYearRepository;
+use App\Repositories\Backend\SessionRepository;
 use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
@@ -99,7 +99,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected array $repositories = [
         PersonnelRepositoryInterface::class => PersonnelRepository::class,
-        AcademicYearRepositoryInterface::class => AcademicYearRepository::class,
+        AcademicYearRepositoryInterface::class => SessionRepository::class,
         ProfessorRepositoryInterface::class => ProfessorRepository::class,
         CampusRepositoryInterface::class => CampusRepository::class,
         DepartmentRepositoryInterface::class => DepartmentRepository::class,

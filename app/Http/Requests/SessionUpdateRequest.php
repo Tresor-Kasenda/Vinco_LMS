@@ -1,25 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests;
 
 use App\Rules\RoutineTime;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AcademicYearRequest extends FormRequest
+class SessionUpdateRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return array
-     */
     public function rules(): array
     {
         return [
@@ -27,16 +14,19 @@ class AcademicYearRequest extends FormRequest
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'before:endDate',
-                new RoutineTime(),
+                'before:endDate'
             ],
             'endDate' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
                 'after:startDate',
-                new RoutineTime(),
             ],
         ];
+    }
+
+    public function authorize(): bool
+    {
+        return true;
     }
 }
