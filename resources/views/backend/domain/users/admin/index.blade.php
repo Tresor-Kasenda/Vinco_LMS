@@ -15,21 +15,23 @@
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
-                                <div class="toggle-expand-content" data-content="more-options">
+                                <div class="toggle-expand-content">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
                                         @permission('admin-create')
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                        @endpermission
+                                        @permission('admin-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
+                                                    <em class="icon ni ni-histroy"></em>
+                                                    <span>Corbeille</span>
+                                                </a>
+                                            </li>
                                         @endpermission
                                     </ul>
                                 </div>
@@ -52,6 +54,9 @@
                                 </th>
                                 <th class="nk-tb-col tb-col-md">
                                     <span>Role</span>
+                                </th>
+                                <th class="nk-tb-col tb-col-md">
+                                    <span>Institution</span>
                                 </th>
                                 <th class="nk-tb-col tb-col-md">
                                     <span>ACTIONS</span>
@@ -84,11 +89,16 @@
                                         </div>
                                     </td>
                                     <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ ucfirst($administrator->institution->institution_name) ?? "" }}</span>
+                                    </td>
+                                    <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
+                                                @permission('admin-read')
                                                 <a href="{{ route('admins.users.admin.show', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye-alt"></em>
                                                 </a>
+                                                @endpermission
                                                 @permission('admin-update')
                                                 <a href="{{ route('admins.users.admin.edit', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit-alt"></em>

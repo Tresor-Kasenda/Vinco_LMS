@@ -80,9 +80,33 @@
                                             </div>
 
                                             @php
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
+                                            @endphp
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="institution">Instituttion</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 select2-hidden-accessible @error('institution') error @enderror"
+                                                            id="institution"
+                                                            data-search="on"
+                                                            name="institution"
+                                                            data-placeholder="Select a role"
+                                                            required>
+                                                            <option label="role" value=""></option>
+                                                            @foreach($institutions as $institution)
+                                                                <option value="{{ $institution->id }}">{{ ucfirst($institution->institution_name) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @php
                                                 $roles  = \App\Models\Role::query()
-                                                    ->where('name', '=', 'Admin')
-                                                    ->orWhere('name', '=', 'Super Admin')
+                                                    ->select(['id', 'name'])
+                                                    ->whereIn('name', ['Admin', 'Super Admin'])
                                                     ->get()
                                             @endphp
 
