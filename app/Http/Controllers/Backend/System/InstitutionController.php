@@ -10,6 +10,7 @@ use App\Http\Requests\InstitutionRequest;
 use App\Http\Requests\UpdateInstitutionRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Gate;
 
 class InstitutionController extends Controller
 {
@@ -65,6 +66,8 @@ class InstitutionController extends Controller
 
     public function destroy(string $id)
     {
+        abort_if(Gate::allows('institution-delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->repository->deleted($id);
 
         $this->factory->addSuccess('the institution was successfully suspended');

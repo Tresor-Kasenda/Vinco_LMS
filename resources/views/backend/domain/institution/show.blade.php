@@ -53,11 +53,15 @@
                                         <tbody>
                                         <tr>
                                             <th>Name Institution</th>
-                                            <td>{{ strtoupper($institution->institution_name) ?? "" }}</td>
+                                            <td>{{ ucfirst($institution->institution_name) ?? "" }}</td>
                                         </tr>
                                         <tr>
                                             <th>Responsable</th>
-                                            <td>{{ strtoupper($institution->user->name) ?? "" }}</td>
+                                            <td>
+                                                @if($institution->user !== null)
+                                                    {{ ucfirst($institution->user->name) ?? "" }}
+                                                @endif
+                                            </td>
                                         </tr>
 
                                         <tr>
@@ -85,6 +89,13 @@
                                             <th>Address</th>
                                             <td>
                                                 {{ $institution->institution_address ?? "" }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>
+                                                {{ $institution->institution_email ?? "" }}
                                             </td>
                                         </tr>
 

@@ -61,15 +61,12 @@
                         <tbody>
                         @foreach($parents as $parent)
                             <tr class="nk-tb-item text-center">
-                                <td class="nk-tb-col">
-                                    <span class="tb-lead">
+                                <td class="nk-tb-col tb-col-sm">
+                                    <span class="tb-product">
                                         <img
-                                            src="{{ asset('storage/'.$parent->images) }}"
+                                            src="{{ asset('storage/'. $parent->images) }}"
                                             alt="{{ $parent->name_guardian }}"
-                                            class="img-fluid rounded-circle"
-                                            width="15%"
-                                            height="15%"
-                                        >
+                                            class="thumb">
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">

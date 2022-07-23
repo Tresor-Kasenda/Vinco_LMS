@@ -18,20 +18,20 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Institution
  *
- * @property-read Collection|\App\Models\Campus[] $campuses
+ * @property-read Collection|Campus[] $campuses
  * @property-read int|null $campuses_count
- * @property-read Collection|\App\Models\Category[] $categories
+ * @property-read Collection|Category[] $categories
  * @property-read int|null $categories_count
- * @property-read Collection|\App\Models\Event[] $events
+ * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- * @property-read Collection|\App\Models\Expense[] $expenses
+ * @property-read Collection|Expense[] $expenses
  * @property-read int|null $expenses_count
- * @property-read Collection|\App\Models\Fee[] $fees
+ * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
- * @property-read \App\Models\Journal|null $journals
- * @property-read Collection|\App\Models\Professor[] $professors
+ * @property-read Journal|null $journals
+ * @property-read Collection|Professor[] $professors
  * @property-read int|null $professors_count
- * @property-read \App\Models\User|null $user
+ * @property-read User|null $user
  * @method static Builder|Institution newModelQuery()
  * @method static Builder|Institution newQuery()
  * @method static \Illuminate\Database\Query\Builder|Institution onlyTrashed()

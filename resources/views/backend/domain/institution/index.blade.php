@@ -57,7 +57,7 @@
                         </thead>
                         <tbody>
                         @foreach($institutions as $institution)
-                            <tr class="nk-tb-item">
+                            <tr class="nk-tb-item text-center">
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
                                         <img
@@ -84,6 +84,7 @@
                                         {{ $institution->institution_address }}
                                     </span>
                                 </td>
+
                                 @if($institution->user != null)
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
@@ -98,8 +99,8 @@
                                     </td>
                                 @endif
                                 <td class="nk-tb-col text-center">
-                                    <span class="tb-lead text-center">
-                                        <div class="d-flex">
+                                    <span class="tb-lead">
+                                        <div class="d-flex justify-content-center">
                                             @permission('institution-read')
                                                 <a href="{{ route('admins.institution.show', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
