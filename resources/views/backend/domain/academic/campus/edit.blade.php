@@ -44,7 +44,7 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.academic.campus.update', $campus->key) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.academic.campus.update', $campus->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -78,25 +78,68 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                if(auth()->user()->hasRole('Super Admin')){
+                                                    $personnels = \App\Models\User::query()
+                                                        ->select(['id', 'name', 'institution_id'])
+                                                        ->with('institution')
+                                                        ->whereHas('roles', function ($query) {
+                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                        })
+                                                        ->get();
+                                                } else {
+                                                    $personnels = \App\Models\User::query()
+                                                        ->select(['id', 'name', 'institution_id'])
+                                                        ->with(['institution' => function($query){
+                                                            $query->where('id', '=', auth()->user()->institution_id);
+                                                        }])
+                                                        ->whereHas('roles', function ($query) {
+                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                        })
+                                                        ->get();
+                                                }
+
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="user_id">Responsable</label>
+                                                    <label class="form-label" for="personnel">Responsable</label>
                                                     <select
-                                                        class="form-control js-select2 @error('user_id') error @enderror"
-                                                        id="user_id"
-                                                        name="user_id"
+                                                        class="form-control js-select2 @error('personnel') error @enderror"
+                                                        id="personnel"
+                                                        name="personnel"
                                                         data-placeholder="Select a manager"
                                                         required>
-                                                        <option label="role" value=""></option>
-                                                        @foreach(\App\Models\Personnel::all() as $personnel)
-                                                            <option
-                                                                value="{{ $personnel->id }}">
-                                                                {{ ucfirst($personnel->username) ?? "" }}
+                                                        <option value="{{ $campus->user->id }}">{{ ucfirst($campus->user->name) ?? "" }} (<small>{{ ucfirst($campus->user->institution->institution_name) ?? "" }}</option>
+                                                        @foreach($personnels as $personnel)
+                                                            <option value="{{ $personnel->id }}">
+                                                                {{ ucfirst($personnel->name) ?? "" }} (<small>{{ ucfirst($personnel->institution->institution_name) ?? "" }}</small>)
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
+                                            @if(auth()->user()->hasRole('Super Admin'))
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution">Institution</label>
+                                                        <select
+                                                            class="form-control js-select2 @error('institution') error @enderror"
+                                                            id="institution"
+                                                            name="institution"
+                                                            data-placeholder="Select Institution"
+                                                            required>
+                                                            <option value="{{ $campus->institution->id }}">{{ ucfirst($campus->institution->institution_name) ?? "" }}</option>
+                                                            @foreach(\App\Models\Institution::get() as $personnel)
+                                                                <option
+                                                                    value="{{ $personnel->id }}">
+                                                                    {{ ucfirst($personnel->institution_name) ?? "" }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Description</label>

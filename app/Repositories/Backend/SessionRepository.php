@@ -19,15 +19,25 @@ class SessionRepository implements AcademicYearRepositoryInterface
 
     public function getAcademicsYears(): Collection|array
     {
-        if (\Auth::user()->institution != null) {
+        if (\Auth::user()->hasRole('Super Admin')) {
             return AcademicYear::query()
-                ->where('institution_id', '=', \Auth::user()->institution->id)
-                ->get();
-        } else {
-            return AcademicYear::query()
-                ->where('institution_id', '=', 'A')
+                ->select([
+                    'id',
+                    'start_date',
+                    'end_date',
+                ])
+                ->orderByDesc('created_at')
                 ->get();
         }
+        return AcademicYear::query()
+            ->select([
+                'id',
+                'start_date',
+                'end_date',
+                'institution_id'
+            ])
+            ->where('institution_id', '=', auth()->user()->institution_id)
+            ->get();
     }
 
     public function showAcademicYear(string $key): Model|Builder|null

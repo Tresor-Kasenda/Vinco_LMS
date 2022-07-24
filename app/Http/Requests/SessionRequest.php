@@ -28,14 +28,12 @@ class SessionRequest extends FormRequest
                 'date',
                 'date_format:Y-m-d',
                 'before:endDate',
-                new RoutineTime(),
             ],
             'endDate' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
                 'after:startDate',
-                new RoutineTime(),
             ],
         ];
     }

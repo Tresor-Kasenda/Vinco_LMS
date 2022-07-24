@@ -32,7 +32,7 @@ class ProfessorUpdateRequest extends FormRequest
             'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
             'phones' => ['required', 'min:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'gender' => ['required', 'in:male,female'],
-            'institution' => ['required', Rule::exists(Institution::class, 'id')]
+            'institution' => ['nullable', Rule::exists(Institution::class, 'id')]
         ];
     }
 }

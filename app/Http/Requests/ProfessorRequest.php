@@ -37,7 +37,7 @@ class ProfessorRequest extends FormRequest
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
             'password' => ['required', 'min:6'],
             'gender' => ['required', 'in:male,female'],
-            'institution' => ['required', Rule::exists(Institution::class, 'id')]
+            'institution' => ['nullable', Rule::exists(Institution::class, 'id')]
         ];
     }
 }

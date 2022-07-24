@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Response;
 class CampusBackendController extends Controller
 {
     public function __construct(
-        protected readonly CampusRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly CampusRepositoryInterface $repository
     ) {
     }
 
@@ -34,13 +33,6 @@ class CampusBackendController extends Controller
         return view('backend.domain.academic.campus.index', compact('campuses'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $campus = $this->repository->showCampus(key:  $key);
-
-        return view('backend.domain.academic.campus.show', compact('campus'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.academic.campus.create');
@@ -48,9 +40,16 @@ class CampusBackendController extends Controller
 
     public function store(CampusRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return redirect()->route('admins.academic.campus.index');
+    }
+
+    public function show(string $key): Factory|View|Application
+    {
+        $campus = $this->repository->showCampus(key:  $key);
+
+        return view('backend.domain.academic.campus.show', compact('campus'));
     }
 
     public function edit(string $key): HttpResponse
@@ -62,14 +61,14 @@ class CampusBackendController extends Controller
 
     public function update(string $key, CampusUpdateRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return Response::redirectToRoute('admins.academic.campus.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return Response::redirectToRoute('admins.academic.campus.index');
     }
