@@ -77,7 +77,7 @@ class CreateUserCommand extends Command
         }
     }
 
-    public function createInstitution(): Model|Institution|Builder
+    private function createInstitution(): Model|Institution|Builder
     {
         return Institution::query()
             ->create([
@@ -91,12 +91,12 @@ class CreateUserCommand extends Command
             ]);
     }
 
-    public function assignRoleToUser(): LaratrustRole|Role
+    private function assignRoleToUser(): LaratrustRole|Role
     {
         return Role::where('name', '=', 'Super Admin')->first();
     }
 
-    public function giveRoles(
+    private function giveRoles(
         $role,
         $user,
         string $name

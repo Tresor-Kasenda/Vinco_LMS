@@ -46,6 +46,9 @@
                                     <form action="{{ route('admins.users.teacher.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
+                                            @php
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -78,7 +81,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
@@ -95,7 +98,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="phones">Telephone</label>
                                                     <div class="form-control-wrap">
@@ -112,6 +115,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            @if(auth()->user()->hasRole('Super Admin'))
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution">Instituttion</label>
+                                                        <div class="form-control-wrap">
+                                                            <select
+                                                                class="form-control js-select2 select2-hidden-accessible @error('institution') error @enderror"
+                                                                id="institution"
+                                                                data-search="on"
+                                                                name="institution"
+                                                                data-placeholder="Select a institution"
+                                                                required>
+                                                                <option label="institution" value=""></option>
+                                                                @foreach($institutions as $institution)
+                                                                    <option value="{{ $institution->id }}">
+                                                                        {{ ucfirst($institution->institution_name) }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
 
                                             <div class="col-md-12">
                                                 <div class="form-group">

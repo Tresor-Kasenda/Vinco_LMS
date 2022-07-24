@@ -67,6 +67,14 @@
                                             <td>{{ $teacher->matriculate ?? "" }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Institution</th>
+                                            <td>
+                                                {{ ucfirst($teacher->user->institution->institution_name) ?? "" }} <br>
+                                                {{ $teacher->user->institution->institution_email ?? "" }}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Email</th>
                                             <td>{{ $teacher->email ?? "" }}</td>
                                         </tr>
@@ -115,10 +123,7 @@
                                                 {{ $teacher->nationality ?? "" }}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th>Date D'inscription</th>
-                                            <td>{{ $teacher->created_at->format('M, d, Y') ?? "" }}</td>
-                                        </tr>
+
                                         <tr class="text-justify">
                                             <th>Roles</th>
                                             <td>

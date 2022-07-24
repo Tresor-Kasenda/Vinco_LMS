@@ -59,7 +59,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'user_id'
             ])
             ->whereHas('user', function ($institution) {
-                $institution->where('institution_id', '=', auth()->user()->institution()->id);
+                $institution->where('institution_id', '=', auth()->user()->institution_id);
             })
             ->orderByDesc('created_at')
             ->get();

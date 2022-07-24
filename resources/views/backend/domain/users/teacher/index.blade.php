@@ -47,6 +47,9 @@
                                 <span>IMAGES</span>
                             </th>
                             <th class="nk-tb-col">
+                                <span>MATRICULE</span>
+                            </th>
+                            <th class="nk-tb-col">
                                 <span>NOM</span>
                             </th>
                             <th class="nk-tb-col">
@@ -56,7 +59,7 @@
                                 <span>Phones</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>MATRICULE</span>
+                                <span>Institutio</span>
                             </th>
                             <th class="nk-tb-col tb-col-md">
                                 <span>ACTION</span>
@@ -75,6 +78,9 @@
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $teacher->matriculate ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
                                     <span class="tb-lead">{{ ucfirst($teacher->username) ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
@@ -83,8 +89,13 @@
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $teacher->phones ?? "" }}</span>
                                 </td>
+
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $teacher->matriculate ?? "" }}</span>
+                                    @if($teacher->user->institution_id != null)
+                                        <span class="tb-lead">{{ $teacher->user->institution->institution_name ?? "" }}</span>
+                                    @else
+                                        <span class="tb-lead">Pas d'institution</span>
+                                    @endif
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
