@@ -44,7 +44,7 @@ class CampusRepository implements CampusRepositoryInterface
                 'institution_id',
                 'user_id',
             ])
-            ->where('user_id', '=', auth()->user()->institution_id)
+            ->where('institution_id', '=', auth()->user()->institution_id)
             ->with(['institution:id,institution_name', 'user:id,name,email'])
             ->get();
     }
