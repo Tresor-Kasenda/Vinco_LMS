@@ -18,7 +18,8 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.filiaire.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm"
+                                               href="{{ route('admins.academic.filiaire.index') }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,7 +44,8 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.academic.filiaire.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.academic.filiaire.store') }}" method="post"
+                                          class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
@@ -62,9 +64,42 @@
                                                 </div>
                                             </div>
                                             @php
-                                                $users = \App\Models\Professor::
-                                                    where('institution_id', Auth::user()->institution->id)
-                                                    ->get();
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $professors = \App\Models\User::query()
+                                                        ->select(['id', 'name', 'institution_id', 'email'])
+                                                        ->whereHas('roles', function ($query) {
+                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                        })
+                                                        ->with('institution:id,institution_name')
+                                                        ->get();
+                                                    $departments = \App\Models\Department::query()
+                                                        ->with([
+                                                            'campus:id,name,institution_id',
+                                                            'campus' => [
+                                                                'institution:id,institution_name'
+                                                            ]
+                                                        ])
+                                                        ->get();
+                                                } else {
+                                                    $professors = \App\Models\User::query()
+                                                        ->select(['id', 'name', 'institution_id', 'email'])
+                                                        ->whereHas('roles', function ($query) {
+                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
+                                                        })
+                                                        ->where('institution_id', '=', auth()->user()->institution->id)
+                                                        ->get();
+                                                    $departments = \App\Models\Department::query()
+                                                        ->whereHas('campus', function ($builder){
+                                                            $builder->where('institution_id', auth()->user()->institution->id);
+                                                        })
+                                                        ->with([
+                                                            'campus:id,name,institution_id',
+                                                            'campus' => [
+                                                                'institution:id,institution_name'
+                                                            ]
+                                                        ])
+                                                        ->get();
+                                                }
                                             @endphp
 
                                             <div class="col-md-12">
@@ -78,9 +113,12 @@
                                                         data-placeholder="Select Responsable"
                                                         required>
                                                         <option label="Select Responsable" value=""></option>
-                                                        @foreach($users as $user)
-                                                            <option value="{{ $user->user_id }}">
-                                                                {{ ucfirst($user->username . ' ' . $user->lastname) }}
+                                                        @foreach($professors as $professor)
+                                                            <option value="{{ $professor->id }}">
+                                                                {{ ucfirst($professor->name) }}
+                                                                @if(auth()->user()->hasRole('Super Admin'))
+                                                                    (<small>{{ ucfirst($professor->institution->institution_name) ?? "" }}</small>)
+                                                                @endif
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -98,8 +136,14 @@
                                                         data-placeholder="Select le departement"
                                                         required>
                                                         <option label="Select le departement" value=""></option>
-                                                        @foreach(Auth::user()->departments as $campus)
-                                                            <option value="{{ $campus->id }}">{{ ucfirst($campus->name) }}</option>
+                                                        @foreach($departments as $department)
+                                                            <option value="{{ $department->id }}">
+                                                                {{ ucfirst($department->name) }}
+                                                                (<small>
+                                                                    {{ ucfirst($department->campus->name) ?? "" }}/
+                                                                    {{ ucfirst($department->campus->institution->institution_name) ?? "" }}
+                                                                </small>)
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

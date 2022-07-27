@@ -13,7 +13,6 @@ class FiliaireUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'user' => ['required', Rule::exists(User::class, 'id')],
             'department' => ['required', Rule::exists(Department::class, 'id')],
             'description' => ['nullable'],

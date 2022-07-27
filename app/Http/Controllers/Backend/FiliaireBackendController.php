@@ -21,8 +21,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 class FiliaireBackendController extends Controller
 {
     public function __construct(
-        protected readonly FiliaireRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly FiliaireRepositoryInterface $repository
     ) {
     }
 
@@ -40,9 +39,9 @@ class FiliaireBackendController extends Controller
 
     public function store(FiliaireRequest $attributes): RedirectResponse
     {
-        abort_if(Gate::allows('Subsidiaries-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::allows('filiaire-create'), SymfonyHttp::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return redirect()->route('admins.academic.filiaire.index');
     }
@@ -63,14 +62,14 @@ class FiliaireBackendController extends Controller
 
     public function update(FiliaireUpdateRequest $request, string $key): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes:  $request, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes:  $request);
 
         return redirect()->route('admins.academic.filiaire.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

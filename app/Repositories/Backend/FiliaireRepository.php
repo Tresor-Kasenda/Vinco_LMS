@@ -7,6 +7,7 @@ namespace App\Repositories\Backend;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Subsidiary;
+use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,8 +19,34 @@ class FiliaireRepository implements FiliaireRepositoryInterface
 {
     use ImageUploader;
 
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
+
     public function getFiliaires(): array|Collection|\Illuminate\Support\Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Subsidiary::query()
+                ->select([
+                    'id',
+                    'name',
+                    'description',
+                    'user_id',
+                    'images',
+                    'department_id',
+                ])
+                ->with([
+                    'department:id,name,campus_id',
+                    'user:id,name',
+                    'department' => [
+                        'campus:id,institution_id' => [
+                            'institution:id,institution_name'
+                        ]
+                    ]
+                ])
+                ->orderByDesc('created_at')
+                ->get();
+        }
         return Subsidiary::query()
             ->select([
                 'id',
@@ -29,6 +56,14 @@ class FiliaireRepository implements FiliaireRepositoryInterface
                 'images',
                 'department_id',
             ])
+            ->whereHas('user', function ($builder) {
+                $builder->where('institution_id', auth()->user()->institution->id);
+            })
+            ->whereHas('department', function ($builder) {
+                $builder->with('campus', function ($query) use ($builder) {
+                    $query->where('id', $builder->where('id', 'departent_id'));
+                });
+            })
             ->with(['department:id,name', 'user:id,name'])
             ->orderByDesc('created_at')
             ->get();
@@ -51,33 +86,22 @@ class FiliaireRepository implements FiliaireRepositoryInterface
         return $filiaire->load(['department', 'user', 'department.campus:id,name']);
     }
 
-    public function stored($attributes, $factory): Model|Builder|Subsidiary|RedirectResponse
+    public function stored($attributes): Model|Builder|Subsidiary|RedirectResponse
     {
-        $campus = Subsidiary::query()
-            ->when('user_id', function ($query) use ($attributes) {
-                $query->where('user_id', $attributes->input('user_id'));
-            })
-            ->orWhere('department_id', '=', $attributes->input('user'))
-            ->first();
-        if (! $campus) {
-            $faculty = Subsidiary::query()
-                ->create([
-                    'department_id' => $attributes->input('department'),
-                    'user_id' => $attributes->input('user'),
-                    'name' => $attributes->input('name'),
-                    'description' => $attributes->input('description'),
-                    'images' => self::uploadFiles($attributes),
-                ]);
-            $factory->addSuccess('Une mouvelle filiaire a ete ajouter');
+        $faculty = Subsidiary::query()
+            ->create([
+                'department_id' => $attributes->input('department'),
+                'user_id' => $attributes->input('user'),
+                'name' => $attributes->input('name'),
+                'description' => $attributes->input('description'),
+                'images' => self::uploadFiles($attributes),
+            ]);
+        $this->service->success('Une mouvelle filiaire a ete ajouter');
 
-            return $faculty;
-        }
-        $factory->addError('Le responsable choisie a ete deja affecter dans un autre campus');
-
-        return back();
+        return $faculty;
     }
 
-    public function updated(string $key, $attributes, $factory): Model|Builder|Subsidiary|_IH_Subsidiary_QB
+    public function updated(string $key, $attributes): Model|Builder|Subsidiary|_IH_Subsidiary_QB
     {
         $campus = $this->showFiliaire(key: $key);
 
@@ -85,25 +109,18 @@ class FiliaireRepository implements FiliaireRepositoryInterface
             'department_id' => $attributes->input('department'),
             'user_id' => $attributes->input('user'),
             'name' => $attributes->input('name'),
-            'description' => $attributes->input('description'),
-            'images' => self::uploadFiles($attributes),
+            'description' => $attributes->input('description')
         ]);
-        $factory->addSuccess('Un campus a ete modifier');
+        $this->service->success('Un campus a ete modifier');
 
         return $campus;
     }
 
-    public function deleted(string $key, $factory): RedirectResponse
+    public function deleted(string $key): RedirectResponse
     {
         $campus = $this->showFiliaire(key: $key);
-        if ($campus->status !== StatusEnum::FALSE) {
-            $factory->addError('Veillez desactiver avant de le mettre dans la corbeille');
-
-            return back();
-        }
         $campus->delete();
-        $factory->addSuccess('Un campus a ete modifier');
-
+        $this->service->success('Un campus a ete supprimer');
         return back();
     }
 
