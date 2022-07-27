@@ -93,7 +93,8 @@
                                                         ->whereHas('roles', function ($query){
                                                             $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
                                                         })
-                                                        ->get();
+                                                        ->get()
+                                                        ->filter(fn($query) => $query->where('status', App\Enums\StatusEnum::TRUE));
                                                     $campuses = \App\Models\Campus::query()
                                                         ->where('institution_id', '=', auth()->user()->institution->id)->get();
                                                 }

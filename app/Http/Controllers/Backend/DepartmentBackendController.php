@@ -21,8 +21,7 @@ use Illuminate\Support\Facades\Response;
 class DepartmentBackendController extends Controller
 {
     public function __construct(
-        protected readonly DepartmentRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly DepartmentRepositoryInterface $repository
     ) {
     }
 
@@ -40,7 +39,7 @@ class DepartmentBackendController extends Controller
 
     public function store(DepartmentRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.departments.index');
     }
@@ -61,14 +60,14 @@ class DepartmentBackendController extends Controller
 
     public function update(string $key, DepartmentUpdateRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return Response::redirectToRoute('admins.academic.departments.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return Response::redirectToRoute('admins.academic.departments.index');
     }

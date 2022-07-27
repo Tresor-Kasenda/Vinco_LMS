@@ -51,6 +51,11 @@
                                 <th class="nk-tb-col">
                                     <span>RESPONSABLE</span>
                                 </th>
+                                @if(auth()->user()->hasRole('Super Admin'))
+                                    <th class="nk-tb-col">
+                                        <span>INSTITUTION</span>
+                                    </th>
+                                @endif
                                 <th class="nk-tb-col nk-tb-col-tools">
                                     <span>ACTIONS</span>
                                 </th>
@@ -78,6 +83,11 @@
                                             <span class="tb-lead">{{ ucfirst($user->name) }}</span>
                                         @endforeach
                                     </td>
+                                    @if(auth()->user()->hasRole('Super Admin'))
+                                        <th class="nk-tb-col">
+                                            <span class="tb-lead">{{ ucfirst($department->campus->institution->institution_name) ?? "" }}</span>
+                                        </th>
+                                    @endif
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
