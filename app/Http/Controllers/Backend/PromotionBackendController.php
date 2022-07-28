@@ -18,8 +18,7 @@ use Illuminate\Http\RedirectResponse;
 class PromotionBackendController extends Controller
 {
     public function __construct(
-        protected readonly PromotionRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory,
+        protected readonly PromotionRepositoryInterface $repository
     ) {
     }
 
@@ -37,7 +36,7 @@ class PromotionBackendController extends Controller
 
     public function store(PromotionRequest $request): RedirectResponse
     {
-        $this->repository->stored(attributes: $request, factory: $this->factory);
+        $this->repository->stored(attributes: $request);
 
         return redirect()->route('admins.academic.promotion.index');
     }
@@ -58,14 +57,14 @@ class PromotionBackendController extends Controller
 
     public function update(string $key, PromotionUpdateRequest $request): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $request, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $request);
 
         return redirect()->route('admins.academic.promotion.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

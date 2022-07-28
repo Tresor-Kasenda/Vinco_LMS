@@ -16,9 +16,8 @@ return new class extends Migration
             $table->foreignIdFor(Subsidiary::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('name', '30')->unique();
+            $table->string('name', '30');
             $table->text('description')->nullable();
-            $table->string('images');
             $table->timestamps();
             $table->softDeletes();
         });
