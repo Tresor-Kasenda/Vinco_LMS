@@ -8,6 +8,7 @@ use App\Contracts\CategoryRepositoryInterface;
 use App\Models\Category;
 use App\Models\Institution;
 use App\Models\Professor;
+use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -16,19 +17,37 @@ use LaravelIdea\Helper\App\Models\_IH_Category_QB;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
+
     public function getCategories(): array|Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Category::query()
+                ->select([
+                    'id',
+                    'name',
+                    'description',
+                    'institution_id'
+                ])
+                ->with('institution')
+                ->orderByDesc('created_at')
+                ->get();
+        }
         return Category::query()
             ->select([
                 'id',
                 'name',
                 'description',
+                'institution_id'
             ])
+            ->where('institution_id', '=', auth()->user()->institution->id)
             ->orderByDesc('created_at')
             ->get();
     }
 
-    public function showCategory(string $key): Model|Builder|_IH_Category_QB|Category|\Illuminate\Database\Query\Builder|null
+    public function showCategory(string $key): Model|Builder|_IH_Category_QB|Category|null
     {
         return Category::query()
             ->select([
@@ -38,52 +57,42 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'institution_id',
             ])
             ->where('id', '=', $key)
-            ->first();
+            ->firstOrFail();
     }
 
-    public function stored($attributes, $flash): Model|Builder|Category|RedirectResponse
+    public function stored($attributes): Model|Builder|Category|RedirectResponse
     {
         $faculty = Category::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'institution_id'=> $this->institution()->institution_id ?? auth()->user()->institution->id,
+                'institution_id'=> $attributes->input('institution') ?? auth()->user()->institution->id,
                 'description' => $attributes->input('description'),
             ]);
-        $flash->addSuccess('A new Category as added with successfully');
+        $this->service->success('A new Category as added with successfully');
 
         return $faculty;
     }
 
-    public function updated(string $key, $attributes, $flash)
+    public function updated(string $key, $attributes): Model|Builder|_IH_Category_QB|Category|null
     {
         $category = $this->showCategory(key: $key);
         $category->update([
             'name' => $attributes->input('name'),
-            'institution_id'=> $this->institution()->institution_id,
+            'institution_id'=> $attributes->input('institution') ?? auth()->user()->institution->id,
             'description' => $attributes->input('description'),
         ]);
-        $flash->addSuccess('The Category as updated with successfully');
+        $this->service->success('The Category as updated with successfully');
 
         return $category;
     }
 
-    public function deleted(string $key, $flash): RedirectResponse
+    public function deleted(string $key): RedirectResponse
     {
         $category = $this->showCategory(key: $key);
         $category->delete();
-        $flash->addSuccess('The Category as trashed with successfully');
+        $this->service->success('The Category as trashed with successfully');
 
         return back();
     }
 
-    protected function institution(): Model|Professor|Builder|\Illuminate\Database\Query\Builder|null
-    {
-        return Professor::query()
-            ->select([
-                'id',
-                'institution_id',
-            ])
-            ->where('user_id', '=', auth()->user()->id)
-            ->first();
-    }
 }

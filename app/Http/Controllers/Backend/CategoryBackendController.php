@@ -17,8 +17,7 @@ use Illuminate\Http\RedirectResponse;
 class CategoryBackendController extends Controller
 {
     public function __construct(
-        public CategoryRepositoryInterface $repository,
-        public SweetAlertFactory $flasher
+        public CategoryRepositoryInterface $repository
     ) {
     }
 
@@ -36,28 +35,28 @@ class CategoryBackendController extends Controller
 
     public function store(CategoryRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes:  $attributes, flash: $this->flasher);
+        $this->repository->stored(attributes:  $attributes);
 
         return to_route('admins.academic.categories.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.academic.categories.edit', [
-            'category' => $this->repository->showCategory(key: $key),
-        ]);
+        $category = $this->repository->showCategory(key: $key);
+
+        return view('backend.domain.academic.categories.edit', compact('category'));
     }
 
     public function update(string $key, CategoryRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, flash: $this->flasher);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.academic.categories.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, flash: $this->flasher);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

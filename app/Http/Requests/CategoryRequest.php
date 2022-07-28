@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Institution;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -28,6 +30,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4'],
             'description' => ['nullable'],
+            'institution' => ['nullable', Rule::exists(Institution::class, 'id')]
         ];
     }
 }
