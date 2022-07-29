@@ -8,7 +8,6 @@ use App\Contracts\ChapterRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChapterRequest;
 use App\Http\Requests\ChapterUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -20,8 +19,7 @@ use Illuminate\Support\Facades\Response;
 class ChapterBackendController extends Controller
 {
     public function __construct(
-        public ChapterRepositoryInterface $repository,
-        public SweetAlertFactory $factory,
+        public ChapterRepositoryInterface $repository
     ) {
     }
 
@@ -29,7 +27,7 @@ class ChapterBackendController extends Controller
     {
         $chapters = $this->repository->getChapters();
 
-        return \view('backend.domain.academic.chapters.index', compact('chapters'));
+        return view('backend.domain.academic.chapters.index', compact('chapters'));
     }
 
     public function create(): Renderable
@@ -39,7 +37,7 @@ class ChapterBackendController extends Controller
 
     public function store(ChapterRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, flash: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return redirect()->route('admins.academic.chapter.index');
     }
@@ -60,14 +58,14 @@ class ChapterBackendController extends Controller
 
     public function update(string $key, ChapterUpdateRequest $attributes): RedirectResponse
     {
-        $chapter = $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
+        $chapter = $this->repository->updated(key: $key, attributes: $attributes);
 
         return redirect()->route('admins.academic.chapter.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $chapter = $this->repository->deleted(key: $key, flash: $this->factory);
+        $chapter = $this->repository->deleted(key: $key);
 
         return back();
     }

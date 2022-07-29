@@ -39,6 +39,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->with('institution')
+                                                        ->get();
+                                                } else {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->where('institution_id', '=', auth()->user()->institution->id)
+                                                        ->get();
+                                                }
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="course">Cours</label>
@@ -50,8 +61,8 @@
                                                         data-placeholder="Select Course"
                                                         required>
                                                         <option value="{{ $chapter->course->id }}"> {{ ucfirst($chapter->course->name) }}</option>
-                                                        @foreach(\App\Models\Course::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ ucfirst($campus->name) }}</option>
+                                                        @foreach($courses as $cours)
+                                                            <option value="{{ $cours->id }}">{{ ucfirst($cours->name) ?? "" }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -84,4 +95,32 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            height: 260,
+            resize: true,
+            max_height: 500,
+            icons_url: 'https://www.example.com/icons/material/icons.js',
+            icons: 'material',
+            mobile: {
+                menubar: true,
+                plugins: 'autosave lists autolink',
+                toolbar: 'undo bold italic styles'
+            },
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount', 'emoticons'
+            ],
+            toolbar: 'undo redo | styles | bold italic | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'outdent indent | numlist bullist | emoticons',
+        });
+    </script>
 @endsection
