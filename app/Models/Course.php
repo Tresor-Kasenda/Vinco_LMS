@@ -29,24 +29,24 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \App\Models\Category $category
- * @property-read Collection|\App\Models\Chapter[] $chapters
+ * @property-read Category $category
+ * @property-read Collection|Chapter[] $chapters
  * @property-read int|null $chapters_count
- * @property-read Collection|\App\Models\Exam[] $exams
+ * @property-read Collection|Exam[] $exams
  * @property-read int|null $exams_count
- * @property-read Collection|\App\Models\Exercice[] $exercises
+ * @property-read Collection|Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read Collection|\App\Models\Homework[] $homeworks
+ * @property-read Collection|Homework[] $homeworks
  * @property-read int|null $homeworks_count
- * @property-read Collection|\App\Models\Journal[] $journal
+ * @property-read Collection|Journal[] $journal
  * @property-read int|null $journal_count
- * @property-read Collection|\App\Models\Professor[] $professors
+ * @property-read Collection|Professor[] $professors
  * @property-read int|null $professors_count
- * @property-read Collection|\App\Models\Question[] $questions
+ * @property-read Collection|Question[] $questions
  * @property-read int|null $questions_count
- * @property-read Collection|\App\Models\Result[] $results
+ * @property-read Collection|Result[] $results
  * @property-read int|null $results_count
- * @property-read Collection|\App\Models\Schedule[] $schedules
+ * @property-read Collection|Schedule[] $schedules
  * @property-read int|null $schedules_count
  *
  * @method static Builder|Course newModelQuery()
@@ -79,6 +79,11 @@ class Course extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
+    }
 
     public function chapters(): HasMany
     {
@@ -133,5 +138,10 @@ class Course extends Model
     public function ponderation(): string
     {
         return $this->weighting.' points ';
+    }
+
+    public function getImages(): string
+    {
+        return asset('storage/'.$this->images);
     }
 }

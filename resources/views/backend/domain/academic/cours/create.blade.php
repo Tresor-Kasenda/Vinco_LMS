@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-inner">
                             <div class="row justify-content-center">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -78,6 +78,81 @@
                                                 </div>
                                             </div>
 
+                                            @php
+                                                $professors = \App\Models\Professor::query()
+                                                    ->select(['id', 'user_id', 'firstname', 'lastname', 'username'])
+                                                    ->whereHas('user', function ($builder){
+                                                        $builder->where('institution_id', auth()->user()->institution->id);
+                                                    })
+                                                    ->get();
+                                            @endphp
+
+                                            @if(auth()->user()->hasRole('Super Admin'))
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution">Institution</label>
+                                                        <div class="form-control-wrap">
+                                                            <select
+                                                                class="form-control  js-select2  select2-hidden-accessible @error('institution') error @enderror"
+                                                                data-value="{{ old('institution') }}"
+                                                                data-search="on"
+                                                                id="institution"
+                                                                name="institution"
+                                                                data-placeholder="Select a institution"
+                                                                required>
+                                                                <option label="Choisir une institution" value=""></option>
+                                                                @foreach(\App\Models\Institution::all() as $institution)
+                                                                    <option value="{{ $institution->id }}">
+                                                                        {{ ucfirst($institution->institution_name) ?? "" }}
+                                                                    </option>
+                                                                @endforeach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="professor">Professeur</label>
+                                                        <div class="form-control-wrap">
+                                                            <select
+                                                                class="form-control js-select2  select2-hidden-accessible @error('professor') error @enderror"
+                                                                data-value="{{ old('professor') }}"
+                                                                data-search="on"
+                                                                id="professor"
+                                                                name="professor"
+                                                                data-placeholder="Select a professor"
+                                                                required>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="professor">Professeur</label>
+                                                        <div class="form-control-wrap">
+                                                            <select
+                                                                class="form-control js-select2  select2-hidden-accessible @error('professor') error @enderror"
+                                                                data-value="{{ old('professor') }}"
+                                                                data-search="on"
+                                                                id="professor"
+                                                                name="professor"
+                                                                data-placeholder="Select a professor"
+                                                                required>
+                                                                <option label="Choisir un professeur" value=""></option>
+                                                                @foreach($professors as $professor)
+                                                                    <option value="{{ $professor->id }}">
+                                                                        {{ ucfirst($professor->username) ?? "" }}
+                                                                    </option>
+                                                                @endforeach>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="category">Categorie</label>
@@ -94,28 +169,6 @@
                                                             @foreach(\App\Models\Category::all() as $category)
                                                                 <option value="{{ $category->id }}">
                                                                     {{ $category->name ?? "" }}
-                                                                </option>
-                                                            @endforeach>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="professor">Professeur</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2  select2-hidden-accessible @error('professor') error @enderror"
-                                                            data-value="{{ old('professor') }}"
-                                                            data-search="on"
-                                                            id="professor"
-                                                            name="professor"
-                                                            data-placeholder="Select a professor"
-                                                            required>
-                                                            <option label="Choisir un professeur" value=""></option>
-                                                            @foreach(\App\Models\Professor::all() as $professor)
-                                                                <option value="{{ $professor->id }}">
-                                                                    {{ ucfirst($professor->username) ?? "" }}
                                                                 </option>
                                                             @endforeach>
                                                         </select>
@@ -141,20 +194,6 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="sub_description">Sous description</label>
-                                                    <div class="form-control-wrap">
-                                                        <textarea
-                                                            class="form-control form-control-sm @error('sub_description') error @enderror"
-                                                            id="sub_description"
-                                                            name="sub_description"
-                                                            rows="2"
-                                                            placeholder="Write the description"
-                                                        >{{ old('sub_description') }}</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
                                                     <label class="form-label" for="description">Description</label>
                                                     <div class="form-control-wrap">
                                                         <textarea
@@ -166,6 +205,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
@@ -181,4 +221,54 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#description',
+        height: 260,
+        resize: true,
+        max_height: 500,
+        icons_url: 'https://www.example.com/icons/material/icons.js', // load icon pack
+        icons: 'material',
+        mobile: {
+            menubar: true,
+            plugins: 'autosave lists autolink',
+            toolbar: 'undo bold italic styles'
+        },
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#institution').change(function () {
+            let institution = $(this).val();
+            console.log(institution)
+            if (institution){
+                $.ajax({
+                    type:'GET',
+                    url:'{{ route("admins.academic.professor-json") }}',
+                    data:{"institution" : institution },
+                    success:function(response){
+                        console.log(response)
+                        $("#professor").empty();
+                        $("#professor").append('<option label="Select Professor" value=""></option>');
+                        if(response && response?.status === 'success'){
+                            response?.professors?.map((professor) => {
+                                $("#professor").append('<option value="'+professor.id+'">'+professor.username+'</option>');
+                            })
+                        }
+                    }
+                })
+            }
+        });
+    })
+</script>
 @endsection

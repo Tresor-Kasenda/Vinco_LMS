@@ -9,13 +9,13 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
-class InstitutionApiRequest extends FormRequest
+class ProfessorApiRequest extends FormRequest
 {
-    #[ArrayShape(['institution' => "array"])]
+    #[ArrayShape(['institution' => 'array'])]
     public function rules(): array
     {
         return [
-            'institution' => ['required', Rule::exists(Institution::class, 'id')]
+            'institution' => ['required', Rule::exists(Institution::class, 'id')],
         ];
     }
 

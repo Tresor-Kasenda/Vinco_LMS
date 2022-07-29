@@ -27,6 +27,7 @@
         "spatie/laravel-model-states": "^2.4",
         "squizlabs/php_codesniffer": "3.6.2",
         "techguy/laravel-ckeditor": "^1.5",
+        "tinymce/tinymce": "^6.1",
         "yajra/laravel-datatables-oracle": "^9.21.1"
     },
     "require-dev": {

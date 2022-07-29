@@ -17,18 +17,20 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.course.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
+                                        @permission('cours-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.course.history') }}">
+                                                    <em class="icon ni ni-histroy"></em>
+                                                    <span>Corbeille</span>
+                                                </a>
+                                            </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -52,11 +54,13 @@
                                     <span>CHAPTERS</span>
                                 </th>
                                 <th class="nk-tb-col">
-                                    <span>STATUS</span>
+                                    <span>PROFESSEURS</span>
                                 </th>
-                                <th class="nk-tb-col">
-                                    <span>PONDERATION</span>
-                                </th>
+                                @if(auth()->user()->hasRole('Super Admin'))
+                                    <th class="nk-tb-col">
+                                        <span>INSTITUTION</span>
+                                    </th>
+                                @endif
                                 <th class="nk-tb-col nk-tb-col-tools text-center">
                                     <span>ACTION</span>
                                 </th>
@@ -65,56 +69,57 @@
                         <tbody>
                             @foreach($courses as $course)
                                 <tr class="nk-tb-item text-center">
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">
+                                    <td class="nk-tb-col tb-col-sm">
+                                        <span class="tb-product justify-content-center">
                                             <img
-                                                src="{{ asset('storage/'.$course->images) }}"
-                                                alt="{{ ucfirst(substr($course->name, 0, 20)) ?? "" }}"
-                                                class="img-fluid rounded-circle"
-                                                width="20%"
-                                                height="20%"
-                                            >
+                                                src="{{ $course->getImages() }}"
+                                                alt="{{ ucfirst($course->name) ?? "" }}"
+                                                class="thumb">
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            <h6 class="title">{{ ucfirst(substr($course->name, 0, 20)) ?? "" }}...</h6>
+                                            <span class="title">{{ ucfirst($course->name) ?? "" }}</span>
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">{{ ucfirst($course->category->name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">Nb Chapitres : {{ $course->chapters_count ?? "" }} </span>
+                                        <span class="tb-lead">Chapitres : {{ $course->chapters_count ?? "" }} </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        @if($course->status)
-                                            <span class="dot bg-success d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-success d-none d-sm-inline-flex">Confirmer</span>
-                                        @else
-                                            <span class="dot bg-warning d-sm-none"></span>
-                                            <span class="badge badge-sm badge-dot has-bg bg-warning d-none d-sm-inline-flex">En attente</span>
-                                        @endif
+                                        @foreach($course->professors as $professor)
+                                            <span class="tb-lead">{{ ucfirst($professor->username) ?? "" }} </span>
+                                        @endforeach
                                     </td>
-                                    <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ $course->weighting ?? "" }} </span>
-                                    </td>
+                                    @if(auth()->user()->hasRole('Super Admin'))
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ ucfirst($course->institution->institution_name) ?? "" }} </span>
+                                        </td>
+                                    @endif
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex">
-                                                <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye"></em>
-                                                </a>
-                                                <a href="{{ route('admins.academic.course.edit', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                                <form action="{{ route('admins.academic.course.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
+                                                @permission('cours-read')
+                                                    <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-eye"></em>
+                                                    </a>
+                                                @endpermission
+                                                @permission('cours-update')
+                                                    <a href="{{ route('admins.academic.course.edit', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                        <em class="icon ni ni-edit"></em>
+                                                    </a>
+                                                @endpermission
+                                                @permission('cours-delete')
+                                                    <form action="{{ route('admins.academic.course.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                        @method('DELETE')
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                            <em class="icon ni ni-trash"></em>
+                                                        </button>
+                                                    </form>
+                                                @endpermission
                                             </div>
                                         </span>
                                     </td>

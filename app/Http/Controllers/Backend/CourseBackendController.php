@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\StatusCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -22,8 +21,7 @@ use Illuminate\Support\Facades\Response;
 class CourseBackendController extends Controller
 {
     public function __construct(
-        private readonly CourseRepositoryInterface $repository,
-        private readonly SweetAlertFactory $factory,
+        private readonly CourseRepositoryInterface $repository
     ) {
     }
 
@@ -41,7 +39,7 @@ class CourseBackendController extends Controller
 
     public function store(CourseRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, flash: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.course.index');
     }
@@ -62,14 +60,14 @@ class CourseBackendController extends Controller
 
     public function update(string $key, UpdateCourseRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return Response::redirectToRoute('admins.academic.course.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, flash: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return Response::redirectToRoute('admins.academic.course.index');
     }

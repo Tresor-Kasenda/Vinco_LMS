@@ -7,6 +7,7 @@ namespace App\Repositories\Backend;
 use App\Contracts\CourseRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Course;
+use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,8 +19,30 @@ class CourseRepository implements CourseRepositoryInterface
 {
     use ImageUploader;
 
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
+
     public function getCourses(): array|Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Course::query()
+                ->select([
+                    'id',
+                    'name',
+                    'status',
+                    'category_id',
+                    'images',
+                    'weighting',
+                    'professor_id',
+                    'institution_id',
+                ])
+                ->with(['category:id,name', 'professors:id,username,lastname', 'institution'])
+                ->withCount('chapters')
+                ->orderByDesc('created_at')
+                ->get();
+        }
+
         return Course::query()
             ->select([
                 'id',
@@ -29,7 +52,8 @@ class CourseRepository implements CourseRepositoryInterface
                 'images',
                 'weighting',
             ])
-            ->with(['category:id,name'])
+            ->with(['category:id,name', 'professors:id,username,email'])
+            ->where('institution_id', '=', auth()->user()->institution->id)
             ->withCount('chapters')
             ->orderByDesc('created_at')
             ->get();
@@ -47,15 +71,15 @@ class CourseRepository implements CourseRepositoryInterface
                 'images',
                 'weighting',
                 'description',
-                'sub_description',
+                'institution_id',
             ])
             ->where('id', '=', $key)
             ->first();
 
-        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters']);
+        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters', 'institution']);
     }
 
-    public function stored($attributes, $flash): Model|Builder|Course
+    public function stored($attributes): Model|Builder|Course
     {
         $course = Course::query()
             ->create([
@@ -63,20 +87,19 @@ class CourseRepository implements CourseRepositoryInterface
                 'weighting' => $attributes->input('weighting'),
                 'category_id' => $attributes->input('category'),
                 'professor_id' => $attributes->input('professor'),
-                'sub_description' => $attributes->input('sub_description'),
                 'description' => $attributes->input('description'),
                 'images' => self::uploadFiles($attributes),
                 'status' => StatusEnum::TRUE,
-                'institution_id' => \Auth::user()->institution->id,
+                'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution->id,
             ]);
 
         $course->professors()->sync($attributes->input('professor'));
-        $flash->addSuccess('Un nouveau cours a ete ajouter');
+        $this->service->success('Un nouveau cours a ete ajouter');
 
         return $course;
     }
 
-    public function updated(string $key, $attributes, $flash): _IH_Course_QB|Model|Builder|Course|null
+    public function updated(string $key, $attributes): _IH_Course_QB|Model|Builder|Course|null
     {
         $course = $this->showCourse(key: $key);
         $this->removePathOfImages($course);
@@ -86,26 +109,25 @@ class CourseRepository implements CourseRepositoryInterface
             'weighting' => $attributes->input('weighting'),
             'category_id' => $attributes->input('category'),
             'professor_id' => $attributes->input('professor'),
-            'sub_description' => $attributes->input('sub_description'),
             'description' => $attributes->input('description'),
             'images' => self::uploadFiles($attributes),
         ]);
         $course->professors()->sync($attributes->input('professor'));
-        $flash->addSuccess('Un nouveau cours a ete ajouter');
+        $this->service->success('Un nouveau cours a ete ajouter');
 
         return $course;
     }
 
-    public function deleted(string $key, $flash): RedirectResponse
+    public function deleted(string $key): RedirectResponse
     {
         $professor = $this->showCourse(key: $key);
         if ($professor->status !== StatusEnum::FALSE) {
-            $flash->addError('Veillez desactiver le cours avant de le mettre dans la corbeille');
+            $this->service->error('Veillez desactiver le cours avant de le mettre dans la corbeille');
 
             return back();
         }
         $professor->delete();
-        $flash->addSuccess('Une modification a ete effectuer sur ce cours');
+        $this->service->success('Une modification a ete effectuer sur ce cours');
 
         return back();
     }

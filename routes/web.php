@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
-use App\Http\Controllers\Backend\Api\InstitutionApiController;
+use App\Http\Controllers\Backend\Api\ProfessorApiController;
 use App\Http\Controllers\Backend\Api\PromotionApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/getCourse', [ExerciceBackendApiController::class, 'render'])->name('chapter.render');
             Route::get('department-json', [FiliaireApiController::class, 'getFiliaire'])->name('department-json');
             Route::get('promotion-json', [PromotionApiController::class, 'getPromotion'])->name('promotion-json');
+            Route::get('professor-json', [ProfessorApiController::class, 'getInstitution'])->name('professor-json');
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {

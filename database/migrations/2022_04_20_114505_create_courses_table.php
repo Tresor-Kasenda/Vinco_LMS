@@ -22,8 +22,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('sub_description')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('images')->nullable();
             $table->integer('weighting')->nullable(); // ponderation
             $table->boolean('status')->default(StatusEnum::FALSE);
