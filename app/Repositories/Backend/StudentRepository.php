@@ -129,8 +129,9 @@ class StudentRepository implements StudentRepositoryInterface
             $role = $this->getStudentRole();
             $user->attachRole($role->id);
             $student = $this->storeStudent($user, $attributes);
-            $result = $student ? $this->confirmation->send($student) : "";
+            $result = $student ? $this->confirmation->send($student) : '';
             $this->service->success('Un Etudiant a ete ajouter avec succes');
+
             return $student;
         }
         $this->service->warning('Cette email a ete deja utiliser sur un autre compte');
@@ -163,10 +164,12 @@ class StudentRepository implements StudentRepositoryInterface
         $student = $this->showStudent($key);
         if ($student->status !== StatusEnum::FALSE) {
             $this->service->warning('Veillez desactiver avant de le mettre dans la corbeille');
+
             return back();
         }
         $student->delete();
         $this->service->success('Un Etudiant a ete supprimer');
+
         return $student;
     }
 

@@ -15,7 +15,7 @@ class PromotionApiController
 
         return response()->json([
             'promotions' => $promotions,
-            'status' => 'success'
+            'status' => 'success',
         ], 200);
     }
 }

@@ -16,7 +16,7 @@ class FiliaireApiController extends Controller
 
         return response()->json([
             'filiaires' => $filiaires,
-            'status' => 'success'
+            'status' => 'success',
         ], 200);
     }
 }

@@ -17,7 +17,7 @@ class PromotionApiRepository
             ->select([
                 'id',
                 'name',
-                'subsidiary_id'
+                'subsidiary_id',
             ])
             ->where('subsidiary_id', '=', $apiRequest->input('filiaire'))
             ->get();

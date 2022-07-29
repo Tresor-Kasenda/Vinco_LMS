@@ -11,11 +11,11 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class PromotionApiRequest extends FormRequest
 {
-    #[ArrayShape(['filiaire' => "array"])]
+    #[ArrayShape(['filiaire' => 'array'])]
     public function rules(): array
     {
         return [
-            'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')]
+            'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')],
         ];
     }
 

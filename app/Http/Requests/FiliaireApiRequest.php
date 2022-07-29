@@ -11,7 +11,7 @@ class FiliaireApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'department' => ['required', Rule::exists(Department::class, 'id')]
+            'department' => ['required', Rule::exists(Department::class, 'id')],
         ];
     }
 
