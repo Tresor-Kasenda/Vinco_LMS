@@ -13,8 +13,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        dd('Belhanda');
-
         return view('frontend.index');
     }
 }

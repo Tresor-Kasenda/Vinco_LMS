@@ -8,8 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendEmailConfirmation implements ShouldQueue
 {
-    public function send()
+    public function send($user)
     {
-
+        return [];
     }
 }
