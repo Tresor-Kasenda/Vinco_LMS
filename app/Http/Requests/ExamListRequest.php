@@ -17,7 +17,7 @@ class ExamListRequest extends FormRequest
             'rating' => ['required', 'integer'],
             'date' => ['required', 'date'],
             'start_time' => ['required'],
-            'duration' => ['required', 'string']
+            'duration' => ['required', 'string'],
         ];
     }
 

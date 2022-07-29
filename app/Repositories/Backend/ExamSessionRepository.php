@@ -20,7 +20,7 @@ class ExamSessionRepository implements ExamSessionRepositoryInterface
                 'name',
                 'start_date',
                 'end_date',
-                'note'
+                'note',
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -34,7 +34,7 @@ class ExamSessionRepository implements ExamSessionRepositoryInterface
                 'name',
                 'start_date',
                 'end_date',
-                'note'
+                'note',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -45,11 +45,12 @@ class ExamSessionRepository implements ExamSessionRepositoryInterface
         $examSession = ExamSession::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'start_date' => $attributes->input("start_date"),
+                'start_date' => $attributes->input('start_date'),
                 'end_date' => $attributes->input('end_date'),
-                'note' => $attributes->input('note')
+                'note' => $attributes->input('note'),
             ]);
-        $factory->addSuccess("New Exam Session as added with successfully");
+        $factory->addSuccess('New Exam Session as added with successfully');
+
         return $examSession;
     }
 
@@ -58,11 +59,12 @@ class ExamSessionRepository implements ExamSessionRepositoryInterface
         $examSession = $this->showExamSession(key: $key);
         $examSession->update([
             'name' => $attributes->input('name'),
-            'start_date' => $attributes->input("start_date"),
+            'start_date' => $attributes->input('start_date'),
             'end_date' => $attributes->input('end_date'),
-            'note' => $attributes->input('note')
+            'note' => $attributes->input('note'),
         ]);
-        $factory->addSuccess("New Exam Session as updated with successfully");
+        $factory->addSuccess('New Exam Session as updated with successfully');
+
         return $examSession;
     }
 
@@ -71,7 +73,8 @@ class ExamSessionRepository implements ExamSessionRepositoryInterface
         $examSession = $this->showExamSession(key: $key);
         $examSession->delete();
 
-        $factory->addSuccess("New Exam Session as deleted with successfully");
+        $factory->addSuccess('New Exam Session as deleted with successfully');
+
         return $examSession;
     }
 }

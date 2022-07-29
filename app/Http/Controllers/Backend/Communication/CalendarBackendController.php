@@ -29,7 +29,6 @@ class CalendarBackendController extends Controller
      */
     public function index(): View|Factory|Application
     {
-
         $eloquentEvent = Calendar::all(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
 
         $calendar = \Calendar::addEvents($eloquentEvent);

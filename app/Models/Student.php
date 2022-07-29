@@ -18,7 +18,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\Student
  *
@@ -60,6 +59,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $results_count
  * @property-read Subsidiary|null $subsidiary
  * @property-read User $user
+ *
  * @method static Builder|Student newModelQuery()
  * @method static Builder|Student newQuery()
  * @method static \Illuminate\Database\Query\Builder|Student onlyTrashed()
@@ -93,8 +93,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Student withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Student withoutTrashed()
  * @mixin \Eloquent
+ *
  * @property int|null $guardian_id
  * @property string|null $admission_date
+ *
  * @method static StudentFactory factory(...$parameters)
  * @method static Builder|Student whereAdmissionDate($value)
  * @method static Builder|Student whereGuardianId($value)

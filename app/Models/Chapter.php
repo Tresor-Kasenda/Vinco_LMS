@@ -33,8 +33,9 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $lessons_count
  * @property-read Collection|Question[] $questions
  * @property-read int|null $questions_count
- * @property-read Collection|Resource[] $resources
+ * @property-read Collection|resource[] $resources
  * @property-read int|null $resources_count
+ *
  * @method static Builder|Chapter newModelQuery()
  * @method static Builder|Chapter newQuery()
  * @method static \Illuminate\Database\Query\Builder|Chapter onlyTrashed()
@@ -49,6 +50,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Chapter withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Chapter withoutTrashed()
  * @mixin \Eloquent
+ *
  * @method static ChapterFactory factory(...$parameters)
  */
 class Chapter extends Model

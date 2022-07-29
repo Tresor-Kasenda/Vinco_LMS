@@ -29,12 +29,13 @@ class SessionRepository implements AcademicYearRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return AcademicYear::query()
             ->select([
                 'id',
                 'start_date',
                 'end_date',
-                'institution_id'
+                'institution_id',
             ])
             ->where('institution_id', '=', auth()->user()->institution_id)
             ->get();
@@ -56,6 +57,7 @@ class SessionRepository implements AcademicYearRepositoryInterface
                 'end_date' => $attributes->input('endDate'),
             ]);
         $this->service->success('Une nouvelle annee a ete ajouter');
+
         return $academic;
     }
 
@@ -67,6 +69,7 @@ class SessionRepository implements AcademicYearRepositoryInterface
             'end_date' => $attributes->input('endDate'),
         ]);
         $this->service->success("l'annee academique a ete modifier");
+
         return $academic;
     }
 
@@ -76,6 +79,7 @@ class SessionRepository implements AcademicYearRepositoryInterface
         $academic->delete();
 
         $this->service->success("l'annee academique a ete supprimer");
+
         return $academic;
     }
 }

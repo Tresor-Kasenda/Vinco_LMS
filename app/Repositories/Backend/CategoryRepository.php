@@ -6,8 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\CategoryRepositoryInterface;
 use App\Models\Category;
-use App\Models\Institution;
-use App\Models\Professor;
 use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,18 +27,19 @@ class CategoryRepository implements CategoryRepositoryInterface
                     'id',
                     'name',
                     'description',
-                    'institution_id'
+                    'institution_id',
                 ])
                 ->with('institution')
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Category::query()
             ->select([
                 'id',
                 'name',
                 'description',
-                'institution_id'
+                'institution_id',
             ])
             ->where('institution_id', '=', auth()->user()->institution->id)
             ->orderByDesc('created_at')
@@ -65,7 +64,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $faculty = Category::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'institution_id'=> $attributes->input('institution') ?? auth()->user()->institution->id,
+                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
                 'description' => $attributes->input('description'),
             ]);
         $this->service->success('A new Category as added with successfully');
@@ -78,7 +77,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = $this->showCategory(key: $key);
         $category->update([
             'name' => $attributes->input('name'),
-            'institution_id'=> $attributes->input('institution') ?? auth()->user()->institution->id,
+            'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
             'description' => $attributes->input('description'),
         ]);
         $this->service->success('The Category as updated with successfully');
@@ -94,5 +93,4 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         return back();
     }
-
 }

@@ -30,7 +30,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4'],
             'description' => ['nullable'],
-            'institution' => ['nullable', Rule::exists(Institution::class, 'id')]
+            'institution' => ['nullable', Rule::exists(Institution::class, 'id')],
         ];
     }
 }

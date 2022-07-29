@@ -8,7 +8,6 @@ use App\Contracts\FiliaireRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FiliaireRequest;
 use App\Http\Requests\FiliaireUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;

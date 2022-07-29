@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\FiliaireRepositoryInterface;
-use App\Enums\StatusEnum;
 use App\Models\Subsidiary;
 use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
@@ -40,13 +39,14 @@ class FiliaireRepository implements FiliaireRepositoryInterface
                     'user:id,name',
                     'department' => [
                         'campus:id,institution_id' => [
-                            'institution:id,institution_name'
-                        ]
-                    ]
+                            'institution:id,institution_name',
+                        ],
+                    ],
                 ])
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Subsidiary::query()
             ->select([
                 'id',
@@ -109,7 +109,7 @@ class FiliaireRepository implements FiliaireRepositoryInterface
             'department_id' => $attributes->input('department'),
             'user_id' => $attributes->input('user'),
             'name' => $attributes->input('name'),
-            'description' => $attributes->input('description')
+            'description' => $attributes->input('description'),
         ]);
         $this->service->success('Un campus a ete modifier');
 
@@ -121,6 +121,7 @@ class FiliaireRepository implements FiliaireRepositoryInterface
         $campus = $this->showFiliaire(key: $key);
         $campus->delete();
         $this->service->success('Un campus a ete supprimer');
+
         return back();
     }
 

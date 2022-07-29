@@ -36,6 +36,7 @@ class CampusRepository implements CampusRepositoryInterface
                 ->with(['institution:id,institution_name', 'user:id,name,email'])
                 ->get();
         }
+
         return Campus::query()
             ->select([
                 'id',
@@ -73,7 +74,7 @@ class CampusRepository implements CampusRepositoryInterface
                 'name' => $attributes->input('name'),
                 'description' => $attributes->input('description'),
                 'images' => self::uploadFiles($attributes),
-                'institution_id' => $attributes->input("institution") ?? \Auth::user()->institution->id,
+                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
             ]);
         $this->service->success('Campus add with successfully');
 
@@ -88,7 +89,7 @@ class CampusRepository implements CampusRepositoryInterface
             'user_id' => $attributes->input('personnel'),
             'name' => $attributes->input('name'),
             'description' => $attributes->input('description'),
-            'institution_id' => $attributes->input("institution") ?? \Auth::user()->institution->id,
+            'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution->id,
             'images' => self::uploadFiles($attributes),
         ]);
         $this->service->success('Un campus a ete modifier');
@@ -100,11 +101,13 @@ class CampusRepository implements CampusRepositoryInterface
     {
         $campus = $this->showCampus(key: $key);
         if ($campus->status !== StatusEnum::FALSE) {
-            $this->service->warning("Veillez desactiver le campus avant de le mettre dans la corbeille");
+            $this->service->warning('Veillez desactiver le campus avant de le mettre dans la corbeille');
+
             return back();
         }
         $campus->delete();
-        $this->service->success("Un campus a ete supprimer");
+        $this->service->success('Un campus a ete supprimer');
+
         return back();
     }
 

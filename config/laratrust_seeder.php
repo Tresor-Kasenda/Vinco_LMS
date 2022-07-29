@@ -230,7 +230,7 @@ return [
             'notification' => 'r',
             'journal' => 'r',
             'calendar' => 'r',
-        ]
+        ],
     ],
 
     'permissions_map' => [
@@ -238,5 +238,5 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
-    ]
+    ],
 ];

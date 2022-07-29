@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\PromotionRepositoryInterface;
 use App\Models\Promotion;
 use App\Services\ToastMessageService;
-use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 
 class PromotionRepository implements PromotionRepositoryInterface
 {
-
     public function __construct(protected ToastMessageService $service)
     {
     }
@@ -35,14 +33,15 @@ class PromotionRepository implements PromotionRepositoryInterface
                     'subsidiary:id,department_id,name' => [
                         'department:id,campus_id' => [
                             'campus:id,institution_id' => [
-                                'institution:id,institution_name'
-                            ]
-                        ]
-                    ]
+                                'institution:id,institution_name',
+                            ],
+                        ],
+                    ],
                 ])
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Promotion::query()
             ->select([
                 'id',

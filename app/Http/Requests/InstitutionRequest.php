@@ -19,7 +19,7 @@ class InstitutionRequest extends FormRequest
                 'required',
                 'string',
                 'min:5',
-                Rule::unique(Institution::class, 'institution_name')
+                Rule::unique(Institution::class, 'institution_name'),
             ],
             'institution_country' => ['required', 'max:255', 'string', 'min:4'],
             'institution_town' => ['required', 'string'],
@@ -27,14 +27,14 @@ class InstitutionRequest extends FormRequest
                 'required',
                 'max:255',
                 'regex:/^([0-9\s\-\+\(\)]*)$/',
-                Rule::unique(Institution::class, 'institution_phones')
+                Rule::unique(Institution::class, 'institution_phones'),
             ],
             'institution_website' => ['required', 'string', 'min:4'],
             'institution_email' => [
                 'required',
                 'email',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                Rule::unique(Institution::class, 'institution_email')
+                Rule::unique(Institution::class, 'institution_email'),
             ],
             'institution_address' => ['required', 'string', 'min:3'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
@@ -44,6 +44,7 @@ class InstitutionRequest extends FormRequest
     public function authorize(): bool
     {
         abort_if(Gate::allows('institution-create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 }

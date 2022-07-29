@@ -24,7 +24,7 @@ class ExamListRepository implements ExamListRepositoryInterface
                 'rating',
                 'date',
                 'duration',
-                'exam_session_id'
+                'exam_session_id',
             ])
             ->with('course:id,name', 'examSession:id,name')
             ->orderByDesc('created_at')
@@ -41,7 +41,7 @@ class ExamListRepository implements ExamListRepositoryInterface
                 'date',
                 'duration',
                 'status',
-                'exam_session_id'
+                'exam_session_id',
             ])
             ->where('id', '=', $key)
             ->firstOrFail();
@@ -59,9 +59,9 @@ class ExamListRepository implements ExamListRepositoryInterface
                 'duration' => $attributes->input('duration'),
                 'start_time' => $attributes->input('start_time'),
                 'exam_session_id' => $attributes->input('exam_session'),
-                'status' => StatusEnum::FALSE
+                'status' => StatusEnum::FALSE,
             ]);
-        $factory->addSuccess("New exam list as added with successfully");
+        $factory->addSuccess('New exam list as added with successfully');
 
         return $exam;
     }
@@ -78,7 +78,7 @@ class ExamListRepository implements ExamListRepositoryInterface
             'start_time' => $attributes->input('start_time'),
         ]);
 
-        $factory->addSuccess("New exam list as updated with successfully");
+        $factory->addSuccess('New exam list as updated with successfully');
 
         return $exam;
     }
@@ -89,7 +89,7 @@ class ExamListRepository implements ExamListRepositoryInterface
 
         $exam->delete();
 
-        $factory->addSuccess("New exam list as deleted with successfully");
+        $factory->addSuccess('New exam list as deleted with successfully');
 
         return $exam;
     }
@@ -99,7 +99,7 @@ class ExamListRepository implements ExamListRepositoryInterface
         $exam = $this->showExam($request->input('key'));
 
         $exam->update([
-            'status' => $request->input('status')
+            'status' => $request->input('status'),
         ]);
 
         return $exam;

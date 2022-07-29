@@ -41,12 +41,13 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                     'id',
                     'phones',
                     'email',
-                    'user_id'
+                    'user_id',
                 ])
                 ->with('user')
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Personnel::query()
             ->select([
                 'images_personnel',
@@ -56,7 +57,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'id',
                 'phones',
                 'email',
-                'user_id'
+                'user_id',
             ])
             ->whereHas('user', function ($institution) {
                 $institution->where('institution_id', '=', auth()->user()->institution_id);
@@ -83,7 +84,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'identityCard',
                 'gender',
                 'birthdays',
-                'academic_year_id'
+                'academic_year_id',
             ])
             ->where('id', '=', $key)
             ->firstOrFail();
@@ -102,10 +103,12 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             $role = $this->getRole($attributes);
             $user->attachRole($role->id);
             $personnel = $this->createPersonnel($attributes, $user);
-            $this->service->success("Un personnel a ete ajouter");
+            $this->service->success('Un personnel a ete ajouter');
+
             return $personnel;
         }
-        $this->service->error("Email deja utiliser par un autre compte");
+        $this->service->error('Email deja utiliser par un autre compte');
+
         return back();
     }
 
@@ -123,11 +126,12 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             'phones' => $attributes->input('phones'),
             'gender' => $attributes->input('gender'),
             'academic_year_id' => $attributes->input('academic'),
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $user->roles()->sync($attributes->input('role'));
-        $this->service->success("Un personnel a ete mise a jours avec succes");
+        $this->service->success('Un personnel a ete mise a jours avec succes');
+
         return $personnel;
     }
 
@@ -135,7 +139,8 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     {
         $personnel = $this->showPersonnelContent(key: $key);
         $personnel->delete();
-        $this->service->error("Personnel modifier avec succes");
+        $this->service->error('Personnel modifier avec succes');
+
         return back();
     }
 
@@ -172,7 +177,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'institution_id'=> $attributes->input('institution') ?? \Auth::user()->institution_id,
+                'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
                 'password' => Hash::make($attributes->input('password')),
             ]);
     }

@@ -44,7 +44,8 @@ class SessionBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        $academic  = $this->repository->showAcademicYear(key: $key);
+        $academic = $this->repository->showAcademicYear(key: $key);
+
         return view('backend.domain.academic.edit', compact('academic'));
     }
 

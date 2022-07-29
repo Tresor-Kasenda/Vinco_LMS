@@ -29,7 +29,7 @@ class UsersRepository implements UsersRepositoryInterface
                     'email',
                     'status',
                     'id',
-                    'institution_id'
+                    'institution_id',
                 ])
                 ->whereHas('roles', function ($query) {
                     $query->whereIn('name', ['Super Admin', 'Admin']);
@@ -38,13 +38,14 @@ class UsersRepository implements UsersRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return User::query()
             ->select([
                 'name',
                 'email',
                 'status',
                 'id',
-                'institution_id'
+                'institution_id',
             ])
             ->with('institution:id,institution_name,institution_email')
             ->whereHas('roles', function ($query) {
@@ -57,13 +58,13 @@ class UsersRepository implements UsersRepositoryInterface
 
     public function showUser(string $key): Model|Builder|User|null
     {
-        $admin =  User::query()
+        $admin = User::query()
             ->select([
                 'name',
                 'email',
                 'status',
                 'id',
-                'institution_id'
+                'institution_id',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -79,11 +80,11 @@ class UsersRepository implements UsersRepositoryInterface
                 'email' => $attributes->input('email'),
                 'status' => StatusEnum::TRUE,
                 'password' => Hash::make($attributes->input('password')),
-                'institution_id' => $attributes->input('institution')
+                'institution_id' => $attributes->input('institution'),
             ]);
 
         $user->attachRole($attributes->input('role_id'));
-        $this->service->success("Utilisateur ajouter avec succes");
+        $this->service->success('Utilisateur ajouter avec succes');
 
         return $user;
     }
@@ -96,10 +97,10 @@ class UsersRepository implements UsersRepositoryInterface
             'name' => $attributes->input('name'),
             'email' => $attributes->input('email'),
             'password' => Hash::make($attributes->input('password')),
-            'institution_id' => $attributes->input('institution')
+            'institution_id' => $attributes->input('institution'),
         ]);
         $user->roles()->sync($attributes->input('role_id'));
-        $this->service->success("Utilisateur mise a jours avec succes");
+        $this->service->success('Utilisateur mise a jours avec succes');
 
         return $user;
     }
@@ -108,13 +109,13 @@ class UsersRepository implements UsersRepositoryInterface
     {
         $user = $this->showUser(key: $key);
         if ($user->status !== StatusEnum::FALSE || $user->hasRole('Super Admin')) {
-            $this->service->error("Veillez desactiver le admin avant de le mettre dans la corbeille");
+            $this->service->error('Veillez desactiver le admin avant de le mettre dans la corbeille');
 
             return back();
         }
         $user->roles()->detach();
         $user->delete();
-        $this->service->error("Utilisateur supprimer avec succes");
+        $this->service->error('Utilisateur supprimer avec succes');
 
         return $user;
     }

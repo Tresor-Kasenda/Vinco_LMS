@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\RoutineTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SessionUpdateRequest extends FormRequest
@@ -14,7 +13,7 @@ class SessionUpdateRequest extends FormRequest
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'before:endDate'
+                'before:endDate',
             ],
             'endDate' => [
                 'required',

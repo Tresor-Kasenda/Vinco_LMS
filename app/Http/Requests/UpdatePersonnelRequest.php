@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Models\AcademicYear;
 use App\Models\Institution;
-use App\Models\Personnel;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdatePersonnelRequest extends FormRequest
 {
@@ -36,7 +32,7 @@ class UpdatePersonnelRequest extends FormRequest
             'role' => ['required', Rule::exists('roles', 'id')],
             'academic' => ['required', Rule::exists('academic_years', 'id')],
             'gender' => ['required', 'in:male,female'],
-            'institution' => ['required', Rule::exists(Institution::class, 'id')]
+            'institution' => ['required', Rule::exists(Institution::class, 'id')],
         ];
     }
 }

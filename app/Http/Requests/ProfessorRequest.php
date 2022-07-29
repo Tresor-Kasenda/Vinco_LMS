@@ -26,18 +26,18 @@ class ProfessorRequest extends FormRequest
                 'string',
                 'email',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                Rule::unique(Professor::class, 'email')
+                Rule::unique(Professor::class, 'email'),
             ],
             'phones' => [
                 'required',
                 'min:10',
                 'regex:/^([0-9\s\-\+\(\)]*)$/',
-                Rule::unique(Professor::class, 'phones')
+                Rule::unique(Professor::class, 'phones'),
             ],
             'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
             'password' => ['required', 'min:6'],
             'gender' => ['required', 'in:male,female'],
-            'institution' => ['nullable', Rule::exists(Institution::class, 'id')]
+            'institution' => ['nullable', Rule::exists(Institution::class, 'id')],
         ];
     }
 }

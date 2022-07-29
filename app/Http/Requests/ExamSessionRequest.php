@@ -16,7 +16,7 @@ class ExamSessionRequest extends FormRequest
             'name' => ['required', 'string', 'min:2', Rule::unique(ExamSession::class, 'name')],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after:start_date'],
-            'note' => ['nullable', 'string']
+            'note' => ['nullable', 'string'],
         ];
     }
 

@@ -57,7 +57,7 @@ class ChartRepository implements ChartRepositoryInterface
             )
             ->whereIn('gender', [
                 'masculin',
-                'feminim'
+                'feminim',
             ])
             ->groupBy('id')
             ->get();
@@ -74,7 +74,7 @@ class ChartRepository implements ChartRepositoryInterface
             )
             ->whereBetween('created_at', [
                 Carbon::now()->startOfWeek(),
-                Carbon::now()->endOfWeek()
+                Carbon::now()->endOfWeek(),
             ])
             ->whereYear('created_at', date('Y'))
             ->groupBy('dayname')
@@ -92,7 +92,7 @@ class ChartRepository implements ChartRepositoryInterface
             )
             ->whereBetween('created_at', [
                 Carbon::now()->startOfWeek(),
-                Carbon::now()->endOfWeek()
+                Carbon::now()->endOfWeek(),
             ])
             ->whereYear('created_at', date('Y'))
             ->groupBy('dayname')

@@ -15,7 +15,10 @@ class EmailInstitutionService implements ShouldQueue
         $data = ['name' => $institution->institution_name];
 
         return Mail::send('mail.institution.register', $data, function ($message) use ($institution) {
-            $message->to($institution->institution_email, $institution->institution_name)->subject('Institution Register');
+            $message->to(
+                $institution->institution_email,
+                $institution->institution_name
+            )->subject('Institution Register');
             $message->from('institution@vinco.digital', 'Vinco Education');
         });
     }

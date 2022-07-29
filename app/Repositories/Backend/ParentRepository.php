@@ -46,9 +46,9 @@ class ParentRepository implements ParentRepositoryInterface
                 'email_guardian',
                 'images',
                 'phones',
-                'user_id'
+                'user_id',
             ])
-            ->whereHas('user', fn($query) => $query->where("institution_id", '=', auth()->user()->institution_id))
+            ->whereHas('user', fn ($query) => $query->where('institution_id', '=', auth()->user()->institution_id))
             ->orderByDesc('created_at')
             ->get();
     }
@@ -64,7 +64,7 @@ class ParentRepository implements ParentRepositoryInterface
                 'email_guardian',
                 'images',
                 'phones',
-                'occupation'
+                'occupation',
             ])
             ->whereId($key)
             ->firstOrFail();
@@ -88,6 +88,7 @@ class ParentRepository implements ParentRepositoryInterface
                     'user_id' => $user->id,
                 ]);
             $this->service->success('Parent added with successfully');
+
             return $guardian;
         }
     }
@@ -113,6 +114,7 @@ class ParentRepository implements ParentRepositoryInterface
         $parent = $this->showGuardian($key);
         $parent->delete();
         $this->service->success('Parent deleted with successfully');
+
         return $parent;
     }
 
@@ -126,7 +128,7 @@ class ParentRepository implements ParentRepositoryInterface
                 ->create([
                     'name' => $attributes->input('name'),
                     'email' => $attributes->input('email'),
-                    'institution_id'=> \Auth::user()->institution_id,
+                    'institution_id' => \Auth::user()->institution_id,
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }

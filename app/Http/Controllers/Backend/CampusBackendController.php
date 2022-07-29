@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CampusRequest;
 use App\Http\Requests\CampusStatusRequest;
 use App\Http\Requests\CampusUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;

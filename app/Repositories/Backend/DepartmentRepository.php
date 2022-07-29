@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Department;
-use App\Models\User;
 use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,13 +36,14 @@ class DepartmentRepository implements DepartmentRepositoryInterface
                     'campus:id,name,institution_id',
                     'users',
                     'campus' => [
-                        'institution:id,institution_name'
-                    ]
+                        'institution:id,institution_name',
+                    ],
                 ])
                 ->orderByDesc('created_at')
                 ->get();
         }
-         return Department::query()
+
+        return Department::query()
             ->select([
                 'id',
                 'name',
@@ -85,6 +85,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
             ]);
         $department->users()->sync($attributes->input('user'));
         $this->service->success('Un nouvaux departement a ete ajouter');
+
         return $department;
     }
 

@@ -14,7 +14,7 @@ class ExamSessionUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'min:2'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
-            'note' => ['nullable', 'string']
+            'note' => ['nullable', 'string'],
         ];
     }
 

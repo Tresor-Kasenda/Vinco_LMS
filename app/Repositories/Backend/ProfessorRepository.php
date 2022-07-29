@@ -37,7 +37,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                     'email',
                     'phones',
                     'matriculate',
-                    'user_id'
+                    'user_id',
                 ])
                 ->with('user')
                 ->orderByDesc('created_at')
@@ -51,9 +51,9 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                     'email',
                     'phones',
                     'matriculate',
-                    'user_id'
+                    'user_id',
                 ])
-                ->whereHas('user', fn($query) => $query->where('institution_id', '=', auth()->user()->institution_id))
+                ->whereHas('user', fn ($query) => $query->where('institution_id', '=', auth()->user()->institution_id))
                 ->orderByDesc('created_at')
                 ->get();
         }
@@ -76,7 +76,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 'identityCard',
                 'gender',
                 'birthdays',
-                'user_id'
+                'user_id',
             ])
             ->whereId($key)
             ->first();
@@ -92,6 +92,7 @@ class ProfessorRepository implements ProfessorRepositoryInterface
 
         $professor = $this->createProfessor($attributes, $user);
         $this->service->success('Un professeur a ete ajouter');
+
         return $professor;
     }
 
@@ -157,12 +158,12 @@ class ProfessorRepository implements ProfessorRepositoryInterface
                 ->create([
                     'name' => $attributes->input('name'),
                     'email' => $attributes->input('email'),
-                    'institution_id'=> $attributes->input('institution') ?? \Auth::user()->institution_id,
+                    'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
                     'password' => Hash::make($attributes->input('password')),
                 ]);
         }
 
-        $this->service->error("Email deja utiliser sur un autre compte");
+        $this->service->error('Email deja utiliser sur un autre compte');
 
         return null;
     }

@@ -10,16 +10,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\Schedule
  *
  * @property-read Course $course
  * @property-read Promotion|null $promotion
+ *
  * @method static Builder|Schedule newModelQuery()
  * @method static Builder|Schedule newQuery()
  * @method static Builder|Schedule query()
  * @mixin \Eloquent
+ *
  * @property int $id
  * @property int $promotion_id
  * @property int $course_id
@@ -28,6 +29,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $end_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Schedule whereCourseId($value)
  * @method static Builder|Schedule whereCreatedAt($value)
  * @method static Builder|Schedule whereDate($value)

@@ -70,10 +70,6 @@
                                             <td class="justify-content-center">  {{ $parent->occupation ?? "-" }}</td>
                                         </tr>
 
-                                        <tr class="text-justify">
-                                            <th>Admission</th>
-                                            <td class="justify-content-center">{{ $parent->created_at->format('M, d Y') ?? "-" }}</td>
-                                        </tr>
                                         <tr>
                                             <th>Genre</th>
                                             <td>

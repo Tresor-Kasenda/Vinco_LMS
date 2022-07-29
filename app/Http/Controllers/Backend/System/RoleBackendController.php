@@ -40,6 +40,7 @@ class RoleBackendController extends Controller
     public function store(RoleRequest $request): RedirectResponse
     {
         $this->repository->stored(attributes: $request, flash: $this->factory);
+
         return redirect()->route('admins.roles.index');
     }
 

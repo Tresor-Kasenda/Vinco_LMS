@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Institution_QB;
-use Mail;
 
 class InstitutionRepository implements InstitutionRepositoryInterface
 {
@@ -51,7 +50,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_website',
                 'institution_email',
                 'institution_images',
-                'institution_description'
+                'institution_description',
             ])
             ->whereId($key)
             ->firstOrFail();

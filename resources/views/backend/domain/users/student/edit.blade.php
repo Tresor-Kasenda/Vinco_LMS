@@ -98,73 +98,6 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="department">Departement</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('department') error @enderror"
-                                                            id="department"
-                                                            name="department"
-                                                            data-search="on"
-                                                            data-placeholder="Select Department"
-                                                            required>
-                                                            <option value="{{ $student->department->id }}">{{ ucfirst($student->department->name) }}</option>
-                                                            @foreach(\App\Models\Department::all() as $department)
-                                                                <option
-                                                                    value="{{ $department->id }}"
-                                                                >{{ ucfirst($department->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="filiaire">Filiaire</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
-                                                            id="filiaire"
-                                                            name="filiaire"
-                                                            data-search="on"
-                                                            data-placeholder="Select Filiaire"
-                                                            required>
-                                                            <option value="{{ $student->subsidiary->id }}">{{ ucfirst($student->subsidiary->name) }}</option>
-                                                            @foreach(\App\Models\Subsidiary::all() as $filiaire)
-                                                                <option
-                                                                    value="{{ $filiaire->id }}"
-                                                                >{{ ucfirst($filiaire->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="promotion">Promotion</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('class') error @enderror"
-                                                            id="promotion"
-                                                            name="promotion"
-                                                            data-search="on"
-                                                            data-placeholder="Select Promotion"
-                                                            required>
-                                                            <option value="{{ $student->promotion->id }}">{{ ucfirst($student->promotion->name) }}</option>
-                                                            @foreach(\App\Models\Promotion::all() as $promotion)
-                                                                <option
-                                                                    value="{{ $promotion->id }}"
-                                                                >{{ ucfirst($promotion->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
                                                     <label class="form-label" for="parent">Parent</label>
                                                     <div class="form-control-wrap">
                                                         <select
@@ -185,6 +118,8 @@
                                                 </div>
                                             </div>
 
+                                            <x-filter-department/>
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="admission">Admission Date</label>
@@ -195,7 +130,7 @@
                                                             id="admission"
                                                             name="admission"
                                                             data-date-format="yyyy-mm-dd"
-                                                            value="{{ old('admission') ?? $student->adminssion_date }}"
+                                                            value="{{ old('admission') ?? $student->admission_date }}"
                                                             placeholder="Select Admission Date"
                                                             required>
                                                     </div>
@@ -247,4 +182,52 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#department').change(function () {
+                let department = $(this).val();
+                if (department){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.department-json") }}',
+                        data:{"department" : department },
+                        success:function(response){
+                            $("#filiaire").empty();
+                            $("#filiaire").append('<option value="{{ $student->subsidiary->id }}">{{ ucfirst($student->subsidiary->name) ?? "" }}</option>');
+                            if(response && response?.status === 'success'){
+                                response?.filiaires?.map((filiaire) => {
+                                    $("#filiaire").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+
+            $('#filiaire').change(function () {
+                let filiaire = $(this).val();
+                if(filiaire){
+                    $.ajax({
+                        type:"GET",
+                        url:"{{ route('admins.academic.promotion-json') }}",
+                        data : { "filiaire" : filiaire },
+                        success:function(response){
+                            $("#promotion").empty();
+                            $("#promotion").append('<option value="{{ $student->promotion->id }}">{{ ucfirst($student->promotion->name) ?? "" }}</option>');
+                            if(response && response?.status === 'success'){
+                                response?.promotions?.map((filiaire) => {
+                                    $("#promotion").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+        })
+    </script>
 @endsection
