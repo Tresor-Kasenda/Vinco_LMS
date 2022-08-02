@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\Communication\MessageBackendController;
 use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
+use App\Http\Controllers\Backend\EnableX\EnableBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
 use App\Http\Controllers\Backend\ExamSessionController;
 use App\Http\Controllers\Backend\ExerciseBackendController;
@@ -125,6 +126,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
             Route::resource('expenses', ExpenseBackendController::class);
+        });
+
+        Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
+            Route::resource('aperi', EnableBackendController::class);
         });
 
         Route::resource('roles', RoleBackendController::class);

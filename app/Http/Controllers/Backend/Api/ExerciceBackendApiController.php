@@ -11,6 +11,5 @@ class ExerciceBackendApiController extends Controller
 {
     public function render(Request $request)
     {
-        dd($request->all());
     }
 }

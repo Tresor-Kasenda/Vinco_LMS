@@ -11,6 +11,7 @@ use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\ChartRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
+use App\Contracts\EnableX\EnableXRepositoryInterface;
 use App\Contracts\EventRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
 use App\Contracts\ExamSessionRepositoryInterface;
@@ -86,6 +87,7 @@ use App\Repositories\Backend\UsersRepository;
 use App\Repositories\Com\EventRepository;
 use App\Repositories\Com\JournalRepository;
 use App\Repositories\Com\NotificationRepository;
+use App\Repositories\EnableX\EnableBackendRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\InstitutionRepository;
 use App\Repositories\System\RoleRepository;
@@ -141,6 +143,9 @@ class RepositoryServiceProvider extends ServiceProvider
         JournalRepositoryInterface::class => JournalRepository::class,
         InstitutionRepositoryInterface::class => InstitutionRepository::class,
         ExamSessionRepositoryInterface::class => ExamSessionRepository::class,
+
+        //Enable X
+        EnableXRepositoryInterface::class => EnableBackendRepository::class,
     ];
 
     /**

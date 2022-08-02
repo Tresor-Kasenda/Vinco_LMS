@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Softnio">
+    <meta name="author" content="Ngoma digitech">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="for developers and programmers.">
     <link rel="shortcut icon" href="">

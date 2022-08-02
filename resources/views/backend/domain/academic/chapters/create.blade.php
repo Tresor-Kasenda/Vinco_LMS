@@ -104,7 +104,6 @@
             height: 260,
             resize: true,
             max_height: 500,
-            icons_url: 'https://www.example.com/icons/material/icons.js',
             icons: 'material',
             mobile: {
                 menubar: true,
