@@ -32,6 +32,6 @@ trait RandomValues
             $randomMatriculate .= $characters[$index];
         }
 
-        return strtoupper($randomMatriculate);
+        return $randomMatriculate;
     }
 }

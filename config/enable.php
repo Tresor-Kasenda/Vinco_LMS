@@ -15,6 +15,6 @@ return [
     'config' => [
         'url' => env('ENABLE_URL', default: 'https://api.enablex.io/video/v2/'),
         'app_id' => env('ENABLE_ID', ''),
-        'app_key' => env('ENABLE_KEY', '')
-    ]
+        'app_key' => env('ENABLE_KEY', ''),
+    ],
 ];

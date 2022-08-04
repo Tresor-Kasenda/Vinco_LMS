@@ -259,7 +259,6 @@
                     url:'{{ route("admins.academic.professor-json") }}',
                     data:{"institution" : institution },
                     success:function(response){
-                        console.log(response)
                         $("#professor").empty();
                         $("#professor").append('<option label="Select Professor" value=""></option>');
                         if(response && response?.status === 'success'){

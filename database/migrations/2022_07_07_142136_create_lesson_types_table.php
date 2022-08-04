@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $types = ['video', 'aperi', 'text', 'pdf'];
+        $types = ['video', 'aperi', 'text', 'pdf', 'autre'];
 
         foreach ($types as $type) {
             LessonType::query()

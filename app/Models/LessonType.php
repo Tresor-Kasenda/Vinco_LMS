@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
@@ -29,6 +30,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|LessonType whereId($value)
  * @method static Builder|LessonType whereName($value)
  * @method static Builder|LessonType whereUpdatedAt($value)
+ *
+ * @property-read \App\Models\Institution $institution
  */
 class LessonType extends Model
 {
@@ -39,5 +42,10 @@ class LessonType extends Model
     public function lesson(): HasOne
     {
         return $this->hasOne(Lesson::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

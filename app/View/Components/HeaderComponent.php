@@ -20,6 +20,7 @@ class HeaderComponent extends Component
 
     /**
      * Get the view / contents that represent the component.
+     *
      * @return View|Closure|string
      *
      * @author scotttresor <scotttresor@gmail.com>

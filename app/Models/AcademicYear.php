@@ -41,6 +41,8 @@ use Illuminate\Support\Carbon;
  *
  * @method static AcademicYearFactory factory(...$parameters)
  * @method static Builder|AcademicYear whereInstitutionId($value)
+ *
+ * @property-read \App\Models\Institution $institution
  */
 class AcademicYear extends Model
 {

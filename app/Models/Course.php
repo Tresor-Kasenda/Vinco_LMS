@@ -73,6 +73,8 @@ use Illuminate\Support\Carbon;
  *
  * @method static \Database\Factories\CourseFactory factory(...$parameters)
  * @method static Builder|Course whereInstitutionId($value)
+ *
+ * @property-read \App\Models\Institution $institution
  */
 class Course extends Model
 {

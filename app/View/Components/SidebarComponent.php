@@ -12,6 +12,7 @@ class SidebarComponent extends Component
 {
     /**
      * Create a new component instance.
+     *
      * @return void
      */
     public function __construct()
@@ -21,7 +22,9 @@ class SidebarComponent extends Component
 
     /**
      * Get the view / contents that represent the component.
+     *
      * @return View|Closure|string
+     *
      * @author scotttresor <scotttresor@gmail.com>
      */
     public function render(): View|string|Closure

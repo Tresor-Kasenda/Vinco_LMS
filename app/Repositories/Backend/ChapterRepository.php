@@ -35,6 +35,7 @@ class ChapterRepository implements ChapterRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Chapter::query()
             ->select([
                 'id',
@@ -78,6 +79,7 @@ class ChapterRepository implements ChapterRepositoryInterface
                 'content' => $attributes->input('content'),
             ]);
         $this->service->success('Un nouveau cours a ete ajouter');
+
         return $chapter;
     }
 
@@ -91,6 +93,7 @@ class ChapterRepository implements ChapterRepositoryInterface
             'content' => $attributes->input('content'),
         ]);
         $this->service->success('Un cours a ete mise a jours avec success');
+
         return $chapter;
     }
 
@@ -99,6 +102,7 @@ class ChapterRepository implements ChapterRepositoryInterface
         $chapter = $this->showChapter(key: $key);
         $chapter->delete();
         $this->service->success('Le chapitre a ete supprimer avec success');
+
         return $chapter;
     }
 }

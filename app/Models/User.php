@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -46,7 +48,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Institution|null $institution
  * @property-read Collection|Message[] $message
  * @property-read int|null $message_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read Collection|Guardian[] $parents
  * @property-read int|null $parents_count
@@ -172,7 +174,7 @@ class User extends Authenticatable
     public function group_member(): BelongsToMany
     {
         return $this->belongsToMany(
-            'App\Models\Group',
+            Group::class,
             'group_participants',
             'user_id',
             'group_id'

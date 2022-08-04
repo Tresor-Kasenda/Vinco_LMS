@@ -54,6 +54,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @method static Builder|Lesson whereContent($value)
  * @method static Builder|Lesson whereLessonTypeId($value)
+ *
+ * @property int $institution_id
+ *
+ * @method static Builder|Lesson whereInstitutionId($value)
  */
 class Lesson extends Model
 {

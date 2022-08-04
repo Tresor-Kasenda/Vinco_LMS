@@ -254,14 +254,12 @@
         $(document).ready(function () {
             $('#institution').change(function () {
                 let institution = $(this).val();
-                console.log(institution)
                 if (institution){
                     $.ajax({
                         type:'GET',
                         url:'{{ route("admins.academic.professor-json") }}',
                         data:{"institution" : institution },
                         success:function(response){
-                            console.log(response)
                             $("#professor").empty();
                             $("#professor").append('<option label="Select Professor" value=""></option>');
                             if(response && response?.status === 'success'){
