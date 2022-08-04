@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,9 +25,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Chapter|null $chapter
- * @property-read Course|null $course
- * @property-read Lesson|null $lesson
+ * @property-read \App\Models\Chapter|null $chapter
+ * @property-read \App\Models\Course|null $course
+ * @property-read \App\Models\Lesson|null $lesson
+ *
  * @method static Builder|Exercice newModelQuery()
  * @method static Builder|Exercice newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exercice onlyTrashed()
@@ -47,6 +47,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exercice withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exercice withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @method static \Database\Factories\ExerciceFactory factory(...$parameters)
  */
 class Exercice extends Model
 {

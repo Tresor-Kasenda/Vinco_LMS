@@ -13,14 +13,14 @@
                                 @role('Parent')
                                     <x-statistic
                                         name="Due Fees"
-                                        number="{{ \App\Models\Course::all()->count() }}"
+                                        number="{{ \App\Models\Fee::all()->count() }}"
                                         route="{{ route('admins.accounting.fees.index') }}"
                                     />
 
                                     <x-statistic
                                         name="Events"
-                                        number="{{ \App\Models\Course::all()->count() }}"
-                                        route="{{ route('admins.accounting.fees.index') }}"
+                                        number="{{ \App\Models\Event::all()->count() }}"
+                                        route="{{ route('admins.communication.events.index') }}"
                                     />
 
                                     <x-statistic
@@ -32,19 +32,24 @@
                                     <x-statistic
                                         name="Cours"
                                         number="{{ \App\Models\Course::all()->count() }}"
-                                        route="{{ route('admins.accounting.fees.index') }}"
+                                        route="{{ route('admins.academic.course.index') }}"
                                     />
                                 @endrole
 
                                 @role('Super Admin')
                                     <x-statistic
-                                        name="Students"
+                                        name="Institutions"
+                                        number="{{ \App\Models\Institution::all()->count() }}"
+                                        route="{{ route('admins.institution.index') }}"
+                                    />
+                                    <x-statistic
+                                        name="Etudiants"
                                         number="{{ \App\Models\Student::all()->count() }}"
                                         route="{{ route('admins.users.student.index') }}"
                                     />
 
                                     <x-statistic
-                                        name="Teachers"
+                                        name="Professeurs"
                                         number="{{ \App\Models\Professor::all()->count() }}"
                                         route="{{ route('admins.users.teacher.index') }}"
                                     />
@@ -61,22 +66,22 @@
                                         route="{{ route('admins.users.guardian.index') }}"
                                     />
                                     <x-statistic
-                                        name="Expenses"
+                                        name="Depenses"
                                         number="{{ \App\Models\Expense::all()->count() }}"
                                         route="{{ route('admins.accounting.expenses.index') }}"
                                     />
                                     <x-statistic
-                                        name="Fees"
+                                        name="Entree"
                                         number="{{ \App\Models\Fee::all()->count() }}"
                                         route="{{ route('admins.accounting.fees.index') }}"
                                     />
                                     <x-statistic
-                                        name="Exams"
+                                        name="Examens"
                                         number="{{ \App\Models\Exam::all()->count() }}"
                                         route="{{ route('admins.exam.exam.index') }}"
                                     />
                                     <x-statistic
-                                        name="Events"
+                                        name="Evenements"
                                         number="{{ \App\Models\Event::all()->count() }}"
                                         route="{{ route('admins.exam.exam.index') }}"
                                     />

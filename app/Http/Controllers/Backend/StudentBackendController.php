@@ -7,12 +7,8 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\StudentRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmerProfessorRequest;
-use App\Http\Requests\ProfessorRequest;
-use App\Http\Requests\ProfessorUpdateRequest;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\StudentUpdateRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -23,8 +19,7 @@ use Illuminate\Http\RedirectResponse;
 class StudentBackendController extends Controller
 {
     public function __construct(
-        protected readonly StudentRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly StudentRepositoryInterface $repository
     ) {
     }
 
@@ -42,7 +37,7 @@ class StudentBackendController extends Controller
 
     public function store(StudentRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.users.student.index');
     }
@@ -63,14 +58,14 @@ class StudentBackendController extends Controller
 
     public function update(StudentUpdateRequest $attributes, string $key): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.users.student.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

@@ -4,32 +4,33 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use DateTime;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear.
+ * App\Models\Calendar.
+ *
+ * @property-read Event|null $institution
+ *
+ * @method static Builder|Calendar newModelQuery()
+ * @method static Builder|Calendar newQuery()
+ * @method static Builder|Calendar query()
+ * @mixin Eloquent
  *
  * @property int $id
  * @property string $title
  * @property Carbon $start_date
  * @property Carbon $end_date
+ * @property int $institution_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @mixin Eloquent
- * @property int|null $institution_id
- * @property-read \App\Models\Event|null $institution
- * @method static Builder|Calendar newModelQuery()
- * @method static Builder|Calendar newQuery()
- * @method static Builder|Calendar query()
+ *
+ * @method static \Database\Factories\CalendarFactory factory(...$parameters)
  * @method static Builder|Calendar whereCreatedAt($value)
  * @method static Builder|Calendar whereEndDate($value)
  * @method static Builder|Calendar whereId($value)
@@ -45,7 +46,7 @@ class Calendar extends Model implements \MaddHatter\LaravelFullcalendar\Event
     protected $guarded = [];
 
     protected $fillable = [
-      'title',
+        'title',
         'start_date',
         'end_date',
         'institution_id',

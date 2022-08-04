@@ -17,6 +17,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @permission('student-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-primary btn-sm"
                                                href="{{ route('admins.users.teacher.create') }}">
@@ -31,6 +32,7 @@
                                                 <span>Corbeille</span>
                                             </a>
                                         </li>
+                                        @endpermission
                                     </ul>
                                 </div>
                             </div>
@@ -45,6 +47,9 @@
                                 <span>IMAGES</span>
                             </th>
                             <th class="nk-tb-col">
+                                <span>MATRICULE</span>
+                            </th>
+                            <th class="nk-tb-col">
                                 <span>NOM</span>
                             </th>
                             <th class="nk-tb-col">
@@ -54,7 +59,7 @@
                                 <span>Phones</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>MATRICULE</span>
+                                <span>Institutio</span>
                             </th>
                             <th class="nk-tb-col tb-col-md">
                                 <span>ACTION</span>
@@ -73,6 +78,9 @@
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $teacher->matriculate ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
                                     <span class="tb-lead">{{ ucfirst($teacher->username) ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
@@ -81,8 +89,13 @@
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $teacher->phones ?? "" }}</span>
                                 </td>
+
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $teacher->matriculate ?? "" }}</span>
+                                    @if($teacher->user->institution_id != null)
+                                        <span class="tb-lead">{{ $teacher->user->institution->institution_name ?? "" }}</span>
+                                    @else
+                                        <span class="tb-lead">Pas d'institution</span>
+                                    @endif
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
@@ -91,10 +104,14 @@
                                                class="btn btn-dim btn-primary btn-sm ml-1">
                                                 <em class="icon ni ni-eye-alt"></em>
                                             </a>
+                                            @permission('student-update')
                                             <a href="{{ route('admins.users.teacher.edit', $teacher->id) }}"
                                                class="btn btn-dim btn-primary btn-sm ml-1">
                                                 <em class="icon ni ni-edit-alt"></em>
                                             </a>
+                                            @endpermission
+
+                                            @permission('student-delete')
                                             <form action="{{ route('admins.users.teacher.destroy', $teacher->id) }}"
                                                   method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                 @method('DELETE')
@@ -103,6 +120,7 @@
                                                     <em class="icon ni ni-trash"></em>
                                                 </button>
                                             </form>
+                                            @endpermission
                                         </div>
                                     </span>
                                 </td>

@@ -1,2 +1,2 @@
-require('./bootstrap');
-require('./pages/changeStatus');
+import './bootstrap';
+import '../css/app.css';

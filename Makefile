@@ -41,6 +41,7 @@ watch: vendor/autoload.php ## lance, le serve de development
 .PHONE: generate
 generate: vendor/autoload.php ## Generate Ide models
 	php artisan ide:models
+	./vendor/bin/pint
 
 vendor/autoload.php: composer.lock
 	composer install

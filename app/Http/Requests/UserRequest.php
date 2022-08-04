@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Institution;
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,7 +31,8 @@ class UserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:4'],
             'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
-            'role_id' => ['required', Rule::exists('roles', 'id')],
+            'role_id' => ['required', Rule::exists(Role::class, 'id')],
+            'institution' => ['required', Rule::exists(Institution::class, 'id')],
             'password' => ['required', 'string', 'min:8'],
         ];
     }

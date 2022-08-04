@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +18,8 @@ use Illuminate\Support\Carbon;
  * @property string $images
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read User $user
+ * @property-read \App\Models\User $user
+ *
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()

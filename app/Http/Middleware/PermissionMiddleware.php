@@ -15,10 +15,10 @@ class PermissionMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @param null $permission
-     * @param null $guard
+     * @param  null  $permission
+     * @param  null  $guard
      * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next, $permission = null, $guard = null): Response|RedirectResponse

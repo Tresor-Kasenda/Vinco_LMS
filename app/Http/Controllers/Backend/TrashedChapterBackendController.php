@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Response;
 
 class TrashedChapterBackendController extends Controller
 {

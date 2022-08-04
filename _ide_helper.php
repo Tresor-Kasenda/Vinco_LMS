@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.19.0.
+ * Generated for Laravel 9.22.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -6295,16 +6295,17 @@
                         return $instance->lines($path);
         }
                     /**
-         * Get the MD5 hash of the file at the given path.
+         * Get the hash of the file at the given path.
          *
          * @param string $path
+         * @param string $algorithm
          * @return string 
          * @static 
          */ 
-        public static function hash($path)
+        public static function hash($path, $algorithm = 'md5')
         {
                         /** @var \Illuminate\Filesystem\Filesystem $instance */
-                        return $instance->hash($path);
+                        return $instance->hash($path, $algorithm);
         }
                     /**
          * Write the contents of a file.
@@ -7131,6 +7132,33 @@
                         /** @var \Illuminate\Auth\Access\Gate $instance */
                         return $instance->setContainer($container);
         }
+                    /**
+         * Deny with a HTTP status code.
+         *
+         * @param int $status
+         * @param \Illuminate\Auth\Access\?string $message
+         * @param \Illuminate\Auth\Access\?int $code
+         * @return \Illuminate\Auth\Access\Response 
+         * @static 
+         */ 
+        public static function denyWithStatus($status, $message = null, $code = null)
+        {
+                        /** @var \Illuminate\Auth\Access\Gate $instance */
+                        return $instance->denyWithStatus($status, $message, $code);
+        }
+                    /**
+         * Deny with a 404 HTTP status code.
+         *
+         * @param \Illuminate\Auth\Access\?string $message
+         * @param \Illuminate\Auth\Access\?int $code
+         * @return \Illuminate\Auth\Access\Response 
+         * @static 
+         */ 
+        public static function denyAsNotFound($message = null, $code = null)
+        {
+                        /** @var \Illuminate\Auth\Access\Gate $instance */
+                        return $instance->denyAsNotFound($message, $code);
+        }
          
     }
             /**
@@ -7317,7 +7345,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest asJson()
      * @method static \Illuminate\Http\Client\PendingRequest asMultipart()
      * @method static \Illuminate\Http\Client\PendingRequest async()
-     * @method static \Illuminate\Http\Client\PendingRequest attach(string|array $name, string $contents = '', string|null $filename = null, array $headers = [])
+     * @method static \Illuminate\Http\Client\PendingRequest attach(string|array $name, string|resource $contents = '', string|null $filename = null, array $headers = [])
      * @method static \Illuminate\Http\Client\PendingRequest baseUrl(string $url)
      * @method static \Illuminate\Http\Client\PendingRequest beforeSending(callable $callback)
      * @method static \Illuminate\Http\Client\PendingRequest bodyFormat(string $format)
@@ -7418,7 +7446,7 @@
                         return $instance->stubUrl($url, $callback);
         }
                     /**
-         * Indicate that an exception should not be thrown if any request is not faked.
+         * Indicate that an exception should be thrown if any request is not faked.
          *
          * @param bool $prevent
          * @return \Illuminate\Http\Client\Factory 
@@ -10374,6 +10402,30 @@
                         $instance->setLaravelSession($session);
         }
                     /**
+         * Set the locale for the request instance.
+         *
+         * @param string $locale
+         * @return void 
+         * @static 
+         */ 
+        public static function setRequestLocale($locale)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        $instance->setRequestLocale($locale);
+        }
+                    /**
+         * Set the default locale for the request instance.
+         *
+         * @param string $locale
+         * @return void 
+         * @static 
+         */ 
+        public static function setDefaultRequestLocale($locale)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        $instance->setDefaultRequestLocale($locale);
+        }
+                    /**
          * Get the user making the request.
          *
          * @param string|null $guard
@@ -11785,6 +11837,19 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->date($key, $format, $tz);
+        }
+                    /**
+         * Retrieve input from the request as an enum.
+         *
+         * @param string $key
+         * @param string $enumClass
+         * @return mixed|null 
+         * @static 
+         */ 
+        public static function enum($key, $enumClass)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->enum($key, $enumClass);
         }
                     /**
          * Retrieve input from the request as a collection.
@@ -14801,6 +14866,17 @@
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->url($path);
+        }
+                    /**
+         * Determine if temporary URLs can be generated.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function providesTemporaryUrls()
+        {
+                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+                        return $instance->providesTemporaryUrls();
         }
                     /**
          * Get a temporary URL for the file at the given path.
@@ -18817,6 +18893,107 @@
      
 }
 
+    namespace Laratrust { 
+            /**
+     * 
+     *
+     */ 
+        class LaratrustFacade {
+                    /**
+         * Checks if the current user has a role by its name.
+         *
+         * @param string $role Role name.
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasRole($role, $team = null, $requireAll = false)
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->hasRole($role, $team, $requireAll);
+        }
+                    /**
+         * Check if the current user has a permission by its name.
+         *
+         * @param string $permission Permission string.
+         * @return bool 
+         * @static 
+         */ 
+        public static function isAbleTo($permission, $team = null, $requireAll = false)
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->isAbleTo($permission, $team, $requireAll);
+        }
+                    /**
+         * Check if the current user has a role or permission by its name.
+         *
+         * @param array|string $roles The role(s) needed.
+         * @param array|string $permissions The permission(s) needed.
+         * @param array $options The Options.
+         * @return bool 
+         * @static 
+         */ 
+        public static function ability($roles, $permissions, $team = null, $options = [])
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->ability($roles, $permissions, $team, $options);
+        }
+                    /**
+         * Checks if the user owns the thing.
+         *
+         * @param Object $thing
+         * @param string $foreignKeyName
+         * @return boolean 
+         * @static 
+         */ 
+        public static function owns($thing, $foreignKeyName = null)
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->owns($thing, $foreignKeyName);
+        }
+                    /**
+         * Checks if the user has some role and if he owns the thing.
+         *
+         * @param string|array $role
+         * @param Object $thing
+         * @param array $options
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasRoleAndOwns($role, $thing, $options = [])
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->hasRoleAndOwns($role, $thing, $options);
+        }
+                    /**
+         * Checks if the user can do something and if he owns the thing.
+         *
+         * @param string|array $permission
+         * @param Object $thing
+         * @param array $options
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isAbleToAndOwns($permission, $thing, $options = [])
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->isAbleToAndOwns($permission, $thing, $options);
+        }
+                    /**
+         * Get the currently authenticated user or null.
+         *
+         * @return \Illuminate\Auth\UserInterface|null 
+         * @static 
+         */ 
+        public static function user()
+        {
+                        /** @var \Laratrust\Laratrust $instance */
+                        return $instance->user();
+        }
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -19554,35 +19731,6 @@
         public static function emailVerification()
         {
                         return \Illuminate\Routing\Router::emailVerification();
-        }
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class Route {
-                    /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $roles
-         * @static 
-         */ 
-        public static function role($roles = [])
-        {
-                        return \Illuminate\Routing\Route::role($roles);
-        }
-                    /**
-         * 
-         *
-         * @see \Spatie\Permission\PermissionServiceProvider::registerMacroHelpers()
-         * @param mixed $permissions
-         * @static 
-         */ 
-        public static function permission($permissions = [])
-        {
-                        return \Illuminate\Routing\Route::permission($permissions);
         }
          
     }
@@ -23437,6 +23585,7 @@ namespace  {
             class Livewire extends \Livewire\Livewire {}
             class Chatify extends \Chatify\Facades\ChatifyMessenger {}
             class SweetAlert extends \Flasher\SweetAlert\Laravel\Facade\SweetAlert {}
+            class Laratrust extends \Laratrust\LaratrustFacade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
      

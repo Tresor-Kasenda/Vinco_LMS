@@ -6,7 +6,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AcademicYearRequest;
+use App\Http\Requests\SessionRequest;
+use App\Http\Requests\SessionUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -24,9 +25,9 @@ class SessionBackendController extends Controller
 
     public function index(): Renderable
     {
-        return view('backend.domain.academic.index', [
-            'academics' => $this->repository->getAcademicsYears(),
-        ]);
+        $academics = $this->repository->getAcademicsYears();
+
+        return view('backend.domain.academic.index')->with('academics', $academics);
     }
 
     public function create(): Renderable
@@ -34,7 +35,7 @@ class SessionBackendController extends Controller
         return view('backend.domain.academic.create');
     }
 
-    public function store(AcademicYearRequest $attributes): RedirectResponse
+    public function store(SessionRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes:  $attributes, flash: $this->flasher);
 
@@ -43,12 +44,12 @@ class SessionBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        return view('backend.domain.academic.edit', [
-            'academic' => $this->repository->showAcademicYear(key: $key),
-        ]);
+        $academic = $this->repository->showAcademicYear(key: $key);
+
+        return view('backend.domain.academic.edit', compact('academic'));
     }
 
-    public function update(string $key, AcademicYearRequest $attributes): RedirectResponse
+    public function update(string $key, SessionUpdateRequest $attributes): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes, flash: $this->flasher);
 

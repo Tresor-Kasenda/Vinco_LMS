@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\PromotionRepositoryInterface;
-use App\Enums\StatusEnum;
 use App\Models\Promotion;
-use App\Traits\ImageUploader;
+use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,19 +14,47 @@ use Illuminate\Http\RedirectResponse;
 
 class PromotionRepository implements PromotionRepositoryInterface
 {
-    use ImageUploader;
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
 
     public function getPromotions(): array|Collection|\Illuminate\Support\Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Promotion::query()
+                ->select([
+                    'id',
+                    'name',
+                    'academic_year_id',
+                    'subsidiary_id',
+                ])
+                ->with([
+                    'academic:id,start_date,end_date',
+                    'subsidiary:id,department_id,name' => [
+                        'department:id,campus_id' => [
+                            'campus:id,institution_id' => [
+                                'institution:id,institution_name',
+                            ],
+                        ],
+                    ],
+                ])
+                ->orderByDesc('created_at')
+                ->get();
+        }
+
         return Promotion::query()
             ->select([
                 'id',
                 'name',
-                'images',
                 'academic_year_id',
                 'subsidiary_id',
             ])
             ->with(['subsidiary:id,name', 'academic:id,start_date,end_date'])
+            ->whereHas('subsidiary', function ($builder) {
+                $builder->whereHas('user', function ($builder) {
+                    $builder->where('institution_id', auth()->user()->institution->id);
+                });
+            })
             ->orderByDesc('created_at')
             ->get();
     }
@@ -38,32 +65,30 @@ class PromotionRepository implements PromotionRepositoryInterface
             ->select([
                 'id',
                 'name',
-                'images',
                 'academic_year_id',
                 'subsidiary_id',
             ])
             ->where('id', '=', $key)
-            ->firstOrCreate();
+            ->firstOrFail();
 
         return $promotion->load(['subsidiary:id,name,department_id', 'academic:id,start_date,end_date']);
     }
 
-    public function stored($attributes, $factory): Model|Builder|Promotion|RedirectResponse
+    public function stored($attributes): Model|Builder|Promotion|RedirectResponse
     {
         $faculty = Promotion::query()
             ->create([
                 'subsidiary_id' => $attributes->input('filiaire'),
                 'name' => $attributes->input('name'),
                 'description' => $attributes->input('description'),
-                'images' => self::uploadFiles($attributes),
                 'academic_year_id' => $attributes->input('academic'),
             ]);
-        $factory->addSuccess('Une mouvelle promotion a ete ajouter');
+        $this->service->success('Promotion added with successfully');
 
         return $faculty;
     }
 
-    public function updated(string $key, $attributes, $factory): Model|Builder|Promotion
+    public function updated(string $key, $attributes): Model|Builder|Promotion
     {
         $promotion = $this->showPromotion(key: $key);
 
@@ -74,16 +99,16 @@ class PromotionRepository implements PromotionRepositoryInterface
             'academic_year_id' => $attributes->input('academic'),
         ]);
 
-        $factory->addSuccess('Promotion updated with successfully');
+        $this->service->success('Promotion updated with successfully');
 
         return $promotion;
     }
 
-    public function deleted(string $key, $factory): RedirectResponse
+    public function deleted(string $key): RedirectResponse
     {
         $promotion = $this->showPromotion(key: $key);
         $promotion->delete();
-        $factory->addSuccess('Promotion trashed with successfully');
+        $this->service->success('Promotion trashed with successfully');
 
         return back();
     }

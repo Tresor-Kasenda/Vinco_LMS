@@ -27,11 +27,11 @@ class CampusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:4', Rule::unique('campuses', 'name')],
+            'name' => ['required', 'string', 'min:4'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'description' => ['nullable'],
             'personnel' => ['required', Rule::exists('users', 'id')],
-            'institution' => ['required', Rule::exists('institutions', 'id')],
+            'institution' => ['nullable', Rule::exists('institutions', 'id')],
         ];
     }
 }

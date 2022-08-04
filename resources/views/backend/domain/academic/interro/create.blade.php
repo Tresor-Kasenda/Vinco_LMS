@@ -50,8 +50,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="course">Cours</label>
                                                     <select
-                                                        class="form-control js-select2 @error('course') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('course') error @enderror"
                                                         id="course"
+                                                        data-search="on"
                                                         name="course"
                                                         data-placeholder="Choisir le cours"
                                                         required>
@@ -67,8 +68,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="chapter">Chapitre</label>
                                                     <select
-                                                        class="form-control js-select2 @error('chapter') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('chapter') error @enderror"
                                                         id="chapter"
+                                                        data-search="on"
                                                         name="chapter"
                                                         data-placeholder="Choisir le chapter"
                                                         required>

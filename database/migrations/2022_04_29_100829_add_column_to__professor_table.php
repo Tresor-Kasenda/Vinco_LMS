@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\AcademicYear;
 use App\Models\Department;
 use App\Models\Professor;
 use Illuminate\Database\Migrations\Migration;

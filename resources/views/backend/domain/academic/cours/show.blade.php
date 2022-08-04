@@ -58,7 +58,7 @@
                                     <div class="text-center">
                                         <img
                                             @if($course->images)
-                                                src="{{ asset('storage/'.$course->images) }}"
+                                                src="{{ $course->getImages() }}"
                                             @else
                                                 src="{{ asset('assets/admins/images/default.png') }}"
                                             @endif
@@ -119,13 +119,10 @@
                                             <th>Ponderation</th>
                                             <td>{{ $course->ponderation() ?? "" }}</td>
                                         </tr>
-                                        <tr class="text-justify">
-                                            <th>Sous description</th>
-                                            <td>{{ $course->sub_description ?? "" }}</td>
-                                        </tr>
+
                                         <tr class="text-justify">
                                             <th>Description</th>
-                                            <td>{{ $course->description ?? "" }}</td>
+                                            <td>{!! $course->description ?? "" !!}</td>
                                         </tr>
                                         </tbody>
                                     </table>

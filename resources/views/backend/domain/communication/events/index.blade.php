@@ -11,18 +11,57 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Events</h3>
                         </div>
+                        @permission('event-create')
                         <div class="nk-block-head-content">
                             <a class="btn btn-primary" href="{{ route('admins.communication.events.create') }}">
                                 <em class="icon ni ni-plus"></em>
-                                <span>Add Event</span>
+                                <span>Add</span>
                             </a>
                         </div>
+                        @endpermission
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="card">
-                        <div class="card-inner">
-                            {!! $calendar->calendar() !!}
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="card-inner">
+                                    {!! $calendar->calendar() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-inner">
+                                    <h5 class="card-title">Liste des calendriers</h5>
+                                    <ul class="link-list-plain">
+                                        @foreach($eloquentEvent as $event)
+                                            <li>
+                                                <div class="d-flex">
+                                                    <a href="#">
+                                                        <span>{{ ucfirst($event->title) ?? "" }}</span>
+                                                        @permission('event-update')
+                                                        <a href="{{ route('admins.communication.events.edit', $event->id) }}" class="btn btn-dim btn-success">
+                                                            <em class="icon ni ni-edit-alt"></em>
+                                                        </a>
+                                                        @endpermission
+
+                                                        @permission('event-delete')
+                                                        <form action="{{ route('admins.communication.events.destroy', $event->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-dim btn-danger">
+                                                                <em class="icon ni ni-trash-alt"></em>
+                                                            </button>
+                                                        </form>
+                                                        @endpermission
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Exercice;
-use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

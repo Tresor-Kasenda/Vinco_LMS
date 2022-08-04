@@ -27,7 +27,7 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down():void
+    public function down(): void
     {
         Schema::dropIfExists('fee_types');
     }

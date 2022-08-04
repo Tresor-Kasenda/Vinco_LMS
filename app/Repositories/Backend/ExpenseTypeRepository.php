@@ -10,7 +10,6 @@ use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
 {
@@ -39,8 +38,8 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
     {
         $expenseType = ExpenseType::query()
             ->create([
-               'name' => $attributes->input('name'),
-               'image' => self::uploadFiles(request: $attributes),
+                'name' => $attributes->input('name'),
+                'image' => self::uploadFiles(request: $attributes),
             ]);
 
         $factory->addSuccess('Expense type added with successfully');

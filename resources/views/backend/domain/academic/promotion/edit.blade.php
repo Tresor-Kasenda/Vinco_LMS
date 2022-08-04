@@ -63,18 +63,73 @@
                                                 </div>
                                             </div>
 
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')){
+                                                    $filiaires = \App\Models\Subsidiary::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'department_id'
+                                                        ])
+                                                        ->with([
+                                                            'department:id,name,campus_id' => [
+                                                                'campus:id,institution_id' => [
+                                                                    'institution:id,institution_name'
+                                                                ]
+                                                            ]
+                                                        ])
+                                                        ->get();
+                                                    $academics = \App\Models\AcademicYear::query()
+                                                         ->whereHas('institution', function ($builder){
+                                                             $builder->orderBy('institution_name');
+                                                         })
+                                                         ->get();
+                                                } else {
+                                                    $filiaires = \App\Models\Subsidiary::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'department_id'
+                                                        ])
+                                                        ->whereHas('department', function ($builder){
+                                                            $builder->whereHas('campus', function ($builder){
+                                                                $builder->where('institution_id', auth()->user()->institution->id);
+                                                            });
+                                                        })
+                                                        ->with([
+                                                            'department:id,name,campus_id' => [
+                                                                'campus:id,institution_id' => [
+                                                                    'institution:id,institution_name'
+                                                                ]
+                                                            ]
+                                                        ])
+                                                        ->get();
+                                                    $academics = \App\Models\AcademicYear::query()
+                                                        ->where(
+                                                            'institution_id', '=', auth()->user()->institution->id
+                                                        )
+                                                         ->whereHas('institution', function ($builder){
+                                                             $builder->orderBy('institution_name');
+                                                         })
+                                                         ->get();
+                                                }
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="filiaire">FIliaire</label>
                                                     <select
-                                                        class="form-control js-select2 @error('filiaire') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
                                                         id="filiaire"
+                                                        data-search="on"
                                                         name="filiaire"
                                                         data-placeholder="Choisir le filiaire"
                                                         required>
                                                         <option value="{{ $promotion->subsidiary->id }}">{{ $promotion->subsidiary->name }}</option>
-                                                        @foreach(\App\Models\Subsidiary::all() as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @foreach($filiaires as $filiaire)
+                                                            <option value="{{ $filiaire->id }}">
+                                                                {{ ucfirst($filiaire->name) ?? "" }} /(<small>{{ ucfirst($filiaire->department->name) ?? "" }}</small>)
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -83,9 +138,10 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="academic">Annee academique</label>
                                                     <select
-                                                        class="form-control js-select2 @error('academic') error @enderror"
+                                                        class="form-control js-select2 select2-hidden-accessible @error('academic') error @enderror"
                                                         id="academic"
                                                         name="academic"
+                                                        data-search="on"
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
                                                         <option value="{{ $promotion->academic->id }}">
@@ -98,11 +154,14 @@
                                                                 ?? ""
                                                             }}
                                                         </option>
-                                                        @foreach(\App\Models\AcademicYear::all() as $campus)
-                                                            <option value="{{ $campus->id }}">
-                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
+                                                        @foreach($academics as $academic)
+                                                            <option value="{{ $academic->id }}">
+                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $academic->start_date)->format('Y') }}
                                                                 -
-                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $campus->end_date)->format('Y') }}
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $academic->end_date)->format('Y') }}
+                                                                @if(auth()->user()->hasRole('Super Admin'))
+                                                                    (<small>{{ ucfirst($academic->institution->institution_name) ?? "" }}</small>)
+                                                                @endif
                                                             </option>
                                                         @endforeach
                                                     </select>

@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-use App\Models\Course;
-
 interface ChapterRepositoryInterface
 {
     public function getChapters();
 
     public function showChapter(string $key);
 
-    public function stored($attributes, $flash);
+    public function stored($attributes);
 
-    public function updated(string $key, $attributes, $flash);
+    public function updated(string $key, $attributes);
 
-    public function deleted(string $key, $flash);
+    public function deleted(string $key);
 }

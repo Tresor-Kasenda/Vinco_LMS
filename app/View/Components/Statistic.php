@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\View\Components;
 
+use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
 class Statistic extends Component
@@ -32,9 +32,9 @@ class Statistic extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return View|\Closure|string
+     * @return View|Closure|string
      */
-    public function render(): View|string|\Closure
+    public function render(): View|string|Closure
     {
         return view('backend.components.statistic');
     }

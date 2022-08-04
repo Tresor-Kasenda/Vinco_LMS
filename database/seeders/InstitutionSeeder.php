@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Institution;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class InstitutionSeeder extends Seeder
@@ -18,7 +17,6 @@ class InstitutionSeeder extends Seeder
         Institution::query()
             ->create([
                 'institution_name' => 'Vinco',
-                'user_id' => 1,
                 'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
                 'institution_country' => 'Congo DR',
                 'institution_phones' => '+243818045132',

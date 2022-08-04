@@ -6,7 +6,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use phpDocumentor\Reflection\DocBlock\Tags\Param;
 
 class StatusCourseRequest extends FormRequest
 {

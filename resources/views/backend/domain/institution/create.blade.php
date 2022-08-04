@@ -16,7 +16,7 @@
                             </div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
-                                    <div class="toggle-expand-content" data-content="more-options">
+                                    <div class="toggle-expand-content">
                                         <ul class="nk-block-tools g-3">
                                             <li class="nk-block-tools-opt">
                                                 <a class="btn btn-dim btn-primary btn-sm"
@@ -45,8 +45,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form method="post" action="{{ route('admins.institution.store') }}"
-                                              class="form-validate mt-2" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('admins.institution.store') }}" class="form-validate mt-2" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row g-gs">
                                                 <div class="col-md-12">
@@ -94,69 +93,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                @php
-                                                    $managers = \App\Models\User::query()
-                                                        ->select(['id', 'name'])
-                                                        ->whereHas('roles', function ($query) {
-                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable']);
-                                                        })
-                                                        ->get();
-                                                @endphp
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="user">Gestionnaire</label>
-                                                        <div class="form-control-wrap">
-                                                            <select
-                                                                class="form-control js-select2 @error('manager') error @enderror"
-                                                                id="user"
-                                                                name="manager"
-                                                                data-placeholder="Select Manager of School"
-                                                                required>
-                                                                <option label="class" value=""></option>
-                                                                @foreach($managers as $manager)
-                                                                    <option
-                                                                        value="{!! $manager->id !!}"
-                                                                    >{{ ucfirst($manager->name ) ?? "" }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="phones">Telephone</label>
-                                                        <div class="form-control-wrap">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('institution_phones') error @enderror"
-                                                                id="institution_phones"
-                                                                name="institution_phones"
-                                                                value="{{ old('institution_phones') }}"
-                                                                placeholder="Enter phones Number"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
-                                                        <div class="form-control-wrap">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('institution_website') error @enderror"
-                                                                id="website"
-                                                                name="institution_website"
-                                                                value="{{ old('institution_website') }}"
-                                                                placeholder="Enter Website"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label" for="address">Address</label>
@@ -172,7 +108,51 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="phones">Telephone</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_phones') error @enderror"
+                                                                id="institution_phones"
+                                                                name="institution_phones"
+                                                                value="{{ old('institution_phones') }}"
+                                                                placeholder="Enter phones Number"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="website">Website</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_website') error @enderror"
+                                                                id="website"
+                                                                name="institution_website"
+                                                                value="{{ old('institution_website') }}"
+                                                                placeholder="Enter Website"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution_email">Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_email') error @enderror"
+                                                                id="address"
+                                                                name="institution_email"
+                                                                value="{{ old('institution_email') }}"
+                                                                placeholder="Enter Email"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label" for="images">Image</label>
@@ -188,7 +168,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-12 text-center">
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-md btn-primary">

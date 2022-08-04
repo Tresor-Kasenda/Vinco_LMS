@@ -68,9 +68,9 @@ class Kernel extends HttpKernel
         'owner' => \App\Http\Middleware\GroupOwner::class,
         'member' => \App\Http\Middleware\GroupMember::class,
 
-        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
-        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'role' => \Laratrust\Middleware\LaratrustRole::class,
+        'permission' => \Laratrust\Middleware\LaratrustPermission::class,
+        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
 
     ];
 }

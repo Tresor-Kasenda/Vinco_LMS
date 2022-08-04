@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Models\AcademicYear;
-use App\Models\Department;
 use App\Models\Subsidiary;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -31,8 +30,7 @@ class PromotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:promotions'],
-            'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
+            'name' => ['required', 'string'],
             'filiaire' => ['required', Rule::exists(Subsidiary::class, 'id')],
             'academic' => ['required', Rule::exists(AcademicYear::class, 'id')],
             'description' => ['nullable'],

@@ -13,36 +13,37 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Journal.
  *
+ * @property-read Journal $course
+ * @property-read Institution|null $institution
+ * @property-read Student $student
+ * @property-read Professor|null $teacher
+ *
+ * @method static Builder|Journal newModelQuery()
+ * @method static Builder|Journal newQuery()
+ * @method static Builder|Journal query()
+ * @mixin \Eloquent
+ *
  * @property int $id
  * @property int $course_id
  * @property int|null $student_id
  * @property int|null $professor_id
- * @property string $date
+ * @property string $title
  * @property string $start_time
  * @property string $end_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $institution_id
- * @property-read Journal $course
- * @property-read Institution $institution
- * @property-read Student|null $student
- * @property-read Professor|null $teacher
- * @method static Builder|Journal newModelQuery()
- * @method static Builder|Journal newQuery()
- * @method static Builder|Journal query()
+ *
  * @method static Builder|Journal whereCourseId($value)
  * @method static Builder|Journal whereCreatedAt($value)
- * @method static Builder|Journal whereDate($value)
  * @method static Builder|Journal whereEndTime($value)
  * @method static Builder|Journal whereId($value)
  * @method static Builder|Journal whereInstitutionId($value)
  * @method static Builder|Journal whereProfessorId($value)
  * @method static Builder|Journal whereStartTime($value)
  * @method static Builder|Journal whereStudentId($value)
- * @method static Builder|Journal whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property string $title
  * @method static Builder|Journal whereTitle($value)
+ * @method static Builder|Journal whereUpdatedAt($value)
  */
 class Journal extends Model
 {

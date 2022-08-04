@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\CategoryFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,9 +24,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read AcademicYear|null $academic
  * @property-read Collection|Course[] $courses
  * @property-read int|null $courses_count
+ * @property-read Institution|null $institution
+ *
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
@@ -39,8 +41,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin Eloquent
+ *
  * @property int $institution_id
- * @property-read \App\Models\Institution $institution
+ *
+ * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category whereInstitutionId($value)
  */
 class Category extends Model

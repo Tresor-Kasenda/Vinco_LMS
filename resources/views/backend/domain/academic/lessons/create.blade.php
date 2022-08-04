@@ -47,6 +47,31 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $types = \App\Models\LessonType::query()
+                                                        ->select(['id', 'name'])
+                                                        ->get();
+
+                                                    $chapters = \App\Models\Chapter::query()
+                                                        ->select(['id', 'name', 'course_id'])
+                                                        ->with('course')
+                                                        ->get();
+                                                } else {
+                                                    $types = \App\Models\LessonType::query()
+                                                        ->select(['id', 'name'])
+                                                        ->get();
+
+                                                    $chapters = \App\Models\Chapter::query()
+                                                        ->select(['id', 'name', 'course_id'])
+                                                        ->with('course')
+                                                        ->whereHas('course', function ($builder) {
+                                                            $builder->where('institution_id', auth()->user()->institution->id);
+                                                        })
+                                                        ->get();
+                                                }
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="type">Type</label>
@@ -58,7 +83,7 @@
                                                         data-placeholder="Select Type"
                                                         required>
                                                         <option label="Select Type" value=""></option>
-                                                        @foreach(\App\Models\LessonType::all() as $type)
+                                                        @foreach($types as $type)
                                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                         @endforeach
                                                     </select>
@@ -75,10 +100,45 @@
                                                         data-placeholder="Select chapter"
                                                         required>
                                                         <option label="Select chapter" value=""></option>
-                                                        @foreach(\App\Models\Chapter::all() as $campus)
-                                                            <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                                        @foreach($chapters as $chapter)
+                                                            <option value="{{ $chapter->id }}">
+                                                                {{ $chapter->name }} / (<small>{{ ucfirst($chapter->course->name) ?? "" }}</small>)
+                                                            </option>
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div id="aperi">
+                                                <span class="preview-title-lg overline-title">Aperi</span>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name"></label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('name') error @enderror"
+                                                                id="name"
+                                                                name="name"
+                                                                value="{{ old('name') }}"
+                                                                placeholder="Saisir le nom du cours"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name"></label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('name') error @enderror"
+                                                                id="name"
+                                                                name="name"
+                                                                value="{{ old('name') }}"
+                                                                placeholder="Saisir le nom du cours"
+                                                                required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -113,24 +173,51 @@
     </div>
 @endsection
 
+
 @section('scripts')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#content').summernote({
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
+    <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            height: 260,
+            resize: true,
+            max_height: 500,
+            icons: 'material',
+            mobile: {
+                menubar: true,
+                plugins: 'autosave lists autolink',
+                toolbar: 'undo bold italic styles'
+            },
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount', 'emoticons'
+            ],
+            toolbar: 'undo redo | styles | bold italic | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'outdent indent | numlist bullist | emoticons',
         });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#text").hide();
+            $("#aperi").hide();
+            $('#type').change(function () {
+                let type = $(this).val();
+                if (type == 1){
+                    $("#text").hide();
+                    $("#aperi").hide();
+                } else if (type == 2) {
+                    $("#text").hide();
+                    $("#aperi").show();
+                } else if (type == 3) {
+                    $("#text").show();
+                    $("#aperi").hide();
+                } else if (type == 4) {
+                    $("#text").hide();
+                    $("#aperi").hide();
+                }
+            });
+        })
     </script>
 @endsection

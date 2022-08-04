@@ -10,9 +10,9 @@ interface LessonRepositoryInterface
 
     public function showLesson(string $key);
 
-    public function stored($attributes, $flash);
+    public function stored($attributes);
 
-    public function updated(string $key, $attributes, $flash);
+    public function updated(string $key, $attributes);
 
-    public function deleted(string $key, $flash);
+    public function deleted(string $key);
 }

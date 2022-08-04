@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.admin.update', $administrator->id) }}" method="post" class="form-validate mt-2">
+                                    <form action="{{ route('admins.users.admin.update', $admin->id) }}" method="post" class="form-validate mt-2">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -56,7 +56,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $administrator->name }}"
+                                                            value="{{ old('name') ?? $admin->name }}"
                                                             placeholder="Enter name"
                                                             required>
                                                     </div>
@@ -72,7 +72,7 @@
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $administrator->email }}"
+                                                            value="{{ old('email') ?? $admin->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter email"
                                                             required>
@@ -81,9 +81,32 @@
                                             </div>
 
                                             @php
-                                                $roles  = \Spatie\Permission\Models\Role::query()
-                                                    ->where('name', '=', 'Admin')
-                                                    ->orWhere('name', '=', 'Super Admin')
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
+                                            @endphp
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="institution">Instituttion</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 select2-hidden-accessible @error('institution') error @enderror"
+                                                            id="institution"
+                                                            data-search="on"
+                                                            name="institution"
+                                                            data-placeholder="Select a role"
+                                                            required>
+                                                            <option label="role" value="{{ $admin->institution->id }}">{{ ucfirst($admin->institution->institution_name) }}</option>
+                                                            @foreach($institutions as $institution)
+                                                                <option value="{{ $institution->id }}">{{ ucfirst($institution->institution_name) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @php
+                                                $roles  = \App\Models\Role::query()
+                                                    ->whereIn('name', ['Admin', 'Super Admin'])
                                                     ->get()
                                             @endphp
 
@@ -92,8 +115,9 @@
                                                     <label class="form-label" for="role_id">Select Role</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('role_id') error @enderror"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('role_id') error @enderror"
                                                             id="role_id"
+                                                            data-search="on"
                                                             name="role_id"
                                                             data-placeholder="Select a role"
                                                             required>

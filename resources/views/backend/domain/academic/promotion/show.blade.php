@@ -38,17 +38,6 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body border-bottom py-3">
-                                    <div class="text-center">
-                                        <img
-                                            @if($promotion->images)
-                                                src="{{ asset('storage/'.$promotion->images) }}"
-                                            @else
-                                                src="{{ asset('assets/admins/images/man.webp') }}"
-                                            @endif
-                                            title="{{ $promotion->name }}"
-                                            class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
-                                        >
-                                    </div>
                                     <table class="table">
                                         <tbody>
                                         <tr>

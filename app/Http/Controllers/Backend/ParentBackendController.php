@@ -6,25 +6,18 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ParentRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmerProfessorRequest;
 use App\Http\Requests\ParentRequest;
-use App\Http\Requests\ProfessorRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
 
 class ParentBackendController extends Controller
 {
     public function __construct(
         protected readonly ParentRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
     ) {
     }
 
@@ -35,13 +28,6 @@ class ParentBackendController extends Controller
         return view('backend.domain.users.parent.index', compact('parents'));
     }
 
-    public function show(string $key): Factory|View|Application
-    {
-        $parent = $this->repository->showGuardian(key: $key);
-
-        return view('backend.domain.users.parent.show', compact('parent'));
-    }
-
     public function create(): Renderable
     {
         return view('backend.domain.users.parent.create');
@@ -49,9 +35,16 @@ class ParentBackendController extends Controller
 
     public function store(ParentRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.users.guardian.index');
+    }
+
+    public function show(string $key): Factory|View|Application
+    {
+        $parent = $this->repository->showGuardian(key: $key);
+
+        return view('backend.domain.users.parent.show', compact('parent'));
     }
 
     public function edit(string $key): Factory|View|Application
@@ -63,14 +56,14 @@ class ParentBackendController extends Controller
 
     public function update(ProfessorUpdateRequest $attributes, string $key): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.users.guardian.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

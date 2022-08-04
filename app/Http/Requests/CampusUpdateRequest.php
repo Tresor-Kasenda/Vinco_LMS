@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +31,8 @@ class CampusUpdateRequest extends FormRequest
             'name' => ['required', 'string', 'min:4'],
             'images' => ['required', 'image', 'mimes:jpg,png,gif,svg,jpeg'],
             'description' => ['nullable'],
-            'user_id' => ['required', Rule::exists('personnels', 'id')],
+            'personnel' => ['required', Rule::exists('users', 'id')],
+            'institution' => ['nullable', Rule::exists('institutions', 'id')],
         ];
     }
 }

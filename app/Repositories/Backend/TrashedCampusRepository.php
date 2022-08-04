@@ -6,7 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\TrashedCampusRepositoryInterface;
 use App\Models\Campus;
-use App\Models\Department;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;

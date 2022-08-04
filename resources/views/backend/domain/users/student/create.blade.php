@@ -46,11 +46,6 @@
                                     @endif
                                     <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden"
-                                            id="institution_id"
-                                               name="institution_id"
-                                               value="{{ Auth::user()->institution_id }}"
-                                            >
                                         <div class="row g-gs">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -69,7 +64,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="name">Nom</label>
+                                                    <label class="form-label" for="firstname">Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -84,7 +79,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="firstname">Post-Nom</label>
+                                                    <label class="form-label" for="lastname">Post-Nom</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="text"
@@ -114,6 +109,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <x-filter-department/>
+
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Mot de passe</label>
@@ -126,71 +125,6 @@
                                                             value="{{ old('password') }}"
                                                             placeholder="Enter password"
                                                             required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="department">Departement</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('department') error @enderror"
-                                                            id="department"
-                                                            name="department"
-                                                            data-search="on"
-                                                            data-placeholder="Select Department">
-                                                            <option label="department" value=""></option>
-                                                            @foreach(\App\Models\Department::all() as $department)
-                                                                <option
-                                                                    value="{{ $department->id }}"
-                                                                >{{ ucfirst($department->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="filiaire">Filiaire</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
-                                                            id="filiaire"
-                                                            name="filiaire"
-                                                            data-search="on"
-                                                            data-placeholder="Select Filiaire"
-                                                            >
-                                                            <option label="filiaire" value=""></option>
-                                                            @foreach(\App\Models\Subsidiary::all() as $filiaire)
-                                                                <option
-                                                                    value="{{ $filiaire->id }}"
-                                                                >{{ ucfirst($filiaire->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="promotion">Promotion</label>
-                                                    <div class="form-control-wrap">
-                                                        <select
-                                                            class="form-control js-select2 select2-hidden-accessible @error('class') error @enderror"
-                                                            id="promotion"
-                                                            name="promotion"
-                                                            data-search="on"
-                                                            data-placeholder="Select Promotion"
-                                                            >
-                                                            <option label="class" value=""></option>
-                                                            @foreach(\App\Models\Promotion::all() as $promotion)
-                                                                <option
-                                                                    value="{{ $promotion->id }}"
-                                                                >{{ ucfirst($promotion->name ) ?? "" }}</option>
-                                                            @endforeach
-                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,19 +236,45 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#department').on('change', function(e) {
-                let cat_id = e.target.value;
-                $.ajax({
-                    url: "",
-                    type: "get",
-                    data: {
-                        cat_id: cat_id
-                    },
-                    success: function(data) {
-                        $('#subcategory').empty();
-                    }
-                })
+            $('#department').change(function () {
+                let department = $(this).val();
+                if (department){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.department-json") }}',
+                        data:{"department" : department },
+                        success:function(response){
+                            $("#filiaire").empty();
+                            $("#filiaire").append('<option label="Filiaire" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.filiaires?.map((filiaire) => {
+                                    $("#filiaire").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
             });
-        });
+
+            $('#filiaire').change(function () {
+                let filiaire = $(this).val();
+                if(filiaire){
+                    $.ajax({
+                        type:"GET",
+                        url:"{{ route('admins.academic.promotion-json') }}",
+                        data : { "filiaire" : filiaire },
+                        success:function(response){
+                            $("#promotion").empty();
+                            $("#promotion").append('<option label="Promotion" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.promotions?.map((filiaire) => {
+                                    $("#promotion").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+        })
     </script>
 @endsection

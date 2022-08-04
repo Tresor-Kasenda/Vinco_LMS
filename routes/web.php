@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
+use App\Http\Controllers\Backend\Api\FiliaireApiController;
+use App\Http\Controllers\Backend\Api\ProfessorApiController;
+use App\Http\Controllers\Backend\Api\PromotionApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
@@ -15,7 +18,9 @@ use App\Http\Controllers\Backend\Communication\MessageBackendController;
 use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
 use App\Http\Controllers\Backend\DepartmentBackendController;
+use App\Http\Controllers\Backend\EnableX\EnableBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
+use App\Http\Controllers\Backend\ExamSessionController;
 use App\Http\Controllers\Backend\ExerciseBackendController;
 use App\Http\Controllers\Backend\ExpenseBackendController;
 use App\Http\Controllers\Backend\ExpenseTypeBackendController;
@@ -33,12 +38,12 @@ use App\Http\Controllers\Backend\ProfileBackendController;
 use App\Http\Controllers\Backend\PromotionBackendController;
 use App\Http\Controllers\Backend\ResourceBackendController;
 use App\Http\Controllers\Backend\ResultBackendController;
-use App\Http\Controllers\Backend\RoleBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
 use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
+use App\Http\Controllers\Backend\System\RoleBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
 use App\Http\Controllers\Backend\TrashedChapterBackendController;
@@ -50,7 +55,6 @@ use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
-use App\Http\Controllers\Mail\InstitutionMailController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -89,12 +93,19 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('interro', InterroBackendController::class);
 
             Route::get('/getCourse', [ExerciceBackendApiController::class, 'render'])->name('chapter.render');
+            Route::get('department-json', [FiliaireApiController::class, 'getFiliaire'])->name('department-json');
+            Route::get('promotion-json', [PromotionApiController::class, 'getPromotion'])->name('promotion-json');
+            Route::get('professor-json', [ProfessorApiController::class, 'getInstitution'])->name('professor-json');
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {
+            Route::resource('session-exams', ExamSessionController::class)->except(['show']);
             Route::resource('exam', ExamListBackendController::class);
             Route::resource('schedule', SchedulerBackendController::class);
             Route::resource('exam-result', ResultBackendController::class);
+
+            Route::put('exam/{key}/active', [ExamListBackendController::class, 'active'])
+                ->name('exam.active');
         });
 
         Route::group(['prefix' => 'announce', 'as' => 'announce.'], routes: function () {
@@ -115,6 +126,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
             Route::resource('expenses', ExpenseBackendController::class);
+        });
+
+        Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
+            Route::resource('aperi', EnableBackendController::class);
         });
 
         Route::resource('roles', RoleBackendController::class);

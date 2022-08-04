@@ -20,42 +20,44 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $chapter_id
  * @property string $name
- * @property string $short_content
- * @property string $content_type
- * @property string|null $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read Chapter $chapter
- * @property-read Collection|Exercice[] $exercises
+ * @property-read \App\Models\Chapter $chapter
+ * @property-read Collection|\App\Models\Exercice[] $exercises
  * @property-read int|null $exercises_count
- * @property-read int $difference
  * @property string|null $end_time
- * @property string|null $start_time
- * @property-read Collection|Homework[] $homeworks
+ * @property-read Collection|\App\Models\Homework[] $homeworks
  * @property-read int|null $homeworks_count
- * @property-read Collection|resource[] $resources
+ * @property-read Collection|\App\Models\Resource[] $resources
  * @property-read int|null $resources_count
+ * @property-write mixed $start_time
+ * @property-read \App\Models\LessonType|null $type
+ *
  * @method static Builder|Lesson calendarByRoleOrClassId()
  * @method static Builder|Lesson newModelQuery()
  * @method static Builder|Lesson newQuery()
  * @method static \Illuminate\Database\Query\Builder|Lesson onlyTrashed()
  * @method static Builder|Lesson query()
  * @method static Builder|Lesson whereChapterId($value)
- * @method static Builder|Lesson whereContent($value)
- * @method static Builder|Lesson whereContentType($value)
  * @method static Builder|Lesson whereCreatedAt($value)
  * @method static Builder|Lesson whereDeletedAt($value)
  * @method static Builder|Lesson whereId($value)
  * @method static Builder|Lesson whereName($value)
- * @method static Builder|Lesson whereShortContent($value)
  * @method static Builder|Lesson whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
+ *
  * @property int|null $lesson_type_id
- * @property-read \App\Models\LessonType|null $type
+ * @property string|null $content
+ *
+ * @method static Builder|Lesson whereContent($value)
  * @method static Builder|Lesson whereLessonTypeId($value)
+ *
+ * @property int $institution_id
+ *
+ * @method static Builder|Lesson whereInstitutionId($value)
  */
 class Lesson extends Model
 {
@@ -79,12 +81,12 @@ class Lesson extends Model
         '7' => 'Sunday',
     ];
 
-    public function getDifferenceAttribute(): int
+    public function getDifference(): int
     {
         return Carbon::parse($this->end_time)->diffInMinutes($this->start_time);
     }
 
-    public function getStartTimeAttribute($value): ?string
+    public function getStartTime($value): ?string
     {
         return $value ? Carbon::createFromFormat('H:i:s', $value)
             ->format(config('panel.lesson_time_format')) : null;

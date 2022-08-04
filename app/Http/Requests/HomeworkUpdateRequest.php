@@ -6,7 +6,6 @@ namespace App\Http\Requests;
 
 use App\Models\Chapter;
 use App\Models\Course;
-use App\Models\Homework;
 use App\Models\Lesson;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

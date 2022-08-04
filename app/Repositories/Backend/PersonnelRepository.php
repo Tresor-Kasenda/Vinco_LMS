@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\PersonnelRepositoryInterface;
-use App\Enums\StatusEnum;
 use App\Models\Personnel;
+use App\Models\Role;
 use App\Models\User;
+use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
-use Spatie\Permission\Models\Role;
 
 /**
  * class PersonnelRepository.
@@ -25,8 +25,29 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
 {
     use ImageUploader, RandomValues;
 
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
+
     public function getPersonnelContent(): Collection|array
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Personnel::query()
+                ->select([
+                    'images_personnel',
+                    'matriculate',
+                    'gender',
+                    'username',
+                    'id',
+                    'phones',
+                    'email',
+                    'user_id',
+                ])
+                ->with('user')
+                ->orderByDesc('created_at')
+                ->get();
+        }
+
         return Personnel::query()
             ->select([
                 'images_personnel',
@@ -36,8 +57,11 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'id',
                 'phones',
                 'email',
+                'user_id',
             ])
-            ->with('user')
+            ->whereHas('user', function ($institution) {
+                $institution->where('institution_id', '=', auth()->user()->institution_id);
+            })
             ->orderByDesc('created_at')
             ->get();
     }
@@ -45,63 +69,77 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     public function showPersonnelContent(string $key): Model|Builder|null
     {
         $personnel = Personnel::query()
+            ->select([
+                'id',
+                'user_id',
+                'username',
+                'matriculate',
+                'firstname',
+                'lastname',
+                'email',
+                'phones',
+                'nationality',
+                'images_personnel',
+                'location',
+                'identityCard',
+                'gender',
+                'birthdays',
+                'academic_year_id',
+            ])
             ->where('id', '=', $key)
             ->firstOrFail();
 
-        return $personnel->load(['user', 'academic']);
+        return $personnel->load(['user', 'academic:id,start_date,end_date']);
     }
 
-    public function stored($attributes, $factory): Model|Builder|RedirectResponse
+    public function stored($attributes): Model|Builder|RedirectResponse
     {
-        $personnel = Personnel::query()
+        $personnel = User::query()
             ->where('email', '=', $attributes->input('email'))
             ->first();
-        if (! $personnel) {
-            $user = $this->storeCampus($attributes);
-            $role = $this->getRole($attributes);
-            $user->assignRole($role->id);
-            $personnel = $this->createPersonnel($attributes, $user);
 
-            $factory->addSuccess('Un personnel a ete ajouter');
+        if (! $personnel) {
+            $user = $this->storeManger($attributes);
+            $role = $this->getRole($attributes);
+            $user->attachRole($role->id);
+            $personnel = $this->createPersonnel($attributes, $user);
+            $this->service->success('Un personnel a ete ajouter');
 
             return $personnel;
         }
-        $factory->addError('Email deja utiliser par un autre compte');
+        $this->service->error('Email deja utiliser par un autre compte');
 
         return back();
     }
 
-    public function updated(string $key, $attributes, $factory): Model|Builder|null
+    public function updated(string $key, $attributes): Model|Builder|null
     {
         $personnel = $this->showPersonnelContent(key: $key);
+
+        $user = User::query()
+            ->whereEmail($attributes->input('email'))
+            ->firstOrFail();
 
         $personnel->update([
             'username' => $attributes->input('name'),
             'email' => $attributes->input('email'),
             'phones' => $attributes->input('phones'),
             'gender' => $attributes->input('gender'),
+            'academic_year_id' => $attributes->input('academic'),
+            'user_id' => $user->id,
         ]);
 
-        $user = User::query()
-            ->whereEmail($attributes->input('email'))
-            ->firstOrFail();
-
-        $user->update([
-            'name' => $attributes->input('name'),
-            'email' => $attributes->input('email'),
-        ]);
-        $user->syncRoles($attributes->input('role'));
-
-        $factory->addSuccess('Personnel modifier avec succes');
+        $user->roles()->sync($attributes->input('role'));
+        $this->service->success('Un personnel a ete mise a jours avec succes');
 
         return $personnel;
     }
 
-    public function deleted(string $key, $factory): RedirectResponse
+    public function deleted(string $key): RedirectResponse
     {
         $personnel = $this->showPersonnelContent(key: $key);
         $personnel->delete();
-        $factory->addSuccess('Personnel modifier avec succes');
+        $this->service->error('Personnel modifier avec succes');
 
         return back();
     }
@@ -127,30 +165,24 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'phones' => $attributes->input('phones'),
                 'images_personnel' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
-                'user_id' => $user->id,
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
+                'academic_year_id' => $attributes->input('academic'),
+                'user_id' => $user->id,
             ]);
     }
 
-    public function storeCampus($attributes): _IH_User_QB|Model|Builder|User|RedirectResponse
+    private function storeManger($attributes): _IH_User_QB|Model|Builder|User
     {
-        $user = User::query()
-            ->where('email', '=', $attributes->input('email'))
-            ->first();
-        if (! $user) {
-            return User::query()
-                ->create([
-                    'name' => $attributes->input('name'),
-                    'email' => $attributes->input('email'),
-                    'institution_id'=> \Auth::user()->institution_id,
-                    'password' => Hash::make($attributes->input('password')),
-                ]);
-        }
-
-        return back();
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
+                'password' => Hash::make($attributes->input('password')),
+            ]);
     }
 
-    public function getRole($attributes): Builder|Model
+    private function getRole($attributes): Builder|Model
     {
         return Role::query()
             ->where('id', '=', $attributes->input('role'))

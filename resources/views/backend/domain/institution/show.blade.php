@@ -12,7 +12,7 @@
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h6 class="nk-block-title page-title">
-                                Institution
+                                Show Institution
                             </h6>
                         </div>
                         <div class="nk-block-head-content">
@@ -53,11 +53,15 @@
                                         <tbody>
                                         <tr>
                                             <th>Name Institution</th>
-                                            <td>{{ strtoupper($institution->institution_name) ?? "" }}</td>
+                                            <td>{{ ucfirst($institution->institution_name) ?? "" }}</td>
                                         </tr>
                                         <tr>
                                             <th>Responsable</th>
-                                            <td>{{ strtoupper($institution->user->name) ?? "" }}</td>
+                                            <td>
+                                                @if($institution->user !== null)
+                                                    {{ ucfirst($institution->user->name) ?? "" }}
+                                                @endif
+                                            </td>
                                         </tr>
 
                                         <tr>
@@ -89,11 +93,31 @@
                                         </tr>
 
                                         <tr>
+                                            <th>Email</th>
+                                            <td>
+                                                {{ $institution->institution_email ?? "" }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
                                             <th>Site web</th>
                                             <td>
                                                 <a href="{{ $institution->institution_website ?? "" }}" target="__black">
                                                     {{ $institution->institution_website ?? "" }}
                                                 </a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Liste des campus</th>
+                                            <td>
+                                                @if($institution->campuses)
+                                                    @foreach($institution->campuses as $campus)
+                                                        <a href="{{ route('admins.academic.campus.show', $campus->id) }}">
+                                                            {{ ucfirst($campus->name) ?? "" }}
+                                                        </a>
+                                                    @endforeach
+                                                @endif
                                             </td>
                                         </tr>
 

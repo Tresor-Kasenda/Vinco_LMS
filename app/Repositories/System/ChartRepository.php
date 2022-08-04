@@ -11,6 +11,7 @@ use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use LaravelIdea\Helper\App\Models\_IH_Student_C;
 
 class ChartRepository implements ChartRepositoryInterface
 {
@@ -38,13 +39,13 @@ class ChartRepository implements ChartRepositoryInterface
                     DB::raw('MONTHNAME(created_at) as monthname'),
                 ]
             )
-            ->whereYear('created_at', date('Y'))
+            ->whereYear('created_at', date('M'))
             ->groupBy('monthname')
             ->get()
             ->toArray();
     }
 
-    public function getStudents()
+    public function getStudents(): array|Collection|\Illuminate\Support\Collection|_IH_Student_C
     {
         return Student::query()
             ->select(
@@ -54,7 +55,10 @@ class ChartRepository implements ChartRepositoryInterface
                     DB::raw('COUNT(id) as order_count'),
                 ]
             )
-            ->whereIn('gender', ['masculin', 'feminim'])
+            ->whereIn('gender', [
+                'masculin',
+                'feminim',
+            ])
             ->groupBy('id')
             ->get();
     }
@@ -68,7 +72,10 @@ class ChartRepository implements ChartRepositoryInterface
                     DB::raw('DAYNAME(created_at) as dayname'),
                 ]
             )
-            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
+            ])
             ->whereYear('created_at', date('Y'))
             ->groupBy('dayname')
             ->get();
@@ -83,7 +90,10 @@ class ChartRepository implements ChartRepositoryInterface
                     DB::raw('DAYNAME(created_at) as dayname'),
                 ]
             )
-            ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
+            ])
             ->whereYear('created_at', date('Y'))
             ->groupBy('dayname')
             ->get();

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\StatusEnum;
 use App\Models\Course;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +16,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->text('content')->nullable();
+            $table->longText('content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

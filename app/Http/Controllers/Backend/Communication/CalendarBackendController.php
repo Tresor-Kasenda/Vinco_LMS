@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Backend\Communication;
 
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Models\AcademicYear;
 use App\Models\Calendar;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,13 +29,11 @@ class CalendarBackendController extends Controller
      */
     public function index(): View|Factory|Application
     {
-//        $calendar = $this->repository->events();
-
         $eloquentEvent = Calendar::all(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
 
         $calendar = \Calendar::addEvents($eloquentEvent);
 
-        return view('backend.domain.communication.calendar.index', compact('calendar'));
+        return view('backend.domain.communication.calendar.index', compact('calendar', 'eloquentEvent'));
     }
 
     /**
@@ -58,10 +55,10 @@ class CalendarBackendController extends Controller
     public function store(Request $request): RedirectResponse
     {
         Calendar::create([
-            'title'=>$request->title,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'institution_id' =>\Auth::user()->institution->id,
+            'title' => $request->title,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'institution_id' => \Auth::user()->institution->id,
         ]);
 
         return redirect()->route('admins.communication.calendar.index');

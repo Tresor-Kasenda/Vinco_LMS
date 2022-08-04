@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\StatusEnum;
 use App\Models\Chapter;
 use App\Models\Lesson;
 use Illuminate\Database\Migrations\Migration;

@@ -1,13 +1,10 @@
 <?php
 
-namespace Tests\Repositories\Backend;
+use App\Models\User;
 
-use App\Repositories\Backend\ProfessorRepository;
-use PHPUnit\Framework\TestCase;
+test('asserts true is true', function () {
+    $user = User::factory()->create();
+    $this->assertTrue(true);
 
-class ProfessorRepositoryTest extends TestCase
-{
-    public function testCreateUser()
-    {
-    }
-}
+    expect(true)->toBeTrue();
+});

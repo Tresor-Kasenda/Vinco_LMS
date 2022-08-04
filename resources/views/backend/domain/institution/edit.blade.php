@@ -94,60 +94,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="user">Dirigeant / Gestionnaire</label>
-                                                        <div class="form-control-wrap">
-                                                            <select
-                                                                class="form-control js-select2 @error('manager') error @enderror"
-                                                                id="user"
-                                                                name="manager"
-                                                                data-placeholder="Select Manager of School"
-                                                                required>
-                                                                <option label="class" value=""></option>
-                                                                @foreach(\App\Models\Personnel::all() as $manager)
-                                                                    <option
-                                                                        value="{!! $manager->user_id !!}"
-                                                                    >{{ ucfirst($manager->username ) ?? "" }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="phones">Telephone</label>
-                                                        <div class="form-control-wrap">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('institution_phones') error @enderror"
-                                                                id="institution_phones"
-                                                                name="institution_phones"
-                                                                value="{{ old('institution_phones') ?? $institution->institution_phones }}"
-                                                                placeholder="Enter phones Number"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
-                                                        <div class="form-control-wrap">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('institution_website') error @enderror"
-                                                                id="website"
-                                                                name="institution_website"
-                                                                value="{{ old('institution_website') ?? $institution->institution_website }}"
-                                                                placeholder="Enter Website"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label" for="address">Address</label>
@@ -163,23 +109,51 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="images">Image</label>
+                                                        <label class="form-label" for="phones">Telephone</label>
                                                         <div class="form-control-wrap">
                                                             <input
-                                                                type="file"
-                                                                class="form-control @error('images') error @enderror"
-                                                                id="images"
-                                                                name="images"
-                                                                value="{{ old('images') }}"
-                                                                placeholder="Select image"
+                                                                type="text"
+                                                                class="form-control @error('institution_phones') error @enderror"
+                                                                id="institution_phones"
+                                                                name="institution_phones"
+                                                                value="{{ old('institution_phones') ?? $institution->institution_phones }}"
+                                                                placeholder="Enter phones Number"
                                                                 required>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="website">Website</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_website') error @enderror"
+                                                                id="website"
+                                                                name="institution_website"
+                                                                value="{{ old('institution_website') ?? $institution->institution_website }}"
+                                                                placeholder="Enter Website"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution_email">Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('institution_email') error @enderror"
+                                                                id="address"
+                                                                name="institution_email"
+                                                                value="{{ old('institution_email')  ?? $institution->institution_email }}"
+                                                                placeholder="Enter Email"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-12 text-center">
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-md btn-primary">

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Rules;
 
 use App\Models\AcademicYear;
-use App\Models\Setting;
 use Illuminate\Contracts\Validation\Rule;
 
 class RoutineTime implements Rule

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\SchedulerRepositoryInterface;
-use App\Models\Lesson;
-use App\Services\CalendarService;
 
 class SchedulerRepository implements SchedulerRepositoryInterface
 {

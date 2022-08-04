@@ -11,25 +11,14 @@ use App\Models\Student;
 use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Laravel\Sanctum\Guard;
 
 class StudentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
@@ -42,7 +31,7 @@ class StudentRequest extends FormRequest
             'email' => ['required', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique(Student::class, 'email')],
             'images' => ['image', 'mimes:jpg,png,gif,svg,jpeg'],
             'gender' => ['required', 'in:male,female'],
-            'parent' => [Rule::exists(Guardian::class, 'id')],
+            'parent' => ['nullable', Rule::exists(Guardian::class, 'id')],
             'admission' => ['date'],
             'password' => ['required', 'string', 'min:6'],
 

@@ -11,8 +11,10 @@ use App\Contracts\ChapterRepositoryInterface;
 use App\Contracts\ChartRepositoryInterface;
 use App\Contracts\CourseRepositoryInterface;
 use App\Contracts\DepartmentRepositoryInterface;
+use App\Contracts\EnableX\EnableXRepositoryInterface;
 use App\Contracts\EventRepositoryInterface;
 use App\Contracts\ExamListRepositoryInterface;
+use App\Contracts\ExamSessionRepositoryInterface;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Contracts\ExpenseRepositoryInterface;
 use App\Contracts\ExpenseTypeRepositoryInterface;
@@ -46,13 +48,13 @@ use App\Contracts\TrashedPersonnelRepositoryInterface;
 use App\Contracts\TrashedProfessorRepositoryInterface;
 use App\Contracts\TrashedUsersRepositoryInterface;
 use App\Contracts\UsersRepositoryInterface;
-use App\Repositories\Backend\AcademicYearRepository;
 use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\ExamListRepository;
+use App\Repositories\Backend\ExamSessionRepository;
 use App\Repositories\Backend\ExerciseRepository;
 use App\Repositories\Backend\ExpenseRepository;
 use App\Repositories\Backend\ExpenseTypeRepository;
@@ -69,8 +71,8 @@ use App\Repositories\Backend\ProfileRepository;
 use App\Repositories\Backend\PromotionRepository;
 use App\Repositories\Backend\ResourceRepository;
 use App\Repositories\Backend\ResultRepository;
-use App\Repositories\Backend\RoleRepository;
 use App\Repositories\Backend\SchedulerRepository;
+use App\Repositories\Backend\SessionRepository;
 use App\Repositories\Backend\StudentRepository;
 use App\Repositories\Backend\TrashedCampusRepository;
 use App\Repositories\Backend\TrashedCategoryRepository;
@@ -85,8 +87,10 @@ use App\Repositories\Backend\UsersRepository;
 use App\Repositories\Com\EventRepository;
 use App\Repositories\Com\JournalRepository;
 use App\Repositories\Com\NotificationRepository;
+use App\Repositories\EnableX\EnableBackendRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\InstitutionRepository;
+use App\Repositories\System\RoleRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -97,7 +101,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected array $repositories = [
         PersonnelRepositoryInterface::class => PersonnelRepository::class,
-        AcademicYearRepositoryInterface::class => AcademicYearRepository::class,
+        AcademicYearRepositoryInterface::class => SessionRepository::class,
         ProfessorRepositoryInterface::class => ProfessorRepository::class,
         CampusRepositoryInterface::class => CampusRepository::class,
         DepartmentRepositoryInterface::class => DepartmentRepository::class,
@@ -138,6 +142,10 @@ class RepositoryServiceProvider extends ServiceProvider
         NotificationRepositoryInterface::class => NotificationRepository::class,
         JournalRepositoryInterface::class => JournalRepository::class,
         InstitutionRepositoryInterface::class => InstitutionRepository::class,
+        ExamSessionRepositoryInterface::class => ExamSessionRepository::class,
+
+        //Enable X
+        EnableXRepositoryInterface::class => EnableBackendRepository::class,
     ];
 
     /**

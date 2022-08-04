@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\HasKeyTrait;
+use Database\Factories\StudentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,26 +47,24 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property int|null $guardian_id
- * @property string|null $admission_date
  * @property-read Department|null $department
  * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
  * @property-read Journal|null $journal
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read Guardian|null $parent
+ * @property-read Guardian $parent
  * @property-read Promotion|null $promotion
  * @property-read Collection|Result[] $results
  * @property-read int|null $results_count
  * @property-read Subsidiary|null $subsidiary
- * @property-read User|null $user
+ * @property-read User $user
+ *
  * @method static Builder|Student newModelQuery()
  * @method static Builder|Student newQuery()
  * @method static \Illuminate\Database\Query\Builder|Student onlyTrashed()
  * @method static Builder|Student query()
  * @method static Builder|Student whereAddress($value)
- * @method static Builder|Student whereAdmissionDate($value)
  * @method static Builder|Student whereBirthdays($value)
  * @method static Builder|Student whereBornCity($value)
  * @method static Builder|Student whereBornTown($value)
@@ -76,7 +74,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Student whereEmail($value)
  * @method static Builder|Student whereFirstname($value)
  * @method static Builder|Student whereGender($value)
- * @method static Builder|Student whereGuardianId($value)
  * @method static Builder|Student whereId($value)
  * @method static Builder|Student whereIdentityCard($value)
  * @method static Builder|Student whereImages($value)
@@ -96,6 +93,13 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Student withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Student withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @property int|null $guardian_id
+ * @property string|null $admission_date
+ *
+ * @method static StudentFactory factory(...$parameters)
+ * @method static Builder|Student whereAdmissionDate($value)
+ * @method static Builder|Student whereGuardianId($value)
  */
 class Student extends Model
 {

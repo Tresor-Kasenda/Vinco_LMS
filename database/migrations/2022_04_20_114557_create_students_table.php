@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\GenderEnum;
 use App\Enums\StatusEnum;
 use App\Models\Department;
 use App\Models\Promotion;

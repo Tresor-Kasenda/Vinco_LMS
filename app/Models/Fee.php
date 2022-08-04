@@ -25,11 +25,11 @@ use Illuminate\Support\Carbon;
  * @property string $description
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property int $institution_id
- * @property-read FeeType $feeType
- * @property-read Institution $institution
- * @property-read Guardian|null $parent
- * @property-read Student $student
+ * @property-read \App\Models\FeeType $feeType
+ * @property-read \App\Models\Institution|null $institution
+ * @property-read \App\Models\Guardian|null $parent
+ * @property-read \App\Models\Student $student
+ *
  * @method static Builder|Fee newModelQuery()
  * @method static Builder|Fee newQuery()
  * @method static Builder|Fee query()
@@ -40,13 +40,16 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Fee whereFeeTypeId($value)
  * @method static Builder|Fee whereGuardianId($value)
  * @method static Builder|Fee whereId($value)
- * @method static Builder|Fee whereInstitutionId($value)
  * @method static Builder|Fee wherePayDate($value)
  * @method static Builder|Fee whereStatus($value)
  * @method static Builder|Fee whereStudentId($value)
  * @method static Builder|Fee whereTransactionNo($value)
  * @method static Builder|Fee whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
+ * @property int $institution_id
+ *
+ * @method static Builder|Fee whereInstitutionId($value)
  */
 class Fee extends Model
 {

@@ -64,7 +64,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="email">Email </label>
+                                                    <label class="form-label" for="email">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input
                                                             type="email"
@@ -80,30 +80,57 @@
                                             </div>
 
                                             @php
-                                                $roles  = \Spatie\Permission\Models\Role::query()
-                                                    ->where('name', '=', 'Admin')
-                                                    ->orWhere('name', '=', 'Super Admin')
-                                                    ->get()
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get();
+                                                $roles  = \App\Models\Role::query()
+                                                    ->select(['id', 'name'])
+                                                    ->whereIn('name', ['Admin', 'Super Admin'])
+                                                    ->get();
                                             @endphp
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="institution">Instituttion</label>
+                                                    <div class="form-control-wrap">
+                                                        <select
+                                                            class="form-control js-select2 select2-hidden-accessible @error('institution') error @enderror"
+                                                            id="institution"
+                                                            data-search="on"
+                                                            name="institution"
+                                                            data-placeholder="Select a role"
+                                                            required>
+                                                            <option label="role" value=""></option>
+                                                            @foreach($institutions as $institution)
+                                                                <option value="{{ $institution->id }}">
+                                                                    {{ ucfirst($institution->institution_name) }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="role_id">Select Role</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('role_id') error @enderror"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('role_id') error @enderror"
                                                             id="role_id"
+                                                            data-search="on"
                                                             name="role_id"
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
                                                             @foreach($roles as $role)
-                                                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                                                                <option value="{{ $role->id }}">
+                                                                    {{ ucfirst($role->name) }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Mot de passe</label>

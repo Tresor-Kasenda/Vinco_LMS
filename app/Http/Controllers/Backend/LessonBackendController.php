@@ -8,19 +8,15 @@ use App\Contracts\LessonRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonRequest;
 use App\Http\Requests\LessonUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response as HttpResponse;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class LessonBackendController extends Controller
 {
     public function __construct(
-        protected readonly SweetAlertFactory $factory,
         protected readonly LessonRepositoryInterface $repository,
     ) {
     }
@@ -39,7 +35,7 @@ class LessonBackendController extends Controller
 
     public function store(LessonRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, flash: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.lessons.index');
     }
@@ -51,23 +47,23 @@ class LessonBackendController extends Controller
         return view('backend.domain.academic.lessons.show', compact('lesson'));
     }
 
-    public function edit(string $key): HttpResponse
+    public function edit(string $key): Factory|View|Application
     {
         $lesson = $this->repository->showLesson(key:  $key);
 
-        return Response::view('backend.domain.academic.lessons.edit', compact('lesson'));
+        return view('backend.domain.academic.lessons.edit')->with('lesson', $lesson);
     }
 
     public function update(string $key, LessonUpdateRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, flash: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.academic.lessons.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, flash: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

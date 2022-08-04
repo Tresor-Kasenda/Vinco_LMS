@@ -38,7 +38,7 @@ class EventsBackendController extends Controller
 
         $calendar = \Calendar::addEvents($eloquentEvent);
 
-        return view('backend.domain.communication.events.index', compact('calendar'));
+        return view('backend.domain.communication.events.index', compact('calendar', 'eloquentEvent'));
     }
 
     /**
@@ -54,7 +54,7 @@ class EventsBackendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param EventRequest $request
+     * @param  EventRequest  $request
      * @return RedirectResponse
      */
     public function store(EventRequest $request): RedirectResponse
@@ -78,7 +78,7 @@ class EventsBackendController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return Application|Factory|View
      */
     public function edit(string $id): View|Factory|Application
@@ -91,8 +91,8 @@ class EventsBackendController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EventRequest $request
-     * @param string $id
+     * @param  EventRequest  $request
+     * @param  string  $id
      * @return RedirectResponse
      */
     public function update(EventRequest $request, string $id): RedirectResponse

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\LessonRepositoryInterface;
-use App\Enums\StatusEnum;
-use App\Models\Chapter;
-use App\Models\Course;
 use App\Models\Lesson;
+use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -17,8 +15,29 @@ use LaravelIdea\Helper\App\Models\_IH_Lesson_QB;
 
 class LessonRepository implements LessonRepositoryInterface
 {
+    public function __construct(protected ToastMessageService $service)
+    {
+    }
+
     public function getLessons(): array|Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Lesson::query()
+                ->select([
+                    'id',
+                    'name',
+                    'chapter_id',
+                    'lesson_type_id',
+                ])
+                ->with([
+                    'chapter:id,name,course_id',
+                    'chapter.course:id,name',
+                    'type:id,name',
+                ])
+                ->orderByDesc('created_at')
+                ->get();
+        }
+
         return Lesson::query()
             ->select([
                 'id',
@@ -26,7 +45,16 @@ class LessonRepository implements LessonRepositoryInterface
                 'chapter_id',
                 'lesson_type_id',
             ])
-            ->with(['chapter:id,name,course_id', 'chapter.course:id,name', 'type:id,name'])
+            ->whereHas('chapter', function ($builder) {
+                $builder->whereHas('course', function ($builder) {
+                    $builder->where('institution_id', auth()->user()->institution->id);
+                });
+            })
+            ->with([
+                'chapter:id,name,course_id',
+                'chapter.course:id,name',
+                'type:id,name',
+            ])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -53,7 +81,7 @@ class LessonRepository implements LessonRepositoryInterface
         ]);
     }
 
-    public function stored($attributes, $flash): Lesson|Builder|Model|RedirectResponse
+    public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
         $lesson = Lesson::query()
             ->create([
@@ -62,12 +90,12 @@ class LessonRepository implements LessonRepositoryInterface
                 'content' => $attributes->input('content'),
                 'lesson_type_id' => $attributes->input('type'),
             ]);
-        $flash->addSuccess('Une nouvelle lecon a ete ajouter');
+        $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
     }
 
-    public function updated(string $key, $attributes, $flash): Model|_IH_Lesson_QB|Lesson|Builder|null
+    public function updated(string $key, $attributes): Model|_IH_Lesson_QB|Lesson|Builder|null
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->update([
@@ -76,16 +104,16 @@ class LessonRepository implements LessonRepositoryInterface
             'content' => $attributes->input('content'),
             'lesson_type_id' => $attributes->input('type'),
         ]);
-        $flash->addSuccess('Une lecon a ete mise a jours avec success');
+        $this->service->success('Une lecon a ete mise a jours avec success');
 
         return $lesson;
     }
 
-    public function deleted(string $key, $flash): Lesson|Builder|Model|_IH_Lesson_QB
+    public function deleted(string $key): Lesson|Builder|Model|_IH_Lesson_QB
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->delete();
-        $flash->addSuccess('La lesson a ete supprimer avec success');
+        $this->service->success('La lesson a ete supprimer avec success');
 
         return $lesson;
     }

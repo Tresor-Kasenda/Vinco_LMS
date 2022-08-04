@@ -24,9 +24,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read Chapter|null $chapter
- * @property-read Course|null $course
- * @property-read Lesson|null $lesson
+ * @property-read \App\Models\Chapter|null $chapter
+ * @property-read \App\Models\Course|null $course
+ * @property-read \App\Models\Lesson|null $lesson
+ *
  * @method static Builder|Homework newModelQuery()
  * @method static Builder|Homework newQuery()
  * @method static Builder|Homework query()

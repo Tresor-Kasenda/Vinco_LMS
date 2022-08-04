@@ -8,6 +8,6 @@ class Inactive extends ActivationState
 {
     public function color(): string
     {
-        // TODO: Implement color() method.
+        return  'danger';
     }
 }

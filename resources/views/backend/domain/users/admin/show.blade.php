@@ -56,8 +56,13 @@
                                         </tr>
 
                                         <tr>
-                                            <th>Date D'inscription</th>
-                                            <td>{{ $admin->created_at->format('M, d, Y') ?? "" }}</td>
+                                            <th>Institution Name</th>
+                                            <td>{{ ucfirst($admin->institution->institution_name) ?? "" }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Institution Email</th>
+                                            <td>{{ $admin->institution->institution_email ?? $admin->email }}</td>
                                         </tr>
 
                                         <tr class="text-justify">

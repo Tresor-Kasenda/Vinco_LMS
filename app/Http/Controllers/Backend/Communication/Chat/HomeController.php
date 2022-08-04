@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Communication\Chat;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

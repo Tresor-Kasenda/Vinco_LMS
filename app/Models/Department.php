@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\StatusEnum;
-use App\Traits\HasKeyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +36,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $teachers_count
  * @property-read Collection|User[] $users
  * @property-read int|null $users_count
+ *
  * @method static Builder|Department newModelQuery()
  * @method static Builder|Department newQuery()
  * @method static \Illuminate\Database\Query\Builder|Department onlyTrashed()
@@ -53,6 +53,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Department withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  * @mixin \Eloquent
+ *
+ * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
  */
 class Department extends Model
 {

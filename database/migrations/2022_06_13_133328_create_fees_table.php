@@ -15,7 +15,7 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up():void
+    public function up(): void
     {
         Schema::create('fees', function (Blueprint $table) {
             $table->id();

@@ -66,6 +66,7 @@
                         <div class="form-group">
                             <button class="btn btn-lg btn-primary btn-block">Connexion</button>
                         </div>
+                        <div class="form-note-s2 pt-4"> New on our platform? <a href="{{ route('password.request') }}">Password Forgot</a></div>
                     </form>
                 </div>
                 <div class="nk-block nk-auth-footer">

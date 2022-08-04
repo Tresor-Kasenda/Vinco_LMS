@@ -9,23 +9,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Requests\DepartmentStatusRequest;
 use App\Http\Requests\DepartmentUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
-use function Pest\Laravel\delete;
-use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 
 class DepartmentBackendController extends Controller
 {
     public function __construct(
-        protected readonly DepartmentRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly DepartmentRepositoryInterface $repository
     ) {
     }
 
@@ -43,7 +38,7 @@ class DepartmentBackendController extends Controller
 
     public function store(DepartmentRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.departments.index');
     }
@@ -64,14 +59,14 @@ class DepartmentBackendController extends Controller
 
     public function update(string $key, DepartmentUpdateRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return Response::redirectToRoute('admins.academic.departments.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return Response::redirectToRoute('admins.academic.departments.index');
     }

@@ -34,11 +34,26 @@
                         <div class="card-inner">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.users.staffs.update', $employee->id) }}"
-                                          method="post" class="form-validate" enctype="multipart/form-data">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('admins.users.staffs.update', $employee->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
-                                        {{method_field('PUT')}}
+                                        {{ method_field('PUT') }}
                                         <div class="row g-gs">
+                                            @php
+                                                $roles = \App\Models\Role::query()
+                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable'])
+                                                        ->get();
+                                                $academic = \App\Models\AcademicYear::get();
+                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Nom</label>
@@ -89,20 +104,14 @@
                                                 </div>
                                             </div>
 
-                                            @php
-                                                $roles = \Spatie\Permission\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur'])
-                                                        ->get();
-
-                                            @endphp
-
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label" for="role">Role</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('role') error @enderror"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('role') error @enderror"
                                                             data-value="{{ old('role') }}"
+                                                            data-search="on"
                                                             id="role"
                                                             name="role"
                                                             data-placeholder="Select Role"
@@ -118,33 +127,56 @@
                                                 </div>
                                             </div>
 
-                                            @php
-                                                $academicYear = \App\Models\AcademicYear::all();
-                                            @endphp
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="academic">Annee academique</label>
+                                                    <select
+                                                        class="form-control js-select2 select2-hidden-accessible @error('academic') error @enderror"
+                                                        id="academic"
+                                                        data-search="on"
+                                                        name="academic"
+                                                        data-placeholder="Choisir l'annee academique"
+                                                        required>
+                                                        <option value="{{ $employee->academic->id }}">
+                                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->start_date)->format('Y') }}
+                                                            -
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->end_date)->format('Y') }}
+                                                        </option>
+                                                        @foreach($academic as $campus)
+                                                            <option value="{{ $campus->id }}">
+                                                                {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
+                                                                -
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $campus->end_date)->format('Y') }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="academic">Annee academique</label>
+                                                    <label class="form-label" for="institution">Instituttion</label>
                                                     <div class="form-control-wrap">
                                                         <select
-                                                            class="form-control js-select2 @error('academic') error @enderror"
-                                                            data-value="{{ old('academic') }}"
-                                                            id="academic"
-                                                            name="academic"
-                                                            data-placeholder="Select a academic year"
+                                                            class="form-control js-select2 select2-hidden-accessible @error('institution') error @enderror"
+                                                            id="institution"
+                                                            data-search="on"
+                                                            name="institution"
+                                                            data-placeholder="Select a institution"
                                                             required>
-                                                            <option label="genre" value=""></option>
-                                                            @foreach($academicYear as $year)
-                                                                <option value="{{ $year->id }}">
-                                                                    {{  \Carbon\Carbon::createFromFormat('Y-m-d', $year->start_date)->format('Y') }}
-                                                                    -
-                                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $year->end_date)->format('Y') }}
+                                                            <option value="{{ $employee->user->institution->id }}">
+                                                                {{ ucfirst($employee->user->institution->institution_name) ?? "" }}
+                                                            </option>
+                                                            @foreach($institutions as $institution)
+                                                                <option value="{{ $institution->id }}">
+                                                                    {{ ucfirst($institution->institution_name) }}
                                                                 </option>
-                                                            @endforeach>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="gender">Gender</label> <br>
