@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\ModelStates\HasStates;
 
 /**
- * App\Models\Live
+ * App\Models\Live.
  *
  * @property int $id
  * @property int|null $lesson_id

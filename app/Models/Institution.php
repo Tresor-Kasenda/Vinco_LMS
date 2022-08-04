@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Institution
+ * App\Models\Institution.
  *
  * @property-read Collection|Campus[] $campuses
  * @property-read int|null $campuses_count

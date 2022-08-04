@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Fee
+ * App\Models\Fee.
  *
  * @property int $id
  * @property int $fee_type_id

@@ -125,13 +125,13 @@ class StudentRepository implements StudentRepositoryInterface
     {
         $user = $this->verifyIfUserEmailExist($attributes);
         if (! $user) {
-
             $user = $this->createStudentBelongToUser($attributes);
             $role = $this->getStudentRole();
             $user->attachRole($role->id);
             $student = $this->storeStudent($user, $attributes);
             $result = $student ? $this->confirmation->send($student) : '';
             $this->service->success('Un Etudiant a ete ajouter avec succes');
+
             return $student;
         }
         $this->service->warning('Cette email a ete deja utiliser sur un autre compte');

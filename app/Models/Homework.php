@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Homework
+ * App\Models\Homework.
  *
  * @property int $id
  * @property int|null $course_id

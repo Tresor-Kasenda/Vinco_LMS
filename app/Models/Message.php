@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Message
+ * App\Models\Message.
  *
  * @property-read string $date_time
  * @property-read \App\Models\Group|null $group

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Event
+ * App\Models\Event.
  *
  * @property-read Event|null $institution
  * @property-read Promotion|null $promotion

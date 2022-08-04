@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\LessonType
+ * App\Models\LessonType.
  *
  * @property-read Lesson|null $lesson
  *

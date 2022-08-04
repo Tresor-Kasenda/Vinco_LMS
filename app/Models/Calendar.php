@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Calendar
+ * App\Models\Calendar.
  *
  * @property-read Event|null $institution
  *

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ChMessage
+ * App\Models\ChMessage.
  *
  * @property int $id
  * @property string $type
