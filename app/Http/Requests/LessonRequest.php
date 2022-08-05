@@ -25,6 +25,11 @@ final class LessonRequest extends FormRequest
             'content' => ['nullable', 'string'],
             'video' => ['nullable'],
             'pdf_lesson' => ['nullable', 'file', 'mimes:pdf,doc,docx'],
+            // video lesson
+            'video_lesson' => ['nullable', 'mimetypes:video/*'],
+            // PDF Validation
+            'pdf_format' => ['nullable', 'file', 'mimes:pdf,doc,docx'],
+            // Aperi Validation
             'participants' => ['nullable', 'string'],
             'date' => ['nullable', 'date'],
             'start_time' => ['nullable'],

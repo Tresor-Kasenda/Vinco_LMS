@@ -10,9 +10,8 @@ use App\Models\Lesson;
 use App\Models\LessonType;
 use App\Services\ToastMessageService;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Builder;
 use Illuminate\Http\RedirectResponse;
 
 final class LessonRepository implements LessonRepositoryInterface
@@ -66,20 +65,21 @@ final class LessonRepository implements LessonRepositoryInterface
      */
     public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
-        $type = $this->getLessonType($attributes);
+        $lessonFactory = new LessonFactory();
 
+        $type = $this->getLessonType($attributes);
         $lesson = $this->storeLesson($attributes);
 
-        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
-            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
-        }
+        $lessonType = $lessonFactory->storageLessonType(type: $type->id);
+        $lessonType->store(attributes: $attributes, lesson: $lesson);
+
         $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
     }
 
-    private function getLessonType($attributes): LessonType|Builder|Model
+
+    public function getLessonType($attributes): LessonType|Builder|Model
     {
         return LessonType::query()
             ->select([
@@ -90,7 +90,7 @@ final class LessonRepository implements LessonRepositoryInterface
             ->firstOrFail();
     }
 
-    private function storeLesson($attributes): Lesson|Builder|Model
+    public function storeLesson($attributes): Lesson|Builder|Model
     {
         return Lesson::query()
             ->create([
@@ -100,6 +100,7 @@ final class LessonRepository implements LessonRepositoryInterface
                 'lesson_type_id' => $attributes->input('type'),
             ]);
     }
+
 
     /**
      * @throws Exception
@@ -114,6 +115,7 @@ final class LessonRepository implements LessonRepositoryInterface
             'content' => $attributes->input('content'),
             'lesson_type_id' => $attributes->input('type'),
         ]);
+
 
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
