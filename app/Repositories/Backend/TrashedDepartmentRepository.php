@@ -10,7 +10,7 @@ use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 
-class TrashedDepartmentRepository implements TrashedDepartmentRepositoryInterface
+final class TrashedDepartmentRepository implements TrashedDepartmentRepositoryInterface
 {
     use ImageUploader;
 

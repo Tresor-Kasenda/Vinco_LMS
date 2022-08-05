@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
-class InstitutionRequest extends FormRequest
+final class InstitutionRequest extends FormRequest
 {
     public function rules(): array
     {

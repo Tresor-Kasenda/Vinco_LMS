@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Laratrust\Models\LaratrustRole;
 
-class CreateUserCommand extends Command
+final class CreateUserCommand extends Command
 {
     protected $signature = 'vinco:add-user {name?}';
 
@@ -33,8 +33,8 @@ class CreateUserCommand extends Command
         $this->comment('Add User Command Interactive Wizard');
 
         process :
-            $name = ucwords($this->anticipate('name', ['admin', 'Place manager']));
-        $email = strtolower($this->ask('email'));
+            $name = ucwords((string) $this->anticipate('name', ['admin', 'Place manager']));
+        $email = strtolower((string) $this->ask('email'));
         $password = $this->secret('password');
         $password_confirmation = $this->secret('confirm password');
 

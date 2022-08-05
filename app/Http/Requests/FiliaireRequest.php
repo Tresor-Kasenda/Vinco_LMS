@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class FiliaireRequest extends FormRequest
+final class FiliaireRequest extends FormRequest
 {
     public function authorize(): bool
     {

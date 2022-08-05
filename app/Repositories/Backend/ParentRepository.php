@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
-class ParentRepository implements ParentRepositoryInterface
+final class ParentRepository implements ParentRepositoryInterface
 {
     use ImageUploader;
 
@@ -136,9 +136,6 @@ class ParentRepository implements ParentRepositoryInterface
         return null;
     }
 
-    /**
-     * @return Builder|Model
-     */
     private function getParentRole(): Builder|Model
     {
         return Role::query()

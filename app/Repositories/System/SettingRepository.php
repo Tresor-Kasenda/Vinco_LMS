@@ -12,14 +12,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 
-class SettingRepository implements SettingRepositoryInterface
+final class SettingRepository implements SettingRepositoryInterface
 {
     use ImageUploader;
 
     /**
      * @param $request
      * @param $factory
-     * @return Model|Builder
      */
     public function store($request, $factory): Model|Builder
     {
@@ -40,7 +39,6 @@ class SettingRepository implements SettingRepositoryInterface
     }
 
     /**
-     * @param  int  $id
      * @param $request
      * @param $factory
      * @return Builder|Builder[]|Collection|Model|mixed|object|null

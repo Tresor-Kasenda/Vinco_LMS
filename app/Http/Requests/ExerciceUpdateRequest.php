@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ExerciceUpdateRequest extends FormRequest
+final class ExerciceUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

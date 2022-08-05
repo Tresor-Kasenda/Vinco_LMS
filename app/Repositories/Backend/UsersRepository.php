@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
-class UsersRepository implements UsersRepositoryInterface
+final class UsersRepository implements UsersRepositoryInterface
 {
     public function __construct(protected ToastMessageService $service)
     {

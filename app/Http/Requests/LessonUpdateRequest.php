@@ -7,7 +7,7 @@ use App\Models\LessonType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class LessonUpdateRequest extends FormRequest
+final class LessonUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

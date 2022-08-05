@@ -12,7 +12,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class EventRepository implements EventRepositoryInterface
+final class EventRepository implements EventRepositoryInterface
 {
     /**
      * @throws Exception
@@ -26,7 +26,7 @@ class EventRepository implements EventRepositoryInterface
 
         foreach ($events as $event) {
             $calendar[] = Calendar::event(
-                ucfirst($event->title),
+                ucfirst((string) $event->title),
                 true,
                 new $event->start_date,
                 new $event->end_date,

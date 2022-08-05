@@ -7,7 +7,7 @@ use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class InterroRequest extends FormRequest
+final class InterroRequest extends FormRequest
 {
     public function rules(): array
     {

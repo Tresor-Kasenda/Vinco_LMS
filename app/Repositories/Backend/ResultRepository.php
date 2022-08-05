@@ -6,7 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ResultRepositoryInterface;
 
-class ResultRepository implements ResultRepositoryInterface
+final class ResultRepository implements ResultRepositoryInterface
 {
     public function results()
     {

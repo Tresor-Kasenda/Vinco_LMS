@@ -14,7 +14,7 @@ use App\Traits\RandomValues;
 use App\Traits\TimeCalculation;
 use JetBrains\PhpStorm\ArrayShape;
 
-class CreateRoomRepository implements CreateRoomRepositoryInterface
+final class CreateRoomRepository implements CreateRoomRepositoryInterface
 {
     use TimeCalculation, RandomValues;
 
@@ -28,7 +28,7 @@ class CreateRoomRepository implements CreateRoomRepositoryInterface
         $rooms = self::create(attributes: $attributes);
         $currentTime = strtotime(''.$attributes->date.' '.$attributes->startTime.'');
         $date = date('Y-m-d H:i:s', $currentTime);
-        $pinCode = rand(100000, 999999);
+        $pinCode = random_int(100000, 999999);
         $participant = $this->generateStringValues(0, 9999);
         $guests = $attributes->input('guests');
 
@@ -38,7 +38,7 @@ class CreateRoomRepository implements CreateRoomRepositoryInterface
             $date,
             $attributes
         )
-            ->delay(now()->addSecond(10));
+            ->delay(now()->addSecond());
 
         foreach ($guests as $guest) {
             StudentNotificationRoom::dispatch(
@@ -48,7 +48,7 @@ class CreateRoomRepository implements CreateRoomRepositoryInterface
                 $guest,
                 $attributes
             )
-                ->delay(now()->addSecond(10));
+                ->delay(now()->addSecond());
         }
 
         return Live::query()

@@ -8,7 +8,7 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 
-class EnableXService
+final class EnableXService
 {
     public static function createConnexion(): PendingRequest|RedirectResponse
     {

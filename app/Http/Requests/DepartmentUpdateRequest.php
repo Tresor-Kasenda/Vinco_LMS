@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
-class DepartmentUpdateRequest extends FormRequest
+final class DepartmentUpdateRequest extends FormRequest
 {
     #[ArrayShape(['name' => 'string[]', 'user' => 'array', 'campus' => 'array', 'description' => 'string[]'])]
     public function rules(): array

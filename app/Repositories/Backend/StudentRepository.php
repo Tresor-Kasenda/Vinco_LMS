@@ -22,12 +22,14 @@ use LaravelIdea\Helper\App\Models\_IH_Role_QB;
 use LaravelIdea\Helper\App\Models\_IH_Student_QB;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
-class StudentRepository implements StudentRepositoryInterface
+final class StudentRepository implements StudentRepositoryInterface
 {
     use ImageUploader, RandomValues;
 
-    public function __construct(protected ToastMessageService $service, protected SendEmailConfirmation $confirmation)
-    {
+    public function __construct(
+        protected ToastMessageService $service,
+        protected SendEmailConfirmation $confirmation
+    ) {
     }
 
     public function students(): array|Collection
@@ -125,13 +127,13 @@ class StudentRepository implements StudentRepositoryInterface
     {
         $user = $this->verifyIfUserEmailExist($attributes);
         if (! $user) {
-
             $user = $this->createStudentBelongToUser($attributes);
             $role = $this->getStudentRole();
             $user->attachRole($role->id);
             $student = $this->storeStudent($user, $attributes);
             $result = $student ? $this->confirmation->send($student) : '';
             $this->service->success('Un Etudiant a ete ajouter avec succes');
+
             return $student;
         }
         $this->service->warning('Cette email a ete deja utiliser sur un autre compte');

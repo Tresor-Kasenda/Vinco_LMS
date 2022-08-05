@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use LaravelIdea\Helper\App\Models\_IH_Question_QB;
 
-class InterroRepository implements InterroRepositoryInterface
+final class InterroRepository implements InterroRepositoryInterface
 {
     public function interros(): array|Collection|\Illuminate\Support\Collection
     {

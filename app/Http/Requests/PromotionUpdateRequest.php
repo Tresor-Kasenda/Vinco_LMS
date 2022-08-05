@@ -7,7 +7,7 @@ use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PromotionUpdateRequest extends FormRequest
+final class PromotionUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

@@ -10,7 +10,7 @@ use App\Models\Lesson;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class HomeworkUpdateRequest extends FormRequest
+final class HomeworkUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

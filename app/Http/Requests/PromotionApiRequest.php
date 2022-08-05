@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
-class PromotionApiRequest extends FormRequest
+final class PromotionApiRequest extends FormRequest
 {
     #[ArrayShape(['filiaire' => 'array'])]
     public function rules(): array

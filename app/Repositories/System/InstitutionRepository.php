@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Institution_QB;
 
-class InstitutionRepository implements InstitutionRepositoryInterface
+final class InstitutionRepository implements InstitutionRepositoryInterface
 {
     use ImageUploader;
 

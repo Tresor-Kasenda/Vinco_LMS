@@ -6,7 +6,7 @@ use App\Contracts\EnableX\EnableXRepositoryInterface;
 use App\Services\EnableX\EnableXService;
 use App\Services\ToastMessageService;
 
-class EnableBackendRepository implements EnableXRepositoryInterface
+final class EnableBackendRepository implements EnableXRepositoryInterface
 {
     public function __construct(
         protected ToastMessageService $service,

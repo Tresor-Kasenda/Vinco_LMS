@@ -7,7 +7,7 @@ use App\Models\ExamSession;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ExamListRequest extends FormRequest
+final class ExamListRequest extends FormRequest
 {
     public function rules(): array
     {

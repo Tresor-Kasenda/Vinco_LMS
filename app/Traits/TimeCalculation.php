@@ -15,8 +15,8 @@ trait TimeCalculation
         $secondsToAdd = -2 * (60 * 60);
         $newTime = $currentTime + $secondsToAdd;
         $date = date('Y-m-d H:i:s', $newTime);
-        $array1 = explode(':', $start_time);
-        $array2 = explode(':', $end_tie);
+        $array1 = explode(':', (string) $start_time);
+        $array2 = explode(':', (string) $end_tie);
         $difference = ($array1[0] * 60.0 + $array1[1]) - ($array2[0] * 60.0 + $array2[1]);
 
         return [

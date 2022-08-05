@@ -6,7 +6,7 @@ use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ChapterUpdateRequest extends FormRequest
+final class ChapterUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

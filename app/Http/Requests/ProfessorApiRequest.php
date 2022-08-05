@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
-class ProfessorApiRequest extends FormRequest
+final class ProfessorApiRequest extends FormRequest
 {
     #[ArrayShape(['institution' => 'array'])]
     public function rules(): array

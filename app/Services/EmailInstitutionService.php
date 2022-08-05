@@ -8,7 +8,7 @@ use App\Models\Institution;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class EmailInstitutionService implements ShouldQueue
+final class EmailInstitutionService implements ShouldQueue
 {
     public function sendEmail(Institution $institution)
     {

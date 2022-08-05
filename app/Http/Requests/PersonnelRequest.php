@@ -10,7 +10,7 @@ use App\Models\Personnel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PersonnelRequest extends FormRequest
+final class PersonnelRequest extends FormRequest
 {
     public function authorize(): bool
     {
