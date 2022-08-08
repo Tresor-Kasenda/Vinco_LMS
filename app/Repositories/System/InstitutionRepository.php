@@ -73,12 +73,9 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_email' => $attributes->input('institution_email'),
             ]);
 
-        try
-        {
+        try {
             $this->institution->sendEmail(institution:  $institution);
-        }
-        catch (Throwable $exception)
-        {
+        } catch (Throwable $exception) {
             return $institution;
         }
 
