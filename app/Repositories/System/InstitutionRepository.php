@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Institution_QB;
+use Throwable;
 
 class InstitutionRepository implements InstitutionRepositoryInterface
 {
@@ -72,7 +73,14 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_email' => $attributes->input('institution_email'),
             ]);
 
-        $this->institution->sendEmail(institution:  $institution);
+        try
+        {
+            $this->institution->sendEmail(institution:  $institution);
+        }
+        catch (Throwable $exception)
+        {
+            return $institution;
+        }
 
         return $institution;
     }

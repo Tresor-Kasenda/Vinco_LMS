@@ -11,7 +11,6 @@ namespace PHPSTORM_META {
     */
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -25,7 +24,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -91,6 +89,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -137,7 +136,6 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -151,7 +149,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -217,6 +214,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -263,7 +261,6 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::get(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -277,7 +274,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -343,6 +339,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -389,7 +386,6 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -403,7 +399,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -469,6 +464,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -515,7 +511,6 @@ namespace PHPSTORM_META {
         ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -529,7 +524,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -595,6 +589,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -641,7 +636,6 @@ namespace PHPSTORM_META {
         ]));
     override(\App::get(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -655,7 +649,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -721,6 +714,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -767,7 +761,6 @@ namespace PHPSTORM_META {
         ]));
     override(\App::make(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -781,7 +774,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -847,6 +839,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -893,7 +886,6 @@ namespace PHPSTORM_META {
         ]));
     override(\App::makeWith(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -907,7 +899,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -973,6 +964,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -1019,7 +1011,6 @@ namespace PHPSTORM_META {
         ]));
     override(\app(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -1033,7 +1024,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -1099,6 +1089,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -1145,7 +1136,6 @@ namespace PHPSTORM_META {
         ]));
     override(\resolve(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -1159,7 +1149,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -1225,6 +1214,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
@@ -1271,7 +1261,6 @@ namespace PHPSTORM_META {
         ]));
     override(\Psr\Container\ContainerInterface::get(0), map([
         '' => '@',
-            'App\Contracts\ChapterRepositoryInterface' => \App\Repositories\Backend\ChapterRepository::class,
             'App\Contracts\ChartRepositoryInterface' => \App\Repositories\System\ChartRepository::class,
             'App\Contracts\EventRepositoryInterface' => \App\Repositories\Com\EventRepository::class,
             'App\Contracts\ExamListRepositoryInterface' => \App\Repositories\Backend\ExamListRepository::class,
@@ -1285,7 +1274,6 @@ namespace PHPSTORM_META {
             'App\Contracts\InstitutionRepositoryInterface' => \App\Repositories\System\InstitutionRepository::class,
             'App\Contracts\InterroRepositoryInterface' => \App\Repositories\Backend\InterroRepository::class,
             'App\Contracts\JournalRepositoryInterface' => \App\Repositories\Com\JournalRepository::class,
-            'App\Contracts\LessonRepositoryInterface' => \App\Repositories\Backend\LessonRepository::class,
             'App\Contracts\NotificationRepositoryInterface' => \App\Repositories\Com\NotificationRepository::class,
             'App\Contracts\ProfileRepositoryInterface' => \App\Repositories\Backend\ProfileRepository::class,
             'App\Contracts\ResourceRepositoryInterface' => \App\Repositories\Backend\ResourceRepository::class,
@@ -1351,6 +1339,7 @@ namespace PHPSTORM_META {
             'Illuminate\Foundation\Console\ViewCacheCommand' => \Illuminate\Foundation\Console\ViewCacheCommand::class,
             'Illuminate\Foundation\Mix' => \Illuminate\Foundation\Mix::class,
             'Illuminate\Foundation\PackageManifest' => \Illuminate\Foundation\PackageManifest::class,
+            'Illuminate\Foundation\Vite' => \Illuminate\Foundation\Vite::class,
             'Illuminate\Queue\Console\ClearCommand' => \Illuminate\Queue\Console\ClearCommand::class,
             'Illuminate\Queue\Console\FlushFailedCommand' => \Illuminate\Queue\Console\FlushFailedCommand::class,
             'Illuminate\Queue\Console\ForgetFailedCommand' => \Illuminate\Queue\Console\ForgetFailedCommand::class,
