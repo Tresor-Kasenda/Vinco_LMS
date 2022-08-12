@@ -82,7 +82,7 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ ucfirst($lesson->type->name) ?? "" }}
+
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">

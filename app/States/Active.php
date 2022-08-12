@@ -10,4 +10,9 @@ final class Active extends ActivationState
     {
         return 'primary';
     }
+
+    public function getClassName(): string
+    {
+        return Active::class;
+    }
 }

@@ -12,7 +12,7 @@ use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Gate;
 
-class InstitutionController extends Controller
+final class InstitutionController extends Controller
 {
     public function __construct(
         protected readonly InstitutionRepositoryInterface $repository,

@@ -9,7 +9,7 @@ use App\Models\Professor;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Institution_C;
 
-class ProfessorApiRepository
+final class ProfessorApiRepository
 {
     public function getProfessor(ProfessorApiRequest $apiRequest): _IH_Institution_C|Collection|array
     {

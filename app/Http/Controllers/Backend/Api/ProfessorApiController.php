@@ -8,7 +8,7 @@ use App\Http\Requests\ProfessorApiRequest;
 use App\Repositories\Api\ProfessorApiRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProfessorApiController
+final class ProfessorApiController
 {
     public function getInstitution(ProfessorApiRequest $apiRequest, ProfessorApiRepository $repository)
     {

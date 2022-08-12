@@ -21,7 +21,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|\App\Models\Fee[] $feeType
  * @property-read int|null $fee_type_count
- *
  * @method static Builder|FeeType newModelQuery()
  * @method static Builder|FeeType newQuery()
  * @method static Builder|FeeType query()
@@ -32,7 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|FeeType whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class FeeType extends Model
+final class FeeType extends Model
 {
     use HasFactory;
 

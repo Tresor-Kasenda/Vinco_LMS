@@ -10,7 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 
-class TrashedDepartmentBackendController extends \App\Http\Controllers\Controller
+final class TrashedDepartmentBackendController extends \App\Http\Controllers\Controller
 {
     public function __construct(
         public SweetAlertFactory $alertFactory,

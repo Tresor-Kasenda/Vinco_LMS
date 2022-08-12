@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class ParentBackendController extends Controller
+final class ParentBackendController extends Controller
 {
     public function __construct(
         protected readonly ParentRepositoryInterface $repository,

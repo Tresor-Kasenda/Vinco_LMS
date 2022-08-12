@@ -13,19 +13,16 @@ use Laratrust\Models\LaratrustPermission;
  *
  * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count
- *
  * @method static Builder|Permission newModelQuery()
  * @method static Builder|Permission newQuery()
  * @method static Builder|Permission query()
  * @mixin \Eloquent
- *
  * @property int $id
  * @property string $name
  * @property string|null $display_name
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static Builder|Permission whereCreatedAt($value)
  * @method static Builder|Permission whereDescription($value)
  * @method static Builder|Permission whereDisplayName($value)
@@ -33,7 +30,7 @@ use Laratrust\Models\LaratrustPermission;
  * @method static Builder|Permission whereName($value)
  * @method static Builder|Permission whereUpdatedAt($value)
  */
-class Permission extends LaratrustPermission
+final class Permission extends LaratrustPermission
 {
     public $guarded = [];
 }

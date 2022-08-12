@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $resources_count
  * @property-write mixed $start_time
  * @property-read \App\Models\LessonType|null $type
- *
  * @method static Builder|Lesson calendarByRoleOrClassId()
  * @method static Builder|Lesson newModelQuery()
  * @method static Builder|Lesson newQuery()
@@ -48,28 +47,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Lesson withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Lesson withoutTrashed()
  * @mixin Eloquent
- *
  * @property int|null $lesson_type_id
  * @property string|null $content
- *
  * @method static Builder|Lesson whereContent($value)
  * @method static Builder|Lesson whereLessonTypeId($value)
- *
  * @property int $institution_id
- *
  * @method static Builder|Lesson whereInstitutionId($value)
  */
-class Lesson extends Model
+final class Lesson extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $guarded = [];
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     public const WEEK_DAYS = [
         '1' => 'Monday',
@@ -80,6 +67,31 @@ class Lesson extends Model
         '6' => 'Saturday',
         '7' => 'Sunday',
     ];
+    protected $guarded = [];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static function isTimeAvailable($weekday, $startTime, $endTime, $class, $teacher, $lesson): bool
+    {
+        $lessons = self::where('weekday', $weekday)
+            ->when($lesson, function ($query) use ($lesson) {
+                $query->where('id', '!=', $lesson);
+            })
+            ->where(function ($query) use ($class, $teacher) {
+                $query->where('class_id', $class)
+                    ->orWhere('teacher_id', $teacher);
+            })
+            ->where([
+                ['start_time', '<', $endTime],
+                ['end_time', '>', $startTime],
+            ])
+            ->count();
+
+        return ! $lessons;
+    }
 
     public function getDifference(): int
     {
@@ -112,25 +124,6 @@ class Lesson extends Model
             config('panel.lesson_time_format'),
             $value
         )->format('H:i:s') : null;
-    }
-
-    public static function isTimeAvailable($weekday, $startTime, $endTime, $class, $teacher, $lesson): bool
-    {
-        $lessons = self::where('weekday', $weekday)
-            ->when($lesson, function ($query) use ($lesson) {
-                $query->where('id', '!=', $lesson);
-            })
-            ->where(function ($query) use ($class, $teacher) {
-                $query->where('class_id', $class)
-                    ->orWhere('teacher_id', $teacher);
-            })
-            ->where([
-                ['start_time', '<', $endTime],
-                ['end_time', '>', $startTime],
-            ])
-            ->count();
-
-        return ! $lessons;
     }
 
     public function scopeCalendarByRoleOrClassId($query)
@@ -170,6 +163,6 @@ class Lesson extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(LessonType::class, 'lesson_type_id');
+        return $this->belongsTo(LessonType::class);
     }
 }

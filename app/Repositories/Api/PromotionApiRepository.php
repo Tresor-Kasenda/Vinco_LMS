@@ -9,7 +9,7 @@ use App\Models\Promotion;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Promotion_C;
 
-class PromotionApiRepository
+final class PromotionApiRepository
 {
     public function getPromotion(PromotionApiRequest $apiRequest): Collection|_IH_Promotion_C|array
     {

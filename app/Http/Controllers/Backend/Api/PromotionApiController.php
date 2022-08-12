@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Backend\Api;
 use App\Http\Requests\PromotionApiRequest;
 use App\Repositories\Api\PromotionApiRepository;
 
-class PromotionApiController
+final class PromotionApiController
 {
     public function getPromotion(PromotionApiRequest $apiRequest, PromotionApiRepository $repository)
     {

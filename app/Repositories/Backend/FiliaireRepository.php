@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Subsidiary_QB;
 
-class FiliaireRepository implements FiliaireRepositoryInterface
+final class FiliaireRepository implements FiliaireRepositoryInterface
 {
     use ImageUploader;
 

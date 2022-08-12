@@ -6,19 +6,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ViewComposeServiceProvider extends ServiceProvider
+final class ViewComposeServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
     }

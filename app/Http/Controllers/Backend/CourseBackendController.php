@@ -18,7 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-class CourseBackendController extends Controller
+final class CourseBackendController extends Controller
 {
     public function __construct(
         private readonly CourseRepositoryInterface $repository

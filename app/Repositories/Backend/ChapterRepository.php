@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 
-class ChapterRepository implements ChapterRepositoryInterface
+final class ChapterRepository implements ChapterRepositoryInterface
 {
     use ImageUploader;
 

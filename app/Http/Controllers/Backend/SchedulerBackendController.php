@@ -15,7 +15,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class SchedulerBackendController extends Controller
+final class SchedulerBackendController extends Controller
 {
     public function __construct(
         protected readonly SchedulerRepositoryInterface $repository,

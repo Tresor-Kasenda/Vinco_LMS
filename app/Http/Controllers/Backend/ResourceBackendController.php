@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-class ResourceBackendController extends Controller
+final class ResourceBackendController extends Controller
 {
     public function __construct(
         protected readonly ResourceRepositoryInterface $repository,

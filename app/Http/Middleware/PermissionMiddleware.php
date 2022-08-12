@@ -10,16 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
-class PermissionMiddleware
+final class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  Request  $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @param  null  $permission
      * @param  null  $guard
-     * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next, $permission = null, $guard = null): Response|RedirectResponse
     {

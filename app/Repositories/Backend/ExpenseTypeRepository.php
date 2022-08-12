@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
+final class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
 {
     use ImageUploader;
 

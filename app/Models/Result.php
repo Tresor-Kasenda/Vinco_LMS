@@ -23,7 +23,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read \App\Models\Course $course
  * @property-read \App\Models\Student $student
- *
  * @method static Builder|Result newModelQuery()
  * @method static Builder|Result newQuery()
  * @method static Builder|Result query()
@@ -37,7 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Result whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Result extends Model
+final class Result extends Model
 {
     use HasFactory;
 

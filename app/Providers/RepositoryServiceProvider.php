@@ -94,7 +94,7 @@ use App\Repositories\System\RoleRepository;
 use App\Repositories\System\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
-class RepositoryServiceProvider extends ServiceProvider
+final class RepositoryServiceProvider extends ServiceProvider
 {
     /**
      * @var array|string[]
@@ -148,17 +148,11 @@ class RepositoryServiceProvider extends ServiceProvider
         EnableXRepositoryInterface::class => EnableBackendRepository::class,
     ];
 
-    /**
-     * @return void
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         foreach ($this->repositories as $interface => $implementation) {

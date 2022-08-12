@@ -65,7 +65,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Professor|null $teacher
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
- *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -93,12 +92,10 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
- *
  * @property int|null $institution_id
- *
  * @method static Builder|User whereInstitutionId($value)
  */
-class User extends Authenticatable
+final class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -168,7 +165,7 @@ class User extends Authenticatable
 
     public function group(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Group', 'admin_id');
+        return $this->belongsToMany(\App\Models\Group::class, 'admin_id');
     }
 
     public function group_member(): BelongsToMany
@@ -184,6 +181,6 @@ class User extends Authenticatable
 
     public function message(): HasMany
     {
-        return $this->hasMany('App\Models\Message', 'user_id');
+        return $this->hasMany(\App\Models\Message::class, 'user_id');
     }
 }

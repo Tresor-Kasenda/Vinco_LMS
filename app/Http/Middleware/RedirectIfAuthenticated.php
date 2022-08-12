@@ -11,13 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+final class RedirectIfAuthenticated
 {
     /**
-     * @param  Request  $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @param  string|null  ...$guards
-     * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$guards): Response|RedirectResponse
     {

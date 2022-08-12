@@ -9,7 +9,7 @@ use App\Models\Subsidiary;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Subsidiary_C;
 
-class FiliaireApiRepository
+final class FiliaireApiRepository
 {
     public function getFiliaire(FiliaireApiRequest $apiRequest): Collection|array|_IH_Subsidiary_C
     {

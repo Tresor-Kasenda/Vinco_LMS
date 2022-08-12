@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class FeesRepository implements FeesRepositoryInterface
+final class FeesRepository implements FeesRepositoryInterface
 {
     use RandomValues;
 
@@ -48,7 +48,7 @@ class FeesRepository implements FeesRepositoryInterface
                 'student_id' => $attributes->input('student'),
                 'amount' => $attributes->input('amount'),
                 'name' => $attributes->input('name'),
-                'transaction_no' => self::generateStringValues(0, 9999999999),
+                'transaction_no' => self::generateStringValues(0, 9_999_999_999),
                 'due_date' => $attributes->input('dues'),
                 'pay_date' => $attributes->input('pay_date'),
                 'description' => $attributes->input('description'),

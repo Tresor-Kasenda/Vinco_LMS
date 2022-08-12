@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use LaravelIdea\Helper\App\Models\_IH_Homework_QB;
 
-class HomeworkRepository implements HomeworkRepositoryInterface
+final class HomeworkRepository implements HomeworkRepositoryInterface
 {
     public function homeworks(): array|Collection
     {

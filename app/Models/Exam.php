@@ -26,7 +26,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Course $course
- *
  * @method static Builder|Exam newModelQuery()
  * @method static Builder|Exam newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exam onlyTrashed()
@@ -43,20 +42,16 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exam withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exam withoutTrashed()
  * @mixin Eloquent
- *
  * @property string|null $start_time
  * @property int $exam_id
  * @property-read ExamSession|null $examSession
- *
  * @method static ExamFactory factory(...$parameters)
  * @method static Builder|Exam whereExamId($value)
  * @method static Builder|Exam whereStartTime($value)
- *
  * @property int $exam_session_id
- *
  * @method static Builder|Exam whereExamSessionId($value)
  */
-class Exam extends Model
+final class Exam extends Model
 {
     use HasFactory, SoftDeletes;
 

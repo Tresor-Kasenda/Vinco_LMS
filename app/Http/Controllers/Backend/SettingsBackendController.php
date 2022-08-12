@@ -13,21 +13,14 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class SettingsBackendController extends Controller
+final class SettingsBackendController extends Controller
 {
-    /**
-     * @param  SettingRepositoryInterface  $repository
-     * @param  SweetAlertFactory  $factory
-     */
     public function __construct(
         protected readonly SettingRepositoryInterface $repository,
         protected readonly SweetAlertFactory $factory
     ) {
     }
 
-    /**
-     * @return Renderable
-     */
     public function index(): Renderable
     {
         $times = new \Jackiedo\Timezonelist\Timezonelist();
@@ -35,10 +28,6 @@ class SettingsBackendController extends Controller
         return view('backend.domain.setting.index', compact('times'));
     }
 
-    /**
-     * @param  SettingRequest  $request
-     * @return RedirectResponse
-     */
     public function store(SettingRequest $request): RedirectResponse
     {
         $this->repository->store(request: $request, factory: $this->factory);
@@ -46,11 +35,6 @@ class SettingsBackendController extends Controller
         return back();
     }
 
-    /**
-     * @param  int  $id
-     * @param  SettingRequest  $request
-     * @return RedirectResponse
-     */
     public function update(int $id, SettingRequest $request): RedirectResponse
     {
         $this->repository->update(id: $id, request: $request, factory: $this->factory);
@@ -59,9 +43,7 @@ class SettingsBackendController extends Controller
     }
 
     /**
-     * @param  int  $id
      * @param  SystemRequest  $request
-     * @return RedirectResponse
      */
     public function updateSystem(int $id, Request $request): RedirectResponse
     {

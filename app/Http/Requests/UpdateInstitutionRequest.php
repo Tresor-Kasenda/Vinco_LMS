@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateInstitutionRequest extends FormRequest
+final class UpdateInstitutionRequest extends FormRequest
 {
     public function rules(): array
     {

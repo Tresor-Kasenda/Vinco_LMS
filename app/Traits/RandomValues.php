@@ -23,6 +23,9 @@ trait RandomValues
         return strval(random_int($firstValue, $secondValue));
     }
 
+    /**
+     * @throws \Exception
+     */
     public function randomMatriculate(string $name): string
     {
         $characters = now()->format('Y').substr($name, 0, 3);

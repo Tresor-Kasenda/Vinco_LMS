@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FiliaireApiRequest;
 use App\Repositories\Api\FiliaireApiRepository;
 
-class FiliaireApiController extends Controller
+final class FiliaireApiController extends Controller
 {
     public function getFiliaire(FiliaireApiRequest $apiRequest, FiliaireApiRepository $repository)
     {

@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class FeesTypeBackendController extends Controller
+final class FeesTypeBackendController extends Controller
 {
     public function __construct(
         protected readonly FeesTypeRepositoryInterface $repository,

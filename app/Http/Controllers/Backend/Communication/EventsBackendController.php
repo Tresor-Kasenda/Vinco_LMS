@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 /**
  * @EventsBackendController
  */
-class EventsBackendController extends Controller
+final class EventsBackendController extends Controller
 {
     public function __construct(
         protected readonly EventRepositoryInterface $repository,
@@ -27,8 +27,6 @@ class EventsBackendController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
      */
     public function index(): View|Factory|Application
     {
@@ -43,8 +41,6 @@ class EventsBackendController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|View
      */
     public function create(): View|Factory|Application
     {
@@ -53,9 +49,6 @@ class EventsBackendController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  EventRequest  $request
-     * @return RedirectResponse
      */
     public function store(EventRequest $request): RedirectResponse
     {
@@ -77,9 +70,6 @@ class EventsBackendController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  string  $id
-     * @return Application|Factory|View
      */
     public function edit(string $id): View|Factory|Application
     {
@@ -90,10 +80,6 @@ class EventsBackendController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  EventRequest  $request
-     * @param  string  $id
-     * @return RedirectResponse
      */
     public function update(EventRequest $request, string $id): RedirectResponse
     {
@@ -106,7 +92,6 @@ class EventsBackendController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  string  $id
-     * @return RedirectResponse
      */
     public function destroy($id): RedirectResponse
     {

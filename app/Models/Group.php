@@ -27,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|User[] $participants
  * @property-read int|null $participants_count
  * @property-read User $user
- *
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()
@@ -39,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Group whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Group extends Model
+final class Group extends Model
 {
     use HasFactory;
 
@@ -48,16 +47,16 @@ class Group extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'admin_id');
+        return $this->belongsTo(\App\Models\User::class, 'admin_id');
     }
 
     public function participants(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\User', 'group_participants', 'group_id', 'user_id');
+        return $this->belongsToMany(\App\Models\User::class, 'group_participants', 'group_id', 'user_id');
     }
 
     public function messages(): HasMany
     {
-        return $this->hasMany('App\Models\Message', 'group_id');
+        return $this->hasMany(\App\Models\Message::class, 'group_id');
     }
 }

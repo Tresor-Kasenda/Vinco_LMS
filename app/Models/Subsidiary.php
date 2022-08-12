@@ -32,7 +32,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Subsidiary newModelQuery()
  * @method static Builder|Subsidiary newQuery()
  * @method static \Illuminate\Database\Query\Builder|Subsidiary onlyTrashed()
@@ -50,7 +49,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Subsidiary withoutTrashed()
  * @mixin Eloquent
  */
-class Subsidiary extends Model
+final class Subsidiary extends Model
 {
     use HasFactory, SoftDeletes;
 

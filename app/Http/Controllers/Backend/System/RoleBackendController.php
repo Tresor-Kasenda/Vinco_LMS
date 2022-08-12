@@ -15,7 +15,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class RoleBackendController extends Controller
+final class RoleBackendController extends Controller
 {
     public function __construct(
         protected readonly RoleRepositoryInterface $repository,

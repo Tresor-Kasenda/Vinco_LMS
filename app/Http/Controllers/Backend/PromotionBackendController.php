@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class PromotionBackendController extends Controller
+final class PromotionBackendController extends Controller
 {
     public function __construct(
         protected readonly PromotionRepositoryInterface $repository

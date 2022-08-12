@@ -10,7 +10,7 @@ use App\Http\Requests\ProfileRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 
-class ProfileBackendController extends Controller
+final class ProfileBackendController extends Controller
 {
     public function __construct(
         protected readonly ProfileRepositoryInterface $repository,
