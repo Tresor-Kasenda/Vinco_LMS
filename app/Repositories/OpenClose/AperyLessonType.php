@@ -6,6 +6,7 @@ namespace App\Repositories\OpenClose;
 
 use App\Contracts\LessonTypeInterface;
 use App\Http\Requests\LessonRequest;
+use App\Http\Requests\LessonUpdateRequest;
 use App\Jobs\RoomNotification;
 use App\Jobs\StudentNotificationRoom;
 use App\Models\Live;
@@ -13,6 +14,7 @@ use App\Services\EnableX\EnableXService;
 use App\States\EnableState\Pending;
 use App\Traits\RandomValues;
 use App\Traits\TimeCalculation;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\ArrayShape;
@@ -22,7 +24,7 @@ final class AperyLessonType implements LessonTypeInterface
     use RandomValues, TimeCalculation;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
@@ -51,7 +53,6 @@ final class AperyLessonType implements LessonTypeInterface
             )
                 ->delay(now()->addSecond());
         }
-
 
         return Live::query()
             ->create([
@@ -117,5 +118,11 @@ final class AperyLessonType implements LessonTypeInterface
                     "custom_key" => ""
                 ]
             ];
+    }
+
+
+    public function update(LessonUpdateRequest $request, $lesson)
+    {
+        // TODO: Implement update() method.
     }
 }

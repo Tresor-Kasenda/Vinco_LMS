@@ -34,7 +34,6 @@ final class LessonBackendController extends Controller
 
     public function store(LessonRequest $attributes): RedirectResponse
     {
-
         $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.lessons.index');

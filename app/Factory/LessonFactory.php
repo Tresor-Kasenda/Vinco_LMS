@@ -20,7 +20,7 @@ final class LessonFactory
             1 => new VideoLessonType(),
             2 => new AperyLessonType(),
             4 => new PdfLessonType(),
-            default => 'unknown status code',
+            default => throw new Exception("'unknown status code'"),
         };
     }
 }

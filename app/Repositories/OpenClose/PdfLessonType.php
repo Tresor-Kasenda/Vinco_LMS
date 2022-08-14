@@ -6,6 +6,7 @@ namespace App\Repositories\OpenClose;
 
 use App\Contracts\LessonTypeInterface;
 use App\Http\Requests\LessonRequest;
+use App\Http\Requests\LessonUpdateRequest;
 use App\Models\LessonFiles;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,5 +23,20 @@ final class PdfLessonType implements LessonTypeInterface
                 'lesson_id' => $lesson,
                 'files' => self::uploadPDF($attributes)
             ]);
+    }
+
+    public function update(LessonUpdateRequest $request, $lesson): Model|Builder|LessonFiles
+    {
+        $pdf = LessonFiles::query()
+            ->where('lesson_id', '=', $lesson)
+            ->firstOrFail();
+        $this->removePDFFiles($pdf);
+
+        $pdf->update([
+            'lesson_id' => $lesson,
+            'files' => self::uploadPDF($request)
+        ]);
+
+        return $pdf;
     }
 }

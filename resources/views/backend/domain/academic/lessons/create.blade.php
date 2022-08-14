@@ -105,14 +105,14 @@
                                             <div id="video-lesson">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="video_lesson">Video</label>
+                                                        <label class="form-label" for="video">Video</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="file"
-                                                                class="form-control @error('video_lesson') error @enderror"
-                                                                id="video_lesson"
-                                                                name="video_lesson"
-                                                                value="{{ old('video_lesson') }}"
+                                                                class="form-control @error('video') error @enderror"
+                                                                id="video"
+                                                                name="video"
+                                                                value="{{ old('video') }}"
                                                                 placeholder="Select Video Format"
                                                                 >
                                                         </div>
