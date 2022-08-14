@@ -47,7 +47,7 @@ final class ResourceRepository implements ResourceRepositoryInterface
             ->with(['lesson:id,name', 'chapter:id,name,course_id'])
             ->whereHas('chapter', function ($query) {
                 $query->whereHas('course', function ($query) {
-                    $query->where('institution', auth()->user()->institution->id);
+                    $query->where('institution_id', auth()->user()->institution->id);
                 });
             })
             ->orderByDesc('created_at')
