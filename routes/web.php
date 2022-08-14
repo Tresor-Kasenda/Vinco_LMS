@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
+use App\Http\Controllers\Backend\Api\LessonApiController;
 use App\Http\Controllers\Backend\Api\ProfessorApiController;
 use App\Http\Controllers\Backend\Api\PromotionApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
@@ -54,7 +55,13 @@ use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
+use App\Http\Controllers\Frontend\AboutAppController;
+use App\Http\Controllers\Frontend\CalendarAppController;
+use App\Http\Controllers\Frontend\EventAppController;
+use App\Http\Controllers\Frontend\FeesAppController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
+use App\Http\Controllers\Frontend\LibraryAppController;
+use App\Http\Controllers\Frontend\ShortCoursesAppController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +103,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('department-json', [FiliaireApiController::class, 'getFiliaire'])->name('department-json');
             Route::get('promotion-json', [PromotionApiController::class, 'getPromotion'])->name('promotion-json');
             Route::get('professor-json', [ProfessorApiController::class, 'getInstitution'])->name('professor-json');
+            Route::get('lesson-json', [LessonApiController::class, 'getLesson'])->name('lesson-json');
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {

@@ -37,6 +37,27 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $chapters = \App\Models\Chapter::query()
+                                                            ->select([
+                                                                'id',
+                                                                'name'
+                                                            ])
+                                                            ->with('course')
+                                                            ->get();
+                                                } else {
+                                                    $chapters = \App\Models\Chapter::query()
+                                                            ->select([
+                                                                'id',
+                                                                'name'
+                                                            ])
+                                                            ->whereHas('course', function ($query) {
+                                                                $query->where('institution_id', auth()->user()->institution->id);
+                                                            })
+                                                            ->get();
+                                                }
+                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="chapter">Chapitre</label>
@@ -47,8 +68,8 @@
                                                         name="chapter"
                                                         data-placeholder="Select Chapter"
                                                         required>
-                                                        <option value="{{ $resource->chapter->id }}">{{ ucfirst($resource->chapter->name) }}</option>
-                                                        @foreach(\App\Models\Chapter::all() as $chapter)
+                                                        <option value="{{ $resource->chapter->id }}"> {{ ucfirst($resource->chapter->name) ?? "" }}</option>
+                                                        @foreach($chapters as $chapter)
                                                             <option value="{{ $chapter->id }}">{{ ucfirst($chapter->name) }}</option>
                                                         @endforeach
                                                     </select>
@@ -65,10 +86,7 @@
                                                         name="lesson"
                                                         data-placeholder="Select Lesson"
                                                         required>
-                                                        <option value="{{ $resource->lesson->id }}">{{ ucfirst($resource->lesson->name) }}</option>
-                                                        @foreach(\App\Models\Lesson::all() as $lesson)
-                                                            <option value="{{ $lesson->id }}">{{ ucfirst($lesson->name) }}</option>
-                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -102,4 +120,30 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#chapter').change(function () {
+                let chapter = $(this).val();
+                if (chapter){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.lesson-json") }}',
+                        data:{"chapter" : chapter },
+                        success:function(response){
+                            $("#lesson").empty();
+                            $("#lesson").append('<option label="Select Lesson" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.lessons?.map((lesson) => {
+                                    $("#lesson").append('<option value="'+lesson.id+'">'+lesson.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
 @endsection

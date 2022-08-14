@@ -7,11 +7,10 @@ namespace App\Repositories\Api;
 use App\Http\Requests\PromotionApiRequest;
 use App\Models\Promotion;
 use Illuminate\Database\Eloquent\Collection;
-use LaravelIdea\Helper\App\Models\_IH_Promotion_C;
 
 final class PromotionApiRepository
 {
-    public function getPromotion(PromotionApiRequest $apiRequest): Collection|_IH_Promotion_C|array
+    public function getPromotion(PromotionApiRequest $apiRequest): Collection|array
     {
         return Promotion::query()
             ->select([
