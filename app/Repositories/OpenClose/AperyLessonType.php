@@ -14,6 +14,7 @@ use App\Services\EnableX\EnableXService;
 use App\States\EnableState\Pending;
 use App\Traits\RandomValues;
 use App\Traits\TimeCalculation;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,7 @@ final class AperyLessonType implements LessonTypeInterface
     use RandomValues, TimeCalculation;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
@@ -120,5 +121,11 @@ final class AperyLessonType implements LessonTypeInterface
 
     public function update(LessonUpdateRequest $request, $lesson)
     {
+    }
+
+
+    public function update(LessonUpdateRequest $request, $lesson)
+    {
+        // TODO: Implement update() method.
     }
 }

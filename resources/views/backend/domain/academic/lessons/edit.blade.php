@@ -21,7 +21,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-8 mt-4">
                                     <x-error-messages/>
-                                    <form action="{{ route('admins.academic.lessons.update', $lesson->id) }}" method="post" class="form-validate" novalidate="novalidate">
+                                    <form action="{{ route('admins.academic.lessons.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -95,7 +95,7 @@
                                                         name="type"
                                                         data-placeholder="Select Type"
                                                         required>
-                                                        <option value="{{ $lesson->type->id }}">{{ ucfirst($lesson->type->name) ?? "" }}</option>
+                                                        <option label="Select Type" value=""></option>
                                                         @foreach($types as $type)
                                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                         @endforeach
@@ -106,21 +106,21 @@
                                             <div id="video-lesson">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="video_lesson">Video</label>
+                                                        <label class="form-label" for="video">Video</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="file"
-                                                                class="form-control @error('video_lesson') error @enderror"
-                                                                id="video_lesson"
-                                                                name="video_lesson"
-                                                                accept="video/mp4,video/x-m4v,video/*"
-                                                                value="{{ old('video_lesson') }}"
+                                                                class="form-control @error('video') error @enderror"
+                                                                id="video"
+                                                                name="video"
+                                                                value="{{ old('video') }}"
                                                                 placeholder="Select Video Format"
                                                             >
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
 
                                             <div id="pdf-lesson">
                                                 <div class="col-md-12">
@@ -140,7 +140,7 @@
                                                 </div>
                                             </div>
 
-                                            <div id="live-session">
+                                            <div id="aperi">
                                                 <span class="preview-title-lg overline-title">Aperi</span>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -152,7 +152,7 @@
                                                                     class="form-control @error('participants') error @enderror"
                                                                     id="participants"
                                                                     name="participants"
-                                                                    value="{{ old('participants') ?? $lesson->live->participants }}"
+                                                                    value="{{ old('participants') }}"
                                                                     placeholder="Saisir le nombre des participants"
                                                                 >
                                                             </div>
@@ -167,7 +167,7 @@
                                                                     class="form-control date-picker @error('date') error @enderror"
                                                                     id="date"
                                                                     name="date"
-                                                                    value="{{ old('date')  ?? $lesson->live->date }}"
+                                                                    value="{{ old('date') }}"
                                                                     placeholder="Select Date"
                                                                 >
                                                             </div>
@@ -182,7 +182,7 @@
                                                                     class="form-control time-picke @error('start_time') error @enderror"
                                                                     name="start_time"
                                                                     id="start_time"
-                                                                    value="{{ old('start_time')  ?? $lesson->live->start_time }}"
+                                                                    value="{{ old('start_time') }}"
                                                                     placeholder="Add your start time">
                                                             </div>
                                                         </div>
@@ -195,7 +195,7 @@
                                                                     type="text"
                                                                     class="form-control time-picke @error('end_time') error @enderror"
                                                                     name="end_time"
-                                                                    value="{{ old('end_time')  ?? $lesson->live->end_time }}"
+                                                                    value="{{ old('end_time') }}"
                                                                     placeholder="Add your end time">
                                                             </div>
                                                         </div>
@@ -258,21 +258,21 @@
 
     <script>
         $(document).ready(function () {
-            $("#text,#live-session,#pdf-lesson,#video-lesson").hide()
+            $("#text,#aperi,#pdf-lesson,#video-lesson").hide()
             $('#type').change(function () {
                 let type = $(this).val();
                 if (type == 1){
                     $('#video-lesson').show();
-                    $("#text,#live-session,#pdf-lesson").hide()
+                    $("#text,#aperi,#pdf-lesson").hide()
                 } else if (type == 2) {
-                    $("#live-session").show();
+                    $("#aperi").show();
                     $("#video-lesson,#text,#pdf-lesson").hide()
                 } else if (type == 3) {
                     $("#text").show();
-                    $("#live-session,#video-lesson,#pdf-lesson").hide()
+                    $("#aperi,#video-lesson,#pdf-lesson").hide()
                 } else if (type == 4) {
                     $('#pdf-lesson').show();
-                    $("#text,#live-session,#video-lesson").hide()
+                    $("#text,#aperi,#video-lesson").hide()
                 }
             });
         })

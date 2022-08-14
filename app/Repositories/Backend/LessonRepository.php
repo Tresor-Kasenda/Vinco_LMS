@@ -13,15 +13,14 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
 
 final class LessonRepository implements LessonRepositoryInterface
 {
     public function __construct(
         protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
-
-    )
-    {
+    ) {
     }
 
     public function getLessons(): array|Collection
@@ -80,7 +79,7 @@ final class LessonRepository implements LessonRepositoryInterface
         return $lesson;
     }
 
-    public function getLessonType($attributes): LessonType|Builder|Model
+    private function getLessonType($attributes): LessonType|Builder|Model
     {
         return LessonType::query()
             ->select([
@@ -91,7 +90,7 @@ final class LessonRepository implements LessonRepositoryInterface
             ->firstOrFail();
     }
 
-    public function storeLesson($attributes): Lesson|Builder|Model
+    private function storeLesson($attributes): Lesson|Builder|Model
     {
         return Lesson::query()
             ->create([
@@ -115,7 +114,6 @@ final class LessonRepository implements LessonRepositoryInterface
             'content' => $attributes->input('content'),
             'lesson_type_id' => $attributes->input('type'),
         ]);
-
 
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
