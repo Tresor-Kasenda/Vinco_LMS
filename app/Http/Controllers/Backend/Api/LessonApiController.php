@@ -11,8 +11,9 @@ use Illuminate\Http\JsonResponse;
 
 final class LessonApiController extends Controller
 {
+
     public function getLesson(
-        LessonApiRequest $apiRequest,
+        LessonApiRequest    $apiRequest,
         LessonApiRepository $repository
     ): JsonResponse {
         $lessons = $repository->getLessons($apiRequest);
