@@ -71,4 +71,9 @@ final class Exam extends Model
     {
         return $this->belongsTo(ExamSession::class);
     }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
+    }
 }
