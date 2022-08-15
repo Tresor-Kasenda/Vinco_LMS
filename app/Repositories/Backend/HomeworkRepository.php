@@ -39,6 +39,7 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Homework::query()
             ->select([
                 'id',
@@ -73,7 +74,7 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
                 'chapter_id' => $attributes->input('chapter'),
                 'lesson_id' => $attributes->input('lesson'),
             ]);
-        $this->messageService->success("Un Travail pratique a ete ajouter");
+        $this->messageService->success('Un Travail pratique a ete ajouter');
 
         return $homework;
     }
@@ -121,7 +122,7 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
     {
         $homework = $this->showHomework($key);
         $homework->delete();
-        $this->messageService->success("Le travail pratique a ete supprimer");
+        $this->messageService->success('Le travail pratique a ete supprimer');
 
         return $homework;
     }

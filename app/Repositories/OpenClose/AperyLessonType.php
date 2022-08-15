@@ -63,7 +63,7 @@ final class AperyLessonType implements LessonTypeInterface
                 'participants' => $attributes->input('participants'),
                 'schedule' => $attributes->input('date'),
                 'reference' => $attributes->input(''),
-                'status' => Pending::class
+                'status' => Pending::class,
             ]);
     }
 
@@ -71,6 +71,7 @@ final class AperyLessonType implements LessonTypeInterface
     {
         [$date, $difference] = self::calculate(attributes: $attributes);
         $room = self::renderRoomMetadata($date, $difference, $attributes);
+
         return EnableXService::createConnexion()
             ->post(config('enable.url').'/rooms', $room)
             ->json();
@@ -80,46 +81,45 @@ final class AperyLessonType implements LessonTypeInterface
     private static function renderRoomMetadata($date, $difference, $attributes): array
     {
         return [
-                "name" => "".$attributes->input('name'),
-                "owner_ref" => "".(new AperyLessonType)->generateStringValues(910, 9999999),
-                "settings" => [
-                    "description" => "".$attributes->input('name'),
-                    "mode" => "group",
-                    "scheduled" => false,
-                    "adhoc" => false,
-                    "duration" => $difference,
-                    "moderators" => $attributes->input('moderator') ?? "2",
-                    "participants" => "".$attributes->input('participant'),
-                    "billing_code" => "",
-                    "auto_recording" => false,
-                    "quality" => "SD",
-                    "canvas" => true,
-                    "screen_share" => false,
-                    "abwd" => true,
-                    "max_active_talkers" => $attributes->input('participant'),
-                    "knock" => false,
-                    'scheduled_time' => ''.$date,
-                    "wait_for_moderator" => false,
-                    "media_zone" => "US",
-                    "single_file_recording" => false,
-                    "role_based_recording" => [
-                        "moderator" => "audiovideo",
-                        "participant" => "audio"
-                    ],
-                    "live_recording" => [
-                        "auto_recording" => true,
-                        "url" => "https://your-custom-view-url"
-                    ]
+            'name' => ''.$attributes->input('name'),
+            'owner_ref' => ''.(new AperyLessonType)->generateStringValues(910, 9999999),
+            'settings' => [
+                'description' => ''.$attributes->input('name'),
+                'mode' => 'group',
+                'scheduled' => false,
+                'adhoc' => false,
+                'duration' => $difference,
+                'moderators' => $attributes->input('moderator') ?? '2',
+                'participants' => ''.$attributes->input('participant'),
+                'billing_code' => '',
+                'auto_recording' => false,
+                'quality' => 'SD',
+                'canvas' => true,
+                'screen_share' => false,
+                'abwd' => true,
+                'max_active_talkers' => $attributes->input('participant'),
+                'knock' => false,
+                'scheduled_time' => ''.$date,
+                'wait_for_moderator' => false,
+                'media_zone' => 'US',
+                'single_file_recording' => false,
+                'role_based_recording' => [
+                    'moderator' => 'audiovideo',
+                    'participant' => 'audio',
                 ],
-                "sip" => [
-                    "enabled" => false
+                'live_recording' => [
+                    'auto_recording' => true,
+                    'url' => 'https://your-custom-view-url',
                 ],
-                "data" => [
-                    "custom_key" => ""
-                ]
-            ];
+            ],
+            'sip' => [
+                'enabled' => false,
+            ],
+            'data' => [
+                'custom_key' => '',
+            ],
+        ];
     }
-
 
     public function update(LessonUpdateRequest $request, $lesson)
     {

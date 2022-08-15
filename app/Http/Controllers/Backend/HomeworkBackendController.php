@@ -8,7 +8,6 @@ use App\Contracts\HomeworkRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HomeworkRequest;
 use App\Http\Requests\HomeworkUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -20,8 +19,7 @@ use Illuminate\Support\Facades\Response;
 final class HomeworkBackendController extends Controller
 {
     public function __construct(
-        protected readonly HomeworkRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly HomeworkRepositoryInterface $repository
     ) {
     }
 
@@ -39,7 +37,7 @@ final class HomeworkBackendController extends Controller
 
     public function store(HomeworkRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.homework.index');
     }
@@ -60,14 +58,14 @@ final class HomeworkBackendController extends Controller
 
     public function update(string $key, HomeworkUpdateRequest $attributes): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.academic.homework.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

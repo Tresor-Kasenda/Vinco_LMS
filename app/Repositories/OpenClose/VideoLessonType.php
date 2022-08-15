@@ -21,7 +21,7 @@ final class VideoLessonType implements LessonTypeInterface
         return VideoLesson::query()
             ->create([
                 'lesson_id' => $lesson,
-                'video_name' => self::uploadVideos($attributes)
+                'video_name' => self::uploadVideos($attributes),
             ]);
     }
 
@@ -34,8 +34,9 @@ final class VideoLessonType implements LessonTypeInterface
 
         $videos->update([
             'lesson_id' => $lesson,
-            'video_name' => self::uploadVideos($request)
+            'video_name' => self::uploadVideos($request),
         ]);
+
         return $videos;
     }
 }

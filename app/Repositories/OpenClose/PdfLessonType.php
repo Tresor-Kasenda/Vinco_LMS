@@ -21,7 +21,7 @@ final class PdfLessonType implements LessonTypeInterface
         return LessonFiles::query()
             ->create([
                 'lesson_id' => $lesson,
-                'files' => self::uploadPDF($attributes)
+                'files' => self::uploadPDF($attributes),
             ]);
     }
 
@@ -34,7 +34,7 @@ final class PdfLessonType implements LessonTypeInterface
 
         $pdf->update([
             'lesson_id' => $lesson,
-            'files' => self::uploadPDF($request)
+            'files' => self::uploadPDF($request),
         ]);
 
         return $pdf;

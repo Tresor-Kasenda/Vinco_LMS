@@ -36,6 +36,7 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return Exercice::query()
             ->select([
                 'id',
