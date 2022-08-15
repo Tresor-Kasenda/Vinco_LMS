@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
 use App\Http\Controllers\Backend\Api\LessonApiController;
@@ -103,6 +104,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('department-json', [FiliaireApiController::class, 'getFiliaire'])->name('department-json');
             Route::get('promotion-json', [PromotionApiController::class, 'getPromotion'])->name('promotion-json');
             Route::get('professor-json', [ProfessorApiController::class, 'getInstitution'])->name('professor-json');
+            Route::get('chapter-json', [ChapterApiController::class, 'getChapters'])->name('chapter-json');
             Route::get('lesson-json', [LessonApiController::class, 'getLesson'])->name('lesson-json');
         });
 

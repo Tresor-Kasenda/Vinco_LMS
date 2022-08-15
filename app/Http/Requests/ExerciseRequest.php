@@ -4,32 +4,26 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Models\Exercice;
+use App\Models\Chapter;
+use App\Models\Course;
+use App\Models\Lesson;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 final class ExerciseRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'course' => ['nullable', Rule::exists('courses', 'id')],
-            'chapter' => ['nullable', Rule::exists('chapters', 'id')],
-            'lesson' => ['nullable', Rule::exists('lessons', 'id')],
-            'name' => ['required', 'string', 'min:3', Rule::unique(Exercice::class, 'name')],
+            'course' => ['nullable', Rule::exists(Course::class, 'id')],
+            'chapter' => ['nullable', Rule::exists(Chapter::class, 'id')],
+            'lesson' => ['nullable', Rule::exists(Lesson::class, 'id')],
+            'name' => ['required', 'string', 'min:3'],
             'date' => ['required', 'date'],
             'rating' => ['required', 'string'],
         ];

@@ -7,11 +7,10 @@ namespace App\Repositories\Api;
 use App\Http\Requests\FiliaireApiRequest;
 use App\Models\Subsidiary;
 use Illuminate\Database\Eloquent\Collection;
-use LaravelIdea\Helper\App\Models\_IH_Subsidiary_C;
 
 final class FiliaireApiRepository
 {
-    public function getFiliaire(FiliaireApiRequest $apiRequest): Collection|array|_IH_Subsidiary_C
+    public function getFiliaire(FiliaireApiRequest $apiRequest): Collection|array
     {
         return Subsidiary::query()
             ->select([
