@@ -9,7 +9,7 @@ use App\Http\Requests\LessonApiRequest;
 use App\Repositories\Api\LessonApiRepository;
 use Illuminate\Http\JsonResponse;
 
-class LessonApiController extends Controller
+final class LessonApiController extends Controller
 {
     public function getLesson(
         LessonApiRequest $apiRequest,

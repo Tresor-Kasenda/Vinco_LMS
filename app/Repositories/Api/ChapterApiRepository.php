@@ -8,7 +8,7 @@ use App\Http\Requests\ChapterApiRequest;
 use App\Models\Chapter;
 use Illuminate\Database\Eloquent\Collection;
 
-class ChapterApiRepository
+final class ChapterApiRepository
 {
     public function getChapters(ChapterApiRequest $request): array|Collection|\Illuminate\Support\Collection
     {

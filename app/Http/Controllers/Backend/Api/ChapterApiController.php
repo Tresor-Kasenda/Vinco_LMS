@@ -10,7 +10,7 @@ use App\Repositories\Api\ChapterApiRepository;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChapterApiController extends Controller
+final class ChapterApiController extends Controller
 {
     public function getChapters(
         ChapterApiRequest $request,

@@ -8,7 +8,7 @@ use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ChapterApiRequest extends FormRequest
+final class ChapterApiRequest extends FormRequest
 {
     public function authorize(): bool
     {

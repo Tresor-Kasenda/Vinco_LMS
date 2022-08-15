@@ -8,7 +8,7 @@ use App\Models\Chapter;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class LessonApiRequest extends FormRequest
+final class LessonApiRequest extends FormRequest
 {
     public function authorize(): bool
     {
