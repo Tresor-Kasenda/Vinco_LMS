@@ -16,7 +16,7 @@ final class ChapterApiRepository
             ->select([
                 'id',
                 'name',
-                'course_id'
+                'course_id',
             ])
             ->where('course_id', '=', $request->input('course'))
             ->get();

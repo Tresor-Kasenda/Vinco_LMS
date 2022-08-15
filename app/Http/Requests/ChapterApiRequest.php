@@ -18,7 +18,7 @@ final class ChapterApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course' => ['required', Rule::exists(Course::class, 'id')]
+            'course' => ['required', Rule::exists(Course::class, 'id')],
         ];
     }
 }

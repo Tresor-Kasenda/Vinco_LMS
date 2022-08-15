@@ -26,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property-read \App\Models\Chapter|null $chapter
  * @property-read \App\Models\Course|null $course
+ *
  * @method static Builder|Question newModelQuery()
  * @method static Builder|Question newQuery()
  * @method static \Illuminate\Database\Query\Builder|Question onlyTrashed()

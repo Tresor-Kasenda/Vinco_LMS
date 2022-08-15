@@ -34,8 +34,9 @@ final class VideoLessonType implements LessonTypeInterface
 
         $videos->update([
             'lesson_id' => $lesson,
-            'video_name' => self::uploadVideos($request)
+            'video_name' => self::uploadVideos($request),
         ]);
+
         return $videos;
     }
 }

@@ -30,7 +30,7 @@ final class ResourceRepository implements ResourceRepositoryInterface
                     'name',
                     'lesson_id',
                     'chapter_id',
-                    'path'
+                    'path',
                 ])
                 ->with(['lesson:id,name', 'chapter:id,name,course_id'])
                 ->orderByDesc('created_at')
@@ -43,7 +43,7 @@ final class ResourceRepository implements ResourceRepositoryInterface
                 'name',
                 'lesson_id',
                 'chapter_id',
-                'path'
+                'path',
             ])
             ->with(['lesson:id,name', 'chapter:id,name,course_id'])
             ->whereHas('chapter', function ($query) {
@@ -81,7 +81,7 @@ final class ResourceRepository implements ResourceRepositoryInterface
             'files' => $attributes->file('files')->getClientOriginalName(),
             'path' => self::uploadPDFFile($attributes),
         ]);
-        $this->messageService->success("Une lecon a ete mise a jours avec success");
+        $this->messageService->success('Une lecon a ete mise a jours avec success');
 
         return $lesson;
     }
