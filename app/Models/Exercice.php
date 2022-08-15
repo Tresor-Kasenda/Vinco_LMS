@@ -28,7 +28,6 @@ use Illuminate\Support\Carbon;
  * @property-read \App\Models\Chapter|null $chapter
  * @property-read \App\Models\Course|null $course
  * @property-read \App\Models\Lesson|null $lesson
- *
  * @method static Builder|Exercice newModelQuery()
  * @method static Builder|Exercice newQuery()
  * @method static \Illuminate\Database\Query\Builder|Exercice onlyTrashed()
@@ -47,7 +46,6 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Exercice withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Exercice withoutTrashed()
  * @mixin \Eloquent
- *
  * @method static \Database\Factories\ExerciceFactory factory(...$parameters)
  */
 final class Exercice extends Model

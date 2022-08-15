@@ -19,7 +19,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()

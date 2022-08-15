@@ -16,12 +16,10 @@ use Illuminate\Support\Carbon;
  * App\Models\Calendar
  *
  * @property-read Event|null $institution
- *
  * @method static Builder|Calendar newModelQuery()
  * @method static Builder|Calendar newQuery()
  * @method static Builder|Calendar query()
  * @mixin Eloquent
- *
  * @property int $id
  * @property string $title
  * @property Carbon $start_date
@@ -29,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property int $institution_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static \Database\Factories\CalendarFactory factory(...$parameters)
  * @method static Builder|Calendar whereCreatedAt($value)
  * @method static Builder|Calendar whereEndDate($value)

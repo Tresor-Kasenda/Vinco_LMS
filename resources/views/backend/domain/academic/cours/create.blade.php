@@ -252,7 +252,6 @@
     $(document).ready(function () {
         $('#institution').change(function () {
             let institution = $(this).val();
-            console.log(institution)
             if (institution){
                 $.ajax({
                     type:'GET',

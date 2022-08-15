@@ -34,7 +34,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
  * @property-read \App\Models\Subsidiary $subsidiary
- *
  * @method static Builder|Promotion newModelQuery()
  * @method static Builder|Promotion newQuery()
  * @method static \Illuminate\Database\Query\Builder|Promotion onlyTrashed()

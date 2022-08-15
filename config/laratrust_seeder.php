@@ -40,7 +40,6 @@ return [
             'interro-status' => 'u',
             'fee-type' => 'c,r,u,d',
             'fee' => 'c,r,u,d',
-            'fee-status' => 'u',
             'expense-type' => 'c,r,u,d',
             'expense' => 'c,r,u,d',
             'exam-session' => 'c,r,u,d',

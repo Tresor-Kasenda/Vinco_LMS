@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Api\FiliaireApiController;
 use App\Http\Controllers\Backend\Api\LessonApiController;
 use App\Http\Controllers\Backend\Api\ProfessorApiController;
 use App\Http\Controllers\Backend\Api\PromotionApiController;
+use App\Http\Controllers\Backend\Api\PromotionFeeApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
@@ -121,8 +122,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'announce', 'as' => 'announce.'], routes: function () {
             Route::resource('feesTypes', FeesTypeBackendController::class);
             Route::resource('fees', FeesBackendController::class);
-            Route::resource('expenseTypes', ExpenseTypeBackendController::class);
-            Route::resource('expenses', ExpenseBackendController::class);
         });
 
         Route::group(['prefix' => 'communication', 'as' => 'communication.'], routes: function () {
@@ -135,7 +134,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
-            Route::resource('expenses', ExpenseBackendController::class);
+            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])->name('promotion-fee-json');
         });
 
         Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {

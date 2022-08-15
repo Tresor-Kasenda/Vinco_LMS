@@ -16,7 +16,6 @@ use Illuminate\Support\Carbon;
  * @property int $favorite_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|ChFavorite newModelQuery()
  * @method static Builder|ChFavorite newQuery()
  * @method static Builder|ChFavorite query()

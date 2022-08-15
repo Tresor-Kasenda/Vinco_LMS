@@ -39,12 +39,6 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
         });
-
-        Schema::table('expenses', function (Blueprint $table) {
-            $table->foreignIdFor(Institution::class)
-                ->constrained()
-                ->cascadeOnDelete();
-        });
     }
 
     public function down()

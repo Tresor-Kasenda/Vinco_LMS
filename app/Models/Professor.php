@@ -46,7 +46,6 @@ use Illuminate\Support\Carbon;
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Professor newModelQuery()
  * @method static Builder|Professor newQuery()
  * @method static \Illuminate\Database\Query\Builder|Professor onlyTrashed()
@@ -71,9 +70,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Professor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Professor withoutTrashed()
  * @mixin Eloquent
- *
  * @property int $institution_id
- *
  * @method static Builder|Professor whereInstitutionId($value)
  */
 final class Professor extends Model

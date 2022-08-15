@@ -289,16 +289,6 @@
                                     'route' => route('admins.accounting.fees.index'),
                                     'name' => "Fees"
                                 ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.announce.expenseTypes.index'),
-                                    'name' => "Expense Type"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.accounting.expenses.index'),
-                                    'name' => "Expenses"
-                                ])
                             </ul>
                         </li>
                         <li class="nk-menu-item has-sub">
@@ -445,16 +435,6 @@
                                     'route' => route('admins.accounting.fees.index'),
                                     'name' => "Fees"
                                 ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.announce.expenseTypes.index'),
-                                    'name' => "Expense Type"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.accounting.expenses.index'),
-                                    'name' => "Expenses"
-                                ])
                             </ul>
                         </li>
                         <li class="nk-menu-item has-sub">
@@ -595,16 +575,6 @@
                                 @include('backend.components._links', [
                                     'route' => route('admins.accounting.fees.index'),
                                     'name' => "Fees"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.announce.expenseTypes.index'),
-                                    'name' => "Expense Type"
-                                ])
-
-                                @include('backend.components._links', [
-                                    'route' => route('admins.accounting.expenses.index'),
-                                    'name' => "Expenses"
                                 ])
                             </ul>
                         </li>
@@ -774,14 +744,6 @@
                                 @include('backend.components._links', [
                                     'route' => route('admins.accounting.fees.index'),
                                     'name' => "Fees"
-                                ])
-                                @include('backend.components._links', [
-                                    'route' => route('admins.announce.expenseTypes.index'),
-                                    'name' => "Expense Type"
-                                ])
-                                @include('backend.components._links', [
-                                    'route' => route('admins.accounting.expenses.index'),
-                                    'name' => "Expenses"
                                 ])
                             </ul>
                         </li>

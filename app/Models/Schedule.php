@@ -15,12 +15,10 @@ use Illuminate\Support\Carbon;
  *
  * @property-read Course $course
  * @property-read Promotion|null $promotion
- *
  * @method static Builder|Schedule newModelQuery()
  * @method static Builder|Schedule newQuery()
  * @method static Builder|Schedule query()
  * @mixin \Eloquent
- *
  * @property int $id
  * @property int $promotion_id
  * @property int $course_id
@@ -29,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property string|null $end_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|Schedule whereCourseId($value)
  * @method static Builder|Schedule whereCreatedAt($value)
  * @method static Builder|Schedule whereDate($value)
@@ -38,6 +35,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Schedule wherePromotionId($value)
  * @method static Builder|Schedule whereStartTime($value)
  * @method static Builder|Schedule whereUpdatedAt($value)
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|Schedule whereInstitutionId($value)
  */
 final class Schedule extends Model
 {

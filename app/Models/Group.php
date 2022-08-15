@@ -27,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|User[] $participants
  * @property-read int|null $participants_count
  * @property-read User $user
- *
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()

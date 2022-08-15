@@ -64,8 +64,8 @@
                                             src="{{ asset('storage/'.$institution->institution_images) }}"
                                             alt="{{ $institution->institution_name }}"
                                             class="img-fluid rounded-circle"
-                                            width="10%"
-                                            height="10%"
+                                            width="15%"
+                                            height="15%"
                                         >
                                     </span>
                                 </td>
