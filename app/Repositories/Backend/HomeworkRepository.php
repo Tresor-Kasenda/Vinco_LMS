@@ -7,15 +7,38 @@ namespace App\Repositories\Backend;
 use App\Contracts\HomeworkRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Homework;
+use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use LaravelIdea\Helper\App\Models\_IH_Homework_QB;
 
 final class HomeworkRepository implements HomeworkRepositoryInterface
 {
+    public function __construct(protected ToastMessageService $messageService)
+    {
+    }
+
     public function homeworks(): array|Collection
     {
+        if (auth()->user()->hasRole('Super Admin')) {
+            return Homework::query()
+                ->select([
+                    'id',
+                    'name',
+                    'rating_homework',
+                    'filling_date',
+                    'lesson_id',
+                    'course_id',
+                    'chapter_id',
+                ])
+                ->with([
+                    'chapter:id,name',
+                    'course:id,name,images',
+                    'lesson:id,name',
+                ])
+                ->orderByDesc('created_at')
+                ->get();
+        }
         return Homework::query()
             ->select([
                 'id',
@@ -26,6 +49,9 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
                 'course_id',
                 'chapter_id',
             ])
+            ->whereHas('course', function ($query) {
+                $query->where('institution_id', auth()->user()->institution->id);
+            })
             ->with([
                 'chapter:id,name',
                 'course:id,name,images',
@@ -35,7 +61,40 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
             ->get();
     }
 
-    public function showHomework(string $key): Model|Builder|Homework|_IH_Homework_QB|null
+    public function stored($attributes): Model|Builder|Homework
+    {
+        $homework = Homework::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'rating_homework' => $attributes->input('rating'),
+                'filling_date' => $attributes->input('date'),
+                'status' => StatusEnum::FALSE,
+                'course_id' => $attributes->input('course'),
+                'chapter_id' => $attributes->input('chapter'),
+                'lesson_id' => $attributes->input('lesson'),
+            ]);
+        $this->messageService->success("Un Travail pratique a ete ajouter");
+
+        return $homework;
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|Homework|null
+    {
+        $homework = $this->showHomework($key);
+        $homework->update([
+            'name' => $attributes->input('name'),
+            'rating_homework' => $attributes->input('rating'),
+            'filling_date' => $attributes->input('date'),
+            'course_id' => $attributes->input('course'),
+            'chapter_id' => $attributes->input('chapter'),
+            'lesson_id' => $attributes->input('lesson'),
+        ]);
+        $this->messageService->success("le Travail ({$homework->name}) pratique a ete modifier");
+
+        return $homework;
+    }
+
+    public function showHomework(string $key): Model|Builder|Homework|null
     {
         $homework = Homework::query()
             ->select([
@@ -58,46 +117,11 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
         ]);
     }
 
-    public function stored($attributes, $factory): Model|Builder|Homework|_IH_Homework_QB
-    {
-        $homework = Homework::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'rating_homework' => $attributes->input('rating'),
-                'filling_date' => $attributes->input('date'),
-                'status' => StatusEnum::FALSE,
-                'course_id' => $attributes->input('course'),
-                'chapter_id' => $attributes->input('chapter'),
-                'lesson_id' => $attributes->input('lesson'),
-            ]);
-
-        $factory->addSuccess('Un TP a ete ajouter');
-
-        return $homework;
-    }
-
-    public function updated(string $key, $attributes, $factory): Model|Builder|Homework|_IH_Homework_QB|null
-    {
-        $homework = $this->showHomework($key);
-        $homework->update([
-            'name' => $attributes->input('name'),
-            'rating_homework' => $attributes->input('rating'),
-            'filling_date' => $attributes->input('date'),
-            'course_id' => $attributes->input('course'),
-            'chapter_id' => $attributes->input('chapter'),
-            'lesson_id' => $attributes->input('lesson'),
-        ]);
-
-        $factory->addSuccess('Un TP a ete modifier');
-
-        return $homework;
-    }
-
-    public function deleted(string $key, $factory): Builder|Homework|\Illuminate\Database\Query\Builder|null
+    public function deleted(string $key): Builder|Homework|\Illuminate\Database\Query\Builder|null
     {
         $homework = $this->showHomework($key);
         $homework->delete();
-        $factory->addSuccess('Un TP a ete supprimer avec succes');
+        $this->messageService->success("Le travail pratique a ete supprimer");
 
         return $homework;
     }
