@@ -19,7 +19,9 @@ final class LessonRepository implements LessonRepositoryInterface
     public function __construct(
         protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
-    ) {
+
+    )
+    {
     }
 
     public function getLessons(): array|Collection
@@ -65,19 +67,18 @@ final class LessonRepository implements LessonRepositoryInterface
      */
     public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
-        $lessonFactory = new LessonFactory();
-
         $type = $this->getLessonType($attributes);
+
         $lesson = $this->storeLesson($attributes);
 
-        $lessonType = $lessonFactory->storageLessonType(type: $type->id);
-        $lessonType->store(attributes: $attributes, lesson: $lesson);
-
+        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
+            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
+            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
+        }
         $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
     }
-
 
     public function getLessonType($attributes): LessonType|Builder|Model
     {
@@ -100,7 +101,6 @@ final class LessonRepository implements LessonRepositoryInterface
                 'lesson_type_id' => $attributes->input('type'),
             ]);
     }
-
 
     /**
      * @throws Exception
@@ -135,7 +135,7 @@ final class LessonRepository implements LessonRepositoryInterface
                 'name',
                 'chapter_id',
                 'content',
-                'lesson_type_id',
+                'lesson_type_id'
             ])
             ->where('id', '=', $key)
             ->first();

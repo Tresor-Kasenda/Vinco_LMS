@@ -23,13 +23,8 @@ final class LessonRequest extends FormRequest
             'type' => ['required', Rule::exists(LessonType::class, 'id')],
             'chapter' => ['required', Rule::exists(Chapter::class, 'id')],
             'content' => ['nullable', 'string'],
-            'video' => ['nullable'],
             'pdf_lesson' => ['nullable', 'file', 'mimes:pdf,doc,docx'],
-            // video lesson
             'video_lesson' => ['nullable', 'mimetypes:video/*'],
-            // PDF Validation
-            'pdf_format' => ['nullable', 'file', 'mimes:pdf,doc,docx'],
-            // Aperi Validation
             'participants' => ['nullable', 'string'],
             'date' => ['nullable', 'date'],
             'start_time' => ['nullable'],

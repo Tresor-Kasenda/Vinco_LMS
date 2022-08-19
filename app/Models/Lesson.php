@@ -67,6 +67,31 @@ final class Lesson extends Model
         '6' => 'Saturday',
         '7' => 'Sunday',
     ];
+    protected $guarded = [];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public static function isTimeAvailable($weekday, $startTime, $endTime, $class, $teacher, $lesson): bool
+    {
+        $lessons = self::where('weekday', $weekday)
+            ->when($lesson, function ($query) use ($lesson) {
+                $query->where('id', '!=', $lesson);
+            })
+            ->where(function ($query) use ($class, $teacher) {
+                $query->where('class_id', $class)
+                    ->orWhere('teacher_id', $teacher);
+            })
+            ->where([
+                ['start_time', '<', $endTime],
+                ['end_time', '>', $startTime],
+            ])
+            ->count();
+
+        return ! $lessons;
+    }
 
     protected $guarded = [];
 

@@ -30,10 +30,10 @@ trait ImageUploader
 
     public static function uploadVideos(Request $request): bool|string
     {
-        return $request->file('video')
-            ->storePubliclyAs('uploads', 'public');
+        return $request->file('video_lesson')
+            ->storePublicly('/tutorials', ['disk' => 'public']);
     }
-
+    
     public static function uploadPDF(Request $request): bool|string
     {
         return $request->file('pdf_format')
