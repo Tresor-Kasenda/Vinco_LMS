@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Lesson $lesson
- *
  * @method static Builder|VideoLesson newModelQuery()
  * @method static Builder|VideoLesson newQuery()
  * @method static \Illuminate\Database\Query\Builder|VideoLesson onlyTrashed()

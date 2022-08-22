@@ -21,9 +21,8 @@ use Illuminate\Support\Carbon;
  * @property int|null $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \App\Models\Course $course
- * @property-read \App\Models\Student $student
- *
+ * @property-read Course $course
+ * @property-read Student $student
  * @method static Builder|Result newModelQuery()
  * @method static Builder|Result newQuery()
  * @method static Builder|Result query()
@@ -36,6 +35,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Result whereStudentId($value)
  * @method static Builder|Result whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|Result whereInstitutionId($value)
  */
 final class Result extends Model
 {
@@ -51,5 +53,10 @@ final class Result extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

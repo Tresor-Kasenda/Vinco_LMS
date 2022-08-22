@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,10 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $description
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read FeeType $feeType
- * @property-read Institution|null $institution
- * @property-read Guardian|null $parent
- * @property-read Student $student
+ * @property-read \App\Models\FeeType $feeType
+ * @property-read \App\Models\Institution|null $institution
+ * @property-read \App\Models\Guardian|null $parent
+ * @property-read \App\Models\Student $student
  *
  * @method static Builder|Fee newModelQuery()
  * @method static Builder|Fee newQuery()
@@ -51,7 +49,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @method static Builder|Fee whereInstitutionId($value)
  */
-
 final class Fee extends Model
 {
     use HasFactory;
@@ -63,13 +60,18 @@ final class Fee extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
     public function feeType(): BelongsTo
     {
         return $this->belongsTo(FeeType::class, 'fee_type_id');
     }
 
-    public function promotion(): BelongsTo
+    public function parent(): BelongsTo
     {
-        return $this->belongsTo(Promotion::class);
+        return $this->belongsTo(Guardian::class);
     }
 }
