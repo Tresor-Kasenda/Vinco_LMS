@@ -24,7 +24,6 @@ final class LessonBackendController extends Controller
     public function index(): Renderable
     {
         $lessons = $this->repository->getLessons();
-
         return view('backend.domain.academic.lessons.index', compact('lessons'));
     }
 
