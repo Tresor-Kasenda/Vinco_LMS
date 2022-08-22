@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Expense
+ * App\Models\Expense.
  *
  * @property int $id
  * @property string $amount

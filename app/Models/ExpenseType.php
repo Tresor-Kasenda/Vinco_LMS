@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
+ * App\Models\ExpenseType.
  * App\Models\ExpenseType
  *
  * @property int $id
@@ -19,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection|Expense[] $expense
  * @property-read Collection|\App\Models\Expense[] $expense
  * @property-read int|null $expense_count
  *
@@ -41,5 +44,10 @@ final class ExpenseType extends Model
     public function expense(): HasMany
     {
         return $this->hasMany(Expense::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }
