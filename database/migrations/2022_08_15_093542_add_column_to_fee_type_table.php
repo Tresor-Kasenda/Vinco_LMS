@@ -16,6 +16,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
         });
+
         Schema::table('exam_sessions', function (Blueprint $table) {
             $table->foreignIdFor(Institution::class)
                 ->constrained()
