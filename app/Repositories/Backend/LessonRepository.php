@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Http\RedirectResponse;
+use LaravelIdea\Helper\App\Models\_IH_Lesson_QB;
+use LaravelIdea\Helper\App\Models\_IH_LessonType_QB;
 
 final class LessonRepository implements LessonRepositoryInterface
 {
-    public function __construct(
-        protected ToastMessageService $service,
-        protected LessonFactory $lessonFactory
-    ) {
+    public function __construct(protected ToastMessageService $service)
+    {
     }
 
     public function getLessons(): array|Collection
@@ -30,6 +30,7 @@ final class LessonRepository implements LessonRepositoryInterface
                     'id',
                     'name',
                     'chapter_id',
+                    'lesson_type_id',
                 ])
                 ->with([
                     'chapter:id,name,course_id',
@@ -45,6 +46,7 @@ final class LessonRepository implements LessonRepositoryInterface
                 'id',
                 'name',
                 'chapter_id',
+                'lesson_type_id',
             ])
             ->whereHas('chapter', function ($builder) {
                 $builder->whereHas('course', function ($builder) {
@@ -65,20 +67,24 @@ final class LessonRepository implements LessonRepositoryInterface
      */
     public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
-        $type = $this->getLessonType($attributes);
+        $lessonFactory = new LessonFactory();
 
+        $type = $this->getLessonType($attributes);
         $lesson = $this->storeLesson($attributes);
 
-        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
-            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
-        }
+        $lessonType = $lessonFactory->storageLessonType(type: $type->id);
+        $lessonType->store(attributes: $attributes, lesson: $lesson);
+
         $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
     }
 
-    public function getLessonType($attributes): LessonType|Builder|Model
+    /**
+     * @param $attributes
+     * @return LessonType|_IH_LessonType_QB|Builder|Model
+     */
+    public function getLessonType($attributes): LessonType|_IH_LessonType_QB|Builder|Model
     {
         return LessonType::query()
             ->select([
@@ -89,18 +95,21 @@ final class LessonRepository implements LessonRepositoryInterface
             ->firstOrFail();
     }
 
-    public function storeLesson($attributes): Lesson|Builder|Model
+    /**
+     * @param $attributes
+     * @return Lesson|Builder|Model|_IH_Lesson_QB
+     */
+    public function storeLesson($attributes): Lesson|Builder|_IH_Lesson_QB|Model
     {
         return Lesson::query()
             ->create([
                 'chapter_id' => $attributes->input('chapter'),
                 'name' => $attributes->input('name'),
                 'content' => $attributes->input('content'),
-                'lesson_type_id' => $attributes->input('type'),
             ]);
     }
 
-    public function updated(string $key, $attributes): Model|Lesson|Builder|null
+    public function updated(string $key, $attributes): Model|_IH_Lesson_QB|Lesson|Builder|null
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->update([
@@ -114,7 +123,7 @@ final class LessonRepository implements LessonRepositoryInterface
         return $lesson;
     }
 
-    public function showLesson(string $key): Model|Lesson|Builder|null
+    public function showLesson(string $key): Model|_IH_Lesson_QB|Lesson|Builder|null
     {
         $lesson = Lesson::query()
             ->select([
@@ -136,7 +145,7 @@ final class LessonRepository implements LessonRepositoryInterface
         ]);
     }
 
-    public function deleted(string $key): Lesson|Builder|Model
+    public function deleted(string $key): Lesson|Builder|Model|_IH_Lesson_QB
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->delete();

@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class FeeTypeRequest extends FormRequest
+final class ExpenseTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ final class FeeTypeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
+            'images' => ['required', 'mimes:jpg,png,svg,gif,jpeg'],
         ];
     }
 }

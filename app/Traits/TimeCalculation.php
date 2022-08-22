@@ -8,21 +8,20 @@ trait TimeCalculation
 {
     public static function calculate($attributes): array
     {
-        $dateOld = $attributes->input('date');
-        $time = $attributes->input('start_time');
-        $currentTime = strtotime(''.$dateOld.' '.$time.'');
-        $hoursToAdd = -2;
-        $secondsToAdd = $hoursToAdd * (60 * 60);
+        $date = $attributes->input('date');
+        $start_time = $attributes->input('start_time');
+        $end_tie = $attributes->input('end_time');
+        $currentTime = strtotime(''.$date.' '.$start_time);
+        $secondsToAdd = -2 * (60 * 60);
         $newTime = $currentTime + $secondsToAdd;
         $date = date('Y-m-d H:i:s', $newTime);
-        $time1 = $attributes->input('start_time');
-        $time2 = $attributes->input('end_time');
-        $array1 = explode(':', $time1);
-        $array2 = explode(':', $time2);
-        $minutes1 = ($array1[0] * 60.0);
-        $minutes2 = ($array2[0] * 60.0);
-        $difference = $minutes2 - $minutes1;
+        $array1 = explode(':', (string) $start_time);
+        $array2 = explode(':', (string) $end_tie);
+        $difference = ($array1[0] * 60.0 + $array1[1]) - ($array2[0] * 60.0 + $array2[1]);
 
-        return [$date, $difference];
+        return [
+            $date,
+            $difference,
+        ];
     }
 }
