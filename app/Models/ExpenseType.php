@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|\App\Models\Expense[] $expense
  * @property-read int|null $expense_count
+ *
  * @method static Builder|ExpenseType newModelQuery()
  * @method static Builder|ExpenseType newQuery()
  * @method static Builder|ExpenseType query()

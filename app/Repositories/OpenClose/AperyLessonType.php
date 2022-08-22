@@ -17,6 +17,7 @@ use App\Traits\TimeCalculation;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use JetBrains\PhpStorm\ArrayShape;
 
 final class AperyLessonType implements LessonTypeInterface
 {
@@ -81,7 +82,7 @@ final class AperyLessonType implements LessonTypeInterface
     {
         return [
             'name' => ''.$attributes->input('name'),
-            'owner_ref' => ''.(new AperyLessonType)->generateStringValues(910, 9_999_999),
+            'owner_ref' => ''.(new AperyLessonType)->generateStringValues(910, 9999999),
             'settings' => [
                 'description' => ''.$attributes->input('name'),
                 'mode' => 'group',
