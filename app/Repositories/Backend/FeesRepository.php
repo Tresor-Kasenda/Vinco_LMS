@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Repositories\Backend;
 
 use App\Contracts\FeesRepositoryInterface;
+use App\Enums\StatusEnum;
 use App\Models\Fee;
-use App\Services\ToastMessageService;
 use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,96 +16,76 @@ final class FeesRepository implements FeesRepositoryInterface
 {
     use RandomValues;
 
-    public function __construct(protected ToastMessageService $toastMessage)
-    {
-    }
-
     public function getFees(): Collection|array
     {
-        if (auth()->user()->hasRole('Super Admin')) {
-            return Fee::query()
-                ->select([
-                    'id',
-                    'fee_type_id',
-                    'amount',
-                    'pay_date',
-                    'institution_id',
-                    'promotion_id'
-                ])
-                ->with(['feeType', 'institution'])
-                ->orderByDesc('created_at')
-                ->get();
-        }
         return Fee::query()
             ->select([
-                'id',
+                'student_id',
                 'fee_type_id',
                 'amount',
-                'pay_date',
-                'institution_id',
-                'promotion_id'
+                'due_date',
+                'status',
             ])
-            ->where('institution_id', '=', auth()->user()->institution->id)
-            ->with('feeType')
+            ->with(['student', 'feeType'])
             ->orderByDesc('created_at')
             ->get();
-    }
-
-    public function stored($attributes): Model|Builder
-    {
-        $fee = Fee::query()
-            ->create([
-                'fee_type_id' => $attributes->input('types'),
-                'amount' => $attributes->input('amount'),
-                'pay_date' => $attributes->input('pay_date'),
-                'description' => $attributes->input('description'),
-                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
-                'promotion_id' => $attributes->input('promotion'),
-            ]);
-        $this->toastMessage->success("Fee added with successfully");
-
-        return $fee;
-    }
-
-    public function updated(int $key, $attributes)
-    {
-        $fee = $this->showFee(key: $key);
-        $fee->update([
-            'fee_type_id' => $attributes->input('type'),
-            'amount' => $attributes->input('amount'),
-            'pay_date' => $attributes->input('pay_date'),
-            'description' => $attributes->input('description'),
-            'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
-            'promotion_id' => $attributes->input('promotion')
-        ]);
-        $this->toastMessage->success("Fee updated with successfully");
-
-        return $fee;
     }
 
     public function showFee(int $key)
     {
         $fee = Fee::query()
-            ->select([
-                'id',
-                'amount',
-                'pay_date',
-                'description',
-                'description',
-                'promotion_id',
-                'institution_id'
-            ])
             ->find($key)
             ->first();
 
-        return $fee->load(['feeType:id,name,images', 'institution:id,institution_name', 'promotion:id,name']);
+        return $fee->load(['student', 'feeType']);
     }
 
-    public function deleted(int $key)
+    public function stored($attributes, $factory): Model|Builder
+    {
+        $fee = Fee::query()
+            ->create([
+                'fee_type_id' => $attributes->input('type'),
+                'student_id' => $attributes->input('student'),
+                'amount' => $attributes->input('amount'),
+                'name' => $attributes->input('name'),
+                'transaction_no' => self::generateStringValues(0, 9_999_999_999),
+                'due_date' => $attributes->input('dues'),
+                'pay_date' => $attributes->input('pay_date'),
+                'description' => $attributes->input('description'),
+                'status' => StatusEnum::FALSE,
+                'institution_id' => $attributes->input('institution'),
+            ]);
+
+        $factory->addSuccess('Fee added with successfully');
+
+        return $fee;
+    }
+
+    public function updated(int $key, $attributes, $factory)
+    {
+        $fee = $this->showFee(key: $key);
+        $fee->update([
+            'fee_type_id' => $attributes->input('type'),
+            'student_id' => $attributes->input('student'),
+            'amount' => $attributes->input('amount'),
+            'name' => $attributes->input('name'),
+            'due_date' => $attributes->input('dues'),
+            'pay_date' => $attributes->input('pay_date'),
+            'description' => $attributes->input('description'),
+            'institution_id' => $attributes->input('institution'),
+        ]);
+
+        $factory->addSuccess('Fee updated with successfully');
+
+        return $fee;
+    }
+
+    public function deleted(int $key, $factory)
     {
         $fee = $this->showFee(key: $key);
         $fee->delete();
-        $this->toastMessage->success("Fee deleted with successfully");
+
+        $factory->addSuccess('Fee deleted with successfully');
 
         return $fee;
     }

@@ -112,7 +112,6 @@
                                                                 class="form-control @error('video_lesson') error @enderror"
                                                                 id="video_lesson"
                                                                 name="video_lesson"
-                                                                accept="video/mp4,video/x-m4v,video/*"
                                                                 value="{{ old('video_lesson') }}"
                                                                 placeholder="Select Video Format"
                                                                 >
@@ -217,6 +216,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
