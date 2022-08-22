@@ -51,7 +51,7 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
                 'images',
             ])
             ->with(['campus:id,name'])
-            ->whereHas('campus', fn ($query) => $query->where('institution_id', '=', auth()->user()->institution->id))
+            ->whereHas('campus', fn($query) => $query->where('institution_id', '=', auth()->user()->institution->id))
             ->orderByDesc('created_at')
             ->get();
     }
