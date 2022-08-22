@@ -81,6 +81,14 @@ final class InstitutionRepository implements InstitutionRepositoryInterface
         {
             return $institution;
         }
+        try
+        {
+            $this->institution->sendEmail(institution:  $institution);
+        }
+        catch (Throwable $exception)
+        {
+            return $institution;
+        }
 
         return $institution;
     }
