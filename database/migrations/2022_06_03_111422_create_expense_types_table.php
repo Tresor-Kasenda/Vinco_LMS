@@ -10,16 +10,16 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('expenses', function (Blueprint $table) {
+        Schema::create('expense_types', function (Blueprint $table) {
             $table->id();
-            $table->string('amount');
-            $table->text('description')->nullable();
+            $table->string('name');
+            $table->string('image');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('expenses');
+        Schema::dropIfExists('expense_types');
     }
 };

@@ -134,8 +134,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
-            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])
-                ->name('promotion-fee-json');
+            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])->name('promotion-fee-json');
         });
 
         Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
