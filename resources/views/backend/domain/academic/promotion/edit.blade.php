@@ -117,25 +117,6 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="filiaire">FIliaire</label>
-                                                    <select
-                                                        class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
-                                                        id="filiaire"
-                                                        data-search="on"
-                                                        name="filiaire"
-                                                        data-placeholder="Choisir le filiaire"
-                                                        required>
-                                                        <option value="{{ $promotion->subsidiary->id }}">{{ $promotion->subsidiary->name }}</option>
-                                                        @foreach($filiaires as $filiaire)
-                                                            <option value="{{ $filiaire->id }}">
-                                                                {{ ucfirst($filiaire->name) ?? "" }} /(<small>{{ ucfirst($filiaire->department->name) ?? "" }}</small>)
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
                                                     <label class="form-label" for="academic">Annee academique</label>
                                                     <select
                                                         class="form-control js-select2 select2-hidden-accessible @error('academic') error @enderror"
@@ -167,6 +148,27 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="filiaire">FIliaire</label>
+                                                    <select
+                                                        class="form-control js-select2 select2-hidden-accessible @error('filiaire') error @enderror"
+                                                        id="filiaire"
+                                                        data-search="on"
+                                                        name="filiaire"
+                                                        data-placeholder="Choisir le filiaire"
+                                                        required>
+                                                        <option value="{{ $promotion->subsidiary->id }}">{{ $promotion->subsidiary->name }}</option>
+                                                        @foreach($filiaires as $filiaire)
+                                                            <option value="{{ $filiaire->id }}">
+                                                                {{ ucfirst($filiaire->name) ?? "" }} /(<small>{{ ucfirst($filiaire->department->name) ?? "" }}</small>)
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="description">Message</label>

@@ -53,25 +53,6 @@ final class ParentRepository implements ParentRepositoryInterface
             ->get();
     }
 
-    public function showGuardian(string $key): Model|Guardian|Builder
-    {
-        $parent = Guardian::query()
-            ->select([
-                'id',
-                'user_id',
-                'name_guardian',
-                'firstName_guardian',
-                'email_guardian',
-                'images',
-                'phones',
-                'occupation',
-            ])
-            ->whereId($key)
-            ->firstOrFail();
-
-        return $parent->load(['user', 'students', 'fees']);
-    }
-
     public function stored($attributes): Model|Guardian|Builder|RedirectResponse
     {
         $user = $this->createParent($attributes);
@@ -91,31 +72,6 @@ final class ParentRepository implements ParentRepositoryInterface
 
             return $guardian;
         }
-    }
-
-    public function updated(string $key, $attributes): Model|Guardian|Builder
-    {
-        $parent = $this->showGuardian($key);
-
-        $parent->update([
-            'name_guardian' => $attributes->input('name'),
-            'email_guardian' => $attributes->input('email'),
-            'phones' => $attributes->input('phones'),
-            'gender' => $attributes->input('gender'),
-        ]);
-
-        $this->service->success('Parent updated with successfully');
-
-        return $parent;
-    }
-
-    public function deleted(string $key): Model|Guardian|Builder
-    {
-        $parent = $this->showGuardian($key);
-        $parent->delete();
-        $this->service->success('Parent deleted with successfully');
-
-        return $parent;
     }
 
     private function createParent($attributes): Model|Builder|User|null
@@ -141,5 +97,49 @@ final class ParentRepository implements ParentRepositoryInterface
         return Role::query()
             ->where('name', '=', 'Parent')
             ->firstOrFail();
+    }
+
+    public function updated(string $key, $attributes): Model|Guardian|Builder
+    {
+        $parent = $this->showGuardian($key);
+
+        $parent->update([
+            'name_guardian' => $attributes->input('name'),
+            'email_guardian' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'gender' => $attributes->input('gender'),
+        ]);
+
+        $this->service->success('Parent updated with successfully');
+
+        return $parent;
+    }
+
+    public function showGuardian(string $key): Model|Guardian|Builder
+    {
+        $parent = Guardian::query()
+            ->select([
+                'id',
+                'user_id',
+                'name_guardian',
+                'firstName_guardian',
+                'email_guardian',
+                'images',
+                'phones',
+                'occupation',
+            ])
+            ->whereId($key)
+            ->firstOrFail();
+
+        return $parent->load(['user', 'students']);
+    }
+
+    public function deleted(string $key): Model|Guardian|Builder
+    {
+        $parent = $this->showGuardian($key);
+        $parent->delete();
+        $this->service->success('Parent deleted with successfully');
+
+        return $parent;
     }
 }
