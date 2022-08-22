@@ -34,6 +34,7 @@ trait ImageUploader
             ->storePublicly('/tutorials', ['disk' => 'public']);
     }
 
+
     public static function uploadPDF(Request $request): bool|string
     {
         return $request->file('pdf_format')

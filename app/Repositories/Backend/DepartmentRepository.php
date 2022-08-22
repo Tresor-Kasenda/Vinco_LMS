@@ -51,9 +51,25 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
                 'images',
             ])
             ->with(['campus:id,name'])
-            ->whereHas('campus', fn ($query) => $query->where('institution_id', '=', auth()->user()->institution->id))
+            ->whereHas('campus', fn($query) => $query->where('institution_id', '=', auth()->user()->institution->id))
             ->orderByDesc('created_at')
             ->get();
+    }
+
+    public function showDepartment(string $key): Model|Department|Builder|null
+    {
+        $department = Department::query()
+            ->select([
+                'campus_id',
+                'name',
+                'id',
+                'description',
+                'images',
+            ])
+            ->where('id', '=', $key)
+            ->first();
+
+        return $department->load(['campus', 'users', 'teachers']);
     }
 
     public function stored($attributes): Model|Department|Builder|RedirectResponse
@@ -84,22 +100,6 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
         $this->service->success('Un departement a ete modifier');
 
         return $department;
-    }
-
-    public function showDepartment(string $key): Model|Department|Builder|null
-    {
-        $department = Department::query()
-            ->select([
-                'campus_id',
-                'name',
-                'id',
-                'description',
-                'images',
-            ])
-            ->where('id', '=', $key)
-            ->first();
-
-        return $department->load(['campus', 'users', 'teachers']);
     }
 
     public function deleted(string $key): RedirectResponse
