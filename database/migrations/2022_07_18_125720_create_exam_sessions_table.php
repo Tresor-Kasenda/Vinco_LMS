@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('exam_sessions', function (Blueprint $table) {

@@ -1,26 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
 use App\Models\LessonType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    public function up()
+return new class extends Migration {
+    public function up(): void
     {
         Schema::table('lessons', function (Blueprint $table) {
             $table->foreignIdFor(LessonType::class)
-                ->constrained();
+                ->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 
     public function down()
     {
-        Schema::table('lesson', function (Blueprint $table) {
-            $table->dropForeignIdFor(LessonType::class);
+        Schema::table('lessons', function (Blueprint $table) {
+            //
         });
     }
 };
