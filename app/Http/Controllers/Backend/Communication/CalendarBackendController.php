@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class CalendarBackendController extends Controller
+final class CalendarBackendController extends Controller
 {
     public function __construct(
         protected readonly AcademicYearRepositoryInterface $repository,
@@ -24,8 +24,6 @@ class CalendarBackendController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
      */
     public function index(): View|Factory|Application
     {
@@ -49,7 +47,6 @@ class CalendarBackendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request): RedirectResponse
@@ -89,7 +86,6 @@ class CalendarBackendController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

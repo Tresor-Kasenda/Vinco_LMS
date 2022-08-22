@@ -10,7 +10,7 @@ use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class ProfileRepository implements ProfileRepositoryInterface
+final class ProfileRepository implements ProfileRepositoryInterface
 {
     use ImageUploader;
 

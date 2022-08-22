@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
@@ -24,7 +25,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Exam[] $exam
  * @property-read int|null $exam_count
- *
  * @method static Builder|ExamSession newModelQuery()
  * @method static Builder|ExamSession newQuery()
  * @method static Builder|ExamSession query()
@@ -36,10 +36,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ExamSession whereStartDate($value)
  * @method static Builder|ExamSession whereUpdatedAt($value)
  * @mixin Eloquent
- *
  * @method static \Database\Factories\ExamSessionFactory factory(...$parameters)
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|ExamSession whereInstitutionId($value)
  */
-class ExamSession extends Model
+final class ExamSession extends Model
 {
     use HasFactory;
 
@@ -48,5 +50,10 @@ class ExamSession extends Model
     public function exam(): HasMany
     {
         return $this->hasMany(Exam::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

@@ -19,7 +19,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()
@@ -30,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Profile whereUserId($value)
  * @mixin \Eloquent
  */
-class Profile extends Model
+final class Profile extends Model
 {
     use HasFactory;
 

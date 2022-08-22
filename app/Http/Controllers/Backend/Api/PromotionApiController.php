@@ -6,11 +6,14 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Requests\PromotionApiRequest;
 use App\Repositories\Api\PromotionApiRepository;
+use Illuminate\Http\JsonResponse;
 
-class PromotionApiController
+final class PromotionApiController
 {
-    public function getPromotion(PromotionApiRequest $apiRequest, PromotionApiRepository $repository)
-    {
+    public function getPromotion(
+        PromotionApiRequest $apiRequest,
+        PromotionApiRepository $repository
+    ): JsonResponse {
         $promotions = $repository->getPromotion($apiRequest);
 
         return response()->json([

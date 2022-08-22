@@ -6,7 +6,7 @@ use App\Models\Department;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class FiliaireApiRequest extends FormRequest
+final class FiliaireApiRequest extends FormRequest
 {
     public function rules(): array
     {

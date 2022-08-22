@@ -10,9 +10,9 @@ interface FeesRepositoryInterface
 
     public function showFee(int $key);
 
-    public function stored($attributes, $factory);
+    public function stored($attributes);
 
-    public function updated(int $key, $attributes, $factory);
+    public function updated(int $key, $attributes);
 
-    public function deleted(int $key, $factory);
+    public function deleted(int $key);
 }

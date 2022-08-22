@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Course_QB;
 
-class CourseRepository implements CourseRepositoryInterface
+final class CourseRepository implements CourseRepositoryInterface
 {
     use ImageUploader;
 

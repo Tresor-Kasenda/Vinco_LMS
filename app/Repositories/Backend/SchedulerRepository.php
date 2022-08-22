@@ -6,7 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\SchedulerRepositoryInterface;
 
-class SchedulerRepository implements SchedulerRepositoryInterface
+final class SchedulerRepository implements SchedulerRepositoryInterface
 {
     public function render(): array
     {

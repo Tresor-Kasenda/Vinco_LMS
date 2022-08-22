@@ -10,7 +10,7 @@ use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
-class TrashedLessonBackendController extends Controller
+final class TrashedLessonBackendController extends Controller
 {
     public function __construct(
         public SweetAlertFactory $alertFactory,

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
-class GroupController extends Controller
+final class GroupController extends Controller
 {
     public function __construct()
     {
@@ -33,7 +33,7 @@ class GroupController extends Controller
 
         //generate a code for the groupe
         $characters = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $code = substr(str_shuffle($characters), rand(0, 9), 7);
+        $code = substr(str_shuffle($characters), random_int(0, 9), 7);
 
         $group = Group::create([
             'name' => $request->name,
@@ -72,7 +72,7 @@ class GroupController extends Controller
                 $group->participants()->attach(auth()->user()->id);
 
                 return redirect('/chatify')->with('success', 'Group joined');
-            } catch (\Throwable $th) {
+            } catch (\Throwable) {
                 //Display an error if the user is already in the group
                 return redirect()->back()->with('error', 'You are already a member of this group');
             }

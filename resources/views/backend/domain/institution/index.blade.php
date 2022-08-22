@@ -64,8 +64,8 @@
                                             src="{{ asset('storage/'.$institution->institution_images) }}"
                                             alt="{{ $institution->institution_name }}"
                                             class="img-fluid rounded-circle"
-                                            width="10%"
-                                            height="10%"
+                                            width="15%"
+                                            height="15%"
                                         >
                                     </span>
                                 </td>
@@ -88,13 +88,13 @@
                                 @if($institution->user != null)
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            {{ ucfirst($institution->user->name) }}
+                                            {{ ucfirst($institution->user->name) ?? "" }}
                                         </span>
                                     </td>
                                 @else
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            Pas de gestionnaire
+                                            Not Exist
                                         </span>
                                     </td>
                                 @endif

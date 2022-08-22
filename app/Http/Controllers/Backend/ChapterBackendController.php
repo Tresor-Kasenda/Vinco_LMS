@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-class ChapterBackendController extends Controller
+final class ChapterBackendController extends Controller
 {
     public function __construct(
         public ChapterRepositoryInterface $repository

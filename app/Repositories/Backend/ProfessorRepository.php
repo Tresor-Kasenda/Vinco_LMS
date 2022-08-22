@@ -18,7 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
-class ProfessorRepository implements ProfessorRepositoryInterface
+final class ProfessorRepository implements ProfessorRepositoryInterface
 {
     use ImageUploader, RandomValues;
 

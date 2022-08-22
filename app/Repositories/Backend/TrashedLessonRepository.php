@@ -7,7 +7,7 @@ namespace App\Repositories\Backend;
 use App\Contracts\TrashedLessonRepositoryInterface;
 use App\Models\Lesson;
 
-class TrashedLessonRepository implements TrashedLessonRepositoryInterface
+final class TrashedLessonRepository implements TrashedLessonRepositoryInterface
 {
     public function getTrashes(): array
     {

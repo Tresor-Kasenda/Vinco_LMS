@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
-class CalendarAppController extends Controller
+final class CalendarAppController extends Controller
 {
     public function index(): Renderable
     {

@@ -8,7 +8,7 @@ use App\Models\ExamSession;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ExamSessionRequest extends FormRequest
+final class ExamSessionRequest extends FormRequest
 {
     public function rules(): array
     {

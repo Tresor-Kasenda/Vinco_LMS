@@ -11,7 +11,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 
-class TrashedPersonnelBackendController extends Controller
+final class TrashedPersonnelBackendController extends Controller
 {
     public function __construct(
         public SweetAlertFactory $alertFactory,

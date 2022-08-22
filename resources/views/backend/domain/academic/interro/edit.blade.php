@@ -47,6 +47,28 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'institution_id'
+                                                        ])
+                                                        ->with('institution:id,institution_name')
+                                                        ->get();
+                                                } else {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'institution_id'
+                                                        ])
+                                                        ->where('institution_id', '=', auth()->user()->institution->id)
+                                                        ->get();
+                                                }
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="course">Cours</label>
@@ -55,16 +77,20 @@
                                                         id="course"
                                                         data-search="on"
                                                         name="course"
-                                                        data-placeholder="Choisir le cours"
-                                                        required>
-                                                        <option value="{{ $interro->course->id }}">{{ ucfirst($interro->course->name) }}</option>
-                                                        @foreach(\App\Models\Course::all() as $course)
-                                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                                        data-placeholder="Choisir le course"
+                                                    >
+                                                        <option label="Choisir le course" value=""></option>
+                                                        @foreach($courses as $course)
+                                                            <option value="{{ $course->id }}">
+                                                                {{ ucfirst($course->name) ?? ""}}
+                                                                @if(auth()->user()->hasRole('Super Admin'))
+                                                                    / (<small>{{ ucfirst($course->institution->institution_name) ?? "" }}</small>)
+                                                                @endif
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="chapter">Chapitre</label>
@@ -74,14 +100,12 @@
                                                         data-search="on"
                                                         name="chapter"
                                                         data-placeholder="Choisir le chapter"
-                                                        required>
-                                                        <option value="{{ $interro->chapter->id }}">{{ ucfirst($interro->chapter->name) }}</option>
-                                                        @foreach(\App\Models\Chapter::all() as $chapter)
-                                                            <option value="{{ $chapter->id }}">{{ $chapter->name }}</option>
-                                                        @endforeach
+                                                    >
+
                                                     </select>
                                                 </div>
                                             </div>
+
 
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -145,3 +169,31 @@
         </div>
     </div>
 @endsection
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#course').change(function () {
+                let course = $(this).val();
+                if (course){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.chapter-json") }}',
+                        data:{"course" : course },
+                        success:function(response) {
+                            $("#chapter").empty();
+                            $("#chapter").append('<option label="Select Chapter" value=""></option>');
+                            if(response && response?.status === 'success') {
+                                response?.chapters?.map((chapitre) => {
+                                    $("#chapter").append('<option value="'+chapitre.id+'">'+chapitre.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+@endsection
+

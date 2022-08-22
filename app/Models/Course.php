@@ -48,7 +48,6 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $results_count
  * @property-read Collection|Schedule[] $schedules
  * @property-read int|null $schedules_count
- *
  * @method static Builder|Course newModelQuery()
  * @method static Builder|Course newQuery()
  * @method static \Illuminate\Database\Query\Builder|Course onlyTrashed()
@@ -68,15 +67,12 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Course withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Course withoutTrashed()
  * @mixin \Eloquent
- *
  * @property int $institution_id
- *
  * @method static \Database\Factories\CourseFactory factory(...$parameters)
  * @method static Builder|Course whereInstitutionId($value)
- *
  * @property-read \App\Models\Institution $institution
  */
-class Course extends Model
+final class Course extends Model
 {
     use HasFactory, SoftDeletes;
 

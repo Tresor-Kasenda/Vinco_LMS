@@ -12,6 +12,8 @@ return new class extends Migration {
      *
      * @return void
      */
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('fee_types', function (Blueprint $table) {
@@ -22,11 +24,6 @@ return new class extends Migration {
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(): void
     {
         Schema::dropIfExists('fee_types');

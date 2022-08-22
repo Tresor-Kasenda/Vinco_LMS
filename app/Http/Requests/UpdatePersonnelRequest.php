@@ -8,11 +8,8 @@ use App\Models\Institution;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdatePersonnelRequest extends FormRequest
+final class UpdatePersonnelRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;

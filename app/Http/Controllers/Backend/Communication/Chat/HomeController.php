@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Communication\Chat;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * Create a new controller instance.

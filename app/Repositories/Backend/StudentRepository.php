@@ -22,12 +22,14 @@ use LaravelIdea\Helper\App\Models\_IH_Role_QB;
 use LaravelIdea\Helper\App\Models\_IH_Student_QB;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
-class StudentRepository implements StudentRepositoryInterface
+final class StudentRepository implements StudentRepositoryInterface
 {
     use ImageUploader, RandomValues;
 
-    public function __construct(protected ToastMessageService $service, protected SendEmailConfirmation $confirmation)
-    {
+    public function __construct(
+        protected ToastMessageService $service,
+        protected SendEmailConfirmation $confirmation
+    ) {
     }
 
     public function students(): array|Collection

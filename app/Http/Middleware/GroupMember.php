@@ -6,17 +6,16 @@ use App\Models\Group;
 use Closure;
 use Illuminate\Http\Request;
 
-class GroupMember
+final class GroupMember
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
+        $group_members_id = [];
         $group = Group::find($request->id);
 
         $group_members = $group->participants()->get();

@@ -7,7 +7,7 @@ namespace App\Services;
 use Flasher\Prime\Notification\NotificationInterface;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 
-class ToastMessageService
+final class ToastMessageService
 {
     public function __construct(public SweetAlertFactory $factory)
     {

@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ExamSessionUpdateRequest extends FormRequest
+final class ExamSessionUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

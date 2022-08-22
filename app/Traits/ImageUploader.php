@@ -16,12 +16,6 @@ trait ImageUploader
             ->storePublicly('/', ['disk' => 'public']);
     }
 
-    public function uploadPDFFile(Request $request): bool|string
-    {
-        return $request->file('files')
-            ->storePublicly('/resource', ['disk' => 'public']);
-    }
-
     public static function uploadIcons(Request $request): bool|string
     {
         return $request->file('app_icons')
@@ -32,6 +26,24 @@ trait ImageUploader
     {
         return $request->file('app_images')
             ->storePublicly('/logos', ['disk' => 'public']);
+    }
+
+    public static function uploadVideos(Request $request): bool|string
+    {
+        return $request->file('video_lesson')
+            ->storePublicly('/tutorials', ['disk' => 'public']);
+    }
+
+    public static function uploadPDF(Request $request): bool|string
+    {
+        return $request->file('pdf_format')
+            ->storePublicly('/pdf', ['disk' => 'public']);
+    }
+
+    public function uploadPDFFile(Request $request): bool|string
+    {
+        return $request->file('files')
+            ->storePublicly('/resource', ['disk' => 'public']);
     }
 
     public function removePDFFiles($model): void
@@ -68,5 +80,11 @@ trait ImageUploader
     {
         Storage::disk('public')
             ->delete($model->institution_images);
+    }
+
+    private function removePathOfVideos(Model $model): void
+    {
+        Storage::disk('public')
+            ->delete($model->video_name);
     }
 }

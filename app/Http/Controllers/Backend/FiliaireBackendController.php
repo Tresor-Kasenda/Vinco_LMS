@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response as SymfonyHttp;
 
-class FiliaireBackendController extends Controller
+final class FiliaireBackendController extends Controller
 {
     public function __construct(
         protected readonly FiliaireRepositoryInterface $repository

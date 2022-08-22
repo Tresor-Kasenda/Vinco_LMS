@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\MessageEvent;
 
-class MessageEventListener
+final class MessageEventListener
 {
     /**
      * Create the event listener.
@@ -19,7 +19,6 @@ class MessageEventListener
     /**
      * Handle the event.
      *
-     * @param  MessageEvent  $event
      * @return void
      */
     public function handle(MessageEvent $event)

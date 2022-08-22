@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Laratrust\Models\LaratrustRole;
 
-class CreateUserCommand extends Command
+final class CreateUserCommand extends Command
 {
     protected $signature = 'vinco:add-user {name?}';
 
@@ -33,8 +33,8 @@ class CreateUserCommand extends Command
         $this->comment('Add User Command Interactive Wizard');
 
         process :
-            $name = ucwords($this->anticipate('name', ['admin', 'Place manager']));
-        $email = strtolower($this->ask('email'));
+            $name = ucwords((string) $this->anticipate('name', ['admin', 'Place manager']));
+        $email = strtolower((string) $this->ask('email'));
         $password = $this->secret('password');
         $password_confirmation = $this->secret('confirm password');
 
@@ -81,12 +81,14 @@ class CreateUserCommand extends Command
         return Institution::query()
             ->create([
                 'institution_name' => 'Vinco',
-                'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
                 'institution_country' => 'Congo DR',
-                'institution_phones' => '+243818045132',
                 'institution_town' => 'Lubumbashi',
-                'institution_images' => asset('assets/favicon.svg'),
+                'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
+                'institution_phones' => '+243818045132',
                 'institution_website' => 'https://www.vinco.digital',
+                'institution_email' => 'information@vinco.com',
+                'institution_images' => "favicon.svg",
+                'institution_description' => "Vinco LMS une plateforme d'etude en ligne"
             ]);
     }
 

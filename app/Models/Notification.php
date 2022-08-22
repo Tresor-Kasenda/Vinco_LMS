@@ -16,20 +16,18 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Notification newQuery()
  * @method static Builder|Notification query()
  * @mixin \Eloquent
- *
  * @property int $id
  * @property string $title
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|Notification whereContent($value)
  * @method static Builder|Notification whereCreatedAt($value)
  * @method static Builder|Notification whereId($value)
  * @method static Builder|Notification whereTitle($value)
  * @method static Builder|Notification whereUpdatedAt($value)
  */
-class Notification extends Model
+final class Notification extends Model
 {
     use HasFactory;
 

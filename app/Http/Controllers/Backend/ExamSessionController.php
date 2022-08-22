@@ -11,7 +11,7 @@ use App\Http\Requests\ExamSessionUpdateRequest;
 use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Support\Facades\View;
 
-class ExamSessionController extends Controller
+final class ExamSessionController extends Controller
 {
     public function __construct(
         protected readonly ExamSessionRepositoryInterface $repository,

@@ -9,7 +9,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 
-class TrashedCategoryRepository implements TrashedCategoryRepositoryInterface
+final class TrashedCategoryRepository implements TrashedCategoryRepositoryInterface
 {
     public function getTrashes(): array|Collection
     {

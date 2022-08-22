@@ -30,6 +30,28 @@
                                     <form action="{{ route('admins.announce.feesTypes.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
+                                            @if(auth()->user()->hasRole('Super Admin'))
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="institution">Institution</label>
+                                                        <select
+                                                            class="form-control js-select2 @error('institution') error @enderror"
+                                                            id="institution"
+                                                            name="institution"
+                                                            data-placeholder="Select Institution"
+                                                            required>
+                                                            <option label="role" value=""></option>
+                                                            @foreach(\App\Models\Institution::get() as $personnel)
+                                                                <option
+                                                                    value="{{ $personnel->id }}">
+                                                                    {{ ucfirst($personnel->institution_name) ?? "" }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Name</label>

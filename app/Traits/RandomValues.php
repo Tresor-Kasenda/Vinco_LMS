@@ -11,7 +11,7 @@ trait RandomValues
         $characters = now()->format('Y').'0123456789ABCDEFGHILKMNOPQRSTUVWXYZabcdefghilkmnopqrstuvwxyz'.$name;
         $randomString = '';
         for ($i = 0; $i < $values; $i++) {
-            $index = rand(0, strlen($characters) - 1);
+            $index = random_int(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
 
@@ -20,15 +20,18 @@ trait RandomValues
 
     public function generateStringValues(int $firstValue, int $secondValue): string
     {
-        return strval(rand($firstValue, $secondValue));
+        return strval(random_int($firstValue, $secondValue));
     }
 
+    /**
+     * @throws \Exception
+     */
     public function randomMatriculate(string $name): string
     {
         $characters = now()->format('Y').substr($name, 0, 3);
         $randomMatriculate = '';
         for ($i = 0; $i < $name; $i++) {
-            $index = rand(0, strlen($characters) - 1);
+            $index = random_int(0, strlen($characters) - 1);
             $randomMatriculate .= $characters[$index];
         }
 

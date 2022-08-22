@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\FeeType;
-use App\Models\Guardian;
-use App\Models\Student;
+use App\Models\Promotion;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +14,8 @@ return new class extends Migration {
      *
      * @return void
      */
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('fees', function (Blueprint $table) {
@@ -22,27 +23,16 @@ return new class extends Migration {
             $table->foreignIdFor(FeeType::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->foreignIdFor(Guardian::class)
+            $table->foreignIdFor(Promotion::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->foreignIdFor(Student::class)
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->integer('transaction_no')->unique();
             $table->string('amount');
-            $table->date('due_date');
             $table->date('pay_date')->nullable();
-            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
             $table->text('description');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(): void
     {
         Schema::dropIfExists('fees');

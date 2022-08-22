@@ -13,7 +13,7 @@ use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
-class HomeFrontendController extends Controller
+final class HomeFrontendController extends Controller
 {
     public function __construct(
         protected readonly InstitutionRepositoryInterface $repository,

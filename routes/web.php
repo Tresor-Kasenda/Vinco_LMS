@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
+use App\Http\Controllers\Backend\Api\LessonApiController;
 use App\Http\Controllers\Backend\Api\ProfessorApiController;
 use App\Http\Controllers\Backend\Api\PromotionApiController;
+use App\Http\Controllers\Backend\Api\PromotionFeeApiController;
 use App\Http\Controllers\Backend\CampusBackendController;
 use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
@@ -54,7 +57,13 @@ use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
+use App\Http\Controllers\Frontend\AboutAppController;
+use App\Http\Controllers\Frontend\CalendarAppController;
+use App\Http\Controllers\Frontend\EventAppController;
+use App\Http\Controllers\Frontend\FeesAppController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
+use App\Http\Controllers\Frontend\LibraryAppController;
+use App\Http\Controllers\Frontend\ShortCoursesAppController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +105,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('department-json', [FiliaireApiController::class, 'getFiliaire'])->name('department-json');
             Route::get('promotion-json', [PromotionApiController::class, 'getPromotion'])->name('promotion-json');
             Route::get('professor-json', [ProfessorApiController::class, 'getInstitution'])->name('professor-json');
+            Route::get('chapter-json', [ChapterApiController::class, 'getChapters'])->name('chapter-json');
+            Route::get('lesson-json', [LessonApiController::class, 'getLesson'])->name('lesson-json');
         });
 
         Route::group(['prefix' => 'exam', 'as' => 'exam.'], routes: function () {
@@ -111,8 +122,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'announce', 'as' => 'announce.'], routes: function () {
             Route::resource('feesTypes', FeesTypeBackendController::class);
             Route::resource('fees', FeesBackendController::class);
-            Route::resource('expenseTypes', ExpenseTypeBackendController::class);
-            Route::resource('expenses', ExpenseBackendController::class);
         });
 
         Route::group(['prefix' => 'communication', 'as' => 'communication.'], routes: function () {
@@ -125,7 +134,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
-            Route::resource('expenses', ExpenseBackendController::class);
+            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])->name('promotion-fee-json');
         });
 
         Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {

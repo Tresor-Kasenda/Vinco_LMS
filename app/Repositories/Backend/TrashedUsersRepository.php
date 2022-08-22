@@ -9,7 +9,7 @@ namespace App\Repositories\Backend;
  use Illuminate\Database\Eloquent\Collection;
  use Illuminate\Http\RedirectResponse;
 
- class TrashedUsersRepository implements TrashedUsersRepositoryInterface
+ final class TrashedUsersRepository implements TrashedUsersRepositoryInterface
  {
      public function getTrashes(): array|Collection
      {

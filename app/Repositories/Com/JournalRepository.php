@@ -6,7 +6,7 @@ namespace App\Repositories\Com;
 
 use App\Contracts\JournalRepositoryInterface;
 
-class JournalRepository implements JournalRepositoryInterface
+final class JournalRepository implements JournalRepositoryInterface
 {
     public function results()
     {

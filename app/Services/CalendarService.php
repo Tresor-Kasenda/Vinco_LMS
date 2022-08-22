@@ -6,7 +6,7 @@ namespace App\Services;
 
 use App\Models\Lesson;
 
-class CalendarService
+final class CalendarService
 {
     public function generateCalendarData($weekDays): array
     {

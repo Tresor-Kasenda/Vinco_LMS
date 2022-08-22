@@ -9,7 +9,7 @@ use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StudentUpdateRequest extends FormRequest
+final class StudentUpdateRequest extends FormRequest
 {
     public function rules(): array
     {

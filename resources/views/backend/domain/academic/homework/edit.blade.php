@@ -61,6 +61,28 @@
                                                 </div>
                                             </div>
 
+                                            @php
+                                                if (auth()->user()->hasRole('Super Admin')) {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'institution_id'
+                                                        ])
+                                                        ->with('institution:id,institution_name')
+                                                        ->get();
+                                                } else {
+                                                    $courses = \App\Models\Course::query()
+                                                        ->select([
+                                                            'id',
+                                                            'name',
+                                                            'institution_id'
+                                                        ])
+                                                        ->where('institution_id', '=', auth()->user()->institution->id)
+                                                        ->get();
+                                                }
+                                            @endphp
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="course">Cours</label>
@@ -71,9 +93,14 @@
                                                         name="course"
                                                         data-placeholder="Choisir le course"
                                                     >
-                                                        <option value="{{ $homework->course->id }}">{{ ucfirst($homework->course->name) }}</option>
-                                                        @foreach(\App\Models\Course::all() as $cours)
-                                                            <option value="{{ $cours->id }}">{{ $cours->name }}</option>
+                                                        <option label="Choisir le course" value=""></option>
+                                                        @foreach($courses as $course)
+                                                            <option value="{{ $course->id }}">
+                                                                {{ ucfirst($course->name) ?? ""}}
+                                                                @if(auth()->user()->hasRole('Super Admin'))
+                                                                    / (<small>{{ ucfirst($course->institution->institution_name) ?? "" }}</small>)
+                                                                @endif
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -88,10 +115,7 @@
                                                         name="chapter"
                                                         data-placeholder="Choisir le chapter"
                                                     >
-                                                        <option value="{{ $homework->chapter->id }}">{{ ucfirst($homework->chapter->name) }}</option>
-                                                        @foreach(\App\Models\Chapter::all() as $chapter)
-                                                            <option value="{{ $chapter->id }}">{{ $chapter->name }}</option>
-                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -105,10 +129,7 @@
                                                         name="lesson"
                                                         data-placeholder="Choisir la lesson"
                                                     >
-                                                        <option value="{{ $homework->lesson->id }}">{{ ucfirst($homework->lesson->name) }}</option>
-                                                        @foreach(\App\Models\Lesson::all() as $lesson)
-                                                            <option value="{{ $lesson->id }}">{{ $lesson->name }}</option>
-                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -161,3 +182,51 @@
         </div>
     </div>
 @endsection
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#course').change(function () {
+                let course = $(this).val();
+                if (course){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.chapter-json") }}',
+                        data:{"course" : course },
+                        success:function(response) {
+                            $("#chapter").empty();
+                            $("#chapter").append('<option label="Select Chapter" value=""></option>');
+                            if(response && response?.status === 'success') {
+                                response?.chapters?.map((chapitre) => {
+                                    $("#chapter").append('<option value="'+chapitre.id+'">'+chapitre.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+
+            $('#chapter').change(function () {
+                let chapter = $(this).val();
+                if(chapter){
+                    $.ajax({
+                        type:"GET",
+                        url:"{{ route('admins.academic.lesson-json') }}",
+                        data : { "chapter" : chapter },
+                        success:function(response){
+                            $("#lesson").empty();
+                            $("#lesson").append('<option label="Select lessons" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.lessons?.map((lesson) => {
+                                    $("#lesson").append('<option value="'+lesson.id+'">'+lesson.name+'</option>');
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+        })
+    </script>
+@endsection
+

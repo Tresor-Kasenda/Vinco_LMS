@@ -29,7 +29,6 @@ use Spatie\ModelStates\HasStates;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Lesson|null $lesson
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Live newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Live newQuery()
  * @method static \Illuminate\Database\Query\Builder|Live onlyTrashed()
@@ -55,7 +54,7 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Query\Builder|Live withoutTrashed()
  * @mixin \Eloquent
  */
-class Live extends Model
+final class Live extends Model
 {
     use HasFactory, SoftDeletes, HasStates;
 

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use LaravelIdea\Helper\App\Models\_IH_Exam_QB;
 
-class ExamListRepository implements ExamListRepositoryInterface
+final class ExamListRepository implements ExamListRepositoryInterface
 {
     public function exams(): array|Collection
     {

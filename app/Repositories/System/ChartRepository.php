@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use LaravelIdea\Helper\App\Models\_IH_Student_C;
 
-class ChartRepository implements ChartRepositoryInterface
+final class ChartRepository implements ChartRepositoryInterface
 {
     public function getFeesByMonth(): array|Collection
     {

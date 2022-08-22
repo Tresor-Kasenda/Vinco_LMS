@@ -19,17 +19,9 @@
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center">
-                                <div class="col-md-10 mt-4">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <form action="{{ route('admins.academic.lessons.store') }}" method="post" class="form-validate" novalidate="novalidate">
+                                <div class="col-md-8 mt-4">
+                                    <x-error-messages/>
+                                    <form action="{{ route('admins.academic.lessons.store') }}" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
@@ -74,23 +66,6 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="type">Type</label>
-                                                    <select
-                                                        class="form-control js-select2 select2-hidden-accessible @error('type') error @enderror"
-                                                        data-search="on"
-                                                        id="type"
-                                                        name="type"
-                                                        data-placeholder="Select Type"
-                                                        required>
-                                                        <option label="Select Type" value=""></option>
-                                                        @foreach($types as $type)
-                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
                                                     <label class="form-label" for="chapter">Chapitre</label>
                                                     <select
                                                         class="form-control js-select2 select2-hidden-accessible @error('chapter') error @enderror"
@@ -108,35 +83,120 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div id="aperi">
-                                                <span class="preview-title-lg overline-title">Aperi</span>
-                                                <div class="col-md-6">
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="type">Type</label>
+                                                    <select
+                                                        class="form-control js-select2 select2-hidden-accessible @error('type') error @enderror"
+                                                        data-search="on"
+                                                        id="type"
+                                                        name="type"
+                                                        data-placeholder="Select Type"
+                                                        required>
+                                                        <option label="Select Type" value=""></option>
+                                                        @foreach($types as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div id="video-lesson">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="name"></label>
+                                                        <label class="form-label" for="video_lesson">Video</label>
                                                         <div class="form-control-wrap">
                                                             <input
-                                                                type="text"
-                                                                class="form-control @error('name') error @enderror"
-                                                                id="name"
-                                                                name="name"
-                                                                value="{{ old('name') }}"
-                                                                placeholder="Saisir le nom du cours"
-                                                                required>
+                                                                type="file"
+                                                                class="form-control @error('video_lesson') error @enderror"
+                                                                id="video_lesson"
+                                                                name="video_lesson"
+                                                                value="{{ old('video_lesson') }}"
+                                                                placeholder="Select Video Format"
+                                                                >
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                            </div>
+
+
+                                            <div id="pdf-lesson">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="name"></label>
+                                                        <label class="form-label" for="pdf_lesson">Format PDF</label>
                                                         <div class="form-control-wrap">
                                                             <input
-                                                                type="text"
-                                                                class="form-control @error('name') error @enderror"
-                                                                id="name"
-                                                                name="name"
-                                                                value="{{ old('name') }}"
-                                                                placeholder="Saisir le nom du cours"
-                                                                required>
+                                                                type="file"
+                                                                class="form-control @error('pdf_lesson') error @enderror"
+                                                                id="pdf_lesson"
+                                                                name="pdf_lesson"
+                                                                value="{{ old('pdf_lesson') }}"
+                                                                placeholder="Select PDF Format"
+                                                                >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="aperi">
+                                                <span class="preview-title-lg overline-title">Aperi</span>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="participants">Nb Participants</label>
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control @error('participants') error @enderror"
+                                                                    id="participants"
+                                                                    name="participants"
+                                                                    value="{{ old('participants') }}"
+                                                                    placeholder="Saisir le nombre des participants"
+                                                                    >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="date">Date</label>
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control date-picker @error('date') error @enderror"
+                                                                    id="date"
+                                                                    name="date"
+                                                                    value="{{ old('date') }}"
+                                                                    placeholder="Select Date"
+                                                                    >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="start_time">Heure de debut</label>
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control time-picke @error('start_time') error @enderror"
+                                                                    name="start_time"
+                                                                    id="start_time"
+                                                                    value="{{ old('start_time') }}"
+                                                                    placeholder="Add your start time">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="end_time">Heure de Fin</label>
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control time-picke @error('end_time') error @enderror"
+                                                                    name="end_time"
+                                                                    value="{{ old('end_time') }}"
+                                                                    placeholder="Add your end time">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,6 +216,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">Save</button>
@@ -200,22 +261,21 @@
     </script>
     <script>
         $(document).ready(function () {
-            $("#text").hide();
-            $("#aperi").hide();
+            $("#text,#aperi,#pdf-lesson,#video-lesson").hide()
             $('#type').change(function () {
                 let type = $(this).val();
                 if (type == 1){
-                    $("#text").hide();
-                    $("#aperi").hide();
+                    $('#video-lesson').show();
+                    $("#text,#aperi,#pdf-lesson").hide()
                 } else if (type == 2) {
-                    $("#text").hide();
                     $("#aperi").show();
+                    $("#video-lesson,#text,#pdf-lesson").hide()
                 } else if (type == 3) {
                     $("#text").show();
-                    $("#aperi").hide();
+                    $("#aperi,#video-lesson,#pdf-lesson").hide()
                 } else if (type == 4) {
-                    $("#text").hide();
-                    $("#aperi").hide();
+                    $('#pdf-lesson').show();
+                    $("#text,#aperi,#video-lesson").hide()
                 }
             });
         })

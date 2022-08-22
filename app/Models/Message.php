@@ -15,19 +15,16 @@ use Illuminate\Support\Carbon;
  * @property-read string $date_time
  * @property-read \App\Models\Group|null $group
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Message newModelQuery()
  * @method static Builder|Message newQuery()
  * @method static Builder|Message query()
  * @mixin \Eloquent
- *
  * @property int $id
  * @property int $user_id
  * @property int $group_id
  * @property string $message
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static Builder|Message whereCreatedAt($value)
  * @method static Builder|Message whereGroupId($value)
  * @method static Builder|Message whereId($value)
@@ -35,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Message whereUpdatedAt($value)
  * @method static Builder|Message whereUserId($value)
  */
-class Message extends Model
+final class Message extends Model
 {
     use HasFactory;
 
@@ -43,12 +40,12 @@ class Message extends Model
 
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\Group', 'group_id');
+        return $this->belongsTo(\App\Models\Group::class, 'group_id');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
     public function getDateTimeAttribute(): string

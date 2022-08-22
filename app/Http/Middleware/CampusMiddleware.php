@@ -9,7 +9,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CampusMiddleware
+final class CampusMiddleware
 {
     public function handle(Request $request, Closure $next)
     {

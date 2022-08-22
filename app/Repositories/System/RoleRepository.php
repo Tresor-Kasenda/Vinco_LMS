@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class RoleRepository implements RoleRepositoryInterface
+final class RoleRepository implements RoleRepositoryInterface
 {
     public function getRoles(): Collection|array
     {

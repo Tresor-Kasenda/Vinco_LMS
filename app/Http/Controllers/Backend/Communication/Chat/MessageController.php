@@ -8,7 +8,7 @@ use App\Models\Group;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+final class MessageController extends Controller
 {
     public function __construct()
     {

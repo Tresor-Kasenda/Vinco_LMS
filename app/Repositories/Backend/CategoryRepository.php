@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use LaravelIdea\Helper\App\Models\_IH_Category_QB;
 
-class CategoryRepository implements CategoryRepositoryInterface
+final class CategoryRepository implements CategoryRepositoryInterface
 {
     public function __construct(protected ToastMessageService $service)
     {

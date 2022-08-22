@@ -7,11 +7,14 @@ namespace App\Http\Controllers\Backend\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FiliaireApiRequest;
 use App\Repositories\Api\FiliaireApiRepository;
+use Illuminate\Http\JsonResponse;
 
-class FiliaireApiController extends Controller
+final class FiliaireApiController extends Controller
 {
-    public function getFiliaire(FiliaireApiRequest $apiRequest, FiliaireApiRepository $repository)
-    {
+    public function getFiliaire(
+        FiliaireApiRequest $apiRequest,
+        FiliaireApiRepository $repository
+    ): JsonResponse {
         $filiaires = $repository->getFiliaire($apiRequest);
 
         return response()->json([

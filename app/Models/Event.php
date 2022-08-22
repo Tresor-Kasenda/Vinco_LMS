@@ -16,12 +16,10 @@ use Illuminate\Support\Carbon;
  *
  * @property-read Event|null $institution
  * @property-read Promotion|null $promotion
- *
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()
  * @mixin \Eloquent
- *
  * @property int $id
  * @property string $title
  * @property Carbon $start_date
@@ -30,7 +28,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property int $institution_id
  * @property int|null $promotion_id
- *
  * @method static \Database\Factories\EventFactory factory(...$parameters)
  * @method static Builder|Event whereCreatedAt($value)
  * @method static Builder|Event whereEndDate($value)
@@ -41,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Event whereTitle($value)
  * @method static Builder|Event whereUpdatedAt($value)
  */
-class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
+final class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
     use HasFactory;
 

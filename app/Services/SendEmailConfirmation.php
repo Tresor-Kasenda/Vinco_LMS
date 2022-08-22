@@ -6,7 +6,7 @@ namespace App\Services;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmailConfirmation implements ShouldQueue
+final class SendEmailConfirmation implements ShouldQueue
 {
     public function send($user)
     {

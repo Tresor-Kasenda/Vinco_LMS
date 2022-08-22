@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\EnableX;
 
-class EnableXException extends \Exception
+final class EnableXException extends \Exception
 {
     public static array $errors = [
         4001 => ['result' => '4001', 'error' => 'Required parameter missing'],

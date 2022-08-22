@@ -9,7 +9,7 @@ use App\Models\LessonType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class LessonRequest extends FormRequest
+final class LessonRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,10 +19,19 @@ class LessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'unique:lessons'],
+            'name' => ['required', 'string', 'min:3'],
             'type' => ['required', Rule::exists(LessonType::class, 'id')],
             'chapter' => ['required', Rule::exists(Chapter::class, 'id')],
             'content' => ['nullable', 'string'],
+            // video lesson
+            'video_lesson' => ['nullable', 'file', 'mimetypes:video/mp4'],
+            // PDF Validation
+            'pdf_lesson' => ['nullable', 'file', 'mimes:pdf,doc,docx'],
+            // Aperi Validation
+            'participants' => ['nullable', 'string'],
+            'date' => ['nullable', 'date'],
+            'start_time' => ['nullable'],
+            'end_time' => ['nullable', 'after:start_time'],
         ];
     }
 }

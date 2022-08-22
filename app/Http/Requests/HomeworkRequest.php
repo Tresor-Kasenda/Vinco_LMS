@@ -11,7 +11,7 @@ use App\Models\Lesson;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class HomeworkRequest extends FormRequest
+final class HomeworkRequest extends FormRequest
 {
     public function rules(): array
     {

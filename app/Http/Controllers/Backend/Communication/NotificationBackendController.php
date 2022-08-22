@@ -12,7 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
-class NotificationBackendController extends Controller
+final class NotificationBackendController extends Controller
 {
     public function __construct(
         protected readonly NotificationRepositoryInterface $repository,
@@ -22,8 +22,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
      */
     public function index(): View|Factory|Application
     {
@@ -34,8 +32,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|View
      */
     public function create(): View|Factory|Application
     {
@@ -44,9 +40,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  NotificationRequest  $request
-     * @return RedirectResponse
      */
     public function store(NotificationRequest $request): RedirectResponse
     {
@@ -68,9 +61,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  string  $id
-     * @return Application|Factory|View
      */
     public function edit(string $id): View|Factory|Application
     {
@@ -81,10 +71,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  NotificationRequest  $request
-     * @param  string  $id
-     * @return RedirectResponse
      */
     public function update(NotificationRequest $request, string $id): RedirectResponse
     {
@@ -95,9 +81,6 @@ class NotificationBackendController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  string  $id
-     * @return RedirectResponse
      */
     public function destroy(string $id): RedirectResponse
     {

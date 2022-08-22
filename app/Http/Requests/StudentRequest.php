@@ -12,7 +12,7 @@ use App\Models\Subsidiary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StudentRequest extends FormRequest
+final class StudentRequest extends FormRequest
 {
     public function authorize(): bool
     {

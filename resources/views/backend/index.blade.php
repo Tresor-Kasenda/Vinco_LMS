@@ -66,13 +66,8 @@
                                         route="{{ route('admins.users.guardian.index') }}"
                                     />
                                     <x-statistic
-                                        name="Depenses"
-                                        number="{{ \App\Models\Expense::all()->count() }}"
-                                        route="{{ route('admins.accounting.expenses.index') }}"
-                                    />
-                                    <x-statistic
                                         name="Entree"
-                                        number="{{ \App\Models\Fee::all()->count() }}"
+                                        number="{{ \App\Models\Fee::query()->count() }}"
                                         route="{{ route('admins.accounting.fees.index') }}"
                                     />
                                     <x-statistic

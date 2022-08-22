@@ -7,18 +7,16 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\FeesRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FeeRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class FeesBackendController extends Controller
+final class FeesBackendController extends Controller
 {
     public function __construct(
-        protected readonly FeesRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly FeesRepositoryInterface $repository
     ) {
     }
 
@@ -36,7 +34,7 @@ class FeesBackendController extends Controller
 
     public function store(FeeRequest $request): RedirectResponse
     {
-        $this->repository->stored(attributes: $request, factory: $this->factory);
+        $this->repository->stored(attributes: $request);
 
         return redirect()->route('admins.accounting.fees.index');
     }
@@ -50,14 +48,14 @@ class FeesBackendController extends Controller
 
     public function update(int $id, FeeRequest $request): RedirectResponse
     {
-        $this->repository->updated(key: $id, attributes: $request, factory: $this->factory);
+        $this->repository->updated(key: $id, attributes: $request);
 
         return redirect()->route('admins.accounting.fees.index');
     }
 
     public function destroy(int $id): RedirectResponse
     {
-        $this->repository->deleted(key: $id, factory: $this->factory);
+        $this->repository->deleted(key: $id);
 
         return back();
     }

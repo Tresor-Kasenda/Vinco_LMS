@@ -30,7 +30,6 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $departments_count
  * @property-read Institution|null $institution
  * @property-read User $user
- *
  * @method static Builder|Campus newModelQuery()
  * @method static Builder|Campus newQuery()
  * @method static \Illuminate\Database\Query\Builder|Campus onlyTrashed()
@@ -47,13 +46,11 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Campus withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Campus withoutTrashed()
  * @mixin \Eloquent
- *
  * @property int $institution_id
- *
  * @method static CampusFactory factory(...$parameters)
  * @method static Builder|Campus whereInstitutionId($value)
  */
-class Campus extends Model
+final class Campus extends Model
 {
     use HasFactory, SoftDeletes;
 

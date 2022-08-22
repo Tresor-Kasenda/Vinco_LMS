@@ -7,7 +7,7 @@ namespace App\Rules;
 use App\Models\AcademicYear;
 use Illuminate\Contracts\Validation\Rule;
 
-class RoutineTime implements Rule
+final class RoutineTime implements Rule
 {
     /**
      * Create a new rule instance.
@@ -24,7 +24,6 @@ class RoutineTime implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
     public function passes($attribute, $value): bool
     {
@@ -36,8 +35,6 @@ class RoutineTime implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {

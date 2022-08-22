@@ -11,10 +11,10 @@ use App\Http\Requests\LessonUpdateRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\View;
 
-class LessonBackendController extends Controller
+final class LessonBackendController extends Controller
 {
     public function __construct(
         protected readonly LessonRepositoryInterface $repository,
@@ -35,6 +35,7 @@ class LessonBackendController extends Controller
 
     public function store(LessonRequest $attributes): RedirectResponse
     {
+
         $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.academic.lessons.index');

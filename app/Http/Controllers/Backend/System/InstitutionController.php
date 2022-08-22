@@ -8,15 +8,16 @@ use App\Contracts\InstitutionRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InstitutionRequest;
 use App\Http\Requests\UpdateInstitutionRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
-class InstitutionController extends Controller
+final class InstitutionController extends Controller
 {
     public function __construct(
-        protected readonly InstitutionRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly InstitutionRepositoryInterface $repository
     ) {
     }
 
@@ -27,50 +28,42 @@ class InstitutionController extends Controller
         return view('backend.domain.institution.index', compact('institutions'));
     }
 
-    public function create()
+    public function create(): Renderable
     {
         return view('backend.domain.institution.create');
     }
 
-    public function store(InstitutionRequest $request)
+    public function store(InstitutionRequest $request): RedirectResponse
     {
-        $this->repository->stored($request, $this->factory);
-
-        $this->factory->addSuccess('A new institution has been successfully added');
+        $this->repository->stored($request);
 
         return redirect()->route('admins.institution.index');
     }
 
-    public function show(string $id)
+    public function show(string $id): Factory|View|Application
     {
         $institution = $this->repository->showInstitution($id);
 
         return view('backend.domain.institution.show', compact('institution'));
     }
 
-    public function edit(string $id)
+    public function edit(string $id): Factory|View|Application
     {
         $institution = $this->repository->showInstitution($id);
 
         return view('backend.domain.institution.edit', compact('institution'));
     }
 
-    public function update(string $id, UpdateInstitutionRequest $request)
+    public function update(string $id, UpdateInstitutionRequest $request): RedirectResponse
     {
         $this->repository->updated(key: $id, attributes: $request);
-
-        $this->factory->addSuccess('the institution was successfully modified ');
 
         return redirect()->route('admins.institution.index');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        abort_if(Gate::allows('institution-delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->repository->deleted($id);
-
-        $this->factory->addSuccess('the institution was successfully suspended');
 
         return back();
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
@@ -19,9 +20,8 @@ use Illuminate\Support\Carbon;
  * @property string $images
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|\App\Models\Fee[] $feeType
+ * @property-read Collection|Fee[] $feeType
  * @property-read int|null $fee_type_count
- *
  * @method static Builder|FeeType newModelQuery()
  * @method static Builder|FeeType newQuery()
  * @method static Builder|FeeType query()
@@ -31,8 +31,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|FeeType whereName($value)
  * @method static Builder|FeeType whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $institution_id
+ * @property-read \App\Models\Institution $institution
+ * @method static Builder|FeeType whereInstitutionId($value)
  */
-class FeeType extends Model
+final class FeeType extends Model
 {
     use HasFactory;
 
@@ -41,5 +44,10 @@ class FeeType extends Model
     public function feeType(): HasMany
     {
         return $this->hasMany(Fee::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

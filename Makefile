@@ -24,7 +24,9 @@ analyse: vendor/autoload.php
 
 .PHONY: clear
 clear: vendor/autoload.php ## vide le cache de l'application
-	php artisan cache:clear && php artisan view:clear && php artisan route:clear
+	php artisan cache:clear
+	php artisan view:clear
+	php artisan route:clear
 
 .PHONY: serve
 serve: vendor/autoload.php ## lance, le serve de development
@@ -41,6 +43,9 @@ watch: vendor/autoload.php ## lance, le serve de development
 .PHONE: generate
 generate: vendor/autoload.php ## Generate Ide models
 	php artisan ide:models
+
+.PHONE: pints
+pints: vendor/autoload.php ##  Pints format code
 	./vendor/bin/pint
 
 vendor/autoload.php: composer.lock

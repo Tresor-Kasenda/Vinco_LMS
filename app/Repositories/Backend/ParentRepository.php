@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
-class ParentRepository implements ParentRepositoryInterface
+final class ParentRepository implements ParentRepositoryInterface
 {
     use ImageUploader;
 
@@ -53,25 +53,6 @@ class ParentRepository implements ParentRepositoryInterface
             ->get();
     }
 
-    public function showGuardian(string $key): Model|Guardian|Builder
-    {
-        $parent = Guardian::query()
-            ->select([
-                'id',
-                'user_id',
-                'name_guardian',
-                'firstName_guardian',
-                'email_guardian',
-                'images',
-                'phones',
-                'occupation',
-            ])
-            ->whereId($key)
-            ->firstOrFail();
-
-        return $parent->load(['user', 'students', 'fees']);
-    }
-
     public function stored($attributes): Model|Guardian|Builder|RedirectResponse
     {
         $user = $this->createParent($attributes);
@@ -93,31 +74,6 @@ class ParentRepository implements ParentRepositoryInterface
         }
     }
 
-    public function updated(string $key, $attributes): Model|Guardian|Builder
-    {
-        $parent = $this->showGuardian($key);
-
-        $parent->update([
-            'name_guardian' => $attributes->input('name'),
-            'email_guardian' => $attributes->input('email'),
-            'phones' => $attributes->input('phones'),
-            'gender' => $attributes->input('gender'),
-        ]);
-
-        $this->service->success('Parent updated with successfully');
-
-        return $parent;
-    }
-
-    public function deleted(string $key): Model|Guardian|Builder
-    {
-        $parent = $this->showGuardian($key);
-        $parent->delete();
-        $this->service->success('Parent deleted with successfully');
-
-        return $parent;
-    }
-
     private function createParent($attributes): Model|Builder|User|null
     {
         $user = User::query()
@@ -136,13 +92,54 @@ class ParentRepository implements ParentRepositoryInterface
         return null;
     }
 
-    /**
-     * @return Builder|Model
-     */
     private function getParentRole(): Builder|Model
     {
         return Role::query()
             ->where('name', '=', 'Parent')
             ->firstOrFail();
+    }
+
+    public function updated(string $key, $attributes): Model|Guardian|Builder
+    {
+        $parent = $this->showGuardian($key);
+
+        $parent->update([
+            'name_guardian' => $attributes->input('name'),
+            'email_guardian' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'gender' => $attributes->input('gender'),
+        ]);
+
+        $this->service->success('Parent updated with successfully');
+
+        return $parent;
+    }
+
+    public function showGuardian(string $key): Model|Guardian|Builder
+    {
+        $parent = Guardian::query()
+            ->select([
+                'id',
+                'user_id',
+                'name_guardian',
+                'firstName_guardian',
+                'email_guardian',
+                'images',
+                'phones',
+                'occupation',
+            ])
+            ->whereId($key)
+            ->firstOrFail();
+
+        return $parent->load(['user', 'students']);
+    }
+
+    public function deleted(string $key): Model|Guardian|Builder
+    {
+        $parent = $this->showGuardian($key);
+        $parent->delete();
+        $this->service->success('Parent deleted with successfully');
+
+        return $parent;
     }
 }

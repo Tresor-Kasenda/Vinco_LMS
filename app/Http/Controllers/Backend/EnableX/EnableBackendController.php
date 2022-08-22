@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Backend\EnableX;
 use App\Contracts\EnableX\EnableXRepositoryInterface;
 use App\Http\Controllers\Controller;
 
-class EnableBackendController extends Controller
+final class EnableBackendController extends Controller
 {
     public function __construct(protected readonly EnableXRepositoryInterface $repository)
     {

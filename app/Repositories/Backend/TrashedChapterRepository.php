@@ -9,7 +9,7 @@ use App\Models\Chapter;
 use App\Models\Course;
 use Illuminate\Support\Collection;
 
-class TrashedChapterRepository implements TrashedChapterRepositoryInterface
+final class TrashedChapterRepository implements TrashedChapterRepositoryInterface
 {
     public function getTrashes($course): array|Collection
     {

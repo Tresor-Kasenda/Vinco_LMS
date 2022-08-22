@@ -6,7 +6,7 @@ namespace App\Services;
 
 use Carbon\Carbon;
 
-class TimeService
+final class TimeService
 {
     public function generateTimeRange($from, $to): array
     {

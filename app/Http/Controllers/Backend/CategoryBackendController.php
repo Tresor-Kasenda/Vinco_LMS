@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class CategoryBackendController extends Controller
+final class CategoryBackendController extends Controller
 {
     public function __construct(
         public CategoryRepositoryInterface $repository
