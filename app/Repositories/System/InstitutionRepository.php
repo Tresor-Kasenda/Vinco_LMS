@@ -38,27 +38,6 @@ class InstitutionRepository implements InstitutionRepositoryInterface
             ->get();
     }
 
-    public function showInstitution(string $key): Model|Institution|Builder|_IH_Institution_QB
-    {
-        $institution = Institution::query()
-            ->select([
-                'id',
-                'institution_name',
-                'institution_country',
-                'institution_town',
-                'institution_address',
-                'institution_phones',
-                'institution_website',
-                'institution_email',
-                'institution_images',
-                'institution_description',
-            ])
-            ->whereId($key)
-            ->firstOrFail();
-
-        return $institution->load(['campuses', 'events', 'user']);
-    }
-
     public function stored($attributes, $factory): Model|Institution|Builder|RedirectResponse
     {
         $institution = Institution::query()
@@ -73,12 +52,9 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_email' => $attributes->input('institution_email'),
             ]);
 
-        try
-        {
+        try {
             $this->institution->sendEmail(institution:  $institution);
-        }
-        catch (Throwable $exception)
-        {
+        } catch (Throwable $exception) {
             return $institution;
         }
 
@@ -99,6 +75,27 @@ class InstitutionRepository implements InstitutionRepositoryInterface
         ]);
 
         return $institution;
+    }
+
+    public function showInstitution(string $key): Model|Institution|Builder|_IH_Institution_QB
+    {
+        $institution = Institution::query()
+            ->select([
+                'id',
+                'institution_name',
+                'institution_country',
+                'institution_town',
+                'institution_address',
+                'institution_phones',
+                'institution_website',
+                'institution_email',
+                'institution_images',
+                'institution_description',
+            ])
+            ->whereId($key)
+            ->firstOrFail();
+
+        return $institution->load(['campuses', 'events', 'user']);
     }
 
     public function deleted(string $key): Model|Institution|Builder|_IH_Institution_QB
