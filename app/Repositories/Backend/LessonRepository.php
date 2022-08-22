@@ -19,9 +19,7 @@ final class LessonRepository implements LessonRepositoryInterface
     public function __construct(
         protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
-
-    )
-    {
+    ) {
     }
 
     public function getLessons(): array|Collection
@@ -115,7 +113,6 @@ final class LessonRepository implements LessonRepositoryInterface
             'content' => $attributes->input('content'),
             'lesson_type_id' => $attributes->input('type'),
         ]);
-
 
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);

@@ -28,18 +28,19 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
                     'id',
                     'name',
                     'images',
-                    'institution_id'
+                    'institution_id',
                 ])
                 ->with('institution')
                 ->orderByDesc('created_at')
                 ->get();
         }
+
         return FeeType::query()
             ->select([
                 'id',
                 'name',
                 'images',
-                'institution_id'
+                'institution_id',
             ])
             ->where('institution_id', '=', auth()->user()->institution->id)
             ->orderByDesc('created_at')
@@ -52,9 +53,9 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'images' => self::uploadFiles($attributes),
-                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id
+                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
             ]);
-        $this->messageService->success("Fees Type added with Successfully");
+        $this->messageService->success('Fees Type added with Successfully');
 
         return $feeType;
     }
@@ -66,9 +67,9 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
         $feeType->update([
             'name' => $attributes->input('name'),
             'images' => self::uploadFiles($attributes),
-            'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id
+            'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
         ]);
-        $this->messageService->success("Fees Type updated with Successfully");
+        $this->messageService->success('Fees Type updated with Successfully');
 
         return $feeType;
     }
@@ -80,7 +81,7 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
                 'id',
                 'name',
                 'images',
-                'institution_id'
+                'institution_id',
             ])
             ->where('id', '=', $key)
             ->first();
@@ -91,7 +92,7 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
         $feeType = $this->showFeeType(key: $key);
         self::removePathOfImages($feeType);
         $feeType->delete();
-        $this->messageService->success("Fees Type deleted with Successfully");
+        $this->messageService->success('Fees Type deleted with Successfully');
 
         return $feeType;
     }
