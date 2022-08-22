@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Lesson
+ * App\Models\Lesson.
  *
  * @property int $id
  * @property int $chapter_id

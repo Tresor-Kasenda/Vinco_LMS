@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\Subsidiary;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,20 +9,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Subsidiary::class)
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->string('name', '50');
+            $table->string('amount');
             $table->text('description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('promotions');
+        Schema::dropIfExists('expenses');
     }
 };

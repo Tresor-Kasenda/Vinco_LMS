@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Notification
+ * App\Models\Notification.
  *
  * @method static Builder|Notification newModelQuery()
  * @method static Builder|Notification newQuery()

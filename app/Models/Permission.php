@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Laratrust\Models\LaratrustPermission;
 
 /**
- * App\Models\Permission
+ * App\Models\Permission.
  *
  * @property-read Collection|Role[] $roles
  * @property-read int|null $roles_count

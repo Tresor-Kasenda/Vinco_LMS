@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Setting
+ * App\Models\Setting.
  *
  * @property int $id
  * @property int $user_id

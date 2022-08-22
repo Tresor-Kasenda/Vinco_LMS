@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AcademicYear
+ * App\Models\AcademicYear.
  *
  * @property int $id
  * @property string $start_date

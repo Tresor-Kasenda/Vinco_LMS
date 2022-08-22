@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Laratrust\Models\LaratrustRole;
 
 /**
- * App\Models\Role
+ * App\Models\Role.
  *
  * @property-read Collection|Permission[] $permissions
  * @property-read int|null $permissions_count

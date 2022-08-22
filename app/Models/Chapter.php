@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Chapter
+ * App\Models\Chapter.
  *
  * @property int $id
  * @property int $course_id

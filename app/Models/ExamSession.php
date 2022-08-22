@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\ExamSession
+ * App\Models\ExamSession.
  *
  * @property int $id
  * @property string $name

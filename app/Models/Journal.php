@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Journal
+ * App\Models\Journal.
  *
  * @property-read Journal $course
  * @property-read Institution|null $institution
