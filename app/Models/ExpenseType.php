@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
  * App\Models\ExpenseType.
- * App\Models\ExpenseType
  *
  * @property int $id
  * @property string $name
@@ -23,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Expense[] $expense
  * @property-read Collection|\App\Models\Expense[] $expense
+ * @property-read Collection|Expense[] $expense
  * @property-read int|null $expense_count
  *
  * @method static Builder|ExpenseType newModelQuery()
