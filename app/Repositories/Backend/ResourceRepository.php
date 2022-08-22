@@ -111,7 +111,8 @@ final class ResourceRepository implements ResourceRepositoryInterface
     {
         $lesson = $this->showResource(key: $key);
         $lesson->delete();
-        $this->messageService->success("La lesson a ete supprimer avec success");
+        $this->messageService->success('La lesson a ete supprimer avec success');
+
         return $lesson;
     }
 }

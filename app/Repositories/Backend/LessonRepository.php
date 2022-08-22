@@ -19,8 +19,7 @@ final class LessonRepository implements LessonRepositoryInterface
     public function __construct(
         protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
-    )
-    {
+    ) {
     }
 
     public function getLessons(): array|Collection
@@ -123,7 +122,7 @@ final class LessonRepository implements LessonRepositoryInterface
                 'name',
                 'chapter_id',
                 'content',
-                'lesson_type_id'
+                'lesson_type_id',
             ])
             ->where('id', '=', $key)
             ->first();
