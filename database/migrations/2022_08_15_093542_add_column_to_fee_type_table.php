@@ -16,11 +16,6 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
         });
-        Schema::table('expense_types', function (Blueprint $table) {
-            $table->foreignIdFor(Institution::class)
-                ->constrained()
-                ->cascadeOnDelete();
-        });
         Schema::table('exam_sessions', function (Blueprint $table) {
             $table->foreignIdFor(Institution::class)
                 ->constrained()
@@ -46,9 +41,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('fee_types', function (Blueprint $table) {
-            $table->dropForeignIdFor(Institution::class);
-        });
-        Schema::table('expense_types', function (Blueprint $table) {
             $table->dropForeignIdFor(Institution::class);
         });
         Schema::table('exam_sessions', function (Blueprint $table) {
