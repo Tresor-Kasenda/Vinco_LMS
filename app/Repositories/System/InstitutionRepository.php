@@ -38,7 +38,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
             ->get();
     }
 
-    public function stored($attributes, $factory): Model|Institution|Builder|RedirectResponse
+    public function stored($attributes): Model|Institution|Builder|RedirectResponse
     {
         $institution = Institution::query()
             ->create([

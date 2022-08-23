@@ -141,61 +141,86 @@
 
                                             <div id="aperi">
                                                 <span class="preview-title-lg overline-title">Aperi</span>
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                                <div class="container">
+                                                    <div class="row">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="participants">Nb Participants</label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control @error('name') error @enderror"
+                                                                name="name"
+                                                                value="{{ old('name') }}"
+                                                                placeholder="Add your name">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <input
-                                                                    type="text"
-                                                                    class="form-control @error('participants') error @enderror"
-                                                                    id="participants"
-                                                                    name="participants"
-                                                                    value="{{ old('participants') }}"
-                                                                    placeholder="Saisir le nombre des participants"
-                                                                    >
+                                                                    type="email"
+                                                                    class="form-control @error('email') error @enderror"
+                                                                    name="email"
+                                                                    value="{{ old('email') }}"
+                                                                    placeholder="Add your email address">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="date">Date</label>
-                                                            <div class="form-control-wrap">
-                                                                <input
-                                                                    type="text"
-                                                                    class="form-control date-picker @error('date') error @enderror"
-                                                                    id="date"
-                                                                    name="date"
-                                                                    value="{{ old('date') }}"
-                                                                    placeholder="Select Date"
-                                                                    >
-                                                            </div>
+                                                            <label for="date">Add date</label>
+                                                            <input
+                                                                type="date"
+                                                                class="form-control @error('date') error @enderror"
+                                                                name="date"
+                                                                value="{{ old('date') }}"
+                                                                placeholder="Add event date">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6 mt-3">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="start_time">Heure de debut</label>
-                                                            <div class="form-control-wrap">
-                                                                <input
-                                                                    type="text"
-                                                                    class="form-control time-picke @error('start_time') error @enderror"
-                                                                    name="start_time"
-                                                                    id="start_time"
-                                                                    value="{{ old('start_time') }}"
-                                                                    placeholder="Add your start time">
-                                                            </div>
+                                                            <label for="startTime">Add your start time:</label>
+                                                            <input
+                                                                type="time"
+                                                                class="form-control @error('startTime') error @enderror"
+                                                                name="startTime"
+                                                                value="{{ old('startTime') }}"
+                                                                placeholder="Add your start time">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6 mt-3">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="end_time">Heure de Fin</label>
                                                             <div class="form-control-wrap">
+                                                                <label for="endTime">Add your end time:</label>
                                                                 <input
-                                                                    type="text"
-                                                                    class="form-control time-picke @error('end_time') error @enderror"
-                                                                    name="end_time"
-                                                                    value="{{ old('end_time') }}"
+                                                                    type="time"
+                                                                    class="form-control @error('endTime') error @enderror"
+                                                                    name="endTime"
+                                                                    value="{{ old('endTime') }}"
                                                                     placeholder="Add your end time">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control @error('usersNumber') error @enderror"
+                                                                    name="usersNumber"
+                                                                    value="{{ old('usersNumber') }}"
+                                                                    placeholder="Number of participants">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div id="dynamic_field">
+                                                                <div class="row text-center mb-2">
+                                                                    <div class="col-md-9">
+                                                                        <div class="form-control-wrap">
+                                                                            <input
+                                                                                type="email"
+                                                                                name="guests[]"
+                                                                                placeholder="participant's email address"
+                                                                                class="form-control name_list"
+                                                                                value="{{ old('guests[]') }}"
+                                                                                id="task">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <button type="button" name="add" id="add" class="btn btn-success">
+                                                                            <em class="icon ni ni-plus"></em>
+                                                                            Add
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

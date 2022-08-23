@@ -22,7 +22,7 @@ final class LessonRepository implements LessonRepositoryInterface
     ) {
     }
 
-    public function getLessons(): array|Collection
+    public function getLessons()
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Lesson::query()
