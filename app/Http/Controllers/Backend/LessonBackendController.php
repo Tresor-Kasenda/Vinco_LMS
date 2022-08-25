@@ -8,6 +8,7 @@ use App\Contracts\LessonRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonRequest;
 use App\Http\Requests\LessonUpdateRequest;
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -30,6 +31,25 @@ final class LessonBackendController extends Controller
 
     public function create(): Renderable
     {
+//        $student = Student::query()
+//            ->select([
+//                'id',
+//                'name',
+//                'firstname',
+//                'email',
+//                'promotion_id',
+//                'user_id',
+//            ])->where('promotion_id', '=', 1)
+//            ->get();
+//        $students = $student->load([
+//            'parent:id,name_guardian,email_guardian,phones',
+//            'department:id,name',
+//            'subsidiary:id,name',
+//            'user:id',
+//            'user.roles:id,name',
+//            'parent:id,name_guardian',
+//        ]);
+//        dd($students);
         return view('backend.domain.academic.lessons.create');
     }
 

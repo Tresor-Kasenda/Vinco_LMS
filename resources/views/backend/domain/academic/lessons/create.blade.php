@@ -143,24 +143,24 @@
                                                 <span class="preview-title-lg overline-title">Aperi</span>
                                                 <div class="container">
                                                     <div class="row">
-                                                        <div class="form-group">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('name') error @enderror"
-                                                                name="name"
-                                                                value="{{ old('name') }}"
-                                                                placeholder="Add your name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input
-                                                                    type="email"
-                                                                    class="form-control @error('email') error @enderror"
-                                                                    name="email"
-                                                                    value="{{ old('email') }}"
-                                                                    placeholder="Add your email address">
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <input--}}
+{{--                                                                type="text"--}}
+{{--                                                                class="form-control @error('name') error @enderror"--}}
+{{--                                                                name="name"--}}
+{{--                                                                value="{{ old('name') }}"--}}
+{{--                                                                placeholder="Add your name">--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <div class="form-control-wrap">--}}
+{{--                                                                <input--}}
+{{--                                                                    type="email"--}}
+{{--                                                                    class="form-control @error('email') error @enderror"--}}
+{{--                                                                    name="email"--}}
+{{--                                                                    value="{{ old('email') }}"--}}
+{{--                                                                    placeholder="Add your email address">--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
                                                         <div class="form-group">
                                                             <label for="date">Add date</label>
                                                             <input
@@ -168,6 +168,7 @@
                                                                 class="form-control @error('date') error @enderror"
                                                                 name="date"
                                                                 value="{{ old('date') }}"
+                                                                required
                                                                 placeholder="Add event date">
                                                         </div>
                                                         <div class="form-group">
@@ -176,6 +177,7 @@
                                                                 type="time"
                                                                 class="form-control @error('startTime') error @enderror"
                                                                 name="startTime"
+                                                                required
                                                                 value="{{ old('startTime') }}"
                                                                 placeholder="Add your start time">
                                                         </div>
@@ -186,43 +188,45 @@
                                                                     type="time"
                                                                     class="form-control @error('endTime') error @enderror"
                                                                     name="endTime"
+                                                                    required
                                                                     value="{{ old('endTime') }}"
                                                                     placeholder="Add your end time">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input
-                                                                    type="text"
-                                                                    class="form-control @error('usersNumber') error @enderror"
-                                                                    name="usersNumber"
-                                                                    value="{{ old('usersNumber') }}"
-                                                                    placeholder="Number of participants">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div id="dynamic_field">
-                                                                <div class="row text-center mb-2">
-                                                                    <div class="col-md-9">
-                                                                        <div class="form-control-wrap">
-                                                                            <input
-                                                                                type="email"
-                                                                                name="guests[]"
-                                                                                placeholder="participant's email address"
-                                                                                class="form-control name_list"
-                                                                                value="{{ old('guests[]') }}"
-                                                                                id="task">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <button type="button" name="add" id="add" class="btn btn-success">
-                                                                            <em class="icon ni ni-plus"></em>
-                                                                            Add
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <div class="form-control-wrap">--}}
+{{--                                                                <input--}}
+{{--                                                                    type="text"--}}
+{{--                                                                    class="form-control @error('usersNumber') error @enderror"--}}
+{{--                                                                    name="usersNumber"--}}
+{{--                                                                    value="{{ old('usersNumber') }}"--}}
+{{--                                                                    placeholder="Number of participants">--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <div id="dynamic_field">--}}
+{{--                                                                <div class="row text-center mb-2">--}}
+{{--                                                                    <div class="col-md-9">--}}
+{{--                                                                        <div class="form-control-wrap">--}}
+{{--                                                                            <input--}}
+{{--                                                                                type="email"--}}
+{{--                                                                                name="guests[]"--}}
+{{--                                                                                placeholder="participant's email address"--}}
+{{--                                                                                class="form-control name_list"--}}
+{{--                                                                                value="{{ old('guests[]') }}"--}}
+{{--                                                                                id="task">--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="col-md-3">--}}
+{{--                                                                        <button type="button" name="add" id="add" class="btn btn-success">--}}
+{{--                                                                            <em class="icon ni ni-plus"></em>--}}
+{{--                                                                            Add--}}
+{{--                                                                        </button>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+                                                        <x-filter-department/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -303,6 +307,50 @@
                     $("#text,#aperi,#video-lesson").hide()
                 }
             });
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#department').change(function () {
+                let department = $(this).val();
+                if (department){
+                    $.ajax({
+                        type:'GET',
+                        url:'{{ route("admins.academic.department-json") }}',
+                        data:{"department" : department },
+                        success:function(response){
+                            $("#filiaire").empty();
+                            $("#filiaire").append('<option label="Filiaire" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.filiaires?.map((filiaire) => {
+                                    $("#filiaire").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    })
+                }
+            });
+
+            $('#filiaire').change(function () {
+                let filiaire = $(this).val();
+                if(filiaire){
+                    $.ajax({
+                        type:"GET",
+                        url:"{{ route('admins.academic.promotion-json') }}",
+                        data : { "filiaire" : filiaire },
+                        success:function(response){
+                            $("#promotion").empty();
+                            $("#promotion").append('<option label="Promotion" value=""></option>');
+                            if(response && response?.status === 'success'){
+                                response?.promotions?.map((filiaire) => {
+                                    $("#promotion").append('<option value="'+filiaire.id+'">'+filiaire.name+'</option>');
+                                })
+                            }
+                        }
+                    });
+                }
+            })
         })
     </script>
 @endsection
