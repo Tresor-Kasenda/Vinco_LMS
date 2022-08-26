@@ -27,7 +27,7 @@ final class AperyLessonType implements LessonTypeInterface
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
         $rooms = self::create(attributes: $attributes);
-        $currentTime = strtotime(''.$attributes->input('date').' '.$attributes->input('start_time').'');
+        $currentTime = strtotime(''.$attributes->input('date').' '.$attributes->input('startTime').'');
         $date = date('Y-m-d H:i:s', $currentTime);
         $pinCode = random_int(100000, 999999);
         $participant = $this->generateStringValues(0, 9999);
@@ -41,28 +41,28 @@ final class AperyLessonType implements LessonTypeInterface
         )
             ->delay(now()->addSecond());
 
-        foreach ($guests as $guest) {
-            StudentNotificationRoom::dispatch(
-                $participant,
-                $rooms,
-                $date,
-                $guest,
-                $attributes
-            )
-                ->delay(now()->addSecond());
-        }
+//        foreach ($guests as $guest) {
+//            StudentNotificationRoom::dispatch(
+//                $participant,
+//                $rooms,
+//                $date,
+//                $guest,
+//                $attributes
+//            )
+//                ->delay(now()->addSecond());
+//        }
 
-        return Live::query()
-            ->create([
-                'lesson_id' => $lesson->id,
-                'room_id' => $attributes->input(''),
-                'room_name' => $lesson->name,
-                'duration' => $attributes->input(''),
-                'participants' => $attributes->input('participants'),
-                'schedule' => $attributes->input('date'),
-                'reference' => $attributes->input(''),
-                'status' => Pending::class,
-            ]);
+//        return Live::query()
+//            ->create([
+//                'lesson_id' => $lesson->id,
+//                'room_id' => $attributes->input(''),
+//                'room_name' => $lesson->name,
+//                'duration' => $attributes->input(''),
+//                'participants' => $attributes->input('participants'),
+//                'schedule' => $attributes->input('date'),
+//                'reference' => $attributes->input(''),
+//                'status' => Pending::class,
+//            ]);
     }
 
     private static function create($attributes)

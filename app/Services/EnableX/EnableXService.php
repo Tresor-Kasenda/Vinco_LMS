@@ -20,7 +20,7 @@ final class EnableXService
                     config('enable.app_id'),
                     config('enable.app_key')
                 )->timeout(1000);
-            dd($access);
+            return $access;
         } catch (\Exception $exception) {
             return back()->withErrors($exception->getMessage())->withInput();
         }
