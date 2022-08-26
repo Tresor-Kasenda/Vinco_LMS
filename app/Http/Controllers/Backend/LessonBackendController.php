@@ -8,7 +8,9 @@ use App\Contracts\LessonRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonRequest;
 use App\Http\Requests\LessonUpdateRequest;
+use App\Models\LessonType;
 use App\Models\Student;
+use App\Repositories\Contracts\CreateRoomRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -19,6 +21,7 @@ final class LessonBackendController extends Controller
 {
     public function __construct(
         protected readonly LessonRepositoryInterface $repository,
+        public CreateRoomRepositoryInterface $repositories
     ) {
     }
 
@@ -36,9 +39,53 @@ final class LessonBackendController extends Controller
 
     public function store(LessonRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes);
+        $type = LessonType::query()
+            ->select([
+                'id',
+                'name',
+            ])
+            ->where('id', '=', $attributes->input('type'))
+            ->firstOrFail();
+        if($type->id == \App\Enums\LessonType::TYPE_APERI->value){
+            $promotion = $attributes->promotion;
+            if($promotion === null){
+                $this->service->warning('Veuillez choisir une promotion');
+                return back();
+            }
+            $student = Student::query()
+                ->select([
+                    'email',
+                ])->where('promotion_id', '=', $promotion)
+                ->get();
+            $students = $student->load([
+                'parent:id,name_guardian,email_guardian,phones',
+                'department:id,name',
+                'subsidiary:id,name',
+                'user:id',
+                'user.roles:id,name',
+                'parent:id,name_guardian',
+            ]);
+            $guests = [];
+            foreach ($students as $key => $stud){
+                array_push($guests, $stud->email);
+            }
+            $aperi = array(
+                'name'=>\Auth::user()->name,
+                'email'=>\Auth::user()->email,
+                'date'=>$attributes->date,
+                'startTime'=>$attributes->startTime,
+                'endTime'=>$attributes->endTime,
+                'usersNumber'=>$students->count(),
+                'guests'=>$guests
+            );
 
-        return to_route('admins.academic.lessons.index');
+            $this->repositories->createRoom(attributes: $attributes);
+
+            dd($aperi);
+        }
+//        $this->repository->stored(attributes: $attributes);
+//
+//        return to_route('admins.academic.lessons.index');
     }
 
     public function show(string $key): Factory|View|Application

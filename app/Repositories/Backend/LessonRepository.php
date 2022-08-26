@@ -21,13 +21,11 @@ final class LessonRepository implements LessonRepositoryInterface
 {
     public function __construct(
         protected ToastMessageService $service,
-        protected LessonFactory $lessonFactory
-
-    )
-    {
+        protected LessonFactory $lessonFactory,
+    ) {
     }
 
-    public function getLessons(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+    public function getLessons()
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Lesson::query()
@@ -71,46 +69,6 @@ final class LessonRepository implements LessonRepositoryInterface
     public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
         $type = $this->getLessonType($attributes);
-
-        if($type->id == \App\Enums\LessonType::TYPE_APERI->value){
-            $promotion = $attributes->promotion;
-            if($promotion === null){
-                $this->service->warning('Veuillez choisir une promotion');
-                return back();
-            }
-            $student = Student::query()
-                ->select([
-                    'email',
-                ])->where('promotion_id', '=', $promotion)
-                ->get();
-            $students = $student->load([
-                'parent:id,name_guardian,email_guardian,phones',
-                'department:id,name',
-                'subsidiary:id,name',
-                'user:id',
-                'user.roles:id,name',
-                'parent:id,name_guardian',
-            ]);
-            $guests = [];
-            foreach ($students as $key => $stud){
-                array_push($guests, $stud->email);
-            }
-            $aperi = array(
-                'name'=>\Auth::user()->name,
-                'email'=>\Auth::user()->email,
-                'date'=>$attributes->date,
-                'startTime'=>$attributes->startTime,
-                'endTime'=>$attributes->endTime,
-                'usersNumber'=>$students->count(),
-                'guests'=>$guests
-            );
-
-            $response = Http::withHeaders([
-                'X-CSRF-TOKEN'=>csrf_token()
-            ])->post('http://127.0.0.1:9000/create-room', $aperi);
-
-            dd($response);
-        }
 
         $lesson = $this->storeLesson($attributes);
 
