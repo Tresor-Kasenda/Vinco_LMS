@@ -49,7 +49,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
                 'usersNumber' => $rooms['room']['settings']['participants'],
                 'guests' => serialize($attributes->guests),
                 'password' => $participant,
-                'institution_id'=>\Auth::user()->institution->id
+                'institution_id'=>\Auth::user()->institution->id,
             ]);
     }
 
