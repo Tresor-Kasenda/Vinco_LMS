@@ -324,11 +324,13 @@
                                         <li>Start Time : {{ $room->startTime }}</li>
                                         <li>End time: {{ $room->endTime }}</li>
                                         <li>Host Room PIN: {{ $room->password }}</li>
-                                        <li>Room ID: {{ $room->roomId }}</li>
+                                        <li>
+                                            Room ID: {{ $room->roomId }}
+                                        </li>
                                     </ul>
                                     <p class="text" style="padding: 0 2.5em; text-align: center;">
                                         <a
-                                            href="{{ route('room.getRoom', ['room' => $room->roomId]) }}"
+                                            href="{{ url('https://live.vinco.digital/', ['room' => $room->roomId]) }}"
                                             class="btn btn-primary"
                                         >Please click here to join the Session.</a>
                                     </p>

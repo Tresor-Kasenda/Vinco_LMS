@@ -8,15 +8,15 @@ trait CalculationEvent
 {
     private function calculationDateOfEvent($attributes): array
     {
-        $dateOld = $attributes->input('date');
-        $time = $attributes->input('startTime');
+        $dateOld = $attributes->date;
+        $time = $attributes->startTime;
         $currentTime = strtotime(''.$dateOld.' '.$time.'');
         $hoursToAdd = -2;
         $secondsToAdd = $hoursToAdd * (60 * 60);
         $newTime = $currentTime + $secondsToAdd;
         $date = date('Y-m-d H:i:s', $newTime);
-        $time1 = $attributes->input('startTime');
-        $time2 = $attributes->input('endTime');
+        $time1 = $attributes->startTime;
+        $time2 = $attributes->endTime;
         $array1 = explode(':', $time1);
         $array2 = explode(':', $time2);
         $minutes1 = ($array1[0] * 60.0 + $array1[1]);
