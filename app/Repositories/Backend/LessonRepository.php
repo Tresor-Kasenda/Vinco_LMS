@@ -18,13 +18,11 @@ final class LessonRepository implements LessonRepositoryInterface
 {
     public function __construct(
         protected ToastMessageService $service,
-        protected LessonFactory $lessonFactory
-
-    )
-    {
+        protected LessonFactory $lessonFactory,
+    ) {
     }
 
-    public function getLessons(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+    public function getLessons()
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Lesson::query()
