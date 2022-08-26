@@ -11,6 +11,7 @@ use App\Http\Requests\LessonUpdateRequest;
 use App\Models\LessonType;
 use App\Models\Student;
 use App\Repositories\Contracts\CreateRoomRepositoryInterface;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -21,7 +22,8 @@ final class LessonBackendController extends Controller
 {
     public function __construct(
         protected readonly LessonRepositoryInterface $repository,
-        public CreateRoomRepositoryInterface $repositories
+        public CreateRoomRepositoryInterface $repositories,
+        protected ToastMessageService $service,
     ) {
     }
 
@@ -82,11 +84,14 @@ final class LessonBackendController extends Controller
 
             $this->repositories->createRoom(attributes: $aperi);
 
-            dd($aperi);
+            $this->repository->stored(attributes: $attributes);
+
+            return to_route('admins.academic.lessons.index');
+
+        } else {
+            $this->service->warning('La publication a échouée.');
+            return to_route('admins.academic.lessons.index');
         }
-//        $this->repository->stored(attributes: $attributes);
-//
-//        return to_route('admins.academic.lessons.index');
     }
 
     public function show(string $key): Factory|View|Application
