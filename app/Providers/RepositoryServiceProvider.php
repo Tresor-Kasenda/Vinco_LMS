@@ -52,6 +52,7 @@ use App\Repositories\Backend\CampusRepository;
 use App\Repositories\Backend\CategoryRepository;
 use App\Repositories\Backend\ChapterRepository;
 use App\Repositories\Backend\CourseRepository;
+use App\Repositories\Backend\CreateRoomRepository;
 use App\Repositories\Backend\DepartmentRepository;
 use App\Repositories\Backend\ExamListRepository;
 use App\Repositories\Backend\ExamSessionRepository;
@@ -87,6 +88,9 @@ use App\Repositories\Backend\UsersRepository;
 use App\Repositories\Com\EventRepository;
 use App\Repositories\Com\JournalRepository;
 use App\Repositories\Com\NotificationRepository;
+use App\Repositories\Contracts\CreateRoomRepositoryInterface;
+use App\Repositories\Contracts\CreateTokenRepositoryInterface;
+use App\Repositories\CreateTokenRepository;
 use App\Repositories\EnableX\EnableBackendRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\InstitutionRepository;
@@ -133,7 +137,7 @@ final class RepositoryServiceProvider extends ServiceProvider
         ExamListRepositoryInterface::class => ExamListRepository::class,
         ResultRepositoryInterface::class => ResultRepository::class,
         FeesTypeRepositoryInterface::class => FeesTypeRepository::class,
-                SettingRepositoryInterface::class => SettingRepository::class,
+        SettingRepositoryInterface::class => SettingRepository::class,
         ChartRepositoryInterface::class => ChartRepository::class,
         RoleRepositoryInterface::class => RoleRepository::class,
         EventRepositoryInterface::class => EventRepository::class,
@@ -141,7 +145,8 @@ final class RepositoryServiceProvider extends ServiceProvider
         JournalRepositoryInterface::class => JournalRepository::class,
         InstitutionRepositoryInterface::class => InstitutionRepository::class,
         ExamSessionRepositoryInterface::class => ExamSessionRepository::class,
-
+        CreateRoomRepositoryInterface::class => CreateRoomRepository::class,
+        CreateTokenRepositoryInterface::class => CreateTokenRepository::class,
         //Enable X
         EnableXRepositoryInterface::class => EnableBackendRepository::class,
     ];
