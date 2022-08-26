@@ -69,10 +69,10 @@ final class LessonRepository implements LessonRepositoryInterface
 
         $lesson = $this->storeLesson($attributes);
 
-        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
-            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
-        }
+//        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
+//            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
+//            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
+//        }
         $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
