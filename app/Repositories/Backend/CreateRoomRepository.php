@@ -27,11 +27,11 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
         $date = date('Y-m-d H:i:s', $currentTime);
         $pinCode = rand(100000, 999999);
         $participant = $this->generateRandomTransaction(6);
-        $guests = $attributes->input('guests');
-        $timeZone = $attributes->input('city').'/'.$attributes->input('country');
-        $organiser = $attributes->input('name').'-'.$attributes->input('firstName');
+        $guests = $attributes->guests;
+        $timeZone = \Date::now();
+        $organiser = $attributes->name;
 
-        Mail::to($attributes->input('email'))->send(new RoomNotificationMail($pinCode, $rooms, $date, $timeZone, $organiser, $attributes));
+        Mail::to($attributes->email)->send(new RoomNotificationMail($pinCode, $rooms, $date, $timeZone, $organiser, $attributes));
 
         foreach ($guests as $guest) {
             Mail::to($guest)->send(new SendEmailToGuestMail($participant, $rooms, $date, $timeZone, $guest, $attributes));
@@ -39,7 +39,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
 
         return Room::query()
             ->create([
-                'name' => $attributes->input('name'),
+                'name' => $attributes->name,
                 'roomId' => $rooms['room']['room_id'],
                 'roomName' => $rooms['room']['name'],
                 'roomPin' => $pinCode,
@@ -47,7 +47,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
                 'schedule' => $date,
                 'duration' => $rooms['room']['settings']['duration'],
                 'usersNumber' => $rooms['room']['settings']['participants'],
-                'guests' => serialize($attributes->input('guests')),
+                'guests' => serialize($attributes->guests),
                 'password' => $participant,
                 //'institution_id'=>1
             ]);
@@ -75,7 +75,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
                 'description' => '',
                 'quality' => 'SD',
                 'mode' => 'group',
-                'participants' => $attributes->input('usersNumber'),
+                'participants' => $attributes->usersNumber,
                 'duration' => $difference,
                 'scheduled' => false,
                 'moderators' => '2',

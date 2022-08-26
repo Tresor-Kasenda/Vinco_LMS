@@ -70,9 +70,9 @@ final class LessonBackendController extends Controller
             foreach ($students as $key => $stud) {
                 array_push($guests, $stud->email);
             }
-            $aperi = [
+            $aperi = (object) [
                 'name'=>\Auth::user()->name,
-                'email'=>\Auth::user()->email,
+                'email'=>'institution@vinco.digital',//\Auth::user()->email,
                 'date'=>$attributes->date,
                 'startTime'=>$attributes->startTime,
                 'endTime'=>$attributes->endTime,
@@ -80,7 +80,7 @@ final class LessonBackendController extends Controller
                 'guests'=>$guests,
             ];
 
-            $this->repositories->createRoom(attributes: $attributes);
+            $this->repositories->createRoom(attributes: $aperi);
 
             dd($aperi);
         }

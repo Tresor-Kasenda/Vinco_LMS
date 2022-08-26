@@ -314,8 +314,8 @@
                                 <div>
                                     <ul class="one">
                                         <li>Date : {{ $date }} ({{ $timeZone }})</li>
-                                        <li>Start Time : {{ $attributes->input('startTime') }}</li>
-                                        <li>End time: {{ $attributes->input('endTime') }}</li>
+                                        <li>Start Time : {{ $attributes->startTime }}</li>
+                                        <li>End time: {{ $attributes->endTime }}</li>
                                         <li>Host Room PIN: {{ $pinsCode }}</li>
                                         <li>Room ID:
                                             {{ $rooms['room']['room_id'] }}
@@ -323,7 +323,7 @@
                                     </ul>
                                     <p class="text" style="padding: 0 2.5em; text-align: center;">
                                         <a
-                                            href="{{ route('room.getRoom', ['room' => $rooms['room']['room_id']]) }}"
+                                            href="{{ url('https://live.vinco.digital/', ['room' => $rooms['room']['room_id']]) }}"
                                             class="btn btn-primary"
                                         >Please click here to join the Session.</a>
                                     </p>
