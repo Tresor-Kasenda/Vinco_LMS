@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -20,8 +21,8 @@ class CreateRoomRequest extends FormRequest
             'startTime' => ['required', 'date_format:H:i'],
             'endTime' => ['required', 'date_format:H:i', 'after:startTime'],
             'email' => ['required', 'email'],
-            "guests" => ['required', 'array'],
-            "guests.*" => ['required', 'distinct'],
+            'guests' => ['required', 'array'],
+            'guests.*' => ['required', 'distinct'],
             'usersNumber' => ['required'],
         ];
     }

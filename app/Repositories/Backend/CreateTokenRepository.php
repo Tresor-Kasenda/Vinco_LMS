@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repositories;
@@ -19,25 +20,26 @@ final class CreateTokenRepository implements CreateTokenRepositoryInterface
     {
         $room = $this->getRoom($attributes);
         $role = 'participant';
-        if ($room->roomPin == $attributes->input('roomPins')){
-            $role = "moderator";
-        } else if ($room->participantPin == $attributes->input('roomPins')){
-            $role = "participant";
+        if ($room->roomPin == $attributes->input('roomPins')) {
+            $role = 'moderator';
+        } elseif ($room->participantPin == $attributes->input('roomPins')) {
+            $role = 'participant';
         } else {
             $role = 'participant';
         }
-        if (!$attributes->input('username') && !$attributes->input('meetingId') && !$attributes->input('roomPins')) {
+        if (! $attributes->input('username') && ! $attributes->input('meetingId') && ! $attributes->input('roomPins')) {
             $error = Errors::getError(4004);
-            $error["desc"] = "JSON keys missing: name, meetingId or roomPins";
+            $error['desc'] = 'JSON keys missing: name, meetingId or roomPins';
+
             return response()->json($error);
         }
+
         return [
             $this->createdToken($attributes, $room, $role),
             $role,
-            $room->roomName
+            $room->roomName,
         ];
     }
-
 
     private function getRoom($attributes): null|Builder|Model
     {
@@ -50,17 +52,17 @@ final class CreateTokenRepository implements CreateTokenRepositoryInterface
     private function createdToken($attributes, $room, $role): mixed
     {
         $room = [
-            "name" => $attributes->input('username'),
-            "room_id" => $room->roomId,
-            "user_ref" => $attributes->input('roomPins'),
-            "role" => $role,
+            'name' => $attributes->input('username'),
+            'room_id' => $room->roomId,
+            'user_ref' => $attributes->input('roomPins'),
+            'role' => $role,
         ];
 
         $enable = new EnableX;
 
         return $enable
             ->createConnexion()
-            ->post(config('enableX.url') . "rooms/" . $room['room_id'] . "/tokens", $room)
+            ->post(config('enableX.url').'rooms/'.$room['room_id'].'/tokens', $room)
             ->json();
     }
 }
