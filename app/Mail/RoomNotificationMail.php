@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -15,17 +16,17 @@ class RoomNotificationMail extends Mailable
     {
     }
 
-    public function build(): RoomNotificationMail
+    public function build(): self
     {
         return $this
-            ->subject("Confirmation of an APERI Online Session Creation!")
+            ->subject('Confirmation of an APERI Online Session Creation!')
             ->view('mails.index', [
                 'pinsCode' => $this->pinCode,
                 'rooms' => $this->rooms,
                 'timeZone' => $this->timeZone,
                 'organiser' => $this->organiser,
                 'date' => $this->date,
-                'attributes' => $this->attributes
+                'attributes' => $this->attributes,
             ]);
     }
 }
