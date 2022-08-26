@@ -46,10 +46,11 @@ final class LessonBackendController extends Controller
             ])
             ->where('id', '=', $attributes->input('type'))
             ->firstOrFail();
-        if($type->id == \App\Enums\LessonType::TYPE_APERI->value){
+        if ($type->id == \App\Enums\LessonType::TYPE_APERI->value) {
             $promotion = $attributes->promotion;
-            if($promotion === null){
+            if ($promotion === null) {
                 $this->service->warning('Veuillez choisir une promotion');
+
                 return back();
             }
             $student = Student::query()
@@ -66,18 +67,18 @@ final class LessonBackendController extends Controller
                 'parent:id,name_guardian',
             ]);
             $guests = [];
-            foreach ($students as $key => $stud){
+            foreach ($students as $key => $stud) {
                 array_push($guests, $stud->email);
             }
-            $aperi = array(
+            $aperi = [
                 'name'=>\Auth::user()->name,
                 'email'=>\Auth::user()->email,
                 'date'=>$attributes->date,
                 'startTime'=>$attributes->startTime,
                 'endTime'=>$attributes->endTime,
                 'usersNumber'=>$students->count(),
-                'guests'=>$guests
-            );
+                'guests'=>$guests,
+            ];
 
             $this->repositories->createRoom(attributes: $attributes);
 

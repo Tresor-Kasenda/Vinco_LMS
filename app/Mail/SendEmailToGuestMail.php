@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -15,17 +16,17 @@ class SendEmailToGuestMail extends Mailable
     {
     }
 
-    public function build(): SendEmailToGuestMail
+    public function build(): self
     {
         return $this
-            ->subject("Invitation to an Aperi Online Session")
+            ->subject('Invitation to an Aperi Online Session')
             ->view('mails.guests', [
                 'joins' => $this->participant,
                 'room' => $this->rooms,
                 'date' => $this->date,
                 'timeZone' => $this->timeZone,
                 'guest' => $this->guest,
-                'attributes' => $this->attributes
+                'attributes' => $this->attributes,
             ]);
     }
 }

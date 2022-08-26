@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -15,14 +16,14 @@ class SendRoomIdMail extends Mailable
     {
     }
 
-    public function build(): SendRoomIdMail
+    public function build(): self
     {
         return $this
-            ->subject("Invitation to join the room")
+            ->subject('Invitation to join the room')
             ->view('mails.joinRoom', [
                 'user' => $this->user,
                 'room_id' => $this->roomId,
-                'room' => $this->room
+                'room' => $this->room,
             ]);
     }
 }
