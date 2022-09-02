@@ -137,10 +137,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])->name('promotion-fee-json');
         });
 
-        Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
-            Route::resource('aperi', EnableBackendController::class);
-        });
-
         Route::resource('roles', RoleBackendController::class);
         Route::resource('settings', SettingsBackendController::class);
         Route::put('setting/{system}', [SettingsBackendController::class, 'updateSystem'])->name('system.update');
@@ -218,6 +214,22 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
+    Route::controller(RoomController::class)->group(function () {
+        Route::get('/', 'joinRoom')->name('rooms.join');
+        Route::get('/create-rooms', 'createRoom')->name('room.create');
+        Route::post('/create-rooms', 'storeRoom')->name('room.store');
+        Route::post('/create-room', 'api');
+    });
+    Route::post('create-token', [CreateTokenController::class, 'createToken'])->name('room.token');
+    Route::get('/render', [RoomsAppController::class, 'render'])->name('room.connect');
+    Route::get('/client/rooms/{token}/{role}/{roomId}/{user_ref}/{room}', [RoomsAppController::class, 'index'])->name('room.connect');
+    Route::put('room/{roomId}', [SettingController::class, 'endRoom'])->name('room.end');
+    Route::post('/inviteRoom', [SettingController::class, 'inviteRoom']);
+    Route::post('/sendMail', [SettingController::class, 'sendEmail']);
+    Route::get('/getRoom/{room?}', [GetRoomController::class, 'index'])->name('room.getRoom');
+});
+
 Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');
 Route::get('institutionRegister', [HomeFrontendController::class, 'register'])->name('home.institution.register');
 Route::post('institionStore', [HomeFrontendController::class, 'store'])->name('home.institution.store');
@@ -244,3 +256,6 @@ Route::get('/remove_user/{id}/{user_id}', [GroupController::class, 'remove_user'
 Route::post('/send_message/{id}', [MessageController::class, 'send_message']);
 Route::get('/show_messages/{id}', [MessageController::class, 'show_messages']);
 Route::get('/home-groupe', [App\Http\Controllers\Backend\Communication\Chat\HomeController::class, 'index'])->name('home');
+
+
+
