@@ -18,11 +18,13 @@ final class LessonRepository implements LessonRepositoryInterface
 {
     public function __construct(
         protected ToastMessageService $service,
-        protected LessonFactory $lessonFactory,
-    ) {
+        protected LessonFactory $lessonFactory
+
+    )
+    {
     }
 
-    public function getLessons()
+    public function getLessons(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Lesson::query()
@@ -69,10 +71,10 @@ final class LessonRepository implements LessonRepositoryInterface
 
         $lesson = $this->storeLesson($attributes);
 
-//        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
-//            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-//            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
-//        }
+        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
+            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
+            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
+        }
         $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
