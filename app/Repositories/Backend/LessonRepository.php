@@ -9,9 +9,9 @@ use App\Factory\LessonFactory;
 use App\Models\Lesson;
 use App\Models\LessonType;
 use App\Services\ToastMessageService;
-use Illuminate\Database\Eloquent\Collection;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Builder;
 use Illuminate\Http\RedirectResponse;
 
 final class LessonRepository implements LessonRepositoryInterface
@@ -19,10 +19,12 @@ final class LessonRepository implements LessonRepositoryInterface
     public function __construct(
         protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
-    ) {
+
+    )
+    {
     }
 
-    public function getLessons(): array|Collection
+    public function getLessons(): array|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Lesson::query()
@@ -61,7 +63,7 @@ final class LessonRepository implements LessonRepositoryInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function stored($attributes): Lesson|Builder|Model|RedirectResponse
     {
@@ -100,15 +102,25 @@ final class LessonRepository implements LessonRepositoryInterface
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function updated(string $key, $attributes): Model|Lesson|Builder|null
     {
         $lesson = $this->showLesson(key: $key);
+        $type = $this->getLessonType($attributes);
         $lesson->update([
             'chapter_id' => $attributes->input('chapter'),
             'name' => $attributes->input('name'),
             'content' => $attributes->input('content'),
             'lesson_type_id' => $attributes->input('type'),
         ]);
+
+        if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
+            $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
+            $lessonType->update(request: $attributes, lesson: $lesson->id);
+        }
+
         $this->service->success('Une lecon a ete mise a jours avec success');
 
         return $lesson;

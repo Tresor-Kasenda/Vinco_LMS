@@ -124,14 +124,14 @@
                                             <div id="pdf-lesson">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="pdf_format">Format PDF</label>
+                                                        <label class="form-label" for="pdf_lesson">Format PDF</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="file"
-                                                                class="form-control @error('pdf_format') error @enderror"
-                                                                id="pdf_format"
-                                                                name="pdf_format"
-                                                                value="{{ old('pdf_format') }}"
+                                                                class="form-control @error('pdf_lesson') error @enderror"
+                                                                id="pdf_lesson"
+                                                                name="pdf_lesson"
+                                                                value="{{ old('pdf_lesson') }}"
                                                                 placeholder="Select PDF Format"
                                                                 >
                                                         </div>

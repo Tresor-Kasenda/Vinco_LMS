@@ -81,12 +81,14 @@ final class CreateUserCommand extends Command
         return Institution::query()
             ->create([
                 'institution_name' => 'Vinco',
-                'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
                 'institution_country' => 'Congo DR',
-                'institution_phones' => '+243818045132',
                 'institution_town' => 'Lubumbashi',
-                'institution_images' => asset('assets/favicon.svg'),
+                'institution_address' => '269, Kasongo NYEMBO, Q/ Baudouin, Lubumbashi',
+                'institution_phones' => '+243818045132',
                 'institution_website' => 'https://www.vinco.digital',
+                'institution_email' => 'information@vinco.com',
+                'institution_images' => "favicon.svg",
+                'institution_description' => "Vinco LMS une plateforme d'etude en ligne"
             ]);
     }
 

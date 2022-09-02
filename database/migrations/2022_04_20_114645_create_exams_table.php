@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->foreignIdFor(Course::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->float('rating')->nullable(); // cote d'examen
             $table->date('date')->nullable();
             $table->string('start_time')->nullable();
             $table->string('duration')->nullable();

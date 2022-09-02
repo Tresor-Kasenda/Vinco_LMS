@@ -10,7 +10,7 @@ interface InstitutionRepositoryInterface
 
     public function showInstitution(string $key);
 
-    public function stored($attributes, $factory);
+    public function stored($attributes);
 
     public function updated(string $key, $attributes);
 

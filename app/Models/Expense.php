@@ -39,7 +39,7 @@ use Illuminate\Support\Carbon;
  * @method static \Database\Factories\ExpenseFactory factory(...$parameters)
  * @method static Builder|Expense whereInstitutionId($value)
  */
-final class Expense extends Model
+class Expense extends Model
 {
     use HasFactory;
 

@@ -19,7 +19,9 @@ use Illuminate\Support\Carbon;
  * @property string $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection|Expense[] $expense
  * @property-read Collection|\App\Models\Expense[] $expense
+ * @property-read Collection|Expense[] $expense
  * @property-read int|null $expense_count
  *
  * @method static Builder|ExpenseType newModelQuery()
@@ -41,5 +43,10 @@ final class ExpenseType extends Model
     public function expense(): HasMany
     {
         return $this->hasMany(Expense::class);
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

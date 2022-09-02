@@ -39,7 +39,4 @@ final class PdfLessonType implements LessonTypeInterface
 
         return $pdf;
     }
-                'files' => self::uploadPDF($attributes)
-            ]);
-    }
 }

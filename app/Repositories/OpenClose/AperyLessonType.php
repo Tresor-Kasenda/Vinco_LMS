@@ -14,17 +14,15 @@ use App\Services\EnableX\EnableXService;
 use App\States\EnableState\Pending;
 use App\Traits\RandomValues;
 use App\Traits\TimeCalculation;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use JetBrains\PhpStorm\ArrayShape;
 
 final class AperyLessonType implements LessonTypeInterface
 {
     use RandomValues, TimeCalculation;
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
@@ -63,7 +61,7 @@ final class AperyLessonType implements LessonTypeInterface
                 'participants' => $attributes->input('participants'),
                 'schedule' => $attributes->input('date'),
                 'reference' => $attributes->input(''),
-                'status' => Pending::class,
+                'status' => Pending::class
             ]);
     }
 
@@ -71,7 +69,6 @@ final class AperyLessonType implements LessonTypeInterface
     {
         [$date, $difference] = self::calculate(attributes: $attributes);
         $room = self::renderRoomMetadata($date, $difference, $attributes);
-
         return EnableXService::createConnexion()
             ->post(config('enable.url').'/rooms', $room)
             ->json();
@@ -123,6 +120,5 @@ final class AperyLessonType implements LessonTypeInterface
 
     public function update(LessonUpdateRequest $request, $lesson)
     {
-        // TODO: Implement update() method.
     }
 }

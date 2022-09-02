@@ -88,13 +88,13 @@
                                 @if($institution->user != null)
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            {{ ucfirst($institution->user->name) }}
+                                            {{ ucfirst($institution->user->name) ?? "" }}
                                         </span>
                                     </td>
                                 @else
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
-                                            Pas de gestionnaire
+                                            Not Exist
                                         </span>
                                     </td>
                                 @endif
