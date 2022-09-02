@@ -8,9 +8,9 @@
     <meta name="description" content="for developers and programmers.">
     <link rel="shortcut icon" href="">
     <title>COMMUNICATION | @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}" data-turbolinks-track="true">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.css"/>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet" data-turbolinks-track="true">
     <style>
         body {
             font-family: 'Arial';
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/admins.js') }}"></script>
+    <script src="{{ asset('js/admins.js') }}" data-turbolinks-track="true"></script>
     @yield('scripts')
     @livewireScripts
     @flasher_render
