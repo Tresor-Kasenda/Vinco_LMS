@@ -20,8 +20,8 @@ final class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         InstitutionEvent::class => [
-            InstitutionListener::class
-        ]
+            InstitutionListener::class,
+        ],
     ];
 
     /**

@@ -35,7 +35,7 @@ class InstitutionNotification extends Notification
         return [
             'name' => $this->institution->institution_name,
             'email' => $this->institution->institution_email,
-            'phones' => $this->institution->institution_phones
+            'phones' => $this->institution->institution_phones,
         ];
     }
 }

@@ -51,6 +51,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_email' => $attributes->input('institution_email'),
             ]);
         InstitutionEvent::dispatch($institution);
+
         return $institution;
     }
 
