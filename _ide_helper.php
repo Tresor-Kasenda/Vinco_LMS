@@ -16808,7 +16808,84 @@ namespace Illuminate\Support\Facades {
         }
 
     }
+            /**
+     *
+     *
+     * @see \Illuminate\Foundation\Vite
+     */
+        class Vite {
+                    /**
+         * Get the Content Security Policy nonce applied to all generated tags.
+         *
+         * @return string|null
+         * @static
+         */
+        public static function cspNonce()
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->cspNonce();
+        }
+                    /**
+         * Generate or set a Content Security Policy nonce to apply to all generated tags.
+         *
+         * @param \Illuminate\Foundation\?string $nonce
+         * @return string
+         * @static
+         */
+        public static function useCspNonce($nonce = null)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useCspNonce($nonce);
+        }
+                    /**
+         * Use the given key to detect integrity hashes in the manifest.
+         *
+         * @param string|false $key
+         * @return \Illuminate\Foundation\Vite
+         * @static
+         */
+        public static function useIntegrityKey($key)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useIntegrityKey($key);
+        }
+                    /**
+         * Use the given callback to resolve attributes for script tags.
+         *
+         * @param \Illuminate\Foundation\(callable(string,  string, ?array, ?array): array)|array  $attributes
+         * @return \Illuminate\Foundation\Vite
+         * @static
+         */
+        public static function useScriptTagAttributes($attributes)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useScriptTagAttributes($attributes);
+        }
+                    /**
+         * Use the given callback to resolve attributes for style tags.
+         *
+         * @param \Illuminate\Foundation\(callable(string,  string, ?array, ?array): array)|array  $attributes
+         * @return \Illuminate\Foundation\Vite
+         * @static
+         */
+        public static function useStyleTagAttributes($attributes)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useStyleTagAttributes($attributes);
+        }
+                    /**
+         * Generate React refresh runtime script.
+         *
+         * @return \Illuminate\Support\HtmlString|void
+         * @static
+         */
+        public static function reactRefresh()
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->reactRefresh();
+        }
 
+    }
 }
 
 namespace Illuminate\Support {
@@ -19964,7 +20041,6 @@ namespace Illuminate\View {
     }
 
 }
-
 
 namespace  {
     class App extends \Illuminate\Support\Facades\App {}
@@ -23731,9 +23807,4 @@ namespace  {
     class Laratrust extends \Laratrust\LaratrustFacade {}
     class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
     class DataTables extends \Yajra\DataTables\Facades\DataTables {}
-
 }
-
-
-
-
