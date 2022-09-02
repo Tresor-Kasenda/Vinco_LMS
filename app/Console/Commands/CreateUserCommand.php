@@ -87,8 +87,8 @@ final class CreateUserCommand extends Command
                 'institution_phones' => '+243818045132',
                 'institution_website' => 'https://www.vinco.digital',
                 'institution_email' => 'information@vinco.com',
-                'institution_images' => 'favicon.svg',
-                'institution_description' => "Vinco LMS une plateforme d'etude en ligne",
+                'institution_images' => "favicon.svg",
+                'institution_description' => "Vinco LMS une plateforme d'etude en ligne"
             ]);
     }
 
