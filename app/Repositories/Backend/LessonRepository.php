@@ -116,6 +116,7 @@ final class LessonRepository implements LessonRepositoryInterface
             'lesson_type_id' => $attributes->input('type'),
         ]);
 
+
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
             $lessonType->update(request: $attributes, lesson: $lesson->id);

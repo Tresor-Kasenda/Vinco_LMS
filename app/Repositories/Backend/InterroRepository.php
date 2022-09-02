@@ -34,7 +34,6 @@ final class InterroRepository implements InterroRepositoryInterface
                 ->orderByDesc('created_at')
                 ->get();
         }
-
         return Question::query()
             ->select([
                 'id',
@@ -63,7 +62,7 @@ final class InterroRepository implements InterroRepositoryInterface
                 'course_id' => $attributes->input('course'),
                 'chapter_id' => $attributes->input('chapter'),
             ]);
-        $this->messageService->success('Une nouvelle Interrogation a ete ajouter');
+        $this->messageService->success("Une nouvelle Interrogation a ete ajouter");
 
         return $interro;
     }
@@ -105,7 +104,7 @@ final class InterroRepository implements InterroRepositoryInterface
     {
         $interro = $this->showInterro($key);
         $interro->delete();
-        $this->messageService->success('Une nouvelle Interrogation a ete supprimer');
+        $this->messageService->success("Une nouvelle Interrogation a ete supprimer");
 
         return $interro;
     }
