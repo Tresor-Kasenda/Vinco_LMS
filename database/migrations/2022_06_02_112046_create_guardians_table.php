@@ -16,7 +16,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name_guardian', '30');
-            $table->string('firstName_guardian', '30')->nullable();
+            $table->string('firstname_guardian', '30')->nullable();
             $table->string('email_guardian')->unique();
             $table->enum('gender', ['male', 'female']);
             $table->string('images')->nullable();

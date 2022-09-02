@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\System;
 
 use App\Contracts\InstitutionRepositoryInterface;
+use App\Events\InstitutionEvent;
 use App\Models\Institution;
 use App\Services\EmailInstitutionService;
 use App\Traits\ImageUploader;
@@ -12,8 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use LaravelIdea\Helper\App\Models\_IH_Institution_QB;
-use Throwable;
 
 class InstitutionRepository implements InstitutionRepositoryInterface
 {
@@ -51,17 +50,11 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_website' => $attributes->input('institution_website'),
                 'institution_email' => $attributes->input('institution_email'),
             ]);
-
-        try {
-            $this->institution->sendEmail(institution:  $institution);
-        } catch (Throwable $exception) {
-            return $institution;
-        }
-
+        InstitutionEvent::dispatch($institution);
         return $institution;
     }
 
-    public function updated(string $key, $attributes): Model|Institution|Builder|_IH_Institution_QB
+    public function updated(string $key, $attributes): Model|Institution|Builder
     {
         $institution = $this->showInstitution(key: $key);
         $institution->update([
@@ -77,7 +70,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
         return $institution;
     }
 
-    public function showInstitution(string $key): Model|Institution|Builder|_IH_Institution_QB
+    public function showInstitution(string $key): Model|Institution|Builder
     {
         $institution = Institution::query()
             ->select([
@@ -98,7 +91,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
         return $institution->load(['campuses', 'events', 'user']);
     }
 
-    public function deleted(string $key): Model|Institution|Builder|_IH_Institution_QB
+    public function deleted(string $key): Model|Institution|Builder
     {
         $institution = $this->showInstitution(key: $key);
         $institution->delete();

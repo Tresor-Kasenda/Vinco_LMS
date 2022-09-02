@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Subsidiary::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name', '50');
