@@ -18,7 +18,7 @@ class InstitutionApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'institution' => ['required', Rule::exists(Institution::class, 'id')]
+            'institution' => ['required', Rule::exists(Institution::class, 'id')],
         ];
     }
 }

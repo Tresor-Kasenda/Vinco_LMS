@@ -94,7 +94,7 @@ final class Lesson extends Model
 
         return ! $lessons;
     }
-    
+
     public function getDifference(): int
     {
         return Carbon::parse($this->end_time)->diffInMinutes($this->start_time);
