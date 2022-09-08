@@ -12,7 +12,7 @@ class RoomNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public $pinCode, public $rooms, public $date, public $timeZone, public $organiser, public $attributes)
+    public function __construct(public $roomId, public $date, public $startTime, public $endTime)
     {
     }
 
@@ -21,12 +21,10 @@ class RoomNotificationMail extends Mailable
         return $this
             ->subject('Confirmation of an APERI Online Session Creation!')
             ->view('mails.index', [
-                'pinsCode' => $this->pinCode,
-                'rooms' => $this->rooms,
-                'timeZone' => $this->timeZone,
-                'organiser' => $this->organiser,
+                'roomId' => $this->roomId,
                 'date' => $this->date,
-                'attributes' => $this->attributes,
+                'startTime' => $this->startTime,
+                'endTime'=>$this->endTime
             ]);
     }
 }
