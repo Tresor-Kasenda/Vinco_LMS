@@ -24,7 +24,7 @@ class SendEmailToGuestMail extends Mailable
                 'roomId' => $this->roomId,
                 'date' => $this->date,
                 'startTime' => $this->startTime,
-                'endTime'=>$this->endTime
+                'endTime'=>$this->endTime,
             ]);
     }
 }
