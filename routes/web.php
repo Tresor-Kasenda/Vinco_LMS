@@ -229,6 +229,7 @@ Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.
 Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
 Route::get('events', [EventAppController::class, 'index'])->name('events.index');
 Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
+Route::get('video-conference-room', [\App\Http\Controllers\ChatsController::class, 'index'])->name('room.conference');
 
 //Add chat group test
 Route::get('/group/create', [GroupController::class, 'create_form']);

@@ -89,7 +89,11 @@ final class LessonBackendController extends Controller
             return to_route('admins.academic.lessons.index');
 
         } else {
+        
             $this->service->warning('La publication a échouée.');
+
+            $this->repository->stored(attributes: $attributes);
+
             return to_route('admins.academic.lessons.index');
         }
     }

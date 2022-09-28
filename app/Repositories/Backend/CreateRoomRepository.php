@@ -20,37 +20,44 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
 {
     use RandomValue, CalculationEvent;
 
-    public function createRoom($attributes): Model|Builder
+    public function createRoom($attributes)
     {
-        $rooms = $this->CreateOnlineRoom(attributes: $attributes);
-        $currentTime = strtotime(''.$attributes->date.' '.$attributes->startTime.'');
-        $date = date('Y-m-d H:i:s', $currentTime);
+        //$rooms = $this->CreateOnlineRoom(attributes: $attributes);
+//        $currentTime = strtotime(''.$attributes->date.' '.$attributes->startTime.'');
+        $startTime = date('H:i:s', strtotime($attributes->startTime));
+        $endTime = date('H:i:s', strtotime($attributes->endTime));
+        $date = date('Y-m-d', strtotime($attributes->date));
         $pinCode = rand(100000, 999999);
         $participant = $this->generateRandomTransaction(6);
         $guests = $attributes->guests;
         $timeZone = \Date::now();
         $organiser = $attributes->name;
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        Mail::to($attributes->email)->send(new RoomNotificationMail($pinCode, $rooms, $date, $timeZone, $organiser, $attributes));
+        $roomId = substr(str_shuffle(str_repeat($pool, 5)), 0, 16);
+
+//        $rooms = Room::query()
+//            ->create([
+//                'name' => $attributes->name,
+//                'roomId' => $roomId,
+//                'roomName' => "Lesson Cours",
+//                'roomPin' => $pinCode,
+//                'reference' => "",
+//                'schedule' => $date,
+//                'duration' => 5,
+//                'usersNumber' => 0,
+//                'guests' => serialize($attributes->guests),
+//                'password' => $participant,
+//                'institution_id'=>\Auth::user()->institution->id,
+//            ]);
+
+        Mail::to($attributes->email)->send(new RoomNotificationMail($roomId, $date, $startTime, $endTime));
 
         foreach ($guests as $guest) {
-            Mail::to($guest)->send(new SendEmailToGuestMail($participant, $rooms, $date, $timeZone, $guest, $attributes));
+            Mail::to($guest)->send(new SendEmailToGuestMail($roomId, $date, $startTime, $endTime));
         }
 
-        return Room::query()
-            ->create([
-                'name' => $attributes->name,
-                'roomId' => $rooms['room']['room_id'],
-                'roomName' => $rooms['room']['name'],
-                'roomPin' => $pinCode,
-                'reference' => $rooms['room']['owner_ref'],
-                'schedule' => $date,
-                'duration' => $rooms['room']['settings']['duration'],
-                'usersNumber' => $rooms['room']['settings']['participants'],
-                'guests' => serialize($attributes->guests),
-                'password' => $participant,
-                'institution_id'=>\Auth::user()->institution->id
-            ]);
+        return $roomId;
     }
 
     private function CreateOnlineRoom($attributes)

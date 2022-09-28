@@ -1,20 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class RoomMessage extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['message'];
 
-    public function messages()
+    public function room()
     {
-        return $this->hasMany(RoomMessage::class);
+        return $this->belongsTo(Room::class);
     }
 }

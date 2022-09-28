@@ -307,23 +307,19 @@
                         <tr>
                             <td>
                                 <div class="text" style="padding: 0 2.5em; text-align: center;">
-                                    <h4>Dear {{ $organiser }}</h4>
+                                    <h4>Hello</h4>
                                     <p>You have successfully created a virtual meeting on Aperi a HOST.</p>
                                     <p>The login details of your Aperi room are as follows:</p>
                                 </div>
                                 <div>
                                     <ul class="one">
-                                        <li>Date : {{ $date }} ({{ $timeZone }})</li>
-                                        <li>Start Time : {{ $attributes->startTime }}</li>
-                                        <li>End time: {{ $attributes->endTime }}</li>
-                                        <li>Host Room PIN: {{ $pinsCode }}</li>
-                                        <li>Room ID:
-                                            {{ $rooms['room']['room_id'] }}
-                                        </li>
+                                        <li>Date : {{ $date }}</li>
+                                        <li>Start Time : {{ $startTime }}</li>
+                                        <li>End time: {{ $endTime }}</li>
                                     </ul>
                                     <p class="text" style="padding: 0 2.5em; text-align: center;">
                                         <a
-                                            href="{{ url('https://live.vinco.digital/', ['room' => $rooms['room']['room_id']]) }}"
+                                            href="{{ route('room.conference', ['id' => $roomId]) }}"
                                             class="btn btn-primary"
                                         >Please click here to join the Session.</a>
                                     </p>
