@@ -16,7 +16,7 @@ class PromotionFeeApiController extends Controller
         PromotionFeeApiRepository $repository
     ): JsonResponse {
         $promotions = $repository->getPromotions($apiRequest);
-        
+
         return response()->json([
             'promotions' => $promotions,
             'status' => 'success',

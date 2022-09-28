@@ -13,6 +13,6 @@ final class Active extends ActivationState
 
     public function getClassName(): string
     {
-        return Active::class;
+        return self::class;
     }
 }
