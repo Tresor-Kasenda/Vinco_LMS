@@ -30,13 +30,12 @@ final class FeesRepository implements FeesRepositoryInterface
                     'amount',
                     'pay_date',
                     'institution_id',
-                    'promotion_id',
+                    'promotion_id'
                 ])
                 ->with(['feeType', 'institution'])
                 ->orderByDesc('created_at')
                 ->get();
         }
-
         return Fee::query()
             ->select([
                 'id',
@@ -44,7 +43,7 @@ final class FeesRepository implements FeesRepositoryInterface
                 'amount',
                 'pay_date',
                 'institution_id',
-                'promotion_id',
+                'promotion_id'
             ])
             ->where('institution_id', '=', auth()->user()->institution->id)
             ->with('feeType')
@@ -63,7 +62,7 @@ final class FeesRepository implements FeesRepositoryInterface
                 'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
                 'promotion_id' => $attributes->input('promotion'),
             ]);
-        $this->toastMessage->success('Fee added with successfully');
+        $this->toastMessage->success("Fee added with successfully");
 
         return $fee;
     }
@@ -77,9 +76,9 @@ final class FeesRepository implements FeesRepositoryInterface
             'pay_date' => $attributes->input('pay_date'),
             'description' => $attributes->input('description'),
             'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
-            'promotion_id' => $attributes->input('promotion'),
+            'promotion_id' => $attributes->input('promotion')
         ]);
-        $this->toastMessage->success('Fee updated with successfully');
+        $this->toastMessage->success("Fee updated with successfully");
 
         return $fee;
     }
@@ -94,7 +93,7 @@ final class FeesRepository implements FeesRepositoryInterface
                 'description',
                 'description',
                 'promotion_id',
-                'institution_id',
+                'institution_id'
             ])
             ->find($key)
             ->first();
@@ -106,7 +105,7 @@ final class FeesRepository implements FeesRepositoryInterface
     {
         $fee = $this->showFee(key: $key);
         $fee->delete();
-        $this->toastMessage->success('Fee deleted with successfully');
+        $this->toastMessage->success("Fee deleted with successfully");
 
         return $fee;
     }

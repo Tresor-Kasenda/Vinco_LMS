@@ -8,7 +8,8 @@
     <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <link rel="shortcut icon" href="{{ asset('assets/frontend/images/VincoWhite/SVG/Vinco color Eng.svg') }}">
     <title>Vinco | @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}" data-turbolinks-track="true">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet" data-turbolinks-track="true">
 </head>
 <body class="nk-body bg-white npc-default pg-auth" >
     <div class="nk-app-root">
@@ -18,7 +19,5 @@
             </div>
         </div>
     </div>
-{{--    <script src="{{ asset('assets/admins/js/bundle41fe.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/admins/js/scripts41fe.js') }}"></script>--}}
 </body>
 </html>

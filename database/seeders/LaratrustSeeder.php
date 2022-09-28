@@ -73,7 +73,7 @@ final class LaratrustSeeder extends Seeder
      *
      * @return  void
      */
-    public function truncateLaratrustTables()
+    public function truncateLaratrustTables(): void
     {
         $this->command->info('Truncating User, Role and Permission tables');
         Schema::disableForeignKeyConstraints();

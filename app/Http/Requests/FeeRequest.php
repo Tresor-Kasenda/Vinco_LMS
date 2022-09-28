@@ -17,6 +17,7 @@ final class FeeRequest extends FormRequest
         return true;
     }
 
+
     public function rules(): array
     {
         return [
@@ -25,7 +26,7 @@ final class FeeRequest extends FormRequest
             'types' => ['required', Rule::exists(FeeType::class, 'id')],
             'amount' => ['required', 'integer', 'min:0'],
             'pay_date' => ['required', 'date', 'date_format:Y-m-d', 'after:today'],
-            'description' => ['nullable', 'string', 'min:4'],
+            'description' => ['nullable', 'string', 'min:4']
         ];
     }
 }

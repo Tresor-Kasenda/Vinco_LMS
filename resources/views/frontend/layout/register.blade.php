@@ -8,8 +8,8 @@
     <meta name="description" content="for developers and programmers.">
     <link rel="shortcut icon" href="">
     <title>LMS | @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/admins/css/css/dashlite41fe.css') }}" data-turbolinks-track="true">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet" data-turbolinks-track="true">
     <style>
         body {
             font-family: 'Arial';
@@ -25,9 +25,7 @@
 <body class="nk-body bg-lighter npc-general has-sidebar">
     <div class="nk-app-root">
         <div class="nk-main ">
-{{--            @include('backend.partials.sidebar')--}}
             <div class="nk-wrap ">
-{{--                @include('backend.partials.header')--}}
                 <div class="nk-content">
                     @yield('content')
                 </div>
@@ -37,7 +35,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/admins.js') }}"></script>
+    <script src="{{ asset('js/admins.js') }}" data-turbolinks-track="true"></script>
     @yield('scripts')
     @livewireScripts
     @flasher_render
