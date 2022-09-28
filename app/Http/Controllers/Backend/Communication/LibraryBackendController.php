@@ -24,7 +24,7 @@ class LibraryBackendController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.domain.communication.library.lector');
     }
 
     /**
