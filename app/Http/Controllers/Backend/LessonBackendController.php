@@ -74,7 +74,7 @@ final class LessonBackendController extends Controller
             }
             $aperi = (object) [
                 'name'=>\Auth::user()->name,
-                'email'=>'institution@vinco.digital',//\Auth::user()->email,
+                'email'=>'institution@vinco.digital', //\Auth::user()->email,
                 'date'=>$attributes->date,
                 'startTime'=>$attributes->startTime,
                 'endTime'=>$attributes->endTime,
@@ -87,9 +87,7 @@ final class LessonBackendController extends Controller
             $this->repository->stored(attributes: $attributes);
 
             return to_route('admins.academic.lessons.index');
-
         } else {
-        
             $this->service->warning('La publication a échouée.');
 
             $this->repository->stored(attributes: $attributes);
