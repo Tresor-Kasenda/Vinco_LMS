@@ -14,6 +14,8 @@ class LibraryBackendController extends Controller
      */
     public function index()
     {
+        $books = json_decode(file_get_contents(asset('assets/pdf/books.json')), true);
+        dd($books);
         return view('backend.domain.communication.library.index');
     }
 
