@@ -61,7 +61,8 @@
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
                                         <div class="d-flex">
-                                                <a href="" class="btn btn-dim btn-primary btn-sm ml-1">
+                                                <a href="{{route('admins.communication.library.create')}}"
+                                                   class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
                                             </div>

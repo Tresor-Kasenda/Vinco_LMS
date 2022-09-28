@@ -9,7 +9,6 @@
     init: function () {
 
         $(window).bind('keydown', function (e) {
-            console.log(e.keyCode);
             if (e.target && e.target.tagName.toLowerCase() != 'input') {
                 if (e.keyCode == 37 || e.keyCode == 38) {
                     $('.directions .prev-button').click();

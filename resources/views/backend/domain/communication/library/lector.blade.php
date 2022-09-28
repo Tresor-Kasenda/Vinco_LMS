@@ -416,7 +416,9 @@ See https://github.com/adobe-type-tools/cmap-resources
 </div>
 
 <!-- outerContainer -->
-
+<script>
+    var url = "PlanNormaESIS.pdf";
+</script>
 <script src="{{asset('assets/pdf/pdfjs/compatibility.js')}}"></script>
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="{{asset('assets/pdf/pdfjs/locale/locale.properties')}}"/>
