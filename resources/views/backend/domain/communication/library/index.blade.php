@@ -18,10 +18,16 @@
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
                             <th class="nk-tb-col">
+                                <span>IMAGE</span>
+                            </th>
+                            <th class="nk-tb-col">
                                 <span>TITLE</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>CONTENT</span>
+                                <span>NOMBRE DE PAGE</span>
+                            </th>
+                            <th class="nk-tb-col">
+                                <span>AUTEUR</span>
                             </th>
                             <th class="nk-tb-col nk-tb-col-tools text-center">
                                 <span>ACTIONS</span>
@@ -32,10 +38,25 @@
                         @foreach($books as $book)
                             <tr class="nk-tb-item text-center">
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ ucfirst($book['thumbnailUrl']) ?? "" }}</span>
+                                        <span class="tb-product">
+                                            <img
+                                                src="{{ url($book['thumbnailUrl']) }}"
+                                                alt="{{ $book['title'] }}"
+                                                class="thumb img-fluid rounded-circle">
+                                        </span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $book['title'] ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $book['pageCount'] ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        @foreach($book['authors'] as $author)
+                                            {{$author}} -
+                                        @endforeach
+                                    </span>
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
