@@ -122,7 +122,7 @@
                             'icon' => "ni-bag"
                         ])
                         @include('backend.components._link', [
-                            'route' => route('admins.communication.journal.index'),
+                            'route' => route('admins.communication.library.index'),
                             'name' => "Library",
                             'icon' => "ni-book"
                         ])

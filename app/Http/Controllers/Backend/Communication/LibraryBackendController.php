@@ -14,7 +14,7 @@ class LibraryBackendController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.domain.communication.library.index');
     }
 
     /**
