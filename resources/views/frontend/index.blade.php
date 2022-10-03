@@ -15,6 +15,16 @@
             background-color: #040d21;
             color: white
         }
+
+        .header_text{
+            margin-top: 200px
+        }
+
+        @media only screen and (max-width: 768px) {
+            .header_text{
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -78,7 +88,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8">
-            <div style="margin-top: 200px">
+            <div class="header_text">
                 <h1 style="font-family: Arial, Helvetica, sans-serif;
                         font-weight: bolder;
                         letter-spacing: -0.05em !important;
