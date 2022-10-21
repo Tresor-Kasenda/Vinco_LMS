@@ -34,6 +34,7 @@ final class StudentRepository implements StudentRepositoryInterface
 
     public function students(): array|Collection
     {
+
         if (auth()->user()->hasRole('Super Admin')) {
             return Student::query()
                 ->select([
@@ -44,10 +45,11 @@ final class StudentRepository implements StudentRepositoryInterface
                     'matriculate',
                     'department_id',
                     'subsidiary_id',
+                    'user_id',
                     'email',
                     'images',
                 ])
-                ->with('subsidiary:id,name')
+                ->with(['subsidiary:id,name'])
                 ->whereHas('department', function ($builder) {
                     $builder->with([
                         'campus:id,name,institution_id' => [
@@ -200,8 +202,8 @@ final class StudentRepository implements StudentRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'institution_id' => $attributes->input('institution'),
-                'avatar' => $attributes->file('images') == null ? '' : self::uploadFiles($attributes),
+                'institution_id' => $attributes->input('institution_id'),
+                'avatar' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
                 'password' => \Hash::make($attributes->input('password')),
             ]);
     }
@@ -227,7 +229,7 @@ final class StudentRepository implements StudentRepositoryInterface
                 'nationality' => $attributes->input('nationality'),
                 'location' => $attributes->input('location'),
                 'email' => $attributes->input('email'),
-                'images' => self::uploadFiles($attributes),
+                'images' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
                 'status' => StatusEnum::TRUE,
                 'gender' => $attributes->input('gender'),
                 'guardian_id' => $attributes->input('parent'),

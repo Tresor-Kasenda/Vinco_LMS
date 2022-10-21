@@ -74,7 +74,7 @@
                                     <span class="tb-lead">{{ $student->email ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ $student->email ?? "" }}</span>
+                                    <span class="tb-lead">{{ \App\Models\User::where('id', $student->user_id)->first()->institution->institution_name ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col tb-col-sm">
                                         <span class="tb-product justify-content-center">
