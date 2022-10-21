@@ -22,7 +22,7 @@ final class UsersBackendController extends Controller
     ) {
     }
 
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(): Renderable
     {
         $admins = $this->repository->getUsers();
 

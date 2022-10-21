@@ -15,15 +15,13 @@ final class RoleRepository implements RoleRepositoryInterface
     public function getRoles(): Collection|array
     {
         return Role::query()
+            ->select([
+                'id',
+                'name'
+            ])
+            ->with('permissions')
             ->orderByDesc('created_at')
             ->get();
-    }
-
-    public function showRole(int $key): Model|Builder
-    {
-        return Role::query()
-            ->where('id', '=', $key)
-            ->firstOrFail();
     }
 
     public function stored($attributes, $flash): Model|Builder
@@ -32,7 +30,7 @@ final class RoleRepository implements RoleRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
             ]);
-        $role->syncPermissions($attributes->input('permission'));
+        $role->permissions()->sync($attributes->input('permission'));
 
         $flash->addSuccess('New role as added with successfully');
 
@@ -46,17 +44,29 @@ final class RoleRepository implements RoleRepositoryInterface
             'name' => $attributes->input('name'),
         ]);
 
-        $role->syncPermissions($attributes->input('permission'));
+        $role->permissions()->sync($attributes->input('permission'));
 
         $flash->addSuccess('New role as updated with successfully');
 
         return $role;
     }
 
+    public function showRole(int $key): Model|Builder
+    {
+        return Role::query()
+            ->select([
+                'id',
+                'name'
+            ])
+            ->where('id', '=', $key)
+            ->firstOrFail();
+    }
+
     public function deleted(int $key, $flash): Model|Builder
     {
         $role = $this->showRole(key: $key);
         $role->delete();
+        $role->permissions()->detach();
         $flash->addSuccess('New role as deleted with successfully');
 
         return $role;

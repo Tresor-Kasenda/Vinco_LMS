@@ -7,13 +7,14 @@ namespace App\Http\Requests;
 use App\Models\Institution;
 use App\Models\Professor;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 final class ProfessorRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('professor-create');
     }
 
     public function rules(): array

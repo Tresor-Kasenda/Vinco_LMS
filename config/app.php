@@ -174,6 +174,8 @@ return [
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
+        \App\Providers\PermissionServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

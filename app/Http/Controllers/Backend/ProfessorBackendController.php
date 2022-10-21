@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 
 final class ProfessorBackendController extends Controller
 {
@@ -25,6 +26,8 @@ final class ProfessorBackendController extends Controller
 
     public function index(): Renderable
     {
+        abort_if(Gate::denies('professor-list'), 403);
+
         $teachers = $this->repository->getProfessors();
 
         return view('backend.domain.users.teacher.index', compact('teachers'));
@@ -32,6 +35,8 @@ final class ProfessorBackendController extends Controller
 
     public function create(): Renderable
     {
+        abort_if(Gate::denies('professor-create'), 403);
+
         return view('backend.domain.users.teacher.create');
     }
 
@@ -44,6 +49,8 @@ final class ProfessorBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
+        abort_if(Gate::denies('professor-view'), 403);
+
         $teacher = $this->repository->showProfessor(key: $key);
 
         return view('backend.domain.users.teacher.show', compact('teacher'));
@@ -51,6 +58,8 @@ final class ProfessorBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
+        abort_if(Gate::denies('professor-edit'), 403);
+
         $teacher = $this->repository->showProfessor(key: $key);
 
         return view('backend.domain.users.teacher.edit', compact('teacher'));
@@ -65,6 +74,8 @@ final class ProfessorBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
+        abort_if(Gate::denies('professor-delete'), 403);
+
         $this->repository->deleted(key: $key);
 
         return back();

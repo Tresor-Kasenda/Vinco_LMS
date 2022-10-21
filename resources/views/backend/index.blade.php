@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Tableau de bord")
+@section('title')
+    Tableau de bords
+@endsection
 
 @section('content')
     <div class="container-fluid">
