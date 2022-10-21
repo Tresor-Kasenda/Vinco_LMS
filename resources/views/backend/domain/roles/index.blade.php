@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Tableau de bord")
+@section('title')
+    Administration des roles et permissions
+@endsection
 
 @section('content')
     <div class="container-fluid">

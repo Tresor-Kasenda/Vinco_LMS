@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\AdministrationEvent;
 use App\Events\InstitutionEvent;
+use App\Listeners\AdministrationListener;
 use App\Listeners\InstitutionListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ final class EventServiceProvider extends ServiceProvider
         InstitutionEvent::class => [
             InstitutionListener::class,
         ],
+        AdministrationEvent::class => [
+            AdministrationListener::class
+        ]
     ];
 
     /**
@@ -29,7 +34,7 @@ final class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
@@ -39,7 +44,7 @@ final class EventServiceProvider extends ServiceProvider
      *
      * @return bool
      */
-    public function shouldDiscoverEvents()
+    public function shouldDiscoverEvents(): bool
     {
         return false;
     }

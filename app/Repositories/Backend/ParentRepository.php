@@ -58,7 +58,9 @@ final class ParentRepository implements ParentRepositoryInterface
         $user = $this->createParent($attributes);
         if ($user != null) {
             $role = $this->getParentRole();
-            $user->attachRole($role);
+            $user->roles()->sync($role);
+            $permission = $role->permissions;
+            $user->givePermission($permission);
             $guardian = Guardian::query()
                 ->create([
                     'name_guardian' => $attributes->input('name'),
@@ -76,26 +78,20 @@ final class ParentRepository implements ParentRepositoryInterface
 
     private function createParent($attributes): Model|Builder|User|null
     {
-        $user = User::query()
-            ->where('email', '=', $attributes->input('email'))
-            ->first();
-        if (! $user) {
-            return User::query()
-                ->create([
-                    'name' => $attributes->input('name'),
-                    'email' => $attributes->input('email'),
-                    'institution_id' => \Auth::user()->institution_id,
-                    'password' => Hash::make($attributes->input('password')),
-                ]);
-        }
-
-        return null;
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'institution_id' => \Auth::user()->institution_id,
+                'password' => Hash::make($attributes->input('password')),
+            ]);
     }
 
     private function getParentRole(): Builder|Model
     {
         return Role::query()
             ->where('name', '=', 'Parent')
+            ->with('permissions')
             ->firstOrFail();
     }
 

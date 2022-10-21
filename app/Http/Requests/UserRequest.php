@@ -6,29 +6,22 @@ namespace App\Http\Requests;
 
 use App\Models\Institution;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 final class UserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'min:4'],
-            'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i'],
+            'email' => ['required', 'string', 'email', 'regex:/(.+)@(.+)\.(.+)/i', Rule::unique(User::class, 'email')],
             'role_id' => ['required', Rule::exists(Role::class, 'id')],
             'institution' => ['required', Rule::exists(Institution::class, 'id')],
             'password' => ['required', 'string', 'min:8'],

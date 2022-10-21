@@ -67,10 +67,7 @@ final class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'owner' => \App\Http\Middleware\GroupOwner::class,
         'member' => \App\Http\Middleware\GroupMember::class,
-
-        'role' => \Laratrust\Middleware\LaratrustRole::class,
-        'permission' => \Laratrust\Middleware\LaratrustPermission::class,
-        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+        'role' => \App\Http\Middleware\PermissionMiddleware::class,
 
     ];
 }

@@ -7,7 +7,6 @@ namespace App\Repositories\System;
 use App\Contracts\InstitutionRepositoryInterface;
 use App\Events\InstitutionEvent;
 use App\Models\Institution;
-use App\Services\EmailInstitutionService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,10 +16,6 @@ use Illuminate\Http\RedirectResponse;
 class InstitutionRepository implements InstitutionRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(public EmailInstitutionService $institution)
-    {
-    }
 
     public function getInstitutions(): array|Collection|\Illuminate\Support\Collection
     {
@@ -32,7 +27,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_town',
                 'institution_address',
             ])
-            ->with('user')
+            ->with('user:institution_id,name,email,avatar')
             ->orderByDesc('created_at')
             ->get();
     }

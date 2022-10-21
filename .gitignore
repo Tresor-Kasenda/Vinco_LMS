@@ -10,9 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
-.phpunit.result.cache
+.idea
+.vscode
 .php-cs-fixer.cache
 public/vendor/livewire/livewire.js
 public/assets/apps/images/VincoWhite/SVG.zip
