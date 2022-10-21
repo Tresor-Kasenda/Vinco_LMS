@@ -12,8 +12,12 @@ trait ImageUploader
 {
     public static function uploadFiles(Request $request): string
     {
-        return $request->file('images')
-            ->storePublicly('/', ['disk' => 'public']);
+        if($request->file('images') === null){
+            return '';
+        } else {
+            return $request->file('images')
+                ->storePublicly('/', ['disk' => 'public']);
+        }
     }
 
     public static function uploadIcons(Request $request): bool|string

@@ -138,7 +138,6 @@
                                                             class="form-control @error('password') error @enderror"
                                                             id="password"
                                                             name="password"
-                                                            value="{{ old('password') }}"
                                                             placeholder="Enter password"
                                                             required>
                                                     </div>

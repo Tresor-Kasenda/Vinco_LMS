@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\Communication\Chat\GroupController;
 use App\Http\Controllers\Backend\Communication\Chat\MessageController;
 use App\Http\Controllers\Backend\Communication\EventsBackendController;
 use App\Http\Controllers\Backend\Communication\JournalBackendController;
+use App\Http\Controllers\Backend\Communication\LibraryBackendController;
 use App\Http\Controllers\Backend\Communication\MessageBackendController;
 use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
@@ -128,6 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('events', EventsBackendController::class);
             Route::resource('notification', NotificationBackendController::class);
             Route::resource('journal', JournalBackendController::class);
+            Route::resource('library', LibraryBackendController::class);
         });
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {

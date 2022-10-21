@@ -15,6 +15,55 @@
             background-color: #040d21;
             color: white
         }
+
+        .header_text{
+            margin-top: 200px
+        }
+
+        .header_text_title{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            letter-spacing: -0.05em !important;
+            font-size: 100px
+        }
+
+        .header_text_description{
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 32px;
+            color: #8193b2;
+            font-size: 24px
+        }
+
+        .img_children{
+            position: absolute;
+            height: 75%;
+            width: 75%;
+            bottom: 0;
+            end: 0;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .header_text{
+                margin-top: 50px;
+            }
+
+            .header_text_title{
+                font-size: 50px;
+            }
+
+            .header_text_description{
+                font-size: 15px;
+                line-height: 1.2;
+            }
+
+            .img_children{
+                position: absolute;
+                bottom: 0px;
+                right: 0;
+                height: 50%;
+                width: 50%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -50,7 +99,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                 <li><a class="dropdown-item"
-                                       href="{{route('home.student.register', ['$institution_id'=>1])}}"
+                                       href="{{route('home.student.register', ['institution_id'=>1])}}"
                                     >Vinco Education</a></li>
                                 <li><a class="dropdown-item"
                                        data-bs-toggle="modal" data-bs-target="#institutionModalRegister"
@@ -77,28 +126,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">
-            <div style="margin-top: 200px">
-                <h1 style="font-family: Arial, Helvetica, sans-serif;
-                        font-weight: bolder;
-                        letter-spacing: -0.05em !important;
-                        font-size: 100px">
+        <div class="col-lg-8 col-6">
+            <div class="header_text">
+                <h1 class="header_text_title">
                     Vinco Education Application
                 </h1>
-                <p class="w-75" style="font-family: Arial, Helvetica, sans-serif;
-                        line-height: 32px;
-                        color: #8193b2;
-                        font-size: 24px">
+                <p class="w-75 header_text_description">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur consequuntur cupiditate deleniti dolore expedita fugit id laboriosam laudantium minima neque non odit officiis ratione sed suscipit ut, voluptate voluptatibus!
                 </p>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-sm-12">
             <div>
                 <img
                     src="{{asset('assets/student.png')}}"
                     alt="home-page-landing-student"
-                    class="h-75 w-75 me-5 text-white w-auto position-absolute bottom-0 end-0"/>
+                    class="img_children me-5 text-white w-auto"/>
             </div>
         </div>
     </div>
@@ -149,7 +192,7 @@
                         @forelse(\App\Models\Institution::all() as $institution)
                             <div class="row m-2">
                                 <a type="button" class="btn btn-outline-light"
-                                   href="{{route('home.student.register', ['$institution_id'=>$institution->id])}}">
+                                   href="{{route('home.student.register', ['institution_id'=>$institution->id])}}">
                                     {{$institution->institution_name}} / {{$institution->institution_town}} / {{$institution->institution_country}}
                                 </a>
                             </div>

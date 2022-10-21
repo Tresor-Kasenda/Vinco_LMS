@@ -122,6 +122,11 @@
                             'icon' => "ni-bag"
                         ])
                         @include('backend.components._link', [
+                            'route' => route('admins.communication.library.index'),
+                            'name' => "Library",
+                            'icon' => "ni-book"
+                        ])
+                        @include('backend.components._link', [
                             'route' => route('admins.academic.resource.index'),
                             'name' => "Resource",
                             'icon' => "ni-bookmark"
