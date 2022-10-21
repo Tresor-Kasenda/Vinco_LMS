@@ -201,7 +201,7 @@ final class StudentRepository implements StudentRepositoryInterface
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
                 'institution_id' => $attributes->input('institution'),
-                'avatar' => self::uploadFiles($attributes),
+                'avatar' => $attributes->file('images') == null ? '' : self::uploadFiles($attributes),
                 'password' => \Hash::make($attributes->input('password')),
             ]);
     }
