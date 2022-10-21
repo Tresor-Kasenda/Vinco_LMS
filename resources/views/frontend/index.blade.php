@@ -99,7 +99,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                 <li><a class="dropdown-item"
-                                       href="{{route('home.student.register', ['$institution_id'=>1])}}"
+                                       href="{{route('home.student.register', ['institution_id'=>1])}}"
                                     >Vinco Education</a></li>
                                 <li><a class="dropdown-item"
                                        data-bs-toggle="modal" data-bs-target="#institutionModalRegister"
@@ -192,7 +192,7 @@
                         @forelse(\App\Models\Institution::all() as $institution)
                             <div class="row m-2">
                                 <a type="button" class="btn btn-outline-light"
-                                   href="{{route('home.student.register', ['$institution_id'=>$institution->id])}}">
+                                   href="{{route('home.student.register', ['institution_id'=>$institution->id])}}">
                                     {{$institution->institution_name}} / {{$institution->institution_town}} / {{$institution->institution_country}}
                                 </a>
                             </div>

@@ -44,7 +44,7 @@ final class HomeFrontendController extends Controller
     {
         $this->repositorys->stored($attributes);
 
-        return to_route('home.index');
+        return to_route('login');
     }
 
     public function registerStudent()
