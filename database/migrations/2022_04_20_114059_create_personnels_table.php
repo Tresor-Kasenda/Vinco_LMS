@@ -7,7 +7,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up()
     {
         Schema::create('personnels', function (Blueprint $table) {
@@ -22,7 +23,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('phones')->unique()->nullable();
             $table->string('nationality')->nullable();
-            $table->string('images_personnel')->nullable();
+            $table->string('images')->nullable();
             $table->string('location')->nullable();
             $table->string('identityCard')->unique()->nullable();
             $table->enum('gender', ['male', 'female']);

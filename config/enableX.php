@@ -7,6 +7,7 @@
  * an one to one Video Conference
  * Configuration File - needs to be updated to meet your Application requirment
  * NOTE! Your Application Server must be hosted on HTTPS.
+ *
  * @author Scott-Tresor <scotttresor@gmail.com>
  */
 

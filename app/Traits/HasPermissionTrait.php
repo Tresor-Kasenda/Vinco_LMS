@@ -17,6 +17,7 @@ trait HasPermissionTrait
                 return true;
             }
         }
+
         return false;
     }
 
@@ -33,6 +34,7 @@ trait HasPermissionTrait
                 return true;
             }
         }
+
         return false;
     }
 
@@ -40,6 +42,7 @@ trait HasPermissionTrait
     {
         $permissions = $this->getPermissions(array_flatten($permission));
         $this->permissions()->detach($permissions);
+
         return $this;
     }
 
@@ -53,6 +56,7 @@ trait HasPermissionTrait
     public function modifyPermission(...$permissions): User
     {
         $this->permissions()->detach();
+
         return $this->givePermission($permissions);
     }
 
@@ -60,6 +64,7 @@ trait HasPermissionTrait
     {
         $permissions = $this->getPermissions(array_flatten($permission));
         $this->permissions()->saveMany($permissions);
+
         return $this;
     }
 }

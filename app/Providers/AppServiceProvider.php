@@ -40,7 +40,7 @@ final class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('endrole', function ($role) {
-            return "<?php endif; ?>";
+            return '<?php endif; ?>';
         });
 
         Blade::directive('permission', function ($permission) {
@@ -48,7 +48,7 @@ final class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('endpermission', function ($role) {
-            return "<?php endif; ?>";
+            return '<?php endif; ?>';
         });
     }
 }

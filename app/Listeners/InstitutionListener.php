@@ -13,7 +13,7 @@ class InstitutionListener
     public function handle($event): void
     {
         $institution = Institution::query()
-            ->where('email', '=', $event->institution->email)
+            ->where('institution_email', '=', $event->institution->email)
             ->first();
         Notification::send($institution, new InstitutionNotification($event->institution));
     }

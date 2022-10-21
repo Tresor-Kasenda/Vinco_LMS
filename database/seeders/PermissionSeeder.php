@@ -182,7 +182,7 @@ final class PermissionSeeder extends Seeder
         foreach ($permissions as $permission) {
             Permission::query()
                 ->create([
-                    'name' => $permission
+                    'name' => $permission,
                 ]);
         }
     }

@@ -21,7 +21,7 @@ final class RoutineTime implements Rule
             ->where('end_date', '>=', $value)
             ->count() == 0;
     }
-    
+
     public function message(): string
     {
         return 'Cette annee existe deja.';

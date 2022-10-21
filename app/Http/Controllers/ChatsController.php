@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\RoomMessageSent;
-use App\Models\Room;
-use App\Models\RoomMessage;
 use Illuminate\Http\Request;
 
 class ChatsController extends Controller
@@ -13,6 +10,6 @@ class ChatsController extends Controller
     {
         $id = $request->roomId;
 
-        return view('frontend.chat', ['id'=>$id]);
+        return view('frontend.chat', ['id' => $id]);
     }
 }

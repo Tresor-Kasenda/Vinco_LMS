@@ -34,7 +34,6 @@ final class StudentRequest extends FormRequest
             'parent' => ['nullable', Rule::exists(Guardian::class, 'id')],
             'admission' => ['date'],
             'password' => ['required', 'string', 'min:6'],
-
         ];
     }
 }

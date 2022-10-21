@@ -10,7 +10,6 @@ use App\Repositories\Contracts\CreateTokenRepositoryInterface;
 use App\Services\EnableX;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
 
 final class CreateTokenRepository implements CreateTokenRepositoryInterface
 {

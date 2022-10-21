@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories\System;
 
 use App\Contracts\InstitutionRepositoryInterface;
-use App\Events\InstitutionEvent;
 use App\Models\Institution;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,7 +44,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_website' => $attributes->input('institution_website'),
                 'institution_email' => $attributes->input('institution_email'),
             ]);
-        InstitutionEvent::dispatch($institution);
+       InstitutionEvent::dispatch($institution);
 
         return $institution;
     }

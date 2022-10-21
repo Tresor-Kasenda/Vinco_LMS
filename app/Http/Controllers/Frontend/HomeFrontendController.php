@@ -17,7 +17,7 @@ final class HomeFrontendController extends Controller
 {
     public function __construct(
         protected readonly InstitutionRepositoryInterface $repository,
-        protected readonly StudentRepositoryInterface $repositorys,
+        protected readonly StudentRepositoryInterface $studentRepository,
         protected readonly SweetAlertFactory $factory
     ) {
     }

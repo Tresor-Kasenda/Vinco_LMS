@@ -17,7 +17,7 @@ final class RoleRepository implements RoleRepositoryInterface
         return Role::query()
             ->select([
                 'id',
-                'name'
+                'name',
             ])
             ->with('permissions')
             ->orderByDesc('created_at')
@@ -56,7 +56,7 @@ final class RoleRepository implements RoleRepositoryInterface
         return Role::query()
             ->select([
                 'id',
-                'name'
+                'name',
             ])
             ->where('id', '=', $key)
             ->firstOrFail();
