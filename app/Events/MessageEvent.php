@@ -25,7 +25,7 @@ final class MessageEvent implements ShouldBroadcast
         return new PrivateChannel('message-channel');
     }
 
-    public function broadcastWith()
+    public function broadcastWith(): array
     {
         return ['message' => $this->message];
     }

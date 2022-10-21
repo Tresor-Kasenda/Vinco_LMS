@@ -8,43 +8,32 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\Permission\Exceptions\UnauthorizedException;
 
 final class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @param  null  $permission
-     * @param  null  $guard
+     * @param Request $request
+     * @param Closure $next
+     * @param $role
+     * @param null $permission
+     * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $permission = null, $guard = null): Response|RedirectResponse
-    {
-        $authGuard = app('auth')->guard($guard);
-
-        if ($authGuard->guest()) {
-            throw UnauthorizedException::notLoggedIn();
+    public function handle(
+        Request $request,
+        Closure $next,
+        $role,
+        $permission = null,
+    ): Response|RedirectResponse {
+        if (!$request->user()->hasRole($role)) {
+            abort(404);
         }
 
-        if (! is_null($permission)) {
-            $permissions = is_array($permission)
-                ? $permission
-                : explode('|', $permission);
+        if ($permission !== null && !$request->user()->can($permission)) {
+            abort(404);
         }
 
-        if (is_null($permission)) {
-            $permission = $request->route()->getName();
-
-            $permissions = [$permission];
-        }
-
-        foreach ($permissions as $permission) {
-            if ($authGuard->user()->can($permission)) {
-                return $next($request);
-            }
-        }
-
-        throw UnauthorizedException::forPermissions($permissions);
+        return $next($request);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\StatusEnum;
+use App\Events\AdministrationEvent;
 use App\Models\Institution;
 use App\Models\Permission;
 use App\Models\Role;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
-use Laratrust\Models\LaratrustRole;
 
 final class CreateUserCommand extends Command
 {
@@ -30,20 +30,19 @@ final class CreateUserCommand extends Command
 
     public function handle()
     {
-        $this->comment('Add User Command Interactive Wizard');
+        $this->alert('Add User Command Interactive Wizard');
 
         process :
             $name = ucwords((string) $this->anticipate('name', ['admin', 'Place manager']));
         $email = strtolower((string) $this->ask('email'));
         $password = $this->secret('password');
-        $password_confirmation = $this->secret('confirm password');
 
         $validator = validator(
-            compact('name', 'email', 'password', 'password_confirmation'),
+            compact('name', 'email', 'password'),
             [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'password' => ['required', 'string', 'min:8'],
             ]
         );
 
@@ -62,7 +61,8 @@ final class CreateUserCommand extends Command
                     $role = $this->assignRoleToUser();
 
                     $this->giveRoles($role, $user, $name);
-                    $this->line('Admin create with successfully');
+                    AdministrationEvent::dispatch($user);
+                    $this->alert('Admin create with successfully');
                     exit();
                 } catch (\Exception $exception) {
                     $this->error('Something went wrong run the command with -v for more details');
@@ -92,7 +92,7 @@ final class CreateUserCommand extends Command
             ]);
     }
 
-    private function assignRoleToUser(): LaratrustRole|Role
+    private function assignRoleToUser()
     {
         return Role::where('name', '=', 'Super Admin')->first();
     }
@@ -105,8 +105,9 @@ final class CreateUserCommand extends Command
         $permission = Permission::query()
             ->pluck('id', 'id')
             ->all();
-        $user->attachRole($role);
-        $user->syncPermissions($permission);
+        $user->roles()->sync($role);
+        $role->permissions()->sync($permission);
+        $user->permissions()->sync($permission);
 
         Setting::query()
             ->create([

@@ -26,8 +26,6 @@ use App\Http\Controllers\Backend\EnableX\EnableBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
 use App\Http\Controllers\Backend\ExamSessionController;
 use App\Http\Controllers\Backend\ExerciseBackendController;
-use App\Http\Controllers\Backend\ExpenseBackendController;
-use App\Http\Controllers\Backend\ExpenseTypeBackendController;
 use App\Http\Controllers\Backend\FeesBackendController;
 use App\Http\Controllers\Backend\FeesTypeBackendController;
 use App\Http\Controllers\Backend\FiliaireBackendController;

@@ -6,6 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\UsersRepositoryInterface;
 use App\Enums\StatusEnum;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,7 +35,10 @@ final class UsersRepository implements UsersRepositoryInterface
                 ->whereHas('roles', function ($query) {
                     $query->whereIn('name', ['Super Admin', 'Admin']);
                 })
-                ->with('institution:id,institution_name,institution_email')
+                ->with([
+                    'institution:id,institution_name,institution_email',
+                    'permissions'
+                    ])
                 ->orderByDesc('created_at')
                 ->get();
         }
@@ -56,6 +60,54 @@ final class UsersRepository implements UsersRepositoryInterface
             ->get();
     }
 
+    public function stored($attributes): Model|Builder|User|RedirectResponse
+    {
+        $user = User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'status' => StatusEnum::TRUE,
+                'password' => Hash::make($attributes->input('password')),
+                'institution_id' => $attributes->input('institution'),
+            ]);
+
+        $user->roles()->sync($attributes->input('role_id'));
+        $role = $this->getRolePermissions($attributes);
+        $permissions = $role->permissions->each(fn($query) => $query->pluck('id', 'id')->all());
+        $user->permissions()->sync($permissions);
+
+        $this->service->success('Utilisateur ajouter avec succes');
+
+        return $user;
+    }
+
+    private function getRolePermissions($attributes): Builder|Model
+    {
+        return Role::query()
+            ->where('id', '=', $attributes->input('role_id'))
+            ->with('permissions')
+            ->firstOrFail();
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|User|null
+    {
+        $user = $this->showUser(key: $key);
+
+        $user->update([
+            'name' => $attributes->input('name'),
+            'email' => $attributes->input('email'),
+            'password' => Hash::make($attributes->input('password')),
+            'institution_id' => $attributes->input('institution'),
+        ]);
+        $user->roles()->sync($attributes->input('role_id'));
+        $role = $this->getRolePermissions($attributes);
+        $permissions = $role->permissions->each(fn($query) => $query->pluck('id', 'id')->all());
+        $user->permissions()->sync($permissions);
+        $this->service->success('Utilisateur mise a jours avec succes');
+
+        return $user;
+    }
+
     public function showUser(string $key): Model|Builder|User|null
     {
         $admin = User::query()
@@ -72,39 +124,6 @@ final class UsersRepository implements UsersRepositoryInterface
         return $admin->load(['institution:id,institution_name,institution_email']);
     }
 
-    public function stored($attributes): Model|Builder|User|RedirectResponse
-    {
-        $user = User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'status' => StatusEnum::TRUE,
-                'password' => Hash::make($attributes->input('password')),
-                'institution_id' => $attributes->input('institution'),
-            ]);
-
-        $user->attachRole($attributes->input('role_id'));
-        $this->service->success('Utilisateur ajouter avec succes');
-
-        return $user;
-    }
-
-    public function updated(string $key, $attributes): Model|Builder|User|null
-    {
-        $user = $this->showUser(key: $key);
-
-        $user->update([
-            'name' => $attributes->input('name'),
-            'email' => $attributes->input('email'),
-            'password' => Hash::make($attributes->input('password')),
-            'institution_id' => $attributes->input('institution'),
-        ]);
-        $user->roles()->sync($attributes->input('role_id'));
-        $this->service->success('Utilisateur mise a jours avec succes');
-
-        return $user;
-    }
-
     public function deleted(string $key): Model|Builder|User|RedirectResponse|null
     {
         $user = $this->showUser(key: $key);
@@ -114,6 +133,7 @@ final class UsersRepository implements UsersRepositoryInterface
             return back();
         }
         $user->roles()->detach();
+        $user->permissions()->detach();
         $user->delete();
         $this->service->error('Utilisateur supprimer avec succes');
 
@@ -131,4 +151,5 @@ final class UsersRepository implements UsersRepositoryInterface
 
         return false;
     }
+
 }

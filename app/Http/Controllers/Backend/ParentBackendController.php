@@ -13,6 +13,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 
 final class ParentBackendController extends Controller
 {
@@ -23,6 +24,8 @@ final class ParentBackendController extends Controller
 
     public function index(): Renderable
     {
+        abort_if(Gate::denies('parent-list'), 403);
+
         $parents = $this->repository->guardians();
 
         return view('backend.domain.users.parent.index', compact('parents'));
@@ -30,6 +33,8 @@ final class ParentBackendController extends Controller
 
     public function create(): Renderable
     {
+        abort_if(Gate::denies('parent-create'), 403);
+
         return view('backend.domain.users.parent.create');
     }
 
@@ -42,6 +47,8 @@ final class ParentBackendController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
+        abort_if(Gate::denies('parent-view'), 403);
+
         $parent = $this->repository->showGuardian(key: $key);
 
         return view('backend.domain.users.parent.show', compact('parent'));
@@ -49,6 +56,8 @@ final class ParentBackendController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
+        abort_if(Gate::denies('parent-edit'), 403);
+
         $parent = $this->repository->showGuardian(key: $key);
 
         return view('backend.domain.users.parent.edit', compact('parent'));
@@ -63,6 +72,7 @@ final class ParentBackendController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
+        abort_if(Gate::denies('parent-delete'), 403);
         $this->repository->deleted(key: $key);
 
         return back();

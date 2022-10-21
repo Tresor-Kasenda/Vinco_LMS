@@ -15,17 +15,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     Swal.fire(`${response.message}`, "update", "success");
-                    console.log(response.message)
                 }
             }
         })
     })
 })
-
-export  default function (change) {
-    let field = document.querySelector('#status')
-    field.addEventListener('change', (event) => {
-        event.preventDefault();
-        event.target
-    })
-}

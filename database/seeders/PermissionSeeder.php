@@ -9,9 +9,6 @@ use Illuminate\Database\Seeder;
 
 final class PermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $permissions = [
@@ -183,9 +180,10 @@ final class PermissionSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create([
-                'name' => $permission,
-            ]);
+            Permission::query()
+                ->create([
+                    'name' => $permission
+                ]);
         }
     }
 }
