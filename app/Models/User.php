@@ -65,6 +65,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Professor|null $teacher
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -92,7 +93,9 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
+ *
  * @property int|null $institution_id
+ *
  * @method static Builder|User whereInstitutionId($value)
  */
 final class User extends Authenticatable
@@ -100,10 +103,12 @@ final class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasPermissionTrait;
 
     protected $guarded = [];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

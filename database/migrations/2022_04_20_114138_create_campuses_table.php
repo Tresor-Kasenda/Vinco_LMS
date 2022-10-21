@@ -8,7 +8,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up()
     {
         Schema::create('campuses', function (Blueprint $table) {
@@ -17,9 +18,9 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->text('description')->nullable();
             $table->string('images');
             $table->boolean('status')->default(StatusEnum::FALSE);
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

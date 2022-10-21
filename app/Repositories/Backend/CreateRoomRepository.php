@@ -11,8 +11,6 @@ use App\Repositories\Contracts\CreateRoomRepositoryInterface;
 use App\Services\EnableX;
 use App\Traits\CalculationEvent;
 use App\Traits\RandomValue;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -62,7 +60,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
 
     private function CreateOnlineRoom($attributes)
     {
-        list($date, $difference) = $this->calculationDateOfEvent(attributes: $attributes);
+        [$date, $difference] = $this->calculationDateOfEvent(attributes: $attributes);
         $room = $this->renderMetadataForRoom(date: $date, difference: $difference, attributes: $attributes);
 
         $response = new EnableX;

@@ -17,7 +17,7 @@ final class HomeFrontendController extends Controller
 {
     public function __construct(
         protected readonly InstitutionRepositoryInterface $repository,
-        protected readonly StudentRepositoryInterface $repositorys,
+        protected readonly StudentRepositoryInterface $studentRepository,
         protected readonly SweetAlertFactory $factory
     ) {
     }
@@ -42,7 +42,7 @@ final class HomeFrontendController extends Controller
 
     public function storeStudent(StudentRequest $attributes): RedirectResponse
     {
-        $this->repositorys->stored(attributes: $attributes, factory: $this->factory);
+        $this->studentRepository->stored(attributes: $attributes);
 
         return to_route('home.index');
     }

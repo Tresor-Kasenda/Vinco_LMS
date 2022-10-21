@@ -17,13 +17,13 @@ final class RoleSeeder extends Seeder
             'Parent',
             'Manager',
             'Professeur',
-            'Comptable'
+            'Comptable',
         ];
 
         foreach ($roles as $role) {
             Role::query()
                 ->create([
-                    'name' => $role
+                    'name' => $role,
                 ]);
         }
     }

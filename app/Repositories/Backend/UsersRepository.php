@@ -37,8 +37,8 @@ final class UsersRepository implements UsersRepositoryInterface
                 })
                 ->with([
                     'institution:id,institution_name,institution_email',
-                    'permissions'
-                    ])
+                    'permissions',
+                ])
                 ->orderByDesc('created_at')
                 ->get();
         }
@@ -73,7 +73,7 @@ final class UsersRepository implements UsersRepositoryInterface
 
         $user->roles()->sync($attributes->input('role_id'));
         $role = $this->getRolePermissions($attributes);
-        $permissions = $role->permissions->each(fn($query) => $query->pluck('id', 'id')->all());
+        $permissions = $role->permissions->each(fn ($query) => $query->pluck('id', 'id')->all());
         $user->permissions()->sync($permissions);
 
         $this->service->success('Utilisateur ajouter avec succes');
@@ -101,7 +101,7 @@ final class UsersRepository implements UsersRepositoryInterface
         ]);
         $user->roles()->sync($attributes->input('role_id'));
         $role = $this->getRolePermissions($attributes);
-        $permissions = $role->permissions->each(fn($query) => $query->pluck('id', 'id')->all());
+        $permissions = $role->permissions->each(fn ($query) => $query->pluck('id', 'id')->all());
         $user->permissions()->sync($permissions);
         $this->service->success('Utilisateur mise a jours avec succes');
 
@@ -151,5 +151,4 @@ final class UsersRepository implements UsersRepositoryInterface
 
         return false;
     }
-
 }

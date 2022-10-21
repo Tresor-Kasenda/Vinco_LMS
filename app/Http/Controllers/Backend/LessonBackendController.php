@@ -73,13 +73,13 @@ final class LessonBackendController extends Controller
                 array_push($guests, $stud->email);
             }
             $aperi = (object) [
-                'name'=>\Auth::user()->name,
-                'email'=>'institution@vinco.digital', //\Auth::user()->email,
-                'date'=>$attributes->date,
-                'startTime'=>$attributes->startTime,
-                'endTime'=>$attributes->endTime,
-                'usersNumber'=>$students->count(),
-                'guests'=>$guests,
+                'name' => \Auth::user()->name,
+                'email' => 'institution@vinco.digital', //\Auth::user()->email,
+                'date' => $attributes->date,
+                'startTime' => $attributes->startTime,
+                'endTime' => $attributes->endTime,
+                'usersNumber' => $students->count(),
+                'guests' => $guests,
             ];
 
             $this->repositories->createRoom(attributes: $aperi);

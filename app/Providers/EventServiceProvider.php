@@ -25,8 +25,8 @@ final class EventServiceProvider extends ServiceProvider
             InstitutionListener::class,
         ],
         AdministrationEvent::class => [
-            AdministrationListener::class
-        ]
+            AdministrationListener::class,
+        ],
     ];
 
     /**

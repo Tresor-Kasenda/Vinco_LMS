@@ -39,6 +39,7 @@ use Illuminate\Support\Carbon;
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User $user
+ *
  * @method static Builder|Personnel newModelQuery()
  * @method static Builder|Personnel newQuery()
  * @method static \Illuminate\Database\Query\Builder|Personnel onlyTrashed()

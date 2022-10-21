@@ -14,10 +14,10 @@ final class PermissionMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @param $role
-     * @param null $permission
+     * @param  null  $permission
      * @return Response|RedirectResponse
      */
     public function handle(
@@ -26,11 +26,11 @@ final class PermissionMiddleware
         $role,
         $permission = null,
     ): Response|RedirectResponse {
-        if (!$request->user()->hasRole($role)) {
+        if (! $request->user()->hasRole($role)) {
             abort(404);
         }
 
-        if ($permission !== null && !$request->user()->can($permission)) {
+        if ($permission !== null && ! $request->user()->can($permission)) {
             abort(404);
         }
 

@@ -10,6 +10,7 @@ if (! function_exists('verifyEncodeLink')) {
         if (preg_match('#^https?://#i', $url) === 1) {
             return $url;
         }
+
         return  null;
     }
 }
