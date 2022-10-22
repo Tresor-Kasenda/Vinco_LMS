@@ -39,6 +39,7 @@
     </div>
     <script src="{{ asset('js/admins.js') }}" data-turbolinks-track="true"></script>
     @yield('scripts')
-    @flasher_render
+
+    @include('sweetalert::alert')
 </body>
 </html>

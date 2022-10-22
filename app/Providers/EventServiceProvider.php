@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\AdministrationEvent;
+use App\Events\Frontend\Student\StoreStudentEvent;
 use App\Events\InstitutionEvent;
 use App\Listeners\AdministrationListener;
+use App\Listeners\Frontend\Student\StoreStudentListener;
 use App\Listeners\InstitutionListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,6 +29,9 @@ final class EventServiceProvider extends ServiceProvider
         AdministrationEvent::class => [
             AdministrationListener::class,
         ],
+        StoreStudentEvent::class => [
+            StoreStudentListener::class
+        ]
     ];
 
     /**

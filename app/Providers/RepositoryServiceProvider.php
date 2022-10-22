@@ -20,6 +20,7 @@ use App\Contracts\FeesRepositoryInterface;
 use App\Contracts\FeesTypeRepositoryInterface;
 use App\Contracts\FiliaireRepositoryInterface;
 use App\Contracts\HomeworkRepositoryInterface;
+use App\Contracts\Institution\StoreInstitutionRepositoryInterface;
 use App\Contracts\InstitutionRepositoryInterface;
 use App\Contracts\InterroRepositoryInterface;
 use App\Contracts\JournalRepositoryInterface;
@@ -35,6 +36,7 @@ use App\Contracts\ResultRepositoryInterface;
 use App\Contracts\RoleRepositoryInterface;
 use App\Contracts\SchedulerRepositoryInterface;
 use App\Contracts\SettingRepositoryInterface;
+use App\Contracts\Student\StoreStudentFrontendRepositoryInterface;
 use App\Contracts\StudentRepositoryInterface;
 use App\Contracts\TrashedCampusRepositoryInterface;
 use App\Contracts\TrashedCategoryRepositoryInterface;
@@ -88,6 +90,8 @@ use App\Repositories\Contracts\CreateRoomRepositoryInterface;
 use App\Repositories\Contracts\CreateTokenRepositoryInterface;
 use App\Repositories\CreateTokenRepository;
 use App\Repositories\EnableX\EnableBackendRepository;
+use App\Repositories\Frontend\Student\StoreStudentFrontendRepository;
+use App\Repositories\Institution\StoreInstitutionRepository;
 use App\Repositories\System\ChartRepository;
 use App\Repositories\System\InstitutionRepository;
 use App\Repositories\System\RoleRepository;
@@ -145,6 +149,8 @@ final class RepositoryServiceProvider extends ServiceProvider
         CreateTokenRepositoryInterface::class => CreateTokenRepository::class,
         //Enable X
         EnableXRepositoryInterface::class => EnableBackendRepository::class,
+        StoreInstitutionRepositoryInterface::class => StoreInstitutionRepository::class,
+        StoreStudentFrontendRepositoryInterface::class => StoreStudentFrontendRepository::class
     ];
 
     public function register(): void

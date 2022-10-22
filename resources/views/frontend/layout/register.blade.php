@@ -20,7 +20,6 @@
     </style>
 
     @yield('styles')
-    @livewireStyles
 </head>
 <body class="nk-body bg-lighter npc-general has-sidebar">
     <div class="nk-app-root">
@@ -37,7 +36,6 @@
     </div>
     <script src="{{ asset('js/admins.js') }}" data-turbolinks-track="true"></script>
     @yield('scripts')
-    @livewireScripts
-    @flasher_render
+    @include('sweetalert::alert')
 </body>
 </html>
