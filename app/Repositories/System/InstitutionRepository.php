@@ -44,7 +44,7 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_website' => $attributes->input('institution_website'),
                 'institution_email' => $attributes->input('institution_email'),
             ]);
-       InstitutionEvent::dispatch($institution);
+        InstitutionEvent::dispatch($institution);
 
         return $institution;
     }

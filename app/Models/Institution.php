@@ -32,7 +32,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Professor[] $professors
  * @property-read int|null $professors_count
  * @property-read User|null $user
- *
  * @method static Builder|Institution newModelQuery()
  * @method static Builder|Institution newQuery()
  * @method static \Illuminate\Database\Query\Builder|Institution onlyTrashed()
@@ -40,7 +39,6 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Institution withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Institution withoutTrashed()
  * @mixin Eloquent
- *
  * @property int $id
  * @property string $institution_name
  * @property string|null $institution_country
@@ -54,7 +52,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- *
  * @method static Builder|Institution whereCreatedAt($value)
  * @method static Builder|Institution whereDeletedAt($value)
  * @method static Builder|Institution whereId($value)
@@ -68,10 +65,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Institution whereInstitutionTown($value)
  * @method static Builder|Institution whereInstitutionWebsite($value)
  * @method static Builder|Institution whereUpdatedAt($value)
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
  */
 final class Institution extends Model
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory;
+    use SoftDeletes;
+    use Notifiable;
 
     protected $guarded = [];
 

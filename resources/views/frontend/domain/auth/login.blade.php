@@ -24,6 +24,15 @@
                             <h5 class="nk-block-title text-center">Authentificiation</h5>
                         </div>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group">
@@ -32,7 +41,7 @@
                             </div>
                             <input
                                 type="text"
-                                class="form-control form-control-lg @error('email') error @enderror"
+                                class="form-control @error('email') error @enderror"
                                 id="email"
                                 placeholder="Enter your email address or username"
                                 name="email"
@@ -54,7 +63,7 @@
                                 </a>
                                 <input
                                     type="password"
-                                    class="form-control form-control-lg @error('email') error @enderror"
+                                    class="form-control @error('email') error @enderror"
                                     id="password"
                                     placeholder="Enter your passcode"
                                     name="password"
@@ -64,9 +73,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-lg btn-primary btn-block">Connexion</button>
+                            <button class="btn btn-lg btn-outline-primary btn-block">Connexion</button>
                         </div>
-                        <div class="form-note-s2 pt-4"> New on our platform? <a href="{{ route('password.request') }}">Password Forgot</a></div>
+                        <div class="form-note-s2 pt-4">
+                            New on our platform? <a href="{{ route('password.request') }}">Password Forgot</a>
+                        </div>
                     </form>
                 </div>
                 <div class="nk-block nk-auth-footer">

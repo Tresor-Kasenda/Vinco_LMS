@@ -31,7 +31,7 @@ class StoreStudentFrontendRepository implements StoreStudentFrontendRepositoryIn
      * @param StoreStudentRequest $request
      * @return Model|Builder|User
      */
-    private function storeUser(StoreStudentRequest $request):Model|Builder|User
+    private function storeUser(StoreStudentRequest $request): Model|Builder|User
     {
         return User::query()
             ->create([

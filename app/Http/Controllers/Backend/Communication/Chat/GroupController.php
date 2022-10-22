@@ -113,7 +113,7 @@ final class GroupController extends Controller
 
         $group->save();
 
-        return redirect('/group/'.$id)->with('success', 'Group name has been changed');
+        return redirect('/group/' . $id)->with('success', 'Group name has been changed');
     }
 
     //delete a groupe and remove every participant

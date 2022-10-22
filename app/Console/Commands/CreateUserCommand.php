@@ -7,8 +7,6 @@ namespace App\Console\Commands;
 use App\Enums\StatusEnum;
 use App\Events\AdministrationEvent;
 use App\Models\Institution;
-use App\Models\Permission;
-use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -16,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 final class CreateUserCommand extends Command
 {
@@ -94,7 +94,7 @@ final class CreateUserCommand extends Command
 
     private function assignRoleToUser()
     {
-        return Role::where('name', '=', 'Super Admin')->first();
+        return Role::where('name', 'Super Admin')->first();
     }
 
     private function giveRoles(
@@ -105,9 +105,8 @@ final class CreateUserCommand extends Command
         $permission = Permission::query()
             ->pluck('id', 'id')
             ->all();
-        $user->roles()->sync($role);
-        $role->permissions()->sync($permission);
-        $user->permissions()->sync($permission);
+        $user->assignRole([$role->id]);
+        $role->syncPermissions($permission);
 
         Setting::query()
             ->create([

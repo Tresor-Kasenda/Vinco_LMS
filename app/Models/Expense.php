@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property int $expense_type_id
  * @property-read Institution|null $institution
  * @property-read ExpenseType $types
- *
  * @method static Builder|Expense newModelQuery()
  * @method static Builder|Expense newQuery()
  * @method static Builder|Expense query()
@@ -33,9 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Expense whereId($value)
  * @method static Builder|Expense whereUpdatedAt($value)
  * @mixin Eloquent
- *
  * @property int $institution_id
- *
  * @method static \Database\Factories\ExpenseFactory factory(...$parameters)
  * @method static Builder|Expense whereInstitutionId($value)
  */

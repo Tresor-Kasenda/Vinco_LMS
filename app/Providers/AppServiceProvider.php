@@ -34,21 +34,5 @@ final class AppServiceProvider extends ServiceProvider
         Blade::directive('format', function ($number) {
             return "<?php echo number_format($number, 2); ?>";
         });
-
-        Blade::directive('role', function ($role) {
-            return "<?php if(auth()->check() && auth()->user()->hasRole({$role})) : ?>";
-        });
-
-        Blade::directive('endrole', function ($role) {
-            return '<?php endif; ?>';
-        });
-
-        Blade::directive('permission', function ($permission) {
-            return "<?php if(auth()->check() && auth()->user()->givePermission({$permission})) : ?>";
-        });
-
-        Blade::directive('endpermission', function ($role) {
-            return '<?php endif; ?>';
-        });
     }
 }

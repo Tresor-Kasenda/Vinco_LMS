@@ -34,7 +34,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
  * @property-read \App\Models\Subsidiary $subsidiary
- *
  * @method static Builder|Promotion newModelQuery()
  * @method static Builder|Promotion newQuery()
  * @method static \Illuminate\Database\Query\Builder|Promotion onlyTrashed()
@@ -54,7 +53,8 @@ use Illuminate\Support\Carbon;
  */
 final class Promotion extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $guarded = [];
 

@@ -171,8 +171,7 @@ return [
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
-
-        \App\Providers\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -183,7 +182,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
-        App\Providers\ViewComposeServiceProvider::class,
 
     ],
 
