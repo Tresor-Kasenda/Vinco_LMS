@@ -167,8 +167,6 @@ return [
         /*
          * Package Service Providers...
          */
-
-        Flasher\Laravel\FlasherServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,

@@ -35,5 +35,7 @@
 <script src="{{ asset('assets/apps/js/nav-tool.js') }}" data-turbolinks-track="true"></script>
 <script src="{{ asset('assets/apps/js/jquery-ui.js') }}" data-turbolinks-track="true"></script>
 <script src="{{ asset('assets/apps/js/script.js') }}" data-turbolinks-track="true"></script>
+
+@include('sweetalert::alert')
 </body>
 </html>

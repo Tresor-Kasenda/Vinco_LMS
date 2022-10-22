@@ -4,32 +4,26 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Flasher\Prime\Notification\NotificationInterface;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use RealRashid\SweetAlert\Facades\Alert;
 
 final class ToastMessageService
 {
-    public function __construct(public SweetAlertFactory $factory)
+    public function __construct(public Alert $factory)
     {
     }
 
-    public function success(string $message): void
+    public function success($type, $messages): void
     {
-        $this->factory->addFlash('success', $message);
+        $this->factory::success($type, $messages);
     }
 
-    public function error(string $message): void
+    public function danger($type, $messages): void
     {
-        $this->factory->addFlash('error', $message);
+        $this->factory::error($type, $messages);
     }
 
-    public function warning(string $message): void
+    public function info($type, $messages): void
     {
-        $this->factory->addFlash(NotificationInterface::TYPE_WARNING, $message);
-    }
-
-    public function info(string $message): void
-    {
-        $this->factory->addFlash(NotificationInterface::TYPE_INFO, $message);
+        $this->factory::info($type, $messages);
     }
 }

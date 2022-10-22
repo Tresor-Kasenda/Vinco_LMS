@@ -1,7 +1,7 @@
 @extends('frontend.layout.register')
 
 @section('title')
-    Register Institution
+    Creation des institutions
 @endsection
 
 @section('content')
@@ -45,8 +45,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form method="post" action="{{ route('home.institution.store') }}"
-                                              class="form-validate mt-2" enctype="multipart/form-data">
+                                        <form method="post" action="{{ route('institution.store') }}" class="form-validate mt-2" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row g-gs">
                                                 <div class="col-md-12">
@@ -64,19 +63,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="">Country</label>
-                                                        <div class="form-control-wrap">
-                                                            <input
-                                                                type="text"
-                                                                class="form-control @error('institution_country') error @enderror"
-                                                                id="country"
-                                                                name="institution_country"
-                                                                value="{{ old('institution_country') }}"
-                                                                placeholder="Enter Country"
-                                                                required>
-                                                        </div>
+                                                        <label class="form-label" for="institution_country">Country</label>
+                                                        <select
+                                                            class="form-control js-select2 select2-hidden-accessible @error('institution_country') error @enderror"
+                                                            id="institution_country"
+                                                            data-search="on"
+                                                            name="institution_country"
+                                                            data-placeholder="Select a country"
+                                                            required>
+                                                            @include('frontend.partial._country')
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -113,7 +112,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="phones">Telephone</label>
+                                                        <label class="form-label" for="institution_phones">Telephone</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
@@ -129,12 +128,12 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="website">Website</label>
+                                                        <label class="form-label" for="institution_website">Website</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
                                                                 class="form-control @error('institution_website') error @enderror"
-                                                                id="website"
+                                                                id="institution_website"
                                                                 name="institution_website"
                                                                 value="{{ old('institution_website') }}"
                                                                 placeholder="Enter Website"
@@ -145,12 +144,12 @@
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="address">Address</label>
+                                                        <label class="form-label" for="institution_address">Address</label>
                                                         <div class="form-control-wrap">
                                                             <input
                                                                 type="text"
                                                                 class="form-control @error('institution_address') error @enderror"
-                                                                id="address"
+                                                                id="institution_address"
                                                                 name="institution_address"
                                                                 value="{{ old('institution_address') }}"
                                                                 placeholder="Enter Address"
@@ -177,8 +176,9 @@
 
                                                 <div class="col-md-12 text-center">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-md btn-primary">
-                                                            Save
+                                                        <button type="submit" class="btn btn-outline-primary">
+                                                            <em class="icon ni ni-save-fill mr-4"></em>
+                                                            Enregistrer votre institution
                                                         </button>
                                                     </div>
                                                 </div>
@@ -193,5 +193,4 @@
             </div>
         </div>
     </div>
-
 @endsection
