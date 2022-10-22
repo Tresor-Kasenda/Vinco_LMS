@@ -12,14 +12,13 @@ use App\Jobs\StudentNotificationRoom;
 use App\Models\Live;
 use App\Services\EnableX\EnableXService;
 use App\States\EnableState\Pending;
-use App\Traits\RandomValues;
 use App\Traits\TimeCalculation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 final class AperyLessonType implements LessonTypeInterface
 {
-    use RandomValues, TimeCalculation;
+    use TimeCalculation;
 
     /**
      * @throws \Exception

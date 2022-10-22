@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
-use App\Traits\RandomValues;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +22,7 @@ use LaravelIdea\Helper\App\Models\_IH_User_QB;
  */
 final class PersonnelRepository implements PersonnelRepositoryInterface
 {
-    use ImageUploader, RandomValues;
+    use ImageUploader;
 
     public function __construct(protected ToastMessageService $service)
     {
