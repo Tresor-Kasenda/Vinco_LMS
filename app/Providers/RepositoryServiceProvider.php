@@ -150,7 +150,7 @@ final class RepositoryServiceProvider extends ServiceProvider
         //Enable X
         EnableXRepositoryInterface::class => EnableBackendRepository::class,
         StoreInstitutionRepositoryInterface::class => StoreInstitutionRepository::class,
-        StoreStudentFrontendRepositoryInterface::class => StoreStudentFrontendRepository::class,
+        StoreStudentFrontendRepositoryInterface::class => StoreStudentFrontendRepository::class
     ];
 
     public function register(): void

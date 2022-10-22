@@ -206,8 +206,8 @@
                                             <div class="col-md-12 text-center">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-md btn-primary">
-                                                        <em class="icon ni ni-save-fill ml-4"></em>
-                                                        Enregistrer votre compte etudiant
+                                                        <em class="icon ni ni-save-fill mr-4"></em>
+                                                        Enregistrer votre compte
                                                     </button>
                                                 </div>
                                             </div>
@@ -221,4 +221,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#department').on('change', function(e) {
+                let cat_id = e.target.value;
+                $.ajax({
+                    url: "",
+                    type: "get",
+                    data: {
+                        cat_id: cat_id
+                    },
+                    success: function(data) {
+                        $('#subcategory').empty();
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

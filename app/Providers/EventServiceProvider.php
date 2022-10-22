@@ -30,8 +30,8 @@ final class EventServiceProvider extends ServiceProvider
             AdministrationListener::class,
         ],
         StoreStudentEvent::class => [
-            StoreStudentListener::class,
-        ],
+            StoreStudentListener::class
+        ]
     ];
 
     /**
