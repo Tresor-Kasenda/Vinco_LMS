@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Services\SendEmailConfirmation;
 use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
-use App\Traits\RandomValues;
+use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,7 @@ use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
 final class StudentRepository implements StudentRepositoryInterface
 {
-    use ImageUploader, RandomValues;
+    use ImageUploader, RandomValue;
 
     public function __construct(
         protected ToastMessageService $service,
