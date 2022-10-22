@@ -8,7 +8,6 @@ use App\Contracts\RoleRepositoryInterface;
 use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\RoleRequest;
 use App\Services\ToastMessageService;
-use App\ViewModels\Backend\Role\RoleViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -28,9 +27,9 @@ final class RoleBackendController extends BackendBaseController
 
     public function index(): Renderable
     {
-        $viewModel = new RoleViewModel();
+        $roles = $this->repository->getRoles();
 
-        return view('backend.domain.roles.index', compact('viewModel'));
+        return view('backend.domain.roles.index', compact('roles'));
     }
 
     public function create(): Factory|View|Application

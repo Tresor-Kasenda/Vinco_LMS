@@ -23,7 +23,8 @@ use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
 final class StudentRepository implements StudentRepositoryInterface
 {
-    use ImageUploader, RandomValue;
+    use ImageUploader;
+    use RandomValue;
 
     public function __construct(
         protected ToastMessageService $service,

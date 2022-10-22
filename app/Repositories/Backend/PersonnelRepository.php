@@ -23,7 +23,8 @@ use LaravelIdea\Helper\App\Models\_IH_User_QB;
  */
 final class PersonnelRepository implements PersonnelRepositoryInterface
 {
-    use ImageUploader, RandomValue;
+    use ImageUploader;
+    use RandomValue;
 
     public function __construct(protected ToastMessageService $service)
     {
@@ -66,6 +67,82 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             ->get();
     }
 
+    public function stored($attributes): Model|Builder|RedirectResponse
+    {
+        $personnel = User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+
+        if (! $personnel) {
+            $user = $this->storeManger($attributes);
+            $role = $this->getRole($attributes);
+            $user->attachRole($role->id);
+            $personnel = $this->createPersonnel($attributes, $user);
+            $this->service->success('Un personnel a ete ajouter');
+
+            return $personnel;
+        }
+        $this->service->error('Email deja utiliser par un autre compte');
+
+        return back();
+    }
+
+    private function storeManger($attributes): _IH_User_QB|Model|Builder|User
+    {
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
+                'password' => Hash::make($attributes->input('password')),
+            ]);
+    }
+
+    private function getRole($attributes): Builder|Model
+    {
+        return Role::query()
+            ->where('id', '=', $attributes->input('role'))
+            ->firstOrFail();
+    }
+
+    private function createPersonnel($attributes, $user): Builder|Model
+    {
+        return Personnel::query()
+            ->create([
+                'username' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'phones' => $attributes->input('phones'),
+                'images_personnel' => self::uploadFiles($attributes),
+                'gender' => $attributes->input('gender'),
+                'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
+                'academic_year_id' => $attributes->input('academic'),
+                'user_id' => $user->id,
+            ]);
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|null
+    {
+        $personnel = $this->showPersonnelContent(key: $key);
+
+        $user = User::query()
+            ->whereEmail($attributes->input('email'))
+            ->firstOrFail();
+
+        $personnel->update([
+            'username' => $attributes->input('name'),
+            'email' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'gender' => $attributes->input('gender'),
+            'academic_year_id' => $attributes->input('academic'),
+            'user_id' => $user->id,
+        ]);
+
+        $user->roles()->sync($attributes->input('role'));
+        $this->service->success('Un personnel a ete mise a jours avec succes');
+
+        return $personnel;
+    }
+
     public function showPersonnelContent(string $key): Model|Builder|null
     {
         $personnel = Personnel::query()
@@ -92,49 +169,6 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         return $personnel->load(['user', 'academic:id,start_date,end_date']);
     }
 
-    public function stored($attributes): Model|Builder|RedirectResponse
-    {
-        $personnel = User::query()
-            ->where('email', '=', $attributes->input('email'))
-            ->first();
-
-        if (! $personnel) {
-            $user = $this->storeManger($attributes);
-            $role = $this->getRole($attributes);
-            $user->attachRole($role->id);
-            $personnel = $this->createPersonnel($attributes, $user);
-            $this->service->success('Un personnel a ete ajouter');
-
-            return $personnel;
-        }
-        $this->service->error('Email deja utiliser par un autre compte');
-
-        return back();
-    }
-
-    public function updated(string $key, $attributes): Model|Builder|null
-    {
-        $personnel = $this->showPersonnelContent(key: $key);
-
-        $user = User::query()
-            ->whereEmail($attributes->input('email'))
-            ->firstOrFail();
-
-        $personnel->update([
-            'username' => $attributes->input('name'),
-            'email' => $attributes->input('email'),
-            'phones' => $attributes->input('phones'),
-            'gender' => $attributes->input('gender'),
-            'academic_year_id' => $attributes->input('academic'),
-            'user_id' => $user->id,
-        ]);
-
-        $user->roles()->sync($attributes->input('role'));
-        $this->service->success('Un personnel a ete mise a jours avec succes');
-
-        return $personnel;
-    }
-
     public function deleted(string $key): RedirectResponse
     {
         $personnel = $this->showPersonnelContent(key: $key);
@@ -154,38 +188,5 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         }
 
         return false;
-    }
-
-    private function createPersonnel($attributes, $user): Builder|Model
-    {
-        return Personnel::query()
-            ->create([
-                'username' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'phones' => $attributes->input('phones'),
-                'images_personnel' => self::uploadFiles($attributes),
-                'gender' => $attributes->input('gender'),
-                'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
-                'academic_year_id' => $attributes->input('academic'),
-                'user_id' => $user->id,
-            ]);
-    }
-
-    private function storeManger($attributes): _IH_User_QB|Model|Builder|User
-    {
-        return User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
-                'password' => Hash::make($attributes->input('password')),
-            ]);
-    }
-
-    private function getRole($attributes): Builder|Model
-    {
-        return Role::query()
-            ->where('id', '=', $attributes->input('role'))
-            ->firstOrFail();
     }
 }
