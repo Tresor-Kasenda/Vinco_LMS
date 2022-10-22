@@ -30,7 +30,7 @@
         "techguy/laravel-ckeditor": "^1.5",
         "tinymce/tinymce": "^6.1",
         "yajra/laravel-datatables-oracle": "^9.21.1",
-        "santigarcor/laratrust":"^7.1"
+        "realrashid/sweet-alert": "^5.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12.3",
