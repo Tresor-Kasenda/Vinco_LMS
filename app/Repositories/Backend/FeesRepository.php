@@ -7,14 +7,14 @@ namespace App\Repositories\Backend;
 use App\Contracts\FeesRepositoryInterface;
 use App\Models\Fee;
 use App\Services\ToastMessageService;
-use App\Traits\RandomValues;
+use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class FeesRepository implements FeesRepositoryInterface
 {
-    use RandomValues;
+    use RandomValue;
 
     public function __construct(protected ToastMessageService $toastMessage)
     {

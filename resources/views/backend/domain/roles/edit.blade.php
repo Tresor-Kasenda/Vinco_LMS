@@ -16,9 +16,9 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.roles.index') }}">
-                                                <em class="icon ni ni-arrow-left"></em>
-                                                <span>Back</span>
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.roles.index') }}">
+                                                <em class="icon ni ni-arrow-long-left"></em>
+                                                <span>Voir les roles</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -97,9 +97,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 text-center">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-outline-primary">
+                                                        <em class="icon ni ni-save mr-2"></em>
+                                                        Enregister le role
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

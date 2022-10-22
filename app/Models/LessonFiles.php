@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Lesson $lesson
- *
  * @method static Builder|LessonFiles newModelQuery()
  * @method static Builder|LessonFiles newQuery()
  * @method static \Illuminate\Database\Query\Builder|LessonFiles onlyTrashed()
@@ -39,7 +38,8 @@ use Illuminate\Support\Carbon;
  */
 final class LessonFiles extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'files',
@@ -53,6 +53,6 @@ final class LessonFiles extends Model
 
     public function getLessonFiles(): string
     {
-        return asset('storage/lesson/files/'.$this->files);
+        return asset('storage/lesson/files/' . $this->files);
     }
 }

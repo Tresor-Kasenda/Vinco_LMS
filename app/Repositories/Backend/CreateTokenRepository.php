@@ -57,11 +57,11 @@ final class CreateTokenRepository implements CreateTokenRepositoryInterface
             'role' => $role,
         ];
 
-        $enable = new EnableX;
+        $enable = new EnableX();
 
         return $enable
             ->createConnexion()
-            ->post(config('enableX.url').'rooms/'.$room['room_id'].'/tokens', $room)
+            ->post(config('enableX.url') . 'rooms/' . $room['room_id'] . '/tokens', $room)
             ->json();
     }
 }

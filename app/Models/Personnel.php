@@ -39,7 +39,6 @@ use Illuminate\Support\Carbon;
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Personnel newModelQuery()
  * @method static Builder|Personnel newQuery()
  * @method static \Illuminate\Database\Query\Builder|Personnel onlyTrashed()
@@ -65,10 +64,14 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Personnel withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Personnel withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $images
+ * @method static Builder|Personnel whereImages($value)
  */
 final class Personnel extends Model
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory;
+    use SoftDeletes;
+    use Notifiable;
 
     protected $guarded = [];
 

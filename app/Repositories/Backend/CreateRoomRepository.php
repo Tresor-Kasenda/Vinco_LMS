@@ -16,7 +16,8 @@ use JetBrains\PhpStorm\ArrayShape;
 
 final class CreateRoomRepository implements CreateRoomRepositoryInterface
 {
-    use RandomValue, CalculationEvent;
+    use RandomValue;
+    use CalculationEvent;
 
     public function createRoom($attributes)
     {
@@ -63,10 +64,10 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
         [$date, $difference] = $this->calculationDateOfEvent(attributes: $attributes);
         $room = $this->renderMetadataForRoom(date: $date, difference: $difference, attributes: $attributes);
 
-        $response = new EnableX;
+        $response = new EnableX();
 
         return $response->createConnexion()
-            ->post(config('enableX.url').'rooms/', $room)
+            ->post(config('enableX.url') . 'rooms/', $room)
             ->json();
     }
 
@@ -74,7 +75,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
     private function renderMetadataForRoom($date, $difference, $attributes): array
     {
         return [
-            'name' => 'Sample Room: '.$this->generateRandomTransaction(8),
+            'name' => 'Sample Room: ' . $this->generateRandomTransaction(8),
             'owner_ref' => $this->generateRandomTransaction(8),
             'settings' => [
                 'description' => '',
@@ -84,7 +85,7 @@ final class CreateRoomRepository implements CreateRoomRepositoryInterface
                 'duration' => $difference,
                 'scheduled' => false,
                 'moderators' => '2',
-                'scheduled_time' => ''.$date,
+                'scheduled_time' => '' . $date,
                 'auto_recording' => false,
                 'active_talker' => true,
                 'wait_moderator' => false,
