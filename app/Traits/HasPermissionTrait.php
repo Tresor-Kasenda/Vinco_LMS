@@ -24,16 +24,22 @@ trait HasPermissionTrait
     public function hasPermission($permission): bool
     {
         return $this->hasPermissionThroughRole($permission) ||
+            (bool) $this->permissions->where('name', $permission)->count();
+
+        return $this->hasPermissionThroughRole($permission) ||
             (bool) $this->permissions->where('name', $permission->name)->count();
     }
 
     public function hasPermissionThroughRole($permission): bool
     {
-        foreach ($permission->roles as $role) {
-            if ($this->roles->contains($role)) {
-                return true;
-            }
+        if($this->roles->contains($permission)){
+            return true;
         }
+//        foreach ($permission->roles as $role) {
+//            if ($this->roles->contains($role)) {
+//                return true;
+//            }
+//        }
 
         return false;
     }
