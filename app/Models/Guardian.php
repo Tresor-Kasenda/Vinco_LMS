@@ -37,7 +37,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|\App\Models\Student[] $students
  * @property-read int|null $students_count
  * @property-read \App\Models\User $user
- *
  * @method static Builder|Guardian newModelQuery()
  * @method static Builder|Guardian newQuery()
  * @method static Builder|Guardian query()
@@ -53,9 +52,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Guardian whereUpdatedAt($value)
  * @method static Builder|Guardian whereUserId($value)
  * @mixin Eloquent
- *
  * @property string|null $firstname_guardian
- *
  * @method static Builder|Guardian whereFirstnameGuardian($value)
  */
 final class Guardian extends Model

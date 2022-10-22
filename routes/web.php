@@ -45,6 +45,7 @@ use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
+use App\Http\Controllers\Backend\System\PermissionBackendController;
 use App\Http\Controllers\Backend\System\RoleBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
@@ -213,6 +214,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])
             ->name('administrator.active');
         Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
+
+        Route::resource('permissions', PermissionBackendController::class);
     });
 });
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasPermissionTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,8 +21,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -68,7 +67,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read Professor|null $teacher
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
- *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -96,13 +94,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin Eloquent
- *
  * @property int|null $institution_id
- *
  * @method static Builder|User whereInstitutionId($value)
- *
  * @property string|null $description
- *
  * @method static Builder|User whereDescription($value)
  * @method static Builder|User permission($permissions)
  * @method static Builder|User role($roles, $guard = null)

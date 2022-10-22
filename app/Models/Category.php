@@ -27,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Course[] $courses
  * @property-read int|null $courses_count
  * @property-read Institution|null $institution
- *
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
@@ -41,9 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin Eloquent
- *
  * @property int $institution_id
- *
  * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category whereInstitutionId($value)
  */

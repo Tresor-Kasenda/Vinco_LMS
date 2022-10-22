@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 interface RoleRepositoryInterface
 {
+    public function getRoles();
+
     public function stored($attributes);
 
     public function updated(Role $role, $attributes);

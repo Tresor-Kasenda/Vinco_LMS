@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\Institution|null $institution
  * @property-read \App\Models\Guardian|null $parent
  * @property-read \App\Models\Student $student
- *
  * @method static Builder|Fee newModelQuery()
  * @method static Builder|Fee newQuery()
  * @method static Builder|Fee query()
@@ -44,13 +43,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Fee whereTransactionNo($value)
  * @method static Builder|Fee whereUpdatedAt($value)
  * @mixin \Eloquent
- *
  * @property int $institution_id
- *
  * @method static Builder|Fee whereInstitutionId($value)
- *
  * @property int $promotion_id
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Fee wherePromotionId($value)
  */
 final class Fee extends Model

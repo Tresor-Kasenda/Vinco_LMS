@@ -9,9 +9,9 @@ use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__.'/app',
-        __DIR__.'/tests',
-        __DIR__.'/database/seeders',
+        __DIR__ . '/app',
+        __DIR__ . '/tests',
+        __DIR__ . '/database/seeders',
     ]);
 
     // register a single rule

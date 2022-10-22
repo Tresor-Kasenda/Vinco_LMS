@@ -14,7 +14,7 @@ class StatusUserMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param Closure(Request): (Response|RedirectResponse) $next
      * @return Response|RedirectResponse
      */
@@ -24,12 +24,10 @@ class StatusUserMiddleware
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-
             return redirect()
                 ->route('login')
-                ->with('danger', 'Vous avez ete bani sur la plateforme');
+                ->with('danger', "Vous avez ete bani sur la plateforme");
         }
-
         return $next($request);
     }
 }
