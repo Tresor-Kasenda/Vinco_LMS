@@ -9728,6 +9728,83 @@
                         return $instance->setConnectionName($name);
         }
                     /**
+         * Release a reserved job back onto the queue after (n) seconds.
+         *
+         * @param string $queue
+         * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+         * @param int $delay
+         * @return mixed
+         * @static
+         */
+        public static function release($queue, $job, $delay)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->release($queue, $job, $delay);
+        }
+                    /**
+         * Delete a reserved job from the queue.
+         *
+         * @param string $queue
+         * @param string $id
+         * @return void
+         * @throws \Throwable
+         * @static
+         */
+        public static function deleteReserved($queue, $id)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        $instance->deleteReserved($queue, $id);
+        }
+                    /**
+         * Delete a reserved job from the reserved queue and release it.
+         *
+         * @param string $queue
+         * @param \Illuminate\Queue\Jobs\DatabaseJob $job
+         * @param int $delay
+         * @return void
+         * @static
+         */
+        public static function deleteAndRelease($queue, $job, $delay)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        $instance->deleteAndRelease($queue, $job, $delay);
+        }
+                    /**
+         * Delete all of the jobs from the queue.
+         *
+         * @param string $queue
+         * @return int
+         * @static
+         */
+        public static function clear($queue)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->clear($queue);
+        }
+                    /**
+         * Get the queue or return the default.
+         *
+         * @param string|null $queue
+         * @return string
+         * @static
+         */
+        public static function getQueue($queue)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->getQueue($queue);
+        }
+                    /**
+         * Get the underlying database instance.
+         *
+         * @return \Illuminate\Database\Connection
+         * @static
+         */
+        public static function getDatabase()
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->getDatabase();
+        }
+                    /**
          * Get the backoff for an object-based queue handler.
          *
          * @param mixed $job
@@ -9736,7 +9813,7 @@
          */
         public static function getJobBackoff($job)
         {            //Method inherited from \Illuminate\Queue\Queue
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobBackoff($job);
         }
                     /**
@@ -9748,7 +9825,7 @@
          */
         public static function getJobExpiration($job)
         {            //Method inherited from \Illuminate\Queue\Queue
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobExpiration($job);
         }
                     /**
@@ -9760,7 +9837,7 @@
          */
         public static function createPayloadUsing($callback)
         {            //Method inherited from \Illuminate\Queue\Queue
-                        \Illuminate\Queue\SyncQueue::createPayloadUsing($callback);
+                        \Illuminate\Queue\DatabaseQueue::createPayloadUsing($callback);
         }
                     /**
          * Get the container instance being used by the connection.
@@ -9770,7 +9847,7 @@
          */
         public static function getContainer()
         {            //Method inherited from \Illuminate\Queue\Queue
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getContainer();
         }
                     /**
@@ -9782,7 +9859,7 @@
          */
         public static function setContainer($container)
         {            //Method inherited from \Illuminate\Queue\Queue
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         $instance->setContainer($container);
         }
 
@@ -17327,81 +17404,7 @@
 
 }
 
-        namespace Flasher\Laravel\Facade {
-            /**
-     *
-     *
-     * @method static NotificationBuilder addSuccess(string $message, array $options = array())
-     * @method static NotificationBuilder addError(string $message, array $options = array())
-     * @method static NotificationBuilder addWarning(string $message, array $options = array())
-     * @method static NotificationBuilder addInfo(string $message, array $options = array())
-     * @method static NotificationBuilder addFlash(string|NotificationInterface $type, string $message = null, array $options = array())
-     * @method static NotificationBuilder flash(StampInterface[] $stamps = array())
-     * @method static NotificationBuilder type(string $type, string $message = null, array $options = array())
-     * @method static NotificationBuilder message(string $message)
-     * @method static NotificationBuilder options(array $options, bool $merge = true)
-     * @method static NotificationBuilder option(string $name, $value)
-     * @method static NotificationBuilder success(string $message = null, array $options = array())
-     * @method static NotificationBuilder error(string $message = null, array $options = array())
-     * @method static NotificationBuilder info(string $message = null, array $options = array())
-     * @method static NotificationBuilder warning(string $message = null, array $options = array())
-     * @method static NotificationBuilder priority(int $priority)
-     * @method static NotificationBuilder hops(int $amount)
-     * @method static NotificationBuilder keep()
-     * @method static NotificationBuilder delay(int $delay)
-     * @method static NotificationBuilder now()
-     * @method static NotificationBuilder with(StampInterface[] $stamps = array())
-     * @method static NotificationBuilder withStamp(StampInterface $stamp)
-     * @method static NotificationBuilder handler(string $handler)
-     * @method static Envelope getEnvelope()
-     */
-        class Flasher {
-                    /**
-         *
-         *
-         * @static
-         */
-        public static function create($alias = null)
-        {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->create($alias);
-        }
-                    /**
-         *
-         *
-         * @static
-         */
-        public static function using($alias)
-        {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->using($alias);
-        }
-                    /**
-         *
-         *
-         * @static
-         */
-        public static function addFactory($alias, $factory)
-        {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->addFactory($alias, $factory);
-        }
-                    /**
-         *
-         *
-         * @static
-         */
-        public static function render($criteria = [], $presenter = 'html', $context = [])
-        {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->render($criteria, $presenter, $context);
-        }
-
-    }
-
-}
-
-    namespace Jackiedo\Timezonelist\Facades {
+        namespace Jackiedo\Timezonelist\Facades {
             /**
      * The Timezonelist facade.
      *
@@ -19402,225 +19405,441 @@
 
 }
 
-    namespace Flasher\SweetAlert\Laravel\Facade {
-            /**
-     *
-     *
-     * @method static SweetAlertBuilder addSuccess(string $message, array $options = array())
-     * @method static SweetAlertBuilder addError(string $message, array $options = array())
-     * @method static SweetAlertBuilder addWarning(string $message, array $options = array())
-     * @method static SweetAlertBuilder addInfo(string $message, array $options = array())
-     * @method static SweetAlertBuilder addFlash(string|NotificationInterface $type, string $message = null, array $options = array())
-     * @method static SweetAlertBuilder flash(StampInterface[] $stamps = array())
-     * @method static SweetAlertBuilder type(string $type, string $message = null, array $options = array())
-     * @method static SweetAlertBuilder message(string $message)
-     * @method static SweetAlertBuilder options(array $options, bool $merge = true)
-     * @method static SweetAlertBuilder option(string $name, string $value)
-     * @method static SweetAlertBuilder success(string $message = null, array $options = array())
-     * @method static SweetAlertBuilder error(string $message = null, array $options = array())
-     * @method static SweetAlertBuilder info(string $message = null, array $options = array())
-     * @method static SweetAlertBuilder warning(string $message = null, array $options = array())
-     * @method static SweetAlertBuilder priority(int $priority)
-     * @method static SweetAlertBuilder hops(int $amount)
-     * @method static SweetAlertBuilder keep()
-     * @method static SweetAlertBuilder delay(int $delay)
-     * @method static SweetAlertBuilder now()
-     * @method static SweetAlertBuilder with(StampInterface[] $stamps = array())
-     * @method static SweetAlertBuilder withStamp(StampInterface $stamp)
-     * @method static SweetAlertBuilder handler(string $handler)
-     * @method static Envelope getEnvelope()
-     * @method static SweetAlertBuilder question(string $message = null, array $options = array())
-     * @method static SweetAlertBuilder title(string $title)
-     * @method static SweetAlertBuilder titleText(string $titleText)
-     * @method static SweetAlertBuilder html(string $html)
-     * @method static SweetAlertBuilder text(string $text)
-     * @method static SweetAlertBuilder icon(string $icon)
-     * @method static SweetAlertBuilder iconColor(string $iconColor)
-     * @method static SweetAlertBuilder iconHtml(string $iconHtml)
-     * @method static SweetAlertBuilder showClass(string $showClass, string $value)
-     * @method static SweetAlertBuilder hideClass(string $hideClass, string $value)
-     * @method static SweetAlertBuilder footer($footer)
-     * @method static SweetAlertBuilder backdrop(bool $backdrop = true)
-     * @method static SweetAlertBuilder toast(bool $toast = true, string $position = 'top-end', bool $showConfirmButton = false)
-     * @method static SweetAlertBuilder target(string $target)
-     * @method static SweetAlertBuilder input(string $input)
-     * @method static SweetAlertBuilder width(string $width)
-     * @method static SweetAlertBuilder padding(string $padding)
-     * @method static SweetAlertBuilder background(string $background)
-     * @method static SweetAlertBuilder position(string $position)
-     * @method static SweetAlertBuilder grow(bool|string $grow)
-     * @method static SweetAlertBuilder customClass(string $customClass, string $value)
-     * @method static SweetAlertBuilder timer(int $timer)
-     * @method static SweetAlertBuilder timerProgressBar(bool $timerProgressBar = true)
-     * @method static SweetAlertBuilder heightAuto(bool $heightAuto = true)
-     * @method static SweetAlertBuilder allowOutsideClick(bool|string $allowOutsideClick = true)
-     * @method static SweetAlertBuilder allowEscapeKey(bool $allowEscapeKey = true)
-     * @method static SweetAlertBuilder allowEnterKey(bool $allowEnterKey = true)
-     * @method static SweetAlertBuilder stopKeydownPropagation(bool $stopKeydownPropagation = true)
-     * @method static SweetAlertBuilder keydownListenerCapture(bool $keydownListenerCapture = true)
-     * @method static SweetAlertBuilder showConfirmButton(bool $showConfirmButton = true, string $confirmButtonText = null, string $confirmButtonColor = null, string $confirmButtonAriaLabel = null)
-     * @method static SweetAlertBuilder showDenyButton(bool $showDenyButton = true, string $denyButtonText = null, string $denyButtonColor = null, string $denyButtonAriaLabel = null)
-     * @method static SweetAlertBuilder showCancelButton(bool $showCancelButton = true, string $cancelButtonText = null, string $cancelButtonColor = null, string $cancelButtonAriaLabel = null)
-     * @method static SweetAlertBuilder confirmButtonText(string $confirmButtonText, string $confirmButtonColor = null, string $confirmButtonAriaLabel = null)
-     * @method static SweetAlertBuilder denyButtonText(string $denyButtonText, string $denyButtonColor = null, string $denyButtonAriaLabel = null)
-     * @method static SweetAlertBuilder cancelButtonText(string $cancelButtonText, string $cancelButtonColor = null, string $cancelButtonAriaLabel = null)
-     * @method static SweetAlertBuilder confirmButtonColor(string $confirmButtonColor)
-     * @method static SweetAlertBuilder denyButtonColor(string $denyButtonColor)
-     * @method static SweetAlertBuilder cancelButtonColor(string $cancelButtonColor)
-     * @method static SweetAlertBuilder confirmButtonAriaLabel(string $confirmButtonAriaLabel)
-     * @method static SweetAlertBuilder denyButtonAriaLabel(string $denyButtonAriaLabel)
-     * @method static SweetAlertBuilder cancelButtonAriaLabel(string $cancelButtonAriaLabel)
-     * @method static SweetAlertBuilder buttonsStyling(bool $buttonsStyling = true)
-     * @method static SweetAlertBuilder reverseButtons(bool $reverseButtons = true)
-     * @method static SweetAlertBuilder focusConfirm(bool $focusConfirm = true)
-     * @method static SweetAlertBuilder focusDeny(bool $focusDeny = true)
-     * @method static SweetAlertBuilder focusCancel(bool $focusCancel = true)
-     * @method static SweetAlertBuilder showCloseButton(bool $showCloseButton = true)
-     * @method static SweetAlertBuilder closeButtonHtml(string $closeButtonHtml)
-     * @method static SweetAlertBuilder closeButtonAriaLabel(string $closeButtonAriaLabel)
-     * @method static SweetAlertBuilder loaderHtml(string $loaderHtml)
-     * @method static SweetAlertBuilder showLoaderOnConfirm(bool $showLoaderOnConfirm = true)
-     * @method static SweetAlertBuilder scrollbarPadding(bool $scrollbarPadding = true)
-     * @method static SweetAlertBuilder preConfirm(bool|string $preConfirm)
-     * @method static SweetAlertBuilder preDeny(string $preDeny)
-     * @method static SweetAlertBuilder returnInputValueOnDeny(bool $returnInputValueOnDeny = true)
-     * @method static SweetAlertBuilder imageUrl(string $imageUrl, int $imageWidth = null, int $imageHeight = null, string $imageAlt = null)
-     * @method static SweetAlertBuilder imageWidth(int $imageWidth)
-     * @method static SweetAlertBuilder imageHeight(int $imageHeight)
-     * @method static SweetAlertBuilder imageAlt(string $imageAlt)
-     * @method static SweetAlertBuilder image(string $title, string $text, string $imageUrl, int $imageWidth = 400, int $imageHeight = 200, string $imageAlt = null)
-     * @method static SweetAlertBuilder addImage(string $title, string $text, string $imageUrl, int $imageWidth = 400, int $imageHeight = 200, string $imageAlt = null)
-     * @method static SweetAlertBuilder inputLabel(string $inputLabel)
-     * @method static SweetAlertBuilder inputPlaceholder(string $inputPlaceholder)
-     * @method static SweetAlertBuilder inputValue(string $inputValue)
-     * @method static SweetAlertBuilder inputOptions(string $inputOptions)
-     * @method static SweetAlertBuilder inputAutoTrim(bool $inputAutoTrim = true)
-     * @method static SweetAlertBuilder inputAttributes(string $inputAttributes)
-     * @method static SweetAlertBuilder inputValidator(string $inputValidator)
-     * @method static SweetAlertBuilder validationMessage(string $validationMessage)
-     */
-        class SweetAlert {
-                    /**
-         *
-         *
-         * @static
-         */
-        public static function createNotificationBuilder()
-        {
-                        /** @var \Flasher\SweetAlert\Prime\SweetAlertFactory $instance */
-                        return $instance->createNotificationBuilder();
-        }
-                    /**
-         *
-         *
-         * @return \Flasher\Prime\Factory\StorageManagerInterface
-         * @static
-         */
-        public static function getStorageManager()
-        {            //Method inherited from \Flasher\Prime\Factory\NotificationFactory
-                        /** @var \Flasher\SweetAlert\Prime\SweetAlertFactory $instance */
-                        return $instance->getStorageManager();
-        }
-
-    }
-
-}
-
-    namespace Laratrust {
+    namespace RealRashid\SweetAlert\Facades {
             /**
      *
      *
      */
-        class LaratrustFacade {
+        class Alert {
                     /**
-         * Checks if the current user has a role by its name.
+         * The default configuration for middleware alert.
          *
-         * @param string $role Role name.
-         * @return bool
+         * @return \RealRashid\SweetAlert\$config
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function hasRole($role, $team = null, $requireAll = false)
+        public static function middleware()
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->hasRole($role, $team, $requireAll);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->middleware();
         }
                     /**
-         * Check if the current user has a permission by its name.
+         * Flash an alert message.
          *
-         * @param string $permission Permission string.
-         * @return bool
+         * @param string $title
+         * @param string $text
+         * @param array $icon
+         * @return void
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function isAbleTo($permission, $team = null, $requireAll = false)
+        public static function alert($title = '', $text = '', $icon = null)
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->isAbleTo($permission, $team, $requireAll);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        $instance->alert($title, $text, $icon);
         }
                     /**
-         * Check if the current user has a role or permission by its name.
+         * Display a success typed alert message with a text and a title.
          *
-         * @param array|string $roles The role(s) needed.
-         * @param array|string $permissions The permission(s) needed.
-         * @param array $options The Options.
-         * @return bool
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function ability($roles, $permissions, $team = null, $options = [])
+        public static function success($title = '', $text = '')
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->ability($roles, $permissions, $team, $options);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->success($title, $text);
         }
                     /**
-         * Checks if the user owns the thing.
+         * Display a info typed alert message with a text and a title.
          *
-         * @param Object $thing
-         * @param string $foreignKeyName
-         * @return boolean
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function owns($thing, $foreignKeyName = null)
+        public static function info($title = '', $text = '')
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->owns($thing, $foreignKeyName);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->info($title, $text);
         }
                     /**
-         * Checks if the user has some role and if he owns the thing.
+         * Display a warning typed alert message with a text and a title.
          *
-         * @param string|array $role
-         * @param Object $thing
-         * @param array $options
-         * @return boolean
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function hasRoleAndOwns($role, $thing, $options = [])
+        public static function warning($title = '', $text = '')
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->hasRoleAndOwns($role, $thing, $options);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->warning($title, $text);
         }
                     /**
-         * Checks if the user can do something and if he owns the thing.
+         * Display a question typed alert message with a text and a title.
          *
-         * @param string|array $permission
-         * @param Object $thing
-         * @param array $options
-         * @return boolean
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function isAbleToAndOwns($permission, $thing, $options = [])
+        public static function question($title = '', $text = '')
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->isAbleToAndOwns($permission, $thing, $options);
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->question($title, $text);
         }
                     /**
-         * Get the currently authenticated user or null.
+         * Display a error typed alert message with a text and a title.
          *
-         * @return \Illuminate\Auth\UserInterface|null
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
          * @static
          */
-        public static function user()
+        public static function error($title = '', $text = '')
         {
-                        /** @var \Laratrust\Laratrust $instance */
-                        return $instance->user();
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->error($title, $text);
+        }
+                    /**
+         * Display a message with a custom image and CSS animation disabled.
+         *
+         * @param string $title
+         * @param string $text
+         * @param string $imageUrl
+         * @param integer $imageWidth
+         * @param integer $imageHeight
+         * @param string $imageAlt
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function image($title, $text, $imageUrl, $imageWidth, $imageHeight, $imageAlt = null)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->image($title, $text, $imageUrl, $imageWidth, $imageHeight, $imageAlt);
+        }
+                    /**
+         * Display a html typed alert message with html code.
+         *
+         * @param string $title
+         * @param string $code
+         * @param string $icon
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function html($title = '', $code = '', $icon = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->html($title, $code, $icon);
+        }
+                    /**
+         * Display a toast message
+         *
+         * @param string $title
+         * @param string $icon
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function toast($title = '', $icon = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toast($title, $icon);
+        }
+                    /**
+         * Convert any alert modal to Toast
+         *
+         * @param string $position
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function toToast($position = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toToast($position);
+        }
+                    /**
+         * Convert any alert modal to html
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function toHtml()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toHtml();
+        }
+                    /**
+         * Add a custom image to alert
+         *
+         * @param string $imageUrl
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function addImage($imageUrl)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->addImage($imageUrl);
+        }
+                    /**
+         * Add footer section to alert()
+         *
+         * @param string $code
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function footer($code)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->footer($code);
+        }
+                    /**
+         * positioned alert dialog
+         *
+         * @param string $position
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function position($position = 'top-end')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->position($position);
+        }
+                    /**
+         * Modal window width
+         * including paddings
+         * (box-sizing: border-box).
+         *
+         * Can be in px or %. The default width is 32rem
+         *
+         * @param string $width
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function width($width = '32rem')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->width($width);
+        }
+                    /**
+         * Modal window padding.
+         *
+         * The default padding is 1.25rem.
+         *
+         * @param string $padding
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function padding($padding = '1.25rem')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->padding($padding);
+        }
+                    /**
+         * Modal window background
+         * (CSS background property).
+         *
+         * The default background is '#fff'.
+         *
+         * @param string $background
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function background($background = '#fff')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->background($background);
+        }
+                    /**
+         * Set to false if you want to
+         * focus the first element in tab
+         * order instead of "Confirm"-button by default.
+         *
+         * @param boolean $focus
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function focusConfirm($focus = true)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->focusConfirm($focus);
+        }
+                    /**
+         * Set to true if you want to focus the
+         * "Cancel"-button by default.
+         *
+         * @param boolean $focus
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function focusCancel($focus = false)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->focusCancel($focus);
+        }
+                    /**
+         * Custom animation with [Animate.css](https://daneden.github.io/animate.css/)
+         * CSS classes for animations when showing a popup (fade in):
+         * CSS classes for animations when hiding a popup (fade out):
+         *
+         * @param string $showAnimation
+         * @param string $hideAnimation
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function animation($showAnimation, $hideAnimation)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->animation($showAnimation, $hideAnimation);
+        }
+                    /**
+         * Persistent the alert modal
+         *
+         * @param boolean $showConfirmBtn
+         * @param boolean $showCloseBtn
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function persistent($showConfirmBtn = true, $showCloseBtn = false)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->persistent($showConfirmBtn, $showCloseBtn);
+        }
+                    /**
+         * auto close alert modal after
+         * specifid time
+         *
+         * @param integer $milliseconds
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function autoClose($milliseconds = 5000)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->autoClose($milliseconds);
+        }
+                    /**
+         * Display confirm button
+         *
+         * @param string $btnText
+         * @param string $btnColor
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function showConfirmButton($btnText = 'Ok', $btnColor = '#3085d6')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showConfirmButton($btnText, $btnColor);
+        }
+                    /**
+         * Display cancel button
+         *
+         * @param string $btnText
+         * @param string $btnColor
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function showCancelButton($btnText = 'Cancel', $btnColor = '#aaa')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showCancelButton($btnText, $btnColor);
+        }
+                    /**
+         * Display close button
+         *
+         * @param string $closeButtonAriaLabel
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function showCloseButton($closeButtonAriaLabel = 'aria-label')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showCloseButton($closeButtonAriaLabel);
+        }
+                    /**
+         * Hide close button from alert or toast
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function hideCloseButton()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->hideCloseButton();
+        }
+                    /**
+         * Apply default styling to buttons.
+         *
+         * If you want to use your own classes (e.g. Bootstrap classes)
+         * set this parameter to false.
+         *
+         * @param boolean $buttonsStyling
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function buttonsStyling($buttonsStyling)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->buttonsStyling($buttonsStyling);
+        }
+                    /**
+         * Use any HTML inside icons (e.g. Font Awesome)
+         *
+         * @param string $iconHtml
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function iconHtml($iconHtml)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->iconHtml($iconHtml);
+        }
+                    /**
+         * If set to true, the timer will have a progress bar at the bottom of a popup.
+         *
+         * Mostly, this feature is useful with toasts.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function timerProgressBar()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->timerProgressBar();
+        }
+                    /**
+         * Reverse buttons position
+         *
+         * @author Faber44 <https://github.com/Faber44>
+         * @static
+         */
+        public static function reverseButtons()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->reverseButtons();
+        }
+                    /**
+         * Flash the config options for alert.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function flash()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->flash();
+        }
+                    /**
+         * Build Flash config options for flashing.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static
+         */
+        public static function buildConfig()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->buildConfig();
         }
 
     }
@@ -24276,7 +24495,6 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
-            class Flasher extends \Flasher\Laravel\Facade\Flasher {}
             class Timezonelist extends \Jackiedo\Timezonelist\Facades\Timezonelist {}
             class Calendar extends \MaddHatter\LaravelFullcalendar\Facades\Calendar {}
             class SEOMeta extends \Artesaos\SEOTools\Facades\SEOMeta {}
@@ -24286,8 +24504,7 @@ namespace  {
             class SEO extends \Artesaos\SEOTools\Facades\SEOTools {}
             class Livewire extends \Livewire\Livewire {}
             class Chatify extends \Chatify\Facades\ChatifyMessenger {}
-            class SweetAlert extends \Flasher\SweetAlert\Laravel\Facade\SweetAlert {}
-            class Laratrust extends \Laratrust\LaratrustFacade {}
+            class Alert extends \RealRashid\SweetAlert\Facades\Alert {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
 
