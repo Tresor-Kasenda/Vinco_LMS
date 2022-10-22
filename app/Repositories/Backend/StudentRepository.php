@@ -131,7 +131,7 @@ final class StudentRepository implements StudentRepositoryInterface
         if (! $user) {
             $user = $this->createStudentBelongToUser($attributes);
             $role = $this->getStudentRole();
-            $user->attachRole($role->id);
+//            $user->attachRole($role->id);
             $student = $this->storeStudent($user, $attributes);
             $result = $student ? $this->confirmation->send($student) : '';
             $this->service->success('Un Etudiant a ete ajouter avec succes');
