@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('gestionnaire-create')
+                                        @can('gestionnaire-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.staffs.create') }}">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Create</span>
                                             </a>
                                         </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.personnel.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -41,6 +35,9 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
+                                <th class="nk-tb-col tb-col-sm">
+                                    <span>ID</span>
+                                </th>
                                 <th class="nk-tb-col tb-col-sm">
                                     <span>Image</span>
                                 </th>
@@ -64,10 +61,13 @@
                         <tbody>
                             @foreach($employees as $personnel)
                                 <tr class="nk-tb-item text-center">
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $personnel->id ?? "" }}</span>
+                                    </td>
                                     <td class="nk-tb-col tb-col-sm">
                                         <span class="tb-product justify-content-center">
                                             <img
-                                                src="{{ asset('storage/'. $personnel->images_personnel) }}"
+                                                src="{{ asset('storage/'. $personnel->images) }}"
                                                 alt="{{ $personnel->firstName }}"
                                                 class="thumb">
                                         </span>
@@ -87,17 +87,17 @@
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
-                                                @permission('gestionnaire-read')
+                                                @can('gestionnaire-read')
                                                     <a href="{{ route('admins.users.staffs.show', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                         <em class="icon ni ni-eye-alt"></em>
                                                     </a>
-                                                @endpermission
-                                                @permission('gestionnaire-update')
+                                                @endcan
+                                                @can('gestionnaire-update')
                                                     <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                         <em class="icon ni ni-edit-alt"></em>
                                                     </a>
-                                                @endpermission
-                                                @permission('gestionnaire-delete')
+                                                @endcan
+                                                @can('gestionnaire-delete')
                                                     <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                         @method('DELETE')
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -105,7 +105,7 @@
                                                             <em class="icon ni ni-trash"></em>
                                                         </button>
                                                     </form>
-                                                @endpermission
+                                                @endcan
                                             </div>
                                         </span>
                                     </td>

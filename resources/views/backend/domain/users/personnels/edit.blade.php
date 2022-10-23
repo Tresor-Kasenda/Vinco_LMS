@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.staffs.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,17 +43,10 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.staffs.update', $employee->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->updateUrl }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         {{ method_field('PUT') }}
                                         <div class="row g-gs">
-                                            @php
-                                                $roles = \App\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable'])
-                                                        ->get();
-                                                $academic = \App\Models\AcademicYear::get();
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
-                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Nom</label>
@@ -63,7 +56,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $employee->username }}"
+                                                            value="{{ old('name') ?? $viewModel->personnel()->username }}"
                                                             placeholder="Enter Name"
                                                             required>
                                                     </div>
@@ -79,7 +72,7 @@
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $employee->email }}"
+                                                            value="{{ old('email') ?? $viewModel->personnel()->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter email"
                                                             required>
@@ -96,7 +89,7 @@
                                                                 class="form-control @error('phones') error @enderror"
                                                                 name="phones"
                                                                 id="phones"
-                                                                value="{{ old('phones') ?? $employee->phones }}"
+                                                                value="{{ old('phones') ?? $viewModel->personnel()->phones }}"
                                                                 placeholder="Enter Phones Number"
                                                                 required>
                                                         </div>
@@ -117,7 +110,7 @@
                                                             data-placeholder="Select Role"
                                                             required>
                                                             <option label="Select Role" value=""></option>
-                                                            @foreach($roles as $role)
+                                                            @foreach($viewModel->roles() as $role)
                                                                 <option value="{{ $role->id }}">
                                                                     {{ ucfirst($role->name) ?? "" }}
                                                                 </option>
@@ -137,12 +130,12 @@
                                                         name="academic"
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
-                                                        <option value="{{ $employee->academic->id }}">
-                                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->start_date)->format('Y') }}
+                                                        <option value="{{ $viewModel->personnel()->academic->id }}">
+                                                            {{  \Carbon\Carbon::createFromFormat('Y-m-d', $viewModel->personnel()->academic->start_date)->format('Y') }}
                                                             -
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->end_date)->format('Y') }}
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d', $viewModel->personnel()->academic->end_date)->format('Y') }}
                                                         </option>
-                                                        @foreach($academic as $campus)
+                                                        @foreach($viewModel->academics() as $campus)
                                                             <option value="{{ $campus->id }}">
                                                                 {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
                                                                 -
@@ -164,10 +157,10 @@
                                                             name="institution"
                                                             data-placeholder="Select a institution"
                                                             required>
-                                                            <option value="{{ $employee->user->institution->id }}">
-                                                                {{ ucfirst($employee->user->institution->institution_name) ?? "" }}
+                                                            <option value="{{ $viewModel->personnel()->user->institution->id }}">
+                                                                {{ ucfirst($viewModel->personnel()->user->institution->institution_name) ?? "" }}
                                                             </option>
-                                                            @foreach($institutions as $institution)
+                                                            @foreach($viewModel->institutions() as $institution)
                                                                 <option value="{{ $institution->id }}">
                                                                     {{ ucfirst($institution->institution_name) }}
                                                                 </option>
