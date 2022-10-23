@@ -18,19 +18,26 @@
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
                     <li>
+                        <span>
+                            <span class="badge bg-outline-primary h6">
+                                session : {{ now()->format('Y') }}
+                            </span>
+                        </span>
+                    </li>
+                    <li>
                         @if(str_contains(Request::route()->getName(), 'communication'))
                             <a href="{{route('admins.backend.home')}}">
                                 <span class="badge bg-primary">
-                                Go To LMS
-                            </span>
-                                        </a>
-                                    @else
-                                        <a href="{{route('admins.communication.calendar.index')}}">
+                                    Go To LMS
+                                </span>
+                            </a>
+                        @else
+                            <a href="{{route('admins.communication.calendar.index')}}">
                                 <span class="badge bg-primary">
                                 Go To Communication
                                 </span>
-                                        </a>
-                                    @endif
+                            </a>
+                        @endif
                     </li>
                     <li class="dropdown notification-dropdown">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">

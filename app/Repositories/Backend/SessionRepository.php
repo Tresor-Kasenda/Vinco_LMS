@@ -6,17 +6,12 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Models\AcademicYear;
-use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class SessionRepository implements AcademicYearRepositoryInterface
 {
-    public function __construct(public ToastMessageService $service)
-    {
-    }
-
     public function getAcademicsYears(): Collection|array
     {
         if (\Auth::user()->hasRole('Super Admin')) {
@@ -41,45 +36,38 @@ final class SessionRepository implements AcademicYearRepositoryInterface
             ->get();
     }
 
-    public function showAcademicYear(string $key): Model|Builder|null
+    public function stored($attributes): Model|Builder
     {
         return AcademicYear::query()
-            ->where('id', '=', $key)
-            ->first();
-    }
-
-    public function stored($attributes, $flash): Model|Builder
-    {
-        $academic = AcademicYear::query()
             ->create([
                 'institution_id' => \Auth::user()->institution->id,
                 'start_date' => $attributes->input('startDate'),
                 'end_date' => $attributes->input('endDate'),
             ]);
-        $this->service->success('Une nouvelle annee a ete ajouter');
-
-        return $academic;
     }
 
-    public function updated(string $key, $attributes, $flash): Model|Builder|null
+    public function updated(int $academic, $attributes): Model|Builder|null
     {
-        $academic = $this->showAcademicYear(key: $key);
-        $academic->update([
+        $session = $this->show(academic: $academic);
+        $session->update([
             'start_date' => $attributes->input('startDate'),
             'end_date' => $attributes->input('endDate'),
         ]);
-        $this->service->success("l'annee academique a ete modifier");
 
-        return $academic;
+        return $session;
     }
 
-    public function deleted(string $key, $flash): Model|Builder|null
+    public function show(int $academic)
     {
-        $academic = $this->showAcademicYear(key: $key);
-        $academic->delete();
+        return AcademicYear::query()
+            ->where('id', '=', $academic)
+            ->first();
+    }
 
-        $this->service->success("l'annee academique a ete supprimer");
-
-        return $academic;
+    public function deleted(int $academic): Model|Builder|null
+    {
+        $session = $this->show(academic: $academic);
+        $session->delete();
+        return $session;
     }
 }

@@ -92,21 +92,19 @@ final class CreateUserCommand extends Command
             ]);
     }
 
-    private function assignRoleToUser()
+    private function assignRoleToUser(): Role
     {
         return Role::where('name', 'Super Admin')->first();
     }
 
-    private function giveRoles(
-        $role,
-        $user,
-        string $name
-    ): void {
+    private function giveRoles($role, $user, string $name): void
+    {
         $permission = Permission::query()
             ->pluck('id', 'id')
             ->all();
         $user->assignRole([$role->id]);
         $role->syncPermissions($permission);
+        $user->syncPermissions($permission);
 
         Setting::query()
             ->create([

@@ -1,6 +1,8 @@
 @extends('backend.layout.base')
 
-@section('title', "Modification de l'annee academique")
+@section('title')
+    Modification de l'annee academique
+@endsection
 
 @section('content')
     <div class="container-fluid">

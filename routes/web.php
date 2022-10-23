@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\AcademicYear\SessionBackendController;
 use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
@@ -41,7 +42,6 @@ use App\Http\Controllers\Backend\PromotionBackendController;
 use App\Http\Controllers\Backend\ResourceBackendController;
 use App\Http\Controllers\Backend\ResultBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
-use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
