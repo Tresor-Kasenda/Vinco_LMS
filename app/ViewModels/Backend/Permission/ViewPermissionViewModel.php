@@ -24,7 +24,7 @@ class ViewPermissionViewModel extends ViewModel
             ->latest()
             ->get([
                 'id',
-                'name'
+                'name',
             ]);
     }
 }
