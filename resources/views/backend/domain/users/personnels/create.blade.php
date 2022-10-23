@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.staffs.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ $viewModel->indexUrl  }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -46,15 +46,6 @@
                                     <form action="{{ route('admins.users.staffs.store') }}" method="post" class="form-validate mt-3" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
-
-                                            @php
-                                                $roles = \App\Models\Role::query()
-                                                        ->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Professeur', 'Comptable'])
-                                                        ->get();
-                                                $academic = \App\Models\AcademicYear::get();
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
-                                            @endphp
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Nom</label>
@@ -101,7 +92,7 @@
                                                             data-placeholder="Select Role"
                                                             required>
                                                             <option label="Select Role" value=""></option>
-                                                            @foreach($roles as $role)
+                                                            @foreach($viewModel->roles() as $role)
                                                                 <option value="{{ $role->id }}">
                                                                     {{ ucfirst($role->name) ?? "" }}
                                                                 </option>
@@ -122,7 +113,7 @@
                                                         data-placeholder="Choisir l'annee academique"
                                                         required>
                                                         <option label="Choisir l'annee academique" value=""></option>
-                                                        @foreach($academic as $campus)
+                                                        @foreach($viewModel->academics() as $campus)
                                                             <option value="{{ $campus->id }}">
                                                                 {{  \Carbon\Carbon::createFromFormat('Y-m-d', $campus->start_date)->format('Y') }}
                                                                 -
@@ -145,7 +136,7 @@
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach($institutions as $institution)
+                                                            @foreach($viewModel->institutions() as $institution)
                                                                 <option value="{{ $institution->id }}">
                                                                     {{ ucfirst($institution->institution_name) }}
                                                                 </option>
