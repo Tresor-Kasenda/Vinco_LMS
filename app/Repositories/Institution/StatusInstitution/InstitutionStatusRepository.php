@@ -17,6 +17,7 @@ class InstitutionStatusRepository
             ->where('id', '=', $request->input('institution'))
             ->first();
         $institution->update(['status' => $request->input('status')]);
+
         return $institution;
     }
 }

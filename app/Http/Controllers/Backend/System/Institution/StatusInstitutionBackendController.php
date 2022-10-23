@@ -19,7 +19,7 @@ class StatusInstitutionBackendController extends Controller
 
         return response()->json([
             'success' => 'Action executez avec success',
-            'institution' => $institution
+            'institution' => $institution,
         ]);
     }
 }

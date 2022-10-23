@@ -46,7 +46,7 @@ final class RoleBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un nouveau role a ete ajouter"
+            'Un nouveau role a ete ajouter'
         );
 
         return redirect()->route('admins.roles.index');
@@ -78,7 +78,7 @@ final class RoleBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un element a ete supprimer"
+            'Un element a ete supprimer'
         );
 
         return back();

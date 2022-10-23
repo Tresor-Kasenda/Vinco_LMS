@@ -17,6 +17,7 @@ class PersonnelStatusRepository
             ->where('id', '=', $request->input('personnel'))
             ->first();
         $admin->update(['status' => $request->input('status')]);
+
         return $admin;
     }
 }

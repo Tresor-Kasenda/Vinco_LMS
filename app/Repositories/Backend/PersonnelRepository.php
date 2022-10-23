@@ -73,6 +73,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             $role = $this->getRole($attributes);
             $user->assignRole([$role->id]);
             $user->givePermissionTo($role->permissions);
+
             return $this->createPersonnel($attributes, $user);
         }
 
@@ -172,6 +173,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         $user->permissions()->detach();
         $personnel->delete();
         $user->delete();
+
         return back();
     }
 }

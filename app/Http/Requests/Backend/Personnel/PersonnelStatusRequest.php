@@ -28,7 +28,7 @@ class PersonnelStatusRequest extends FormRequest
         return [
             'personnel' => [
                 'required',
-                Rule::exists(User::class, 'id')
+                Rule::exists(User::class, 'id'),
             ],
             'status' => [
                 'required',

@@ -46,7 +46,7 @@ final class PersonnelBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un nouveau personnel ajouter"
+            'Un nouveau personnel ajouter'
         );
 
         return to_route('admins.users.staffs.index');
@@ -72,7 +72,7 @@ final class PersonnelBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un personnel a ete modifier"
+            'Un personnel a ete modifier'
         );
 
         return to_route('admins.users.staffs.index');
@@ -84,9 +84,8 @@ final class PersonnelBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un personnel a ete supprimer"
+            'Un personnel a ete supprimer'
         );
-
 
         return back();
     }
