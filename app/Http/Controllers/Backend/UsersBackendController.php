@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\UsersRepositoryInterface;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Services\ToastMessageService;
+use App\ViewModels\Backend\Admin\AdminViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\View;
 
-final class UsersBackendController extends Controller
+final class UsersBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         public UsersRepositoryInterface $repository,
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -31,12 +32,19 @@ final class UsersBackendController extends Controller
 
     public function create(): Factory|\Illuminate\Contracts\View\View|Application
     {
-        return view('backend.domain.users.admin.create');
+        $viewModel = new AdminViewModel();
+
+        return view('backend.domain.users.admin.create', compact('viewModel'));
     }
 
     public function store(UserRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes);
+
+        $this->factory->success(
+            'success',
+            "un admin ajouter avec success"
+        );
 
         return to_route('admins.users.admin.index');
     }
@@ -59,6 +67,11 @@ final class UsersBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
+        $this->factory->success(
+            'success',
+            "un admin modifier avec success"
+        );
+
         return to_route('admins.users.admin.index');
     }
 
@@ -66,18 +79,11 @@ final class UsersBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
+        $this->factory->success(
+            'success',
+            "un admin supprimer avec success"
+        );
+
         return to_route('admins.users.admin.index');
-    }
-
-    public function activate(ConfirmUserRequest $request): JsonResponse
-    {
-        $administrator = $this->repository->changeStatus(attributes: $request);
-        if (! $administrator) {
-            return response()->json(['message' => 'Desoler']);
-        }
-
-        return response()->json([
-            'message' => 'The status has been successfully updated',
-        ]);
     }
 }
