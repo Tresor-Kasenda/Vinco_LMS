@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -79,14 +79,6 @@
                                                 </div>
                                             </div>
 
-                                            @php
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get();
-                                                $roles  = \App\Models\Role::query()
-                                                    ->select(['id', 'name'])
-                                                    ->whereIn('name', ['Admin', 'Super Admin'])
-                                                    ->get();
-                                            @endphp
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="institution">Instituttion</label>
@@ -99,7 +91,7 @@
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach($institutions as $institution)
+                                                            @foreach($viewModel->institutions() as $institution)
                                                                 <option value="{{ $institution->id }}">
                                                                     {{ ucfirst($institution->institution_name) }}
                                                                 </option>
@@ -121,7 +113,7 @@
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach($roles as $role)
+                                                            @foreach($viewModel->roles() as $role)
                                                                 <option value="{{ $role->id }}">
                                                                     {{ ucfirst($role->name) }}
                                                                 </option>

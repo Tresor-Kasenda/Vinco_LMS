@@ -17,22 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('admin-create')
+                                        @can('admin-create')
                                             <li class="nk-block-tools-opt">
                                                 <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                        @endpermission
-                                        @permission('admin-create')
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -94,18 +86,18 @@
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex justify-content-center">
-                                                @permission('admin-read')
+                                                @can('admin-read')
                                                 <a href="{{ route('admins.users.admin.show', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye-alt"></em>
                                                 </a>
-                                                @endpermission
-                                                @permission('admin-update')
+                                                @endcan
+                                                @can('admin-update')
                                                 <a href="{{ route('admins.users.admin.edit', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-edit-alt"></em>
                                                 </a>
-                                                @endpermission
+                                                @endcan
 
-                                                @permission('admin-delete')
+                                                @can('admin-delete')
                                                 <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -113,7 +105,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
-                                                @endpermission
+                                                @endcan
                                             </div>
                                         </span>
                                     </td>
