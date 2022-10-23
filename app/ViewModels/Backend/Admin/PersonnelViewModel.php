@@ -29,6 +29,7 @@ final class PersonnelViewModel extends ViewModel
 
     public function institutions(): array|Collection|\Illuminate\Support\Collection
     {
+
         return \App\Models\Institution::select(['id', 'institution_name'])->get();
     }
 
