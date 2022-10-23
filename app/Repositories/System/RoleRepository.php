@@ -11,7 +11,6 @@ use Spatie\Permission\Models\Role;
 
 final class RoleRepository implements RoleRepositoryInterface
 {
-
     public function stored($attributes): Model|Builder
     {
         $role = Role::query()
@@ -19,6 +18,7 @@ final class RoleRepository implements RoleRepositoryInterface
                 'name' => $attributes->input('name'),
             ]);
         $role->syncPermissions($attributes->input('permission'));
+
         return $role;
     }
 
@@ -29,6 +29,7 @@ final class RoleRepository implements RoleRepositoryInterface
             'name' => $attributes->input('name'),
         ]);
         $roles->syncPermissions($attributes->input('permission'));
+
         return $roles;
     }
 
@@ -44,6 +45,7 @@ final class RoleRepository implements RoleRepositoryInterface
         $roles = $this->showRole($role);
         $roles->permissions()->detach();
         $roles->delete();
+
         return $roles;
     }
 }

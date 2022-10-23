@@ -6,9 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\PersonnelRepositoryInterface;
 use App\Models\Personnel;
-use App\Models\Role;
 use App\Models\User;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
+use Spatie\Permission\Models\Role;
 
 /**
  * class PersonnelRepository.
@@ -26,16 +25,12 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     use ImageUploader;
     use RandomValue;
 
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
-
     public function getPersonnelContent(): Collection|array
     {
         if (auth()->user()->hasRole('Super Admin')) {
             return Personnel::query()
                 ->select([
-                    'images_personnel',
+                    'images',
                     'matriculate',
                     'gender',
                     'username',
@@ -51,7 +46,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
 
         return Personnel::query()
             ->select([
-                'images_personnel',
+                'images',
                 'matriculate',
                 'gender',
                 'username',
@@ -76,13 +71,11 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
         if (! $personnel) {
             $user = $this->storeManger($attributes);
             $role = $this->getRole($attributes);
-            $user->attachRole($role->id);
-            $personnel = $this->createPersonnel($attributes, $user);
-            $this->service->success('Un personnel a ete ajouter');
+            $user->assignRole([$role->id]);
+            $user->givePermissionTo($role->permissions);
 
-            return $personnel;
+            return $this->createPersonnel($attributes, $user);
         }
-        $this->service->error('Email deja utiliser par un autre compte');
 
         return back();
     }
@@ -112,7 +105,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'username' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
-                'images_personnel' => self::uploadFiles($attributes),
+                'images' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
                 'academic_year_id' => $attributes->input('academic'),
@@ -137,8 +130,9 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
             'user_id' => $user->id,
         ]);
 
-        $user->roles()->sync($attributes->input('role'));
-        $this->service->success('Un personnel a ete mise a jours avec succes');
+        $role = $this->getRole($attributes);
+        $user->roles()->sync($role);
+        $user->givePermissionTo($role->permissions);
 
         return $personnel;
     }
@@ -156,7 +150,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'email',
                 'phones',
                 'nationality',
-                'images_personnel',
+                'images',
                 'location',
                 'identityCard',
                 'gender',
@@ -173,20 +167,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
     {
         $personnel = $this->showPersonnelContent(key: $key);
         $personnel->delete();
-        $this->service->error('Personnel modifier avec succes');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $personnel = $this->showPersonnelContent(key: $attributes->input('key'));
-        if ($personnel != null) {
-            return $personnel->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
     }
 }

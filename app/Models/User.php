@@ -68,6 +68,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read Professor|null $teacher
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -95,9 +96,13 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin Eloquent
+ *
  * @property int|null $institution_id
+ *
  * @method static Builder|User whereInstitutionId($value)
+ *
  * @property string|null $description
+ *
  * @method static Builder|User whereDescription($value)
  * @method static Builder|User permission($permissions)
  * @method static Builder|User role($roles, $guard = null)
