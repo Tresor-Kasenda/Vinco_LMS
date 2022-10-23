@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Models\Institution;
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
@@ -26,7 +25,6 @@ final class UserRequest extends FormRequest
                 'string',
                 'email',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                Rule::unique(User::class, 'email'),
             ],
             'role_id' => [
                 'required',

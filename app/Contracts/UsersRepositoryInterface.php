@@ -8,11 +8,11 @@ interface UsersRepositoryInterface
 {
     public function getUsers();
 
-    public function showUser(string $key);
+    public function showUser(string|int $key);
 
     public function stored($attributes);
 
-    public function updated(string $key, $attributes);
+    public function updated(string|int $key, $attributes);
 
-    public function deleted(string $key);
+    public function deleted(string|int $key);
 }

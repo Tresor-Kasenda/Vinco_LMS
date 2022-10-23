@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Backend\AcademicYear\SessionBackendController;
+use App\Http\Controllers\Backend\Admin\AdminStatusBackendController;
 use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
@@ -44,6 +45,7 @@ use App\Http\Controllers\Backend\ResultBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\System\Institution\StatusInstitutionBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
 use App\Http\Controllers\Backend\System\PermissionBackendController;
 use App\Http\Controllers\Backend\System\RoleBackendController;
@@ -74,6 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
 
         Route::resource('institution', InstitutionController::class);
+        Route::post('institution-status', StatusInstitutionBackendController::class);
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
             Route::resource('admin', UsersBackendController::class);
@@ -202,20 +205,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('course/{course}/chapter/{chapter}/deleteChapter/{lessons}', 'destroy')
                 ->name('lessons.remove');
         });
-
-        Route::put('activate/{key}/active', [PersonnelBackendController::class, 'active'])->name('personnel.active');
-        Route::put('changeStatus/{key}/active', [CampusBackendController::class, 'activate'])->name('campus.active');
-        Route::put('activeDepartment/{key}/update', [DepartmentBackendController::class, 'activate'])
-            ->name('department.active');
-        Route::put('activeProfessor/{key}/update', [ProfessorBackendController::class, 'activate'])
-            ->name('teacher.active');
-        Route::put('activeCategory/{key}/update', [CategoryBackendController::class, 'activate'])
-            ->name('categories.active');
-        Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])
-            ->name('administrator.active');
-        Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
-
         Route::resource('permissions', PermissionBackendController::class);
+
+        Route::post('admin-status', AdminStatusBackendController::class)->name('admin.status');
     });
 });
 

@@ -33,16 +33,16 @@
                                             </div>
                                         </li>
                                         <li class="preview-item">
-                                            <a class="btn btn-primary btn-dim btn-sm" href="{{ route('admins.institution.index') }}">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.institution.index') }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
-                                                <span>All Seminars</span>
+                                                <span>All Institution</span>
                                             </a>
                                         </li>
                                         @can('institution-update')
                                             <li class="preview-item">
                                                 <a
                                                     href="{{ route('admins.institution.edit', $institution->id) }}"
-                                                    class="btn btn-dim btn-primary btn-sm">
+                                                    class="btn btn-outline-primary btn-sm">
                                                     <em class="icon ni ni-edit mr-1"></em>
                                                     Editer
                                                 </a>
@@ -58,9 +58,9 @@
                                                 >
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
                                                         <em class="icon ni ni-trash-empty-fill"></em>
-                                                        Delete Seminar
+                                                        Delete Institution
                                                     </button>
                                                 </form>
                                             </li>
@@ -218,7 +218,7 @@
 @section('scripts')
     <script>
 
-        window.changeRoomStatus = async (_this, id) => {
+        let changeRoomStatus = async (_this, id) => {
             const status = $(_this).prop('checked') === true ? 1 : 0;
             let _token = $('meta[name="csrf-token"]').attr('content');
             let data = {
@@ -230,7 +230,7 @@
                 'x-csrf-token': _token,
             }
 
-            await fetch('/admins/seminar-status', {
+            await fetch('/admins/institution-status', {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: headers

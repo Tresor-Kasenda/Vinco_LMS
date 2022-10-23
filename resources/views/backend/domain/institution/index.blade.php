@@ -104,7 +104,7 @@
                                         <a href="{{ route('admins.institution.show', $institution->id) }}"
                                            class="btn btn-dim btn-primary btn-sm" title="">
                                             <em class="icon ni ni-eye-alt-fill"></em>
-                                            <span>Detail seminar</span>
+                                            <span>Detail institution</span>
                                         </a>
                                     </div>
                                     @endcan

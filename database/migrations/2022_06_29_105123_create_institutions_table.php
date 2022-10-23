@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('institution_email')->nullable();
             $table->string('institution_images')->nullable();
             $table->text('institution_description')->nullable();
+            $table->text('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
