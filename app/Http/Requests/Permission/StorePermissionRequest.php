@@ -30,8 +30,8 @@ class StorePermissionRequest extends FormRequest
                 'required',
                 'string',
                 'min:3',
-                'max:255'
-            ]
+                'max:255',
+            ],
         ];
     }
 }

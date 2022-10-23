@@ -46,7 +46,7 @@ final class SessionBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une nouvelle session a ete enregistrer"
+            'Une nouvelle session a ete enregistrer'
         );
 
         return to_route('admins.academic.session.index');
@@ -55,6 +55,7 @@ final class SessionBackendController extends BackendBaseController
     public function edit(int $session): Factory|View|Application
     {
         $academic = $this->repository->show($session);
+
         return view('backend.domain.academic.edit', compact('academic'));
     }
 
@@ -64,7 +65,7 @@ final class SessionBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une session a ete mises a jours"
+            'Une session a ete mises a jours'
         );
 
         return to_route('admins.academic.session.index');
@@ -75,8 +76,9 @@ final class SessionBackendController extends BackendBaseController
         $this->repository->deleted(academic: $academicYear);
         $this->factory->success(
             'success',
-            "Une session a ete supprimer"
+            'Une session a ete supprimer'
         );
+
         return back();
     }
 }

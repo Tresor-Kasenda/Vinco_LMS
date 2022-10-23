@@ -32,19 +32,19 @@ class StoreStudentRequest extends FormRequest
             'institution' => [
                 'required',
                 'integer',
-                Rule::exists(Institution::class, 'id')
+                Rule::exists(Institution::class, 'id'),
             ],
             'firstname' => [
                 'required',
-                'string'
+                'string',
             ],
             'name' => [
                 'required',
-                'string'
+                'string',
             ],
             'lastname' => [
                 'required',
-                'string'
+                'string',
             ],
             'birthdays' => [
                 'required',
@@ -54,7 +54,7 @@ class StoreStudentRequest extends FormRequest
                 'required',
                 'email',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                Rule::unique(Student::class, 'email')
+                Rule::unique(Student::class, 'email'),
             ],
             'country' => [
                 'required',
@@ -63,7 +63,7 @@ class StoreStudentRequest extends FormRequest
             ],
             'town' => [
                 'required',
-                'string'
+                'string',
             ],
             'phone_number' => [
                 'required',

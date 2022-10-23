@@ -71,6 +71,7 @@ final class UsersRepository implements UsersRepositoryInterface
             ]);
         $user->assignRole([$role->id]);
         $user->givePermissionTo($role->permissions);
+
         return $user;
     }
 
@@ -110,6 +111,7 @@ final class UsersRepository implements UsersRepositoryInterface
         $user->roles()->detach();
         $user->permissions()->detach();
         $user->delete();
+
         return $user;
     }
 }

@@ -15,14 +15,14 @@ class PermissionBackendRepository
     {
         return Permission::query()
             ->create([
-                'name' => $request->input('name')
+                'name' => $request->input('name'),
             ]);
     }
 
     public function update(Permission $permission, StorePermissionRequest $request): bool
     {
         return $permission->update([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
         ]);
     }
 

@@ -56,7 +56,7 @@ class StoreStudentNotification extends Notification implements ShouldQueue
     {
         return [
             'name' => $this->student->name,
-            'email' => $this->student->email
+            'email' => $this->student->email,
         ];
     }
 }

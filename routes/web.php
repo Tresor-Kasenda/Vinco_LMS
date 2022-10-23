@@ -219,7 +219,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-
 Route::get('/', HomeFrontendController::class)->name('home.index');
 //create institution
 Route::get('create-institution', CreateInstitutionController::class)->name('institution.create');

@@ -43,7 +43,7 @@ final class UsersBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "un admin ajouter avec success"
+            'un admin ajouter avec success'
         );
 
         return to_route('admins.users.admin.index');
@@ -69,7 +69,7 @@ final class UsersBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "un admin modifier avec success"
+            'un admin modifier avec success'
         );
 
         return to_route('admins.users.admin.index');
@@ -81,7 +81,7 @@ final class UsersBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "un admin supprimer avec success"
+            'un admin supprimer avec success'
         );
 
         return to_route('admins.users.admin.index');

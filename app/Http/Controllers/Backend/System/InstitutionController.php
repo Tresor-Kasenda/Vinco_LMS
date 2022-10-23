@@ -42,7 +42,7 @@ final class InstitutionController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une nouvelle institution a ete ajouter"
+            'Une nouvelle institution a ete ajouter'
         );
 
         return redirect()->route('admins.institution.index');
@@ -68,7 +68,7 @@ final class InstitutionController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une institution a ete modifier"
+            'Une institution a ete modifier'
         );
 
         return redirect()->route('admins.institution.index');
@@ -80,8 +80,9 @@ final class InstitutionController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une institution a ete supprimer"
+            'Une institution a ete supprimer'
         );
+
         return back();
     }
 }

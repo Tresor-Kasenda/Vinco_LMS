@@ -47,6 +47,7 @@ generate: vendor/autoload.php ## Generate Ide models
 .PHONE: pints
 pints: vendor/autoload.php ##  Pints format code
 	./vendor/bin/pint
+	php artisan lint:code
 
 vendor/autoload.php: composer.lock
 	composer install

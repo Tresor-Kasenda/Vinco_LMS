@@ -12,7 +12,7 @@ use Spatie\ViewModels\ViewModel;
 class RoleViewModel extends ViewModel
 {
     public string $createUrl;
-    
+
     public function __construct()
     {
         $this->createUrl = action([RoleBackendController::class, 'create']);
@@ -25,7 +25,7 @@ class RoleViewModel extends ViewModel
             ->orderByDesc('created_at')
             ->get([
                 'id',
-                'name'
+                'name',
             ]);
     }
 }
