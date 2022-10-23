@@ -98,30 +98,16 @@
                                         </span>
                                     </td>
                                 @endif
-                                <td class="nk-tb-col text-center">
-                                    <span class="tb-lead">
-                                        <div class="d-flex justify-content-center">
-                                            @can('institution-read')
-                                                <a href="{{ route('admins.institution.show', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye"></em>
-                                                </a>
-                                            @endcan
-                                            @can('institution-update')
-                                                <a href="{{ route('admins.institution.edit', $institution->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                            @endcan
-                                            @can('institution-delete')
-                                                <form action="{{ route('admins.institution.destroy', $institution->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </span>
+                                <td class="nk-tb-col">
+                                    @can('institution-read')
+                                    <div class="tb-lead justify-content-center">
+                                        <a href="{{ route('admins.institution.show', $institution->id) }}"
+                                           class="btn btn-dim btn-primary btn-sm" title="">
+                                            <em class="icon ni ni-eye-alt-fill"></em>
+                                            <span>Detail institution</span>
+                                        </a>
+                                    </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

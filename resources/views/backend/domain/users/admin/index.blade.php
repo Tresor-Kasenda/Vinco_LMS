@@ -19,7 +19,7 @@
                                     <ul class="nk-block-tools g-3">
                                         @can('admin-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.admin.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
@@ -76,7 +76,7 @@
                                     <td class="nk-tb-col">
                                         <div class="tb-lead d-flex flex-wrap justify-content-center">
                                             @foreach($administrator->roles as $role)
-                                                <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
+                                                <span class="badge bg-outline-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
                                             @endforeach
                                         </div>
                                     </td>
@@ -84,30 +84,15 @@
                                         <span class="tb-lead">{{ ucfirst($administrator->institution->institution_name) ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex justify-content-center">
-                                                @can('admin-read')
-                                                <a href="{{ route('admins.users.admin.show', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye-alt"></em>
+                                        @can('admin-read')
+                                            <div class="tb-lead justify-content-center">
+                                                <a href="{{ route('admins.users.admin.show', $administrator->id) }}"
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail admin</span>
                                                 </a>
-                                                @endcan
-                                                @can('admin-update')
-                                                <a href="{{ route('admins.users.admin.edit', $administrator->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit-alt"></em>
-                                                </a>
-                                                @endcan
-
-                                                @can('admin-delete')
-                                                <form action="{{ route('admins.users.admin.destroy', $administrator->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
-                                                @endcan
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

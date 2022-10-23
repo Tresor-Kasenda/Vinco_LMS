@@ -20,7 +20,8 @@ use LaravelIdea\Helper\App\Models\_IH_User_QB;
 
 final class ProfessorRepository implements ProfessorRepositoryInterface
 {
-    use ImageUploader, RandomValue;
+    use ImageUploader;
+    use RandomValue;
 
     public function __construct(protected ToastMessageService $service)
     {

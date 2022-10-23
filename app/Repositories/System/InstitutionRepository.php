@@ -80,6 +80,8 @@ class InstitutionRepository implements InstitutionRepositoryInterface
                 'institution_email',
                 'institution_images',
                 'institution_description',
+                'created_at',
+                'updated_at',
             ])
             ->whereId($key)
             ->firstOrFail();

@@ -75,7 +75,7 @@ final class UsersRepository implements UsersRepositoryInterface
         return $user;
     }
 
-    public function updated(string $key, $attributes): Model|Builder|User|null
+    public function updated(string|int $key, $attributes): Model|Builder|User|null
     {
         $user = $this->showUser(key: $key);
 
@@ -86,10 +86,16 @@ final class UsersRepository implements UsersRepositoryInterface
             'institution_id' => $attributes->input('institution'),
         ]);
 
+        $role = Role::query()
+            ->where('id', '=', $attributes->input('role_id'))
+            ->first();
+        $user->syncRoles([$role->id]);
+        $user->syncPermissions($role->permissions);
+
         return $user;
     }
 
-    public function showUser(string $key): Model|Builder|User|null
+    public function showUser(string|int $key): Model|Builder|User|null
     {
         $admin = User::query()
             ->select([
@@ -98,6 +104,8 @@ final class UsersRepository implements UsersRepositoryInterface
                 'status',
                 'id',
                 'institution_id',
+                'created_at',
+                'updated_at'
             ])
             ->where('id', '=', $key)
             ->first();
@@ -105,7 +113,7 @@ final class UsersRepository implements UsersRepositoryInterface
         return $admin->load(['institution:id,institution_name,institution_email']);
     }
 
-    public function deleted(string $key): Model|Builder|User|RedirectResponse|null
+    public function deleted(string|int $key): Model|Builder|User|RedirectResponse|null
     {
         $user = $this->showUser(key: $key);
         $user->roles()->detach();

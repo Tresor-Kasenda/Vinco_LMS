@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.admin.index') }}">
+                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.admin.update', $admin->id) }}" method="post" class="form-validate mt-2">
+                                    <form action="{{ $viewModel->updateUrl }}" method="post" class="form-validate mt-2">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -56,7 +56,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $admin->name }}"
+                                                            value="{{ old('name') ?? $viewModel->admin()->name }}"
                                                             placeholder="Enter name"
                                                             required>
                                                     </div>
@@ -72,17 +72,13 @@
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $admin->email }}"
+                                                            value="{{ old('email') ?? $viewModel->admin()->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter email"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            @php
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -95,20 +91,16 @@
                                                             name="institution"
                                                             data-placeholder="Select a role"
                                                             required>
-                                                            <option label="role" value="{{ $admin->institution->id }}">{{ ucfirst($admin->institution->institution_name) }}</option>
-                                                            @foreach($institutions as $institution)
+                                                            <option label="role" value="{{ $viewModel->admin()->institution->id }}">
+                                                                {{ ucfirst($viewModel->admin()->institution->institution_name) }}
+                                                            </option>
+                                                            @foreach($viewModel->institutions() as $institution)
                                                                 <option value="{{ $institution->id }}">{{ ucfirst($institution->institution_name) }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            @php
-                                                $roles  = \App\Models\Role::query()
-                                                    ->whereIn('name', ['Admin', 'Super Admin'])
-                                                    ->get()
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -122,7 +114,7 @@
                                                             data-placeholder="Select a role"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach($roles as $role)
+                                                            @foreach($viewModel->roles() as $role)
                                                                 <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
                                                             @endforeach
                                                         </select>
@@ -146,7 +138,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

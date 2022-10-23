@@ -8,6 +8,7 @@ use App\Contracts\UsersRepositoryInterface;
 use App\Http\Requests\UserRequest;
 use App\Services\ToastMessageService;
 use App\ViewModels\Backend\Admin\AdminViewModel;
+use App\ViewModels\Backend\Admin\EditAdminViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -49,21 +50,21 @@ final class UsersBackendController extends BackendBaseController
         return to_route('admins.users.admin.index');
     }
 
-    public function show(string $key): Renderable
+    public function show(string|int $key): Renderable
     {
         $admin = $this->repository->showUser(key: $key);
 
         return view('backend.domain.users.admin.show', compact('admin'));
     }
 
-    public function edit(string $key): Factory|\Illuminate\Contracts\View\View|Application
+    public function edit(string|int $key): Factory|\Illuminate\Contracts\View\View|Application
     {
-        $admin = $this->repository->showUser(key: $key);
+        $viewModel = new EditAdminViewModel($key);
 
-        return view('backend.domain.users.admin.edit', compact('admin'));
+        return view('backend.domain.users.admin.edit', compact('viewModel'));
     }
 
-    public function update(UserRequest $attributes, string $key): RedirectResponse
+    public function update(UserRequest $attributes, string|int $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
@@ -75,7 +76,7 @@ final class UsersBackendController extends BackendBaseController
         return to_route('admins.users.admin.index');
     }
 
-    public function destroy(string $key): RedirectResponse
+    public function destroy(string|int $key): RedirectResponse
     {
         $this->repository->deleted(key: $key);
 
