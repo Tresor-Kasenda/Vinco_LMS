@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Backend\AcademicYear\SessionBackendController;
 use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
@@ -41,7 +42,6 @@ use App\Http\Controllers\Backend\PromotionBackendController;
 use App\Http\Controllers\Backend\ResourceBackendController;
 use App\Http\Controllers\Backend\ResultBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
-use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
@@ -60,7 +60,7 @@ use App\Http\Controllers\Backend\UsersBackendController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
 use App\Http\Controllers\Frontend\Institution\CreateInstitutionController;
-use App\Http\Controllers\Frontend\Student\StudentFrontendController;
+use App\Http\Controllers\Frontend\Student\CreateStudentFrontendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -225,8 +225,8 @@ Route::get('/', HomeFrontendController::class)->name('home.index');
 Route::get('create-institution', CreateInstitutionController::class)->name('institution.create');
 Route::post('create-institution', [CreateInstitutionController::class, 'storeInstitution'])->name('institution.store');
 // create student
-Route::get('create-student', StudentFrontendController::class)->name('student.create');
-Route::post('create-student', [StudentFrontendController::class, 'storeStudent'])->name('student.store');
+Route::get('create-student', CreateStudentFrontendController::class)->name('student.create');
+Route::post('create-student', [CreateStudentFrontendController::class, 'storeStudent'])->name('student.store');
 
 Route::get('video-conference-room', [ChatsController::class, 'index'])->name('room.conference');
 
