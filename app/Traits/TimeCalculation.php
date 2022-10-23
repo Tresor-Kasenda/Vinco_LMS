@@ -10,7 +10,7 @@ trait TimeCalculation
     {
         $dateOld = $attributes->input('date');
         $time = $attributes->input('startTime');
-        $currentTime = strtotime(''.$dateOld.' '.$time.'');
+        $currentTime = strtotime('' . $dateOld . ' ' . $time . '');
         $hoursToAdd = -2;
         $secondsToAdd = $hoursToAdd * (60 * 60);
         $newTime = $currentTime + $secondsToAdd;

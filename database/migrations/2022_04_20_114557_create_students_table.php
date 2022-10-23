@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Enums\StatusEnum;
 use App\Models\Department;
 use App\Models\Promotion;
 use App\Models\Subsidiary;
@@ -49,7 +48,7 @@ return new class extends Migration
             $table->string('parent_phone')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->string('address')->nullable();
-            $table->boolean('status')->default(StatusEnum::FALSE);
+            $table->date('admission_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

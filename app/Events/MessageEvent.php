@@ -10,7 +10,9 @@ use Illuminate\Queue\SerializesModels;
 
 final class MessageEvent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public function __construct(
         public $message

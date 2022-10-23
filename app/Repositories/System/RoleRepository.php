@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repositories\System;
 
 use App\Contracts\RoleRepositoryInterface;
-use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role;
 
 final class RoleRepository implements RoleRepositoryInterface
 {
@@ -24,51 +24,39 @@ final class RoleRepository implements RoleRepositoryInterface
             ->get();
     }
 
-    public function stored($attributes, $flash): Model|Builder
+    public function stored($attributes): Model|Builder
     {
         $role = Role::query()
             ->create([
                 'name' => $attributes->input('name'),
             ]);
-        $role->permissions()->sync($attributes->input('permission'));
-
-        $flash->addSuccess('New role as added with successfully');
-
+        $role->givePermissionTo($attributes->input('permission'));
         return $role;
     }
 
-    public function updated(int $key, $attributes, $flash): Model|Builder
+    public function updated($role, $attributes): Model|Builder
     {
-        $role = $this->showRole(key: $key);
-        $role->update([
+        $roles = $this->showRole($role);
+
+        $roles->update([
             'name' => $attributes->input('name'),
         ]);
-
-        $role->permissions()->sync($attributes->input('permission'));
-
-        $flash->addSuccess('New role as updated with successfully');
-
-        return $role;
+        $roles->syncPermissions($attributes->input('permission'));
+        return $roles;
     }
 
-    public function showRole(int $key): Model|Builder
+    public function showRole($role): Model|Builder|null
     {
         return Role::query()
-            ->select([
-                'id',
-                'name',
-            ])
-            ->where('id', '=', $key)
-            ->firstOrFail();
+            ->where('id', '=', $role)
+            ->first();
     }
 
-    public function deleted(int $key, $flash): Model|Builder
+    public function deleted($role): Model|Builder
     {
-        $role = $this->showRole(key: $key);
-        $role->delete();
-        $role->permissions()->detach();
-        $flash->addSuccess('New role as deleted with successfully');
-
-        return $role;
+        $roles = $this->showRole($role);
+        $roles->delete();
+        $roles->permissions()->detach();
+        return $roles;
     }
 }

@@ -8,11 +8,11 @@ interface AcademicYearRepositoryInterface
 {
     public function getAcademicsYears();
 
-    public function showAcademicYear(string $key);
+    public function stored($attributes);
 
-    public function stored($attributes, $flash);
+    public function show(int $academic);
 
-    public function updated(string $key, $attributes, $flash);
+    public function updated(int $academic, $attributes);
 
-    public function deleted(string $key, $flash);
+    public function deleted(int $academic);
 }

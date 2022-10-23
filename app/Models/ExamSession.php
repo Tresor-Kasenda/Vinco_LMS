@@ -25,7 +25,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Exam[] $exam
  * @property-read int|null $exam_count
- *
  * @method static Builder|ExamSession newModelQuery()
  * @method static Builder|ExamSession newQuery()
  * @method static Builder|ExamSession query()
@@ -37,12 +36,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ExamSession whereStartDate($value)
  * @method static Builder|ExamSession whereUpdatedAt($value)
  * @mixin Eloquent
- *
  * @method static \Database\Factories\ExamSessionFactory factory(...$parameters)
- *
  * @property int $institution_id
  * @property-read \App\Models\Institution $institution
- *
  * @method static Builder|ExamSession whereInstitutionId($value)
  */
 final class ExamSession extends Model

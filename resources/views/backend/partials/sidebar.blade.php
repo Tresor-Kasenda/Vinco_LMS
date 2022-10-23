@@ -774,6 +774,11 @@
                             </ul>
                         </li>
                         @include('backend.components._link', [
+                            'route' => route('admins.permissions.index'),
+                            'name' => "Permission",
+                            'icon' => "ni-shield-star"
+                        ])
+                        @include('backend.components._link', [
                             'route' => route('admins.roles.index'),
                             'name' => "Role",
                             'icon' => "ni-lock-alt"

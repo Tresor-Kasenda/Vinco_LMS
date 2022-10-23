@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
 
 final class UpdateInstitutionRequest extends FormRequest
 {
@@ -23,8 +21,6 @@ final class UpdateInstitutionRequest extends FormRequest
 
     public function authorize(): bool
     {
-        abort_if(Gate::allows('institution-update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
     }
 }

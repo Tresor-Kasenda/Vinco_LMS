@@ -5,22 +5,24 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\PersonnelRepositoryInterface;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmPersonnelRequest;
 use App\Http\Requests\PersonnelRequest;
 use App\Http\Requests\UpdatePersonnelRequest;
+use App\Services\ToastMessageService;
+use App\ViewModels\Backend\Admin\EditPersonnelViewModel;
+use App\ViewModels\Backend\Admin\PersonnelViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-final class PersonnelBackendController extends Controller
+final class PersonnelBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         private readonly PersonnelRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -32,12 +34,19 @@ final class PersonnelBackendController extends Controller
 
     public function create(): Renderable
     {
-        return view('backend.domain.users.personnels.create');
+        $viewModel = new PersonnelViewModel();
+
+        return view('backend.domain.users.personnels.create', compact('viewModel'));
     }
 
     public function store(PersonnelRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes);
+
+        $this->factory->success(
+            'success',
+            "Un nouveau personnel ajouter"
+        );
 
         return to_route('admins.users.staffs.index');
     }
@@ -49,16 +58,21 @@ final class PersonnelBackendController extends Controller
         return view('backend.domain.users.personnels.show', compact('employee'));
     }
 
-    public function edit(string $key): Factory|View|Application
+    public function edit(int $key): Factory|View|Application
     {
-        $employee = $this->repository->showPersonnelContent(key:  $key);
+        $viewModel = new EditPersonnelViewModel($key);
 
-        return view('backend.domain.users.personnels.edit', compact('employee'));
+        return view('backend.domain.users.personnels.edit', compact('viewModel'));
     }
 
     public function update(UpdatePersonnelRequest $attributes, string $key): RedirectResponse
     {
         $this->repository->updated(key: $key, attributes: $attributes);
+
+        $this->factory->success(
+            'success',
+            "Un personnel a ete modifier"
+        );
 
         return to_route('admins.users.staffs.index');
     }
@@ -67,20 +81,12 @@ final class PersonnelBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
+        $this->factory->success(
+            'success',
+            "Un personnel a ete supprimer"
+        );
+
+
         return back();
-    }
-
-    public function active(ConfirmPersonnelRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
     }
 }

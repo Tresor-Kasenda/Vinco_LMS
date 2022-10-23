@@ -5,22 +5,24 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend\System;
 
 use App\Contracts\RoleRepositoryInterface;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\RoleRequest;
-use App\Models\Permission;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-final class RoleBackendController extends Controller
+final class RoleBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly RoleRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -39,31 +41,45 @@ final class RoleBackendController extends Controller
 
     public function store(RoleRequest $request): RedirectResponse
     {
-        $this->repository->stored(attributes: $request, flash: $this->factory);
+        $this->repository->stored(attributes: $request);
+
+        $this->factory->success(
+            'success',
+            "Un nouveau role a ete ajouter"
+        );
 
         return redirect()->route('admins.roles.index');
     }
 
-    public function edit(int $id): Factory|View|Application
+    public function edit(Role $role): Factory|View|Application
     {
-        $role = $this->repository->showRole(key: $id);
         $roleHasPermissions = $role->permissions->pluck('id')->toArray();
         $permissions = Permission::query()->get();
 
         return view('backend.domain.roles.edit', compact('role', 'permissions', 'roleHasPermissions'));
     }
 
-    public function update(int $id, RoleRequest $request): RedirectResponse
+    public function update($role, RoleRequest $request): RedirectResponse
     {
-        $this->repository->updated(key: $id, attributes: $request, flash: $this->factory);
+        $this->repository->updated(role: $role, attributes: $request);
+
+        $this->factory->success(
+            'success',
+            'Votre mise a jours ete effectuer avec success'
+        );
 
         return redirect()->route('admins.roles.index');
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function destroy($role): RedirectResponse
     {
-        $this->repository->deleted(key: $id, flash: $this->factory);
+        $this->repository->deleted(role: $role);
 
-        return back()->with('success', 'The role has remove with successfull');
+        $this->factory->success(
+            'success',
+            "Un element a ete supprimer"
+        );
+
+        return back();
     }
 }

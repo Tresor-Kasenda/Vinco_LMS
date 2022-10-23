@@ -11,7 +11,7 @@ final class CalendarService
     public function generateCalendarData($weekDays): array
     {
         $calendarData = [];
-        $timeRange = (new TimeService)->generateTimeRange(
+        $timeRange = (new TimeService())->generateTimeRange(
             config('app.calendar.start_time'),
             config('app.calendar.end_time')
         );
@@ -20,7 +20,7 @@ final class CalendarService
             ->get();
 
         foreach ($timeRange as $time) {
-            $timeText = $time['start'].' - '.$time['end'];
+            $timeText = $time['start'] . ' - ' . $time['end'];
             $calendarData[$timeText] = [];
 
             foreach ($weekDays as $index => $day) {
@@ -32,7 +32,8 @@ final class CalendarService
                         'teacher_name' => $lesson->teacher->name,
                         'rowspan' => $lesson->difference / 30 ?? '',
                     ];
-                } elseif (! $lessons->where('weekday', $index)
+                } elseif (
+                    ! $lessons->where('weekday', $index)
                     ->where('start_time', '<', $time['start'])
                     ->where('end_time', '>=', $time['end'])
                     ->count()

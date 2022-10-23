@@ -16,7 +16,6 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->date('admission_date')->nullable();
         });
     }
 

@@ -10,7 +10,8 @@ use Illuminate\Queue\SerializesModels;
 
 class RoomNotificationMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(public $roomId, public $date, public $startTime, public $endTime)
     {

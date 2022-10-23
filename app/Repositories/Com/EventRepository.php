@@ -28,8 +28,8 @@ final class EventRepository implements EventRepositoryInterface
             $calendar[] = Calendar::event(
                 ucfirst((string) $event->title),
                 true,
-                new $event->start_date,
-                new $event->end_date,
+                new $event->start_date(),
+                new $event->end_date(),
                 $event->id
             );
         }

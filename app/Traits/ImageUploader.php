@@ -12,7 +12,7 @@ trait ImageUploader
 {
     public static function uploadFiles(Request $request): string
     {
-        if($request->file('images') === null){
+        if ($request->file('images') === null) {
             return '';
         } else {
             return $request->file('images')

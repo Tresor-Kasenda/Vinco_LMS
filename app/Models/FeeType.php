@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Fee[] $feeType
  * @property-read int|null $fee_type_count
- *
  * @method static Builder|FeeType newModelQuery()
  * @method static Builder|FeeType newQuery()
  * @method static Builder|FeeType query()
@@ -32,10 +31,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|FeeType whereName($value)
  * @method static Builder|FeeType whereUpdatedAt($value)
  * @mixin \Eloquent
- *
  * @property int $institution_id
  * @property-read \App\Models\Institution $institution
- *
  * @method static Builder|FeeType whereInstitutionId($value)
  */
 final class FeeType extends Model

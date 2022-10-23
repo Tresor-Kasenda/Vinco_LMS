@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Lesson $lesson
- *
  * @method static Builder|VideoLesson newModelQuery()
  * @method static Builder|VideoLesson newQuery()
  * @method static \Illuminate\Database\Query\Builder|VideoLesson onlyTrashed()
@@ -39,7 +38,8 @@ use Illuminate\Support\Carbon;
  */
 final class VideoLesson extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'video_lessons';
 

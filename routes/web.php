@@ -45,6 +45,7 @@ use App\Http\Controllers\Backend\SessionBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
+use App\Http\Controllers\Backend\System\PermissionBackendController;
 use App\Http\Controllers\Backend\System\RoleBackendController;
 use App\Http\Controllers\Backend\TrashedCampusBackendController;
 use App\Http\Controllers\Backend\TrashedCategoryBackendController;
@@ -56,13 +57,10 @@ use App\Http\Controllers\Backend\TrashedPersonnelBackendController;
 use App\Http\Controllers\Backend\TrashedProfessorBackendController;
 use App\Http\Controllers\Backend\TrashedUsersBackendController;
 use App\Http\Controllers\Backend\UsersBackendController;
-use App\Http\Controllers\Frontend\AboutAppController;
-use App\Http\Controllers\Frontend\CalendarAppController;
-use App\Http\Controllers\Frontend\EventAppController;
-use App\Http\Controllers\Frontend\FeesAppController;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\Frontend\HomeFrontendController;
-use App\Http\Controllers\Frontend\LibraryAppController;
-use App\Http\Controllers\Frontend\ShortCoursesAppController;
+use App\Http\Controllers\Frontend\Institution\CreateInstitutionController;
+use App\Http\Controllers\Frontend\Student\StudentFrontendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -134,7 +132,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'accounting', 'as' => 'accounting.'], routes: function () {
             Route::resource('fees', FeesBackendController::class);
-            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])->name('promotion-fee-json');
+            Route::get('promotion-fee-json', [PromotionFeeApiController::class, 'getPromotions'])
+                ->name('promotion-fee-json');
         });
 
         Route::group(['prefix' => 'rooms', 'as' => 'rooms.'], function () {
@@ -215,21 +214,21 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('activeUsers/{key}/update', [UsersBackendController::class, 'activate'])
             ->name('administrator.active');
         Route::put('activeCourse/{key}/update', [CourseBackendController::class, 'activate'])->name('course.active');
+
+        Route::resource('permissions', PermissionBackendController::class);
     });
 });
 
-Route::get('/', [HomeFrontendController::class, 'index'])->name('home.index');
-Route::get('institutionRegister', [HomeFrontendController::class, 'register'])->name('home.institution.register');
-Route::post('institionStore', [HomeFrontendController::class, 'store'])->name('home.institution.store');
-Route::get('studentRegister', [HomeFrontendController::class, 'registerStudent'])->name('home.student.register');
-Route::post('studentStore', [HomeFrontendController::class, 'storeStudent'])->name('home.student.store');
-Route::get('about', [AboutAppController::class, 'index'])->name('about.index');
-Route::get('short-courses', [ShortCoursesAppController::class, 'index'])->name('courses.index');
-Route::get('calendar', [CalendarAppController::class, 'index'])->name('calendar.index');
-Route::get('fees', [FeesAppController::class, 'index'])->name('fees.index');
-Route::get('events', [EventAppController::class, 'index'])->name('events.index');
-Route::get('library', [LibraryAppController::class, 'index'])->name('library.index');
-Route::get('video-conference-room', [\App\Http\Controllers\ChatsController::class, 'index'])->name('room.conference');
+
+Route::get('/', HomeFrontendController::class)->name('home.index');
+//create institution
+Route::get('create-institution', CreateInstitutionController::class)->name('institution.create');
+Route::post('create-institution', [CreateInstitutionController::class, 'storeInstitution'])->name('institution.store');
+// create student
+Route::get('create-student', StudentFrontendController::class)->name('student.create');
+Route::post('create-student', [StudentFrontendController::class, 'storeStudent'])->name('student.store');
+
+Route::get('video-conference-room', [ChatsController::class, 'index'])->name('room.conference');
 
 //Add chat group test
 Route::get('/group/create', [GroupController::class, 'create_form']);

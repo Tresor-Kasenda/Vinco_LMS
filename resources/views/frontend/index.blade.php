@@ -85,7 +85,7 @@
                     <div class="me-3">
                         <div class="dropdown">
                             <a class="btn btn-light"
-                               href="{{route('home.institution.register')}}"
+                               href="{{route('institution.create')}}"
                                     type="button" >
                                 Créer une institution
                             </a>
@@ -93,32 +93,48 @@
                     </div>
                     <div class="me-3">
                         <div class="dropdown">
-                            <button class="btn btn-light dropdown-toggle"
-                                    type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button
+                                class="btn btn-light dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton2"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 Inscription
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item"
-                                       href="{{route('home.student.register', ['institution_id'=>1])}}"
-                                    >Vinco Education</a></li>
-                                <li><a class="dropdown-item"
-                                       data-bs-toggle="modal" data-bs-target="#institutionModalRegister"
-                                    >Choisir une institution</a></li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                       href="{{route('student.create', ['institution_id'=>1])}}"
+                                    >Vinco Education</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#institutionModalRegister"
+                                    >Choisir une institution</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle"
-                                type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button
+                            class="btn btn-light dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Connexion
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                             <li><a class="dropdown-item" href="{{route('login')}}">Vinco Education</a></li>
-                            <li><a class="dropdown-item"
-                                   data-bs-toggle="modal" data-bs-target="#institutionModalLogin"
-                                >
-                                    Choisir votre institution
-                                </a></li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#institutionModalLogin"
+                                >Choisir votre institution</a>
+                            </li>
                         </ul>
                     </div>
                 @endif
@@ -149,7 +165,6 @@
 
     @auth
     @else
-        <!-- Modal -->
         <div class="modal fade" id="institutionModalLogin" tabindex="-1" aria-labelledby="institutionModalLoginLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark">
@@ -179,7 +194,6 @@
             </div>
         </div>
 
-        <!-- Modal -->
         <div class="modal fade" id="institutionModalRegister" tabindex="-1"
              aria-labelledby="institutionModalRegisterLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -192,7 +206,7 @@
                         @forelse(\App\Models\Institution::all() as $institution)
                             <div class="row m-2">
                                 <a type="button" class="btn btn-outline-light"
-                                   href="{{route('home.student.register', ['institution_id'=>$institution->id])}}">
+                                   href="{{route('student.create', ['institution_id'=>$institution->id])}}">
                                     {{$institution->institution_name}} / {{$institution->institution_town}} / {{$institution->institution_country}}
                                 </a>
                             </div>
