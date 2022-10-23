@@ -30,7 +30,7 @@ class InstitutionStatusRequest extends FormRequest
         return [
             'institution' => [
                 'required',
-                Rule::exists(Institution::class, 'id')
+                Rule::exists(Institution::class, 'id'),
             ],
             'status' => [
                 'required',

@@ -30,7 +30,7 @@ class AdminStatusRequest extends FormRequest
         return [
             'admin' => [
                 'required',
-                Rule::exists(User::class, 'id')
+                Rule::exists(User::class, 'id'),
             ],
             'status' => [
                 'required',

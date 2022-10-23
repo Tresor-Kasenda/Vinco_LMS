@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static Builder|Setting newModelQuery()
  * @method static Builder|Setting newQuery()
  * @method static \Illuminate\Database\Query\Builder|Setting onlyTrashed()

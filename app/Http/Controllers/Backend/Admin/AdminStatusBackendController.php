@@ -19,7 +19,7 @@ class AdminStatusBackendController extends Controller
 
         return response()->json([
             'success' => 'Action executez avec success',
-            'admin' => $admin
+            'admin' => $admin,
         ]);
     }
 }

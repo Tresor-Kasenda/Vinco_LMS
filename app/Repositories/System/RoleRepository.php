@@ -31,6 +31,7 @@ final class RoleRepository implements RoleRepositoryInterface
                 'name' => $attributes->input('name'),
             ]);
         $role->givePermissionTo($attributes->input('permission'));
+
         return $role;
     }
 
@@ -42,6 +43,7 @@ final class RoleRepository implements RoleRepositoryInterface
             'name' => $attributes->input('name'),
         ]);
         $roles->syncPermissions($attributes->input('permission'));
+
         return $roles;
     }
 
@@ -57,6 +59,7 @@ final class RoleRepository implements RoleRepositoryInterface
         $roles = $this->showRole($role);
         $roles->delete();
         $roles->permissions()->detach();
+
         return $roles;
     }
 }

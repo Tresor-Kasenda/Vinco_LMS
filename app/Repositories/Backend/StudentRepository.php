@@ -35,7 +35,6 @@ final class StudentRepository implements StudentRepositoryInterface
 
     public function students(): array|Collection
     {
-
         if (auth()->user()->hasRole('Super Admin')) {
             return Student::query()
                 ->select([

@@ -26,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $categories_count
  * @property-read Collection|AcademicYear[] $personnel
  * @property-read int|null $personnel_count
+ *
  * @method static Builder|AcademicYear newModelQuery()
  * @method static Builder|AcademicYear newQuery()
  * @method static Builder|AcademicYear query()
@@ -35,9 +36,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AcademicYear whereStartDate($value)
  * @method static Builder|AcademicYear whereUpdatedAt($value)
  * @mixin Eloquent
+ *
  * @property int $institution_id
+ *
  * @method static AcademicYearFactory factory(...$parameters)
  * @method static Builder|AcademicYear whereInstitutionId($value)
+ *
  * @property-read \App\Models\Institution $institution
  */
 final class AcademicYear extends Model

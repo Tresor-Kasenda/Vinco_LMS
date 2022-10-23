@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\RoomMessage
  *
  * @property-read \App\Models\Room|null $room
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|RoomMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RoomMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|RoomMessage query()

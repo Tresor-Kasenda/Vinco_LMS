@@ -17,6 +17,7 @@ use Spatie\ViewModels\ViewModel;
 class EditAdminViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $updateUrl;
 
     public function __construct(

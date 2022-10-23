@@ -105,7 +105,7 @@ final class UsersRepository implements UsersRepositoryInterface
                 'id',
                 'institution_id',
                 'created_at',
-                'updated_at'
+                'updated_at',
             ])
             ->where('id', '=', $key)
             ->first();
