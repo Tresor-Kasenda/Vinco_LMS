@@ -17,22 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('student-create')
+                                        @can('professor-create')
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm"
-                                               href="{{ route('admins.users.teacher.create') }}">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->createUrl }}">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Create</span>
                                             </a>
                                         </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm"
-                                               href="{{ route('admins.teacher.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -43,6 +35,9 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
+                            <th class="nk-tb-col tb-col-sm">
+                                <span>ID</span>
+                            </th>
                             <th class="nk-tb-col tb-col-sm">
                                 <span>IMAGES</span>
                             </th>
@@ -59,7 +54,7 @@
                                 <span>Phones</span>
                             </th>
                             <th class="nk-tb-col">
-                                <span>Institutio</span>
+                                <span>Institution</span>
                             </th>
                             <th class="nk-tb-col tb-col-md">
                                 <span>ACTION</span>
@@ -67,8 +62,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($teachers as $teacher)
+                        @foreach($viewModel->professors() as $teacher)
                             <tr class="nk-tb-item text-center">
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $teacher->id ?? "" }}</span>
+                                </td>
                                 <td class="nk-tb-col tb-col-sm">
                                     <span class="tb-product">
                                         <img
@@ -98,31 +96,15 @@
                                     @endif
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        <div class="d-flex justify-content-center">
+                                    @can('professor-view')
+                                        <div class="tb-lead justify-content-center">
                                             <a href="{{ route('admins.users.teacher.show', $teacher->id) }}"
-                                               class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-eye-alt"></em>
+                                               class="btn btn-outline-primary btn-sm" title="">
+                                                <em class="icon ni ni-eye-alt-fill"></em>
+                                                <span>Detail Professeur</span>
                                             </a>
-                                            @permission('student-update')
-                                            <a href="{{ route('admins.users.teacher.edit', $teacher->id) }}"
-                                               class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-edit-alt"></em>
-                                            </a>
-                                            @endpermission
-
-                                            @permission('student-delete')
-                                            <form action="{{ route('admins.users.teacher.destroy', $teacher->id) }}"
-                                                  method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                @method('DELETE')
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                    <em class="icon ni ni-trash"></em>
-                                                </button>
-                                            </form>
-                                            @endpermission
                                         </div>
-                                    </span>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

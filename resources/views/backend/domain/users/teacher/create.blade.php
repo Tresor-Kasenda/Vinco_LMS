@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.teacher.index') }}">
+                                            <a class="btn btn-outline-primary d-none d-md-inline-flex" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,12 +43,9 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.teacher.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->storeUrl }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
-                                            @php
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
-                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -130,7 +127,7 @@
                                                                 data-placeholder="Select a institution"
                                                                 required>
                                                                 <option label="institution" value=""></option>
-                                                                @foreach($institutions as $institution)
+                                                                @foreach($viewModel->institutions() as $institution)
                                                                     <option value="{{ $institution->id }}">
                                                                         {{ ucfirst($institution->institution_name) }}
                                                                     </option>

@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.teacher.index') }}">
+                                            <a class="btn btn-outline-primary d-none d-md-inline-flex" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,13 +43,10 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.teacher.update', $teacher->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->updateUrl }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
-                                            @php
-                                                $institutions = \App\Models\Institution::select(['id', 'institution_name'])->get()
-                                            @endphp
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="name">Votre nom</label>
@@ -59,7 +56,7 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $teacher->username }}"
+                                                            value="{{ old('name') ?? $viewModel->professor()->username }}"
                                                             placeholder="Enter Name"
                                                             required>
                                                     </div>
@@ -75,7 +72,7 @@
                                                             class="form-control @error('lastname') error @enderror"
                                                             id="lastname"
                                                             name="lastname"
-                                                            value="{{ old('lastname') ?? $teacher->lastname }}"
+                                                            value="{{ old('lastname') ?? $viewModel->professor()->lastname }}"
                                                             placeholder="Enter Lastname"
                                                             required>
                                                     </div>
@@ -91,7 +88,7 @@
                                                             class="form-control @error('email') error @enderror"
                                                             id="email"
                                                             name="email"
-                                                            value="{{ old('email') ?? $teacher->email }}"
+                                                            value="{{ old('email') ?? $viewModel->professor()->email }}"
                                                             pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
                                                             placeholder="Enter Email"
                                                             required>
@@ -109,7 +106,7 @@
                                                                 class="form-control @error('phones') error @enderror"
                                                                 name="phones"
                                                                 id="phones"
-                                                                value="{{ old('phones') ?? $teacher->phones }}"
+                                                                value="{{ old('phones') ?? $viewModel->professor()->phones }}"
                                                                 placeholder="Enter Phones"
                                                                 required>
                                                         </div>
@@ -129,10 +126,7 @@
                                                                 name="institution"
                                                                 data-placeholder="Select a institution"
                                                                 required>
-                                                                <option value="{{ $teacher->user->institution->id }}">
-                                                                    {{ ucfirst($teacher->user->institution->institution_name) }}
-                                                                </option>
-                                                                @foreach($institutions as $institution)
+                                                                @foreach($viewModel->institution() as $institution)
                                                                     <option value="{{ $institution->id }}">
                                                                         {{ ucfirst($institution->institution_name) }}
                                                                     </option>

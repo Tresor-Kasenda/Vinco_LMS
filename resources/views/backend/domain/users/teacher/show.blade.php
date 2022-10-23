@@ -19,13 +19,52 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex"
-                                               href="{{ route('admins.users.teacher.index') }}">
-                                                <em class="icon ni ni-arrow-left"></em>
-                                                <span>Back</span>
+                                        <li class="preview-item">
+                                            <div class="custom-control custom-control-md custom-switch">
+                                                <input
+                                                    type="checkbox"
+                                                    class="custom-control-input"
+                                                    name="activated"
+                                                    data-id="{{ $viewModel->professor()->user_id }}"
+                                                    {{ $viewModel->user()->status ? "checked" : "" }}
+                                                    onclick="changeProfessorStatus(event.target, {{ $viewModel->professor()->user_id }});"
+                                                    id="activated">
+                                                <label class="custom-control-label" for="activated"></label>
+                                            </div>
+                                        </li>
+                                        <li class="preview-item">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
+                                                <em class="icon ni ni-arrow-long-left"></em>
+                                                <span>Touts les professeurs</span>
                                             </a>
                                         </li>
+                                        @can('admin-update')
+                                            <li class="preview-item">
+                                                <a
+                                                    href="{{ $viewModel->editUrl }}"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                    <em class="icon ni ni-edit mr-1"></em>
+                                                    Editer
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('admin-delete')
+                                            <li class="preview-item">
+                                                <form
+                                                    action="{{ $viewModel->deleteUrl }}"
+                                                    method="POST"
+                                                    class="d-inline-block"
+                                                    onsubmit="return confirm('Are you sure you want to delete this item?');"
+                                                >
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        <em class="icon ni ni-trash-empty-fill"></em>
+                                                        Delete le professeur
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -33,110 +72,158 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body border-bottom py-3">
-                                    <div class="text-center">
-                                        <img
-                                            @if($teacher->images)
-                                                src="{{ asset('storage/'.$teacher->images) }}"
-                                            @else
-                                                src="{{ asset('assets/admins/images/man.webp') }}"
-                                            @endif
-                                            title="{{ $teacher->username }}"
-                                            class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
-                                        >
+                    <div class="nk-block nk-block-lg">
+                        <div class="card card-preview">
+                            <div class="card-body border-bottom">
+                                <div class="text-center">
+                                    <img
+                                        @if($viewModel->professor()->images)
+                                            src="{{ asset('storage/'.$viewModel->professor()->images) }}"
+                                        @else
+                                            src="{{ asset('assets/admins/images/man.webp') }}"
+                                        @endif
+                                        title="{{ $viewModel->professor()->username }}"
+                                        style="object-fit: contain"
+                                        class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
+                                    >
+                                </div>
+                            </div>
+                            <div class="card-inner">
+                                <div class="nk-block">
+                                    <div class="nk-block-head">
+                                        <span class="title">Information du professeur</span>
                                     </div>
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <th>Name</th>
-                                            <td>{{ ucfirst($teacher->username) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Firstname</th>
-                                            <td>{{ ucfirst($teacher->fristname) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Last-Name</th>
-                                            <td>{{ ucfirst($teacher->lastname) ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Matricule</th>
-                                            <td>{{ $teacher->matriculate ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Institution</th>
-                                            <td>
-                                                {{ ucfirst($teacher->user->institution->institution_name) ?? "" }} <br>
-                                                {{ $teacher->user->institution->institution_email ?? "" }}
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Nom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->professor()->username)  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Post-nom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->professor()->firstname)  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Prenom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->professor()->lastname)  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Matricule</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->matriculate  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Email</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->email  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ $teacher->email ?? "" }}</td>
-                                        </tr>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">N° Telephone</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->phones  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Pays d'origine</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->nationality  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                        <tr>
-                                            <th>Liste des cours</th>
-                                            @if($teacher->courses)
-                                                <td>
-                                                    <ul class="link-list-opt">
-                                                        @foreach($teacher->courses as $course)
-                                                            <li>
-                                                                <a href="{{ route('admins.academic.course.show', $course->id) }}">
-                                                                    <em class="icon ni ni-book-read"></em>
-                                                                    <span>{{ ucfirst($course->name) ?? "" }}</span>
-                                                                </a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </td>
-                                            @endif
-                                        </tr>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Ville</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->location  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                        <tr class="text-justify">
-                                            <th>Phones</th>
-                                            <td>{{ $teacher->phones ?? "" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Genre</th>
-                                            <td>
-                                                @if($teacher->gender == 'male')
-                                                    MASCULIN
-                                                @else
-                                                    FEMININ
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Address</th>
-                                            <td>
-                                                {{ $teacher->location ?? "" }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Nationalite</th>
-                                            <td>
-                                                {{ $teacher->nationality ?? "" }}
-                                            </td>
-                                        </tr>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Date Naissance</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->birthdays  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                        <tr class="text-justify">
-                                            <th>Roles</th>
-                                            <td>
-                                                <div class="tb-lead d-flex flex-wrap">
-                                                    @foreach($teacher->user->roles as $role)
-                                                        <span
-                                                            class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
-                                                    @endforeach
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Genre</span>
+                                                <span class="profile-ud-value">
+                                                    @if($viewModel->professor()->gender == 'male')
+                                                        MASCULIN
+                                                    @else
+                                                        FEMININ
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Annee academique</span>
+                                                <span class="profile-ud-value"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Role</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->user()->getRoleNames() ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="nk-divider divider md"></div>
+                                <div class="nk-block">
+                                    <div class="nk-block-head">
+                                        <span class="title">Informations supplémentaires</span>
+                                    </div>
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Date de creation</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->created_at->format('Y-m-d')  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Dernière mise à jour</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->professor()->updated_at->format('Y-m-d')  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -145,4 +232,37 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    <script>
+
+        let changeProfessorStatus = async (_this, id) => {
+            const status = $(_this).prop('checked') === true ? 1 : 0;
+            let _token = $('meta[name="csrf-token"]').attr('content');
+            let data = {
+                status: status,
+                professor: id
+            }
+            let headers = {
+                'Content-type': 'application/json; charset=UTF-8',
+                'x-csrf-token': _token,
+            }
+
+            await fetch('/admins/professor-status', {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: headers
+            })
+                .then(response => response.json())
+                .then((data) => {
+                    var result = Object.values(data)
+                    Swal.fire(`Status ${result[1].name}`, `${result[0]}`, 'success')
+                })
+                .catch((error) => {
+                    Swal.fire("Bonne nouvelle", "Operation executez avec success","success")
+                })
+        }
+    </script>
 @endsection
