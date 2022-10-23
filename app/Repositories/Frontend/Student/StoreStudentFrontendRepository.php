@@ -17,18 +17,19 @@ use Illuminate\Support\Facades\Hash;
 class StoreStudentFrontendRepository implements StoreStudentFrontendRepositoryInterface
 {
     /**
-     * @param StoreStudentRequest $request
+     * @param  StoreStudentRequest  $request
      * @return Model|Student|Builder
      */
     public function store(StoreStudentRequest $request): Model|Student|Builder
     {
         $user = $this->storeUser($request);
         StoreStudentEvent::dispatch($user);
+
         return $this->storeStudent($user, $request);
     }
 
     /**
-     * @param StoreStudentRequest $request
+     * @param  StoreStudentRequest  $request
      * @return Model|Builder|User
      */
     private function storeUser(StoreStudentRequest $request): Model|Builder|User
@@ -39,13 +40,13 @@ class StoreStudentFrontendRepository implements StoreStudentFrontendRepositoryIn
                 'email' => $request->input('email'),
                 'institution_id' => $request->input('institution'),
                 'password' => Hash::make($request->input('name')),
-                'status' => StatusEnum::FALSE
+                'status' => StatusEnum::FALSE,
             ]);
     }
 
     /**
-     * @param User $user
-     * @param StoreStudentRequest $request
+     * @param  User  $user
+     * @param  StoreStudentRequest  $request
      * @return Model|Student|Builder
      */
     private function storeStudent(User $user, StoreStudentRequest $request): Model|Student|Builder
@@ -61,7 +62,7 @@ class StoreStudentFrontendRepository implements StoreStudentFrontendRepositoryIn
                 'birthdays' => $request->input('birthdays'),
                 'nationality' => $request->input('country'),
                 'born_town' => $request->input('town'),
-                'gender' => $request->input('gender')
+                'gender' => $request->input('gender'),
             ]);
     }
 }

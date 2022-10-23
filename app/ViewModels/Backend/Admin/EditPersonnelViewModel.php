@@ -13,6 +13,7 @@ use Spatie\ViewModels\ViewModel;
 class EditPersonnelViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $updateUrl;
 
     public function __construct(
@@ -38,7 +39,6 @@ class EditPersonnelViewModel extends ViewModel
 
     public function institutions(): array|Collection|\Illuminate\Support\Collection
     {
-
         return \App\Models\Institution::select(['id', 'institution_name'])->get();
     }
 

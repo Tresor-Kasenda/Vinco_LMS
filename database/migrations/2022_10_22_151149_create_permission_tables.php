@@ -5,12 +5,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\PermissionRegistrar;
 
-return new  class extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
+     *
      * @throws Exception
      */
     public function up(): void
@@ -80,7 +81,7 @@ return new  class extends Migration
                         [$columnNames['team_foreign_key'],
                             PermissionRegistrar::$pivotPermission,
                             $columnNames['model_morph_key'],
-                            'model_type'
+                            'model_type',
                         ],
                         'model_has_permissions_permission_model_type_primary'
                     );
@@ -102,7 +103,7 @@ return new  class extends Migration
                 $table->unsignedBigInteger($columnNames['model_morph_key']);
                 $table->index(
                     [
-                        $columnNames['model_morph_key'], 'model_type'],
+                        $columnNames['model_morph_key'], 'model_type', ],
                     'model_has_roles_model_id_model_type_index'
                 );
 
@@ -118,7 +119,7 @@ return new  class extends Migration
                         [
                             $columnNames['team_foreign_key'],
                             PermissionRegistrar::$pivotRole,
-                            $columnNames['model_morph_key'], 'model_type'
+                            $columnNames['model_morph_key'], 'model_type',
                         ],
                         'model_has_roles_role_model_type_primary'
                     );
@@ -148,7 +149,7 @@ return new  class extends Migration
             $table->primary(
                 [
                     PermissionRegistrar::$pivotPermission,
-                    PermissionRegistrar::$pivotRole],
+                    PermissionRegistrar::$pivotRole, ],
                 'role_has_permissions_permission_id_role_id_primary'
             );
         });
@@ -162,6 +163,7 @@ return new  class extends Migration
      * Reverse the migrations.
      *
      * @return void
+     *
      * @throws Exception
      */
     public function down(): void

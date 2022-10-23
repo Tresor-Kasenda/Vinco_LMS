@@ -31,6 +31,7 @@ class CreateInstitutionController extends BaseControllerFrontendController
             'success',
             "L'institution a ete enregistrer avec success"
         );
+
         return redirect()->back();
     }
 }

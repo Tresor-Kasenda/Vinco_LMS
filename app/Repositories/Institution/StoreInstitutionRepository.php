@@ -24,7 +24,7 @@ class StoreInstitutionRepository implements StoreInstitutionRepositoryInterface
                 'institution_email' => $institution->input('institution_email'),
                 'institution_phones' => $institution->input('institution_phones'),
                 'institution_website' => $institution->input('institution_website'),
-                'institution_address' => $institution->input('institution_address')
+                'institution_address' => $institution->input('institution_address'),
             ]);
     }
 }

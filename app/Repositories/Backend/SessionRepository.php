@@ -68,6 +68,7 @@ final class SessionRepository implements AcademicYearRepositoryInterface
     {
         $session = $this->show(academic: $academic);
         $session->delete();
+
         return $session;
     }
 }

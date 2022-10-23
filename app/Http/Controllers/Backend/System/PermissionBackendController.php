@@ -41,8 +41,9 @@ class PermissionBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Une nouvelle permission ajouter"
+            'Une nouvelle permission ajouter'
         );
+
         return redirect()->route('admins.permissions.index');
     }
 
@@ -60,6 +61,7 @@ class PermissionBackendController extends BackendBaseController
             'success',
             "L'operation effectuez avec succes"
         );
+
         return redirect()->route('admins.permissions.index');
     }
 
@@ -69,10 +71,9 @@ class PermissionBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Permission supprimer avec success"
+            'Permission supprimer avec success'
         );
 
         return back();
     }
 }
-

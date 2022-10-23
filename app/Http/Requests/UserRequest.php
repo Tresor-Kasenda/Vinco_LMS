@@ -26,15 +26,15 @@ final class UserRequest extends FormRequest
                 'string',
                 'email',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                Rule::unique(User::class, 'email')
+                Rule::unique(User::class, 'email'),
             ],
             'role_id' => [
                 'required',
-                Rule::exists(Role::class, 'id')
+                Rule::exists(Role::class, 'id'),
             ],
             'institution' => [
                 'required',
-                Rule::exists(Institution::class, 'id')
+                Rule::exists(Institution::class, 'id'),
             ],
             'password' => ['required', 'string', 'min:8'],
         ];
