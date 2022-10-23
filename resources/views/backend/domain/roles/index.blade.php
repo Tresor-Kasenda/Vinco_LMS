@@ -19,7 +19,7 @@
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
                                             @role('Super Admin')
-                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.roles.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->createUrl }}">
                                                     <em class="icon ni ni-plus mr-2"></em>
                                                     <span>Ajouter un role</span>
                                                 </a>
@@ -34,7 +34,10 @@
                 <div class="nk-block nk-block-lg">
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
-                        <tr class="nk-tb-item nk-tb-head">
+                        <tr class="nk-tb-item nk-tb-head text-center">
+                            <th class="nk-tb-col tb-col-sm">
+                                <span>ID</span>
+                            </th>
                             <th class="nk-tb-col tb-col-sm">
                                 <span>ROLE</span>
                             </th>
@@ -47,8 +50,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($roles as $role)
+                        @foreach($viewModel->roles() as $role)
                             <tr class="nk-tb-item">
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">
+                                        {{ $role->id ?? "" }}
+                                    </span>
+                                </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ ucfirst($role->name) ?? "" }}</span>
                                 </td>
@@ -66,12 +74,12 @@
                                 <td class="nk-tb-col text-center">
                                     <span class="tb-lead text-center">
                                         <div class="d-flex">
-                                            @can('Update-permission')
+                                            @can('role-edit')
                                             <a href="{{ route('admins.roles.edit', $role->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                 <em class="icon ni ni-edit"></em>
                                             </a>
                                             @endcan
-                                            @can('Delete-permission')
+                                            @can('role-delete')
                                                 <form action="{{ route('admins.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

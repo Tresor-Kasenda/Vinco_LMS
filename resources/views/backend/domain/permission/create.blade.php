@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-primary" href="{{ route('admins.roles.index') }}">
+                                            <a class="btn btn-outline-primary" href="{{ route('admins.permissions.index') }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
                                                 <span>Voir les permissions</span>
                                             </a>
