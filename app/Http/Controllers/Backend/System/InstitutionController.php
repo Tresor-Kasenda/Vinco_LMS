@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend\System;
 
 use App\Contracts\InstitutionRepositoryInterface;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\InstitutionRequest;
 use App\Http\Requests\UpdateInstitutionRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class InstitutionController extends Controller
+final class InstitutionController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly InstitutionRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -36,6 +39,11 @@ final class InstitutionController extends Controller
     public function store(InstitutionRequest $request): RedirectResponse
     {
         $this->repository->stored($request);
+
+        $this->factory->success(
+            'success',
+            "Une nouvelle institution a ete ajouter"
+        );
 
         return redirect()->route('admins.institution.index');
     }
@@ -58,6 +66,11 @@ final class InstitutionController extends Controller
     {
         $this->repository->updated(key: $id, attributes: $request);
 
+        $this->factory->success(
+            'success',
+            "Une institution a ete modifier"
+        );
+
         return redirect()->route('admins.institution.index');
     }
 
@@ -65,6 +78,10 @@ final class InstitutionController extends Controller
     {
         $this->repository->deleted($id);
 
+        $this->factory->success(
+            'success',
+            "Une institution a ete supprimer"
+        );
         return back();
     }
 }
