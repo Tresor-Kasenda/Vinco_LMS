@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePersonnelRequest;
 use App\Services\ToastMessageService;
 use App\ViewModels\Backend\Admin\EditPersonnelViewModel;
 use App\ViewModels\Backend\Admin\PersonnelViewModel;
+use App\ViewModels\Backend\Personnel\ShowPersonnelViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -51,14 +52,14 @@ final class PersonnelBackendController extends BackendBaseController
         return to_route('admins.users.staffs.index');
     }
 
-    public function show(string $key): Factory|View|Application
+    public function show(string|int $key): Factory|View|Application
     {
-        $employee = $this->repository->showPersonnelContent(key:  $key);
+        $viewModel = new ShowPersonnelViewModel($key);
 
-        return view('backend.domain.users.personnels.show', compact('employee'));
+        return view('backend.domain.users.personnels.show', compact('viewModel'));
     }
 
-    public function edit(int $key): Factory|View|Application
+    public function edit(int|string $key): Factory|View|Application
     {
         $viewModel = new EditPersonnelViewModel($key);
 
@@ -77,7 +78,7 @@ final class PersonnelBackendController extends BackendBaseController
         return to_route('admins.users.staffs.index');
     }
 
-    public function destroy(string $key): RedirectResponse
+    public function destroy(string|int $key): RedirectResponse
     {
         $this->repository->deleted(key: $key);
 

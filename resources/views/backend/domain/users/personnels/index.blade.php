@@ -18,12 +18,12 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         @can('gestionnaire-create')
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.staffs.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.staffs.create') }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
                                         @endcan
                                     </ul>
                                 </div>
@@ -85,29 +85,15 @@
                                         <span class="tb-lead">{{ $personnel->phones ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex justify-content-center">
-                                                @can('gestionnaire-read')
-                                                    <a href="{{ route('admins.users.staffs.show', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-eye-alt"></em>
-                                                    </a>
-                                                @endcan
-                                                @can('gestionnaire-update')
-                                                    <a href="{{ route('admins.users.staffs.edit', $personnel->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-edit-alt"></em>
-                                                    </a>
-                                                @endcan
-                                                @can('gestionnaire-delete')
-                                                    <form action="{{ route('admins.users.staffs.destroy', $personnel->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                            <em class="icon ni ni-trash"></em>
-                                                        </button>
-                                                    </form>
-                                                @endcan
+                                        @can('gestionnaire-read')
+                                            <div class="tb-lead justify-content-center">
+                                                <a href="{{ route('admins.users.staffs.show', $personnel->id) }}"
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail personnel</span>
+                                                </a>
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

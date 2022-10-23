@@ -19,12 +19,52 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.users.staffs.index') }}">
-                                                <em class="icon ni ni-arrow-left"></em>
-                                                <span>Back</span>
+                                        <li class="preview-item">
+                                            <div class="custom-control custom-control-md custom-switch">
+                                                <input
+                                                    type="checkbox"
+                                                    class="custom-control-input"
+                                                    name="activated"
+                                                    data-id="{{ $viewModel->personnel()->user_id }}"
+                                                    {{ $viewModel->user()->status ? "checked" : "" }}
+                                                    onclick="changePersonnelStatus(event.target, {{ $viewModel->personnel()->user_id }});"
+                                                    id="activated">
+                                                <label class="custom-control-label" for="activated"></label>
+                                            </div>
+                                        </li>
+                                        <li class="preview-item">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
+                                                <em class="icon ni ni-arrow-long-left"></em>
+                                                <span>All Institution</span>
                                             </a>
                                         </li>
+                                        @can('institution-update')
+                                            <li class="preview-item">
+                                                <a
+                                                    href="{{ $viewModel->editUrl }}"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                    <em class="icon ni ni-edit mr-1"></em>
+                                                    Editer
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('institution-delete')
+                                            <li class="preview-item">
+                                                <form
+                                                    action="{{ $viewModel->deleteUrl }}"
+                                                    method="POST"
+                                                    class="d-inline-block"
+                                                    onsubmit="return confirm('Are you sure you want to delete this item?');"
+                                                >
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        <em class="icon ni ni-trash-empty-fill"></em>
+                                                        Delete Institution
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -32,99 +72,198 @@
                     </div>
                 </div>
                 <div class="nk-block">
-                    <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body border-bottom py-3">
-                                        <div class="text-center">
-                                            <img
-                                                @if($employee->images_personnel)
-                                                    src="{{ asset('storage/'.$employee->images_personnel) }}"
-                                                @else
-                                                    src="{{ asset('assets/admins/images/man.webp') }}"
-                                                @endif
-                                                title="{{ $employee->username }}"
-                                                class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
-                                            >
+                    <div class="nk-block nk-block-lg">
+                        <div class="card card-preview">
+                            <div class="card-body border-bottom">
+                                <div class="text-center">
+                                    <img
+                                        @if($viewModel->personnel()->images)
+                                            src="{{ asset('storage/'.$viewModel->personnel()->images) }}"
+                                        @else
+                                            src="{{ asset('assets/admins/images/man.webp') }}"
+                                        @endif
+                                        title="{{ $viewModel->personnel()->username }}"
+                                        style="object-fit: contain"
+                                        class="img-fluid user-avatar-xl mb-3 text-center rounded-circle border-danger"
+                                    >
+                                </div>
+                            </div>
+                            <div class="card-inner">
+                                <div class="nk-block">
+                                    <div class="nk-block-head">
+                                        <span class="title">Information du personnel</span>
+                                    </div>
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Nom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->personnel()->username)  ?? "" }}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <table class="table">
-                                            <tbody>
-                                            <tr>
-                                                <th>Name</th>
-                                                <td>{{ ucfirst($employee->username) ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Last-Name</th>
-                                                <td>{{ ucfirst($employee->lastname) ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Matricule</th>
-                                                <td>{{ $employee->matriculate ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Email</th>
-                                                <td>{{ $employee->email ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Annee academique</th>
-                                                <td>
-                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->start_date)->format('Y') }}
-                                                    -
-                                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $employee->academic->end_date)->format('Y') }}
-                                                </td>
-                                            </tr>
-                                            <tr class="text-justify">
-                                                <th>Institution</th>
-                                                <td>
-                                                    <div class="tb-lead d-flex flex-wrap">
-                                                        <span class="badge bg-primary mx-1 mb-1">{{ ucfirst($employee->user->institution->institution_name ) ?? "" }}</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-justify">
-                                                <th>Phones</th>
-                                                <td>{{ $employee->phones ?? "" }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Genre</th>
-                                                <td>
-                                                    @if($employee->gender == 'male')
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Post-nom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->personnel()->firstname)  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Prenom</span>
+                                                <span class="profile-ud-value">
+                                                    {{ ucfirst($viewModel->personnel()->lastname)  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Matricule</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->matriculate  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Email</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->email  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">N° Telephone</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->phones  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Pays d'origine</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->nationality  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Ville</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->location  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Date Naissance</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->birthdays  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Genre</span>
+                                                <span class="profile-ud-value">
+                                                    @if($viewModel->personnel()->gender == 'male')
                                                         MASCULIN
                                                     @else
                                                         FEMININ
                                                     @endif
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Address</th>
-                                                <td>
-                                                    {{ $employee->location ?? "" }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Nationalite</th>
-                                                <td>
-                                                    {{ $employee->nationality ?? "" }}
-                                                </td>
-                                            </tr>
-                                            <tr class="text-justify">
-                                                <th>Roles</th>
-                                                <td>
-                                                    <div class="tb-lead d-flex flex-wrap">
-                                                        @foreach($employee->user->roles as $role)
-                                                            <span class="badge bg-primary mx-1 mb-1">{{$role->name ?? "" }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Annee academique</span>
+                                                <span class="profile-ud-value"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Role</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->user()->getRoleNames() ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="nk-divider divider md"></div>
+                                <div class="nk-block">
+                                    <div class="nk-block-head">
+                                        <span class="title">Informations supplémentaires</span>
+                                    </div>
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Date de creation</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->created_at->format('Y-m-d')  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Dernière mise à jour</span>
+                                                <span class="profile-ud-value">
+                                                    {{ $viewModel->personnel()->updated_at->format('Y-m-d')  ?? "" }}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('scripts')
+    <script>
+
+        let changePersonnelStatus = async (_this, id) => {
+            const status = $(_this).prop('checked') === true ? 1 : 0;
+            let _token = $('meta[name="csrf-token"]').attr('content');
+            let data = {
+                status: status,
+                personnel: id
+            }
+            let headers = {
+                'Content-type': 'application/json; charset=UTF-8',
+                'x-csrf-token': _token,
+            }
+
+            await fetch('/admins/personnel-status', {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: headers
+            })
+                .then(response => response.json())
+                .then((data) => {
+                    var result = Object.values(data)
+                    Swal.fire(`Status ${result[1].name}`, `${result[0]}`, 'success')
+                })
+                .catch((error) => {
+                    Swal.fire("Bonne nouvelle", "Operation executez avec success","success")
+                })
+        }
+    </script>
 @endsection
