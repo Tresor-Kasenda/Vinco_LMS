@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ $viewModel->indexUrl  }}">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl  }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -228,7 +228,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

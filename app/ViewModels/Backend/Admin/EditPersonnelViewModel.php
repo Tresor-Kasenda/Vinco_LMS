@@ -16,7 +16,7 @@ class EditPersonnelViewModel extends ViewModel
     public string $updateUrl;
 
     public function __construct(
-        public int $personnel
+        public int|string $personnel
     ) {
         $this->indexUrl = action([PersonnelBackendController::class, 'index']);
         $this->updateUrl = action([PersonnelBackendController::class, 'update'], $this->personnel);

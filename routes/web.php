@@ -36,6 +36,7 @@ use App\Http\Controllers\Backend\HomeworkBackendController;
 use App\Http\Controllers\Backend\InterroBackendController;
 use App\Http\Controllers\Backend\LessonBackendController;
 use App\Http\Controllers\Backend\ParentBackendController;
+use App\Http\Controllers\Backend\Personnel\StatusPersonnelBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
 use App\Http\Controllers\Backend\ProfessorBackendController;
 use App\Http\Controllers\Backend\ProfileBackendController;
@@ -208,6 +209,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('permissions', PermissionBackendController::class);
 
         Route::post('admin-status', AdminStatusBackendController::class)->name('admin.status');
+        Route::post('personnel-status', StatusPersonnelBackendController::class);
     });
 });
 
