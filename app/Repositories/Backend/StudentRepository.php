@@ -6,11 +6,8 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\StudentRepositoryInterface;
 use App\Enums\StatusEnum;
-use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
-use App\Services\SendEmailConfirmation;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,20 +15,14 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Laratrust\Models\LaratrustRole;
-use LaravelIdea\Helper\App\Models\_IH_Role_QB;
 use LaravelIdea\Helper\App\Models\_IH_Student_QB;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
+use Spatie\Permission\Models\Role;
 
 final class StudentRepository implements StudentRepositoryInterface
 {
     use ImageUploader;
     use RandomValue;
-
-    public function __construct(
-        protected ToastMessageService $service,
-        protected SendEmailConfirmation $confirmation
-    ) {
-    }
 
     public function students(): array|Collection
     {
@@ -83,6 +74,88 @@ final class StudentRepository implements StudentRepositoryInterface
             ->get();
     }
 
+    public function stored($attributes): Student|Model|Builder|RedirectResponse
+    {
+        $user = $this->verifyIfUserEmailExist($attributes);
+        if (! $user) {
+            $user = $this->createStudentBelongToUser($attributes);
+            $role = $this->getStudentRole();
+            $user->assignRole([$role->id]);
+            $user->givePermissionTo($role->permissions);
+            return $this->storeStudent($user, $attributes);
+        }
+
+        return back();
+    }
+
+    private function verifyIfUserEmailExist($attributes): null|User|Builder|Model|_IH_User_QB
+    {
+        return User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+    }
+
+    private function createStudentBelongToUser($attributes): User|Builder|Model|_IH_User_QB
+    {
+        return User::query()
+            ->create([
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
+                'institution_id' => $attributes->input('institution_id'),
+                'avatar' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
+                'password' => \Hash::make($attributes->input('password')),
+            ]);
+    }
+
+    private function getStudentRole(): LaratrustRole|null|Builder|Model
+    {
+        return Role::query()
+            ->where('name', '=', 'Etudiant')
+            ->first();
+    }
+
+    private function storeStudent($user, $attributes): _IH_Student_QB|Builder|Model|Student
+    {
+        return Student::query()
+            ->create([
+                'user_id' => $user->id,
+                'department_id' => $attributes->input('department'),
+                'promotion_id' => $attributes->input('promotion'),
+                'subsidiary_id' => $attributes->input('filiaire'),
+                'name' => $attributes->input('name'),
+                'firstname' => $attributes->input('firstname'),
+                'lastname' => $attributes->input('lastname'),
+                'nationality' => $attributes->input('nationality'),
+                'location' => $attributes->input('location'),
+                'email' => $attributes->input('email'),
+                'images' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
+                'status' => StatusEnum::TRUE,
+                'gender' => $attributes->input('gender'),
+                'guardian_id' => $attributes->input('parent'),
+                'admission_date' => $attributes->input('admission'),
+                'matriculate' => $this->generateRandomTransaction(8),
+            ]);
+    }
+
+    public function updated(string $key, $attributes): Model|Student|Builder
+    {
+        $student = $this->showStudent($key);
+        $student->update([
+            'department_id' => $attributes->input('department'),
+            'promotion_id' => $attributes->input('promotion'),
+            'subsidiary_id' => $attributes->input('filiaire'),
+            'name' => $attributes->input('name'),
+            'firstname' => $attributes->input('firstname'),
+            'lastname' => $attributes->input('lastname'),
+            'email' => $attributes->input('email'),
+            'gender' => $attributes->input('gender'),
+            'guardian_id' => $attributes->input('parent'),
+            'admission_date' => $attributes->input('admission'),
+        ]);
+
+        return $student;
+    }
+
     public function showStudent(string $key): Model|Student|Builder
     {
         $student = Student::query()
@@ -125,116 +198,13 @@ final class StudentRepository implements StudentRepositoryInterface
         ]);
     }
 
-    public function stored($attributes): Student|Model|Builder|RedirectResponse
-    {
-        $user = $this->verifyIfUserEmailExist($attributes);
-        if (! $user) {
-            $user = $this->createStudentBelongToUser($attributes);
-            $role = $this->getStudentRole();
-            $user->attachRole($role->id);
-            $student = $this->storeStudent($user, $attributes);
-            $result = $student ? $this->confirmation->send($student) : '';
-            $this->service->success('Un Etudiant a ete ajouter avec succes');
-
-            return $student;
-        }
-        $this->service->warning('Cette email a ete deja utiliser sur un autre compte');
-
-        return back();
-    }
-
-    public function updated(string $key, $attributes): Model|Student|Builder
-    {
-        $student = $this->showStudent($key);
-        $student->update([
-            'department_id' => $attributes->input('department'),
-            'promotion_id' => $attributes->input('promotion'),
-            'subsidiary_id' => $attributes->input('filiaire'),
-            'name' => $attributes->input('name'),
-            'firstname' => $attributes->input('firstname'),
-            'lastname' => $attributes->input('lastname'),
-            'email' => $attributes->input('email'),
-            'gender' => $attributes->input('gender'),
-            'guardian_id' => $attributes->input('parent'),
-            'admission_date' => $attributes->input('admission'),
-        ]);
-        $this->service->success('Un Etudiant a ete modifier');
-
-        return $student;
-    }
-
     public function deleted(string $key): Model|Student|Builder|RedirectResponse
     {
         $student = $this->showStudent($key);
         if ($student->status !== StatusEnum::FALSE) {
-            $this->service->warning('Veillez desactiver avant de le mettre dans la corbeille');
-
             return back();
         }
         $student->delete();
-        $this->service->success('Un Etudiant a ete supprimer');
-
         return $student;
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $student = $this->showStudent(key: $attributes->input('key'));
-        if ($student != null) {
-            return $student->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
-    }
-
-    private function verifyIfUserEmailExist($attributes): null|User|Builder|Model|_IH_User_QB
-    {
-        return User::query()
-            ->where('email', '=', $attributes->input('email'))
-            ->first();
-    }
-
-    private function createStudentBelongToUser($attributes): User|Builder|Model|_IH_User_QB
-    {
-        return User::query()
-            ->create([
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'institution_id' => $attributes->input('institution_id'),
-                'avatar' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
-                'password' => \Hash::make($attributes->input('password')),
-            ]);
-    }
-
-    private function getStudentRole(): _IH_Role_QB|Role|LaratrustRole|null|Builder|Model
-    {
-        return Role::query()
-            ->where('name', '=', 'Etudiant')
-            ->first();
-    }
-
-    private function storeStudent($user, $attributes): _IH_Student_QB|Builder|Model|Student
-    {
-        return Student::query()
-            ->create([
-                'user_id' => $user->id,
-                'department_id' => $attributes->input('department'),
-                'promotion_id' => $attributes->input('promotion'),
-                'subsidiary_id' => $attributes->input('filiaire'),
-                'name' => $attributes->input('name'),
-                'firstname' => $attributes->input('firstname'),
-                'lastname' => $attributes->input('lastname'),
-                'nationality' => $attributes->input('nationality'),
-                'location' => $attributes->input('location'),
-                'email' => $attributes->input('email'),
-                'images' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
-                'status' => StatusEnum::TRUE,
-                'gender' => $attributes->input('gender'),
-                'guardian_id' => $attributes->input('parent'),
-                'admission_date' => $attributes->input('admission'),
-                'matriculate' => $this->generateRandomTransaction(8, $attributes->input('name')),
-            ]);
     }
 }

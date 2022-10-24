@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Jackiedo\Timezonelist\TimezonelistServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,

@@ -18,8 +18,8 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm"
-                                               href="{{ route('admins.users.student.index') }}">
+                                            <a class="btn btn-outline-primary btn-sm"
+                                               href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -44,7 +44,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.users.student.store') }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->storeUrl }}" method="post" class="form-validate mt-2" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-6">
@@ -142,7 +142,7 @@
                                                             data-placeholder="Select Parent"
                                                             >
                                                             <option label="parent" value=""></option>
-                                                            @foreach(\App\Models\Guardian::all() as $parent)
+                                                            @foreach($viewModel->guardians() as $parent)
                                                                 <option
                                                                     value="{{ $parent->id }}"
                                                                 >{{ ucfirst($parent->name_guardian ) ?? "" }}</option>
@@ -218,7 +218,7 @@
                                             </div>
                                             <div class="col-md-12 text-center">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

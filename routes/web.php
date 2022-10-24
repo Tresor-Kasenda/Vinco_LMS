@@ -48,6 +48,7 @@ use App\Http\Controllers\Backend\ResourceBackendController;
 use App\Http\Controllers\Backend\ResultBackendController;
 use App\Http\Controllers\Backend\SchedulerBackendController;
 use App\Http\Controllers\Backend\SettingsBackendController;
+use App\Http\Controllers\Backend\Student\StatusStudentBackendController;
 use App\Http\Controllers\Backend\StudentBackendController;
 use App\Http\Controllers\Backend\System\Institution\StatusInstitutionBackendController;
 use App\Http\Controllers\Backend\System\InstitutionController;
@@ -215,6 +216,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('professor-status', StatusProfessorBackendController::class);
         Route::post('parent-status', StatusParentBackendController::class);
         Route::post('institution-status', StatusInstitutionBackendController::class);
+        Route::post('student-status', StatusStudentBackendController::class);
     });
 });
 
