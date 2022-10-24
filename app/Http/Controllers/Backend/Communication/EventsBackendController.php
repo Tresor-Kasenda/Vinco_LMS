@@ -8,7 +8,6 @@ use App\Contracts\EventRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,8 +19,7 @@ use Illuminate\Http\RedirectResponse;
 final class EventsBackendController extends Controller
 {
     public function __construct(
-        protected readonly EventRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        protected readonly EventRepositoryInterface $repository
     ) {
     }
 
