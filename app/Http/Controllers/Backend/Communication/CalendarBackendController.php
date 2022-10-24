@@ -49,12 +49,9 @@ final class CalendarBackendController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Calendar::create([
-            'title' => $request->title,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'institution_id' => \Auth::user()->institution->id,
-        ]);
+        $data = $request->except('_token');
+        $data['institution_id'] = \Auth::user()->institution->id;
+        Calendar::create($data);
 
         return redirect()->route('admins.communication.calendar.index');
     }
