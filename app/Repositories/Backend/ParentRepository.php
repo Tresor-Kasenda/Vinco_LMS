@@ -6,23 +6,18 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ParentRepositoryInterface;
 use App\Models\Guardian;
-use App\Models\Role;
 use App\Models\User;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 final class ParentRepository implements ParentRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
 
     public function guardians(): Collection|array
     {
@@ -56,12 +51,12 @@ final class ParentRepository implements ParentRepositoryInterface
     public function stored($attributes): Model|Guardian|Builder|RedirectResponse
     {
         $user = $this->createParent($attributes);
-        if ($user != null) {
+        if ($user !== null) {
             $role = $this->getParentRole();
-            $user->roles()->sync($role);
-            $permission = $role->permissions;
-            $user->givePermission($permission);
-            $guardian = Guardian::query()
+            $user->assignRole([$role->id]);
+            $user->syncPermissions($role->permissions);
+
+            return Guardian::query()
                 ->create([
                     'name_guardian' => $attributes->input('name'),
                     'email_guardian' => $attributes->input('email'),
@@ -70,9 +65,6 @@ final class ParentRepository implements ParentRepositoryInterface
                     'images' => self::uploadFiles($attributes),
                     'user_id' => $user->id,
                 ]);
-            $this->service->success('Parent added with successfully');
-
-            return $guardian;
         }
     }
 
@@ -91,7 +83,6 @@ final class ParentRepository implements ParentRepositoryInterface
     {
         return Role::query()
             ->where('name', '=', 'Parent')
-            ->with('permissions')
             ->firstOrFail();
     }
 
@@ -105,8 +96,6 @@ final class ParentRepository implements ParentRepositoryInterface
             'phones' => $attributes->input('phones'),
             'gender' => $attributes->input('gender'),
         ]);
-
-        $this->service->success('Parent updated with successfully');
 
         return $parent;
     }
@@ -134,7 +123,6 @@ final class ParentRepository implements ParentRepositoryInterface
     {
         $parent = $this->showGuardian($key);
         $parent->delete();
-        $this->service->success('Parent deleted with successfully');
 
         return $parent;
     }

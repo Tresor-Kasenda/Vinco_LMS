@@ -83,6 +83,6 @@ final class InstitutionController extends BackendBaseController
             'Une institution a ete supprimer'
         );
 
-        return back();
+        return to_route('admins.institution.index');
     }
 }

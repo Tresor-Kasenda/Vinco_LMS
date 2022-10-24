@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\StudentRepositoryInterface;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmerProfessorRequest;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
-final class StudentBackendController extends Controller
+final class StudentBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly StudentRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -67,20 +67,6 @@ final class StudentBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
-        return back();
-    }
-
-    public function activate(ConfirmerProfessorRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
+        return to_route('admins.users.student.index');
     }
 }

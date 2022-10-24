@@ -183,7 +183,7 @@ final class User extends Authenticatable
         return $this->belongsToMany(\App\Models\Group::class, 'admin_id');
     }
 
-    public function group_member(): BelongsToMany
+    public function groupMember(): BelongsToMany
     {
         return $this->belongsToMany(
             Group::class,

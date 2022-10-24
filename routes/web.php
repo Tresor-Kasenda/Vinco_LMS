@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Backend\AcademicYear\SessionBackendController;
-use App\Http\Controllers\Backend\Admin\AdminStatusBackendController;
+use App\Http\Controllers\Backend\Admin\StatusAdminBackendController;
 use App\Http\Controllers\Backend\Api\ChapterApiController;
 use App\Http\Controllers\Backend\Api\ExerciceBackendApiController;
 use App\Http\Controllers\Backend\Api\FiliaireApiController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\CategoryBackendController;
 use App\Http\Controllers\Backend\ChapterBackendController;
 use App\Http\Controllers\Backend\Communication\CalendarBackendController;
 use App\Http\Controllers\Backend\Communication\Chat\GroupController;
+use App\Http\Controllers\Backend\Communication\Chat\HomeController;
 use App\Http\Controllers\Backend\Communication\Chat\MessageController;
 use App\Http\Controllers\Backend\Communication\EventsBackendController;
 use App\Http\Controllers\Backend\Communication\JournalBackendController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Backend\ExerciseBackendController;
 use App\Http\Controllers\Backend\FeesBackendController;
 use App\Http\Controllers\Backend\FeesTypeBackendController;
 use App\Http\Controllers\Backend\FiliaireBackendController;
+use App\Http\Controllers\Backend\Guardian\StatusParentBackendController;
 use App\Http\Controllers\Backend\HomeBackendController;
 use App\Http\Controllers\Backend\HomeworkBackendController;
 use App\Http\Controllers\Backend\InterroBackendController;
@@ -78,7 +80,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('backend', [HomeBackendController::class, 'index'])->name('backend.home');
 
         Route::resource('institution', InstitutionController::class);
-        Route::post('institution-status', StatusInstitutionBackendController::class);
+        Route::resource('permissions', PermissionBackendController::class);
+        Route::resource('roles', RoleBackendController::class);
+        Route::resource('settings', SettingsBackendController::class);
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], routes: function () {
             Route::resource('admin', UsersBackendController::class);
@@ -145,8 +149,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('aperi', EnableBackendController::class);
         });
 
-        Route::resource('roles', RoleBackendController::class);
-        Route::resource('settings', SettingsBackendController::class);
         Route::put('setting/{system}', [SettingsBackendController::class, 'updateSystem'])->name('system.update');
         Route::controller(ProfileBackendController::class)->group(function () {
             Route::get('profile', 'index')->name('admins.profile');
@@ -207,11 +209,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('course/{course}/chapter/{chapter}/deleteChapter/{lessons}', 'destroy')
                 ->name('lessons.remove');
         });
-        Route::resource('permissions', PermissionBackendController::class);
 
-        Route::post('admin-status', AdminStatusBackendController::class)->name('admin.status');
+        Route::post('admin-status', StatusAdminBackendController::class);
         Route::post('personnel-status', StatusPersonnelBackendController::class);
         Route::post('professor-status', StatusProfessorBackendController::class);
+        Route::post('parent-status', StatusParentBackendController::class);
+        Route::post('institution-status', StatusInstitutionBackendController::class);
     });
 });
 
@@ -238,4 +241,4 @@ Route::get('/group/members_list/{id}', [GroupController::class, 'members_list'])
 Route::get('/remove_user/{id}/{user_id}', [GroupController::class, 'remove_user']);
 Route::post('/send_message/{id}', [MessageController::class, 'send_message']);
 Route::get('/show_messages/{id}', [MessageController::class, 'show_messages']);
-Route::get('/home-groupe', [App\Http\Controllers\Backend\Communication\Chat\HomeController::class, 'index'])->name('home');
+Route::get('/home-groupe', [HomeController::class, 'index'])->name('home');

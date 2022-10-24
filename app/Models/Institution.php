@@ -73,6 +73,9 @@ use Illuminate\Support\Carbon;
  *
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property string $status
+ *
+ * @method static Builder|Institution whereStatus($value)
  */
 final class Institution extends Model
 {

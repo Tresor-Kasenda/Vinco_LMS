@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ParentRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ParentRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
+use App\Services\ToastMessageService;
+use App\ViewModels\Backend\Guardian\ParentViewModel;
+use App\ViewModels\Backend\Guardian\ViewParentViewModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -15,20 +17,22 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 
-final class ParentBackendController extends Controller
+final class ParentBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly ParentRepositoryInterface $repository,
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
     {
         abort_if(Gate::denies('parent-list'), 403);
 
-        $parents = $this->repository->guardians();
+        $viewModel = new ParentViewModel();
 
-        return view('backend.domain.users.parent.index', compact('parents'));
+        return view('backend.domain.users.parent.index', compact('viewModel'));
     }
 
     public function create(): Renderable
@@ -42,6 +46,11 @@ final class ParentBackendController extends Controller
     {
         $this->repository->stored(attributes: $attributes);
 
+        $this->factory->success(
+            'success',
+            'Un nouveau parent a ete ajouter'
+        );
+
         return to_route('admins.users.guardian.index');
     }
 
@@ -49,9 +58,9 @@ final class ParentBackendController extends Controller
     {
         abort_if(Gate::denies('parent-view'), 403);
 
-        $parent = $this->repository->showGuardian(key: $key);
+        $viewModel = new ViewParentViewModel($key);
 
-        return view('backend.domain.users.parent.show', compact('parent'));
+        return view('backend.domain.users.parent.show', compact('viewModel'));
     }
 
     public function edit(string $key): Factory|View|Application
@@ -67,14 +76,25 @@ final class ParentBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
+        $this->factory->success(
+            'success',
+            'Un parent a ete mise a jours'
+        );
+
         return to_route('admins.users.guardian.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         abort_if(Gate::denies('parent-delete'), 403);
+
         $this->repository->deleted(key: $key);
 
-        return back();
+        $this->factory->success(
+            'success',
+            'Un parent a ete supprimer'
+        );
+
+        return to_route('admins.users.guardian.index');
     }
 }

@@ -38,21 +38,24 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
                 ->with('user')
                 ->orderByDesc('created_at')
                 ->get();
-        } else {
-            return Professor::query()
-                ->select([
-                    'id',
-                    'images',
-                    'username',
-                    'email',
-                    'phones',
-                    'matriculate',
-                    'user_id',
-                ])
-                ->whereHas('user', fn ($query) => $query->where('institution_id', '=', auth()->user()->institution_id))
-                ->orderByDesc('created_at')
-                ->get();
         }
+
+        return Professor::query()
+            ->select([
+                'id',
+                'images',
+                'username',
+                'email',
+                'phones',
+                'matriculate',
+                'user_id',
+            ])
+            ->whereHas(
+                'user',
+                fn ($query) => $query->where('institution_id', '=', auth()->user()->institution_id)
+            )
+            ->orderByDesc('created_at')
+            ->get();
     }
 
     public function stored($attributes): Model|Builder|RedirectResponse
@@ -61,6 +64,7 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
         $role = $this->getRole();
         $user->assignRole([$role->id]);
         $user->givePermissionTo($role->permissions);
+
         return $this->createProfessor($attributes, $user);
     }
 
@@ -141,7 +145,7 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
                 'birthdays',
                 'user_id',
                 'created_at',
-                'updated_at'
+                'updated_at',
             ])
             ->whereId($key)
             ->first();

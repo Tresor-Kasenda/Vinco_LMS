@@ -15,7 +15,9 @@ use Spatie\ViewModels\ViewModel;
 class ShowProfessorViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $editUrl;
+
     public string $deleteUrl;
 
     public function __construct(
