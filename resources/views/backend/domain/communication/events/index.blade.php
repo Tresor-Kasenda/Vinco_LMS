@@ -11,14 +11,14 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Events</h3>
                         </div>
-                        @permission('event-create')
+                        @can('event-create')
                         <div class="nk-block-head-content">
                             <a class="btn btn-primary" href="{{ route('admins.communication.events.create') }}">
                                 <em class="icon ni ni-plus"></em>
                                 <span>Add</span>
                             </a>
                         </div>
-                        @endpermission
+                        @endcan
                     </div>
                 </div>
                 <div class="nk-block">
