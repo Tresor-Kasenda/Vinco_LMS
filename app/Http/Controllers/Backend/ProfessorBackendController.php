@@ -47,7 +47,7 @@ final class ProfessorBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un nouveau professeur a ete ajouter"
+            'Un nouveau professeur a ete ajouter'
         );
 
         return to_route('admins.users.teacher.index');
@@ -73,7 +73,7 @@ final class ProfessorBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un  professeur a ete mise a jours"
+            'Un  professeur a ete mise a jours'
         );
 
         return to_route('admins.users.admin.index');
@@ -85,8 +85,9 @@ final class ProfessorBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un  professeur a ete supprimer"
+            'Un  professeur a ete supprimer'
         );
+
         return back();
     }
 }

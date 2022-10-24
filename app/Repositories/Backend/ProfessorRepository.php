@@ -61,6 +61,7 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
         $role = $this->getRole();
         $user->assignRole([$role->id]);
         $user->givePermissionTo($role->permissions);
+
         return $this->createProfessor($attributes, $user);
     }
 
@@ -141,7 +142,7 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
                 'birthdays',
                 'user_id',
                 'created_at',
-                'updated_at'
+                'updated_at',
             ])
             ->whereId($key)
             ->first();
