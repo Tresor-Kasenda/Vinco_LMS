@@ -38,6 +38,7 @@ use App\Http\Controllers\Backend\LessonBackendController;
 use App\Http\Controllers\Backend\ParentBackendController;
 use App\Http\Controllers\Backend\Personnel\StatusPersonnelBackendController;
 use App\Http\Controllers\Backend\PersonnelBackendController;
+use App\Http\Controllers\Backend\Professor\StatusProfessorBackendController;
 use App\Http\Controllers\Backend\ProfessorBackendController;
 use App\Http\Controllers\Backend\ProfileBackendController;
 use App\Http\Controllers\Backend\PromotionBackendController;
@@ -210,6 +211,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::post('admin-status', AdminStatusBackendController::class)->name('admin.status');
         Route::post('personnel-status', StatusPersonnelBackendController::class);
+        Route::post('professor-status', StatusProfessorBackendController::class);
     });
 });
 

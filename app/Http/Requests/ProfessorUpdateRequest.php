@@ -6,14 +6,13 @@ namespace App\Http\Requests;
 
 use App\Models\Institution;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 final class ProfessorUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return Gate::allows('parent-edit');
+        return true;
     }
 
     public function rules(): array

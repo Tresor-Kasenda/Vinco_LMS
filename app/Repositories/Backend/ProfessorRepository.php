@@ -6,9 +6,7 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ProfessorRepositoryInterface;
 use App\Models\Professor;
-use App\Models\Role;
 use App\Models\User;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,15 +15,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
+use Spatie\Permission\Models\Role;
 
 final class ProfessorRepository implements ProfessorRepositoryInterface
 {
     use ImageUploader;
     use RandomValue;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
 
     public function getProfessors(): Collection|array
     {
@@ -60,6 +55,73 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
         }
     }
 
+    public function stored($attributes): Model|Builder|RedirectResponse
+    {
+        $user = $this->createUser($attributes);
+        $role = $this->getRole();
+        $user->assignRole([$role->id]);
+        $user->givePermissionTo($role->permissions);
+        return $this->createProfessor($attributes, $user);
+    }
+
+    private function createUser($attributes): _IH_User_QB|Model|Builder|User|RedirectResponse|null
+    {
+        $user = User::query()
+            ->where('email', '=', $attributes->input('email'))
+            ->first();
+        if (! $user) {
+            return User::query()
+                ->create([
+                    'name' => $attributes->input('name'),
+                    'email' => $attributes->input('email'),
+                    'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
+                    'password' => Hash::make($attributes->input('password')),
+                ]);
+        }
+
+        return null;
+    }
+
+    private function getRole(): Builder|Model
+    {
+        return Role::query()
+            ->where('name', '=', 'Professeur')
+            ->first();
+    }
+
+    private function createProfessor($attributes, $user): Model|Builder
+    {
+        return Professor::query()
+            ->create([
+                'username' => $attributes->input('name'),
+                'lastname' => $attributes->input('lastname'),
+                'email' => $attributes->input('email'),
+                'phones' => $attributes->input('phones'),
+                'images' => self::uploadFiles($attributes),
+                'gender' => $attributes->input('gender'),
+                'user_id' => $user->id,
+                'matriculate' => $this->generateRandomTransaction(10),
+            ]);
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|null
+    {
+        $professor = $this->showProfessor(key: $key);
+        $user = $this->getUser($professor);
+        $professor->update([
+            'username' => $attributes->input('name'),
+            'lastname' => $attributes->input('lastname'),
+            'email' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'gender' => $attributes->input('gender'),
+        ]);
+        $role = $this->getRole();
+        $user->syncRoles([$role->id]);
+        $user->syncPermissions($role->permissions);
+
+        return $professor;
+    }
+
     public function showProfessor(string $key): Model|Builder|null
     {
         $professor = Professor::query()
@@ -78,6 +140,8 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
                 'gender',
                 'birthdays',
                 'user_id',
+                'created_at',
+                'updated_at'
             ])
             ->whereId($key)
             ->first();
@@ -85,94 +149,18 @@ final class ProfessorRepository implements ProfessorRepositoryInterface
         return $professor->load(['courses:id,name', 'user']);
     }
 
-    public function stored($attributes): Model|Builder|RedirectResponse
+    private function getUser(Model|Builder|null $professor): Model|_IH_User_QB|Builder|User|null
     {
-        $user = $this->createUser($attributes);
-        $role = $this->getRole();
-        $user->attachRole($role->id);
-
-        $professor = $this->createProfessor($attributes, $user);
-        $this->service->success('Un professeur a ete ajouter');
-
-        return $professor;
-    }
-
-    public function updated(string $key, $attributes): Model|Builder|null
-    {
-        $professor = $this->showProfessor(key: $key);
-        $professor->update([
-            'username' => $attributes->input('name'),
-            'lastname' => $attributes->input('lastname'),
-            'email' => $attributes->input('email'),
-            'phones' => $attributes->input('phones'),
-            'gender' => $attributes->input('gender'),
-        ]);
-
-        $this->service->success('Une modification a ete effectuer');
-
-        return $professor;
+        return User::query()
+            ->where('id', '=', $professor->user_id)
+            ->first();
     }
 
     public function deleted(string $key): RedirectResponse
     {
         $professor = $this->showProfessor(key: $key);
         $professor->delete();
-        $this->service->success('Un Professeur a ete ajouter  dans la corbeille');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $professor = $this->showProfessor(key: $attributes->input('key'));
-        if ($professor != null) {
-            return $professor->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
-    }
-
-    private function createProfessor($attributes, $user): Model|Builder
-    {
-        return Professor::query()
-            ->create([
-                'username' => $attributes->input('name'),
-                'lastname' => $attributes->input('lastname'),
-                'email' => $attributes->input('email'),
-                'phones' => $attributes->input('phones'),
-                'images' => self::uploadFiles($attributes),
-                'gender' => $attributes->input('gender'),
-                'user_id' => $user->id,
-                'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
-            ]);
-    }
-
-    private function createUser($attributes): _IH_User_QB|Model|Builder|User|RedirectResponse|null
-    {
-        $user = User::query()
-            ->where('email', '=', $attributes->input('email'))
-            ->first();
-        if (! $user) {
-            return User::query()
-                ->create([
-                    'name' => $attributes->input('name'),
-                    'email' => $attributes->input('email'),
-                    'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution_id,
-                    'password' => Hash::make($attributes->input('password')),
-                ]);
-        }
-
-        $this->service->error('Email deja utiliser sur un autre compte');
-
-        return null;
-    }
-
-    private function getRole(): Builder|Model
-    {
-        return Role::query()
-            ->whereName('Professeur')
-            ->firstOrFail();
     }
 }
