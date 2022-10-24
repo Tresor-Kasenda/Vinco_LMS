@@ -11,14 +11,14 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Calendrier Academique</h3>
                         </div>
-                        @permission('calendar-create')
+                        @can('calendar-create')
                         <div class="nk-block-head-content">
                             <a class="btn btn-primary" href="{{ route('admins.communication.calendar.create') }}">
                                 <em class="icon ni ni-plus"></em>
                                 <span>Add</span>
                             </a>
                         </div>
-                        @endpermission
+                        @endcan
                     </div>
                 </div>
                 <div class="nk-block">

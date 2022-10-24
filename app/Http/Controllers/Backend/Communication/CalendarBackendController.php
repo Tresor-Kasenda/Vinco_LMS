@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Backend\Communication;
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,7 +17,6 @@ final class CalendarBackendController extends Controller
 {
     public function __construct(
         protected readonly AcademicYearRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
     ) {
     }
 
