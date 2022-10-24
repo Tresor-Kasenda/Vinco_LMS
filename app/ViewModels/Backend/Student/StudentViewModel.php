@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Backend\Student;
 
-use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\Student\StudentBackendController;
 use App\Models\Student;
 use Illuminate\Support\Collection;
 use Spatie\ViewModels\ViewModel;

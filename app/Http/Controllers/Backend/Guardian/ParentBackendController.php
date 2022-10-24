@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Guardian;
 
 use App\Contracts\ParentRepositoryInterface;
+use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\ParentRequest;
 use App\Http\Requests\ProfessorUpdateRequest;
 use App\Services\ToastMessageService;

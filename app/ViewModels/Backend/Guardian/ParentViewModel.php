@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Backend\Guardian;
 
-use App\Http\Controllers\Backend\ParentBackendController;
+use App\Http\Controllers\Backend\Guardian\ParentBackendController;
 use App\Models\Guardian;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\ViewModels\ViewModel;

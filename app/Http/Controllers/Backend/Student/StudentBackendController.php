@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Student;
 
 use App\Contracts\StudentRepositoryInterface;
+use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\StudentRequest;
 use App\Http\Requests\StudentUpdateRequest;
 use App\Services\ToastMessageService;

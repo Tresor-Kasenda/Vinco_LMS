@@ -2,7 +2,7 @@
 
 namespace App\ViewModels\Backend\Student;
 
-use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\Student\StudentBackendController;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

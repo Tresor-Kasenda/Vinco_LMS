@@ -15,6 +15,4 @@ interface CampusRepositoryInterface
     public function updated(string $key, $attributes);
 
     public function deleted(string $key);
-
-    public function changeStatus($attributes);
 }

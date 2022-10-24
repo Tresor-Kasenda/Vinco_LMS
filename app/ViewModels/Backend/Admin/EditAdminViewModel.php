@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Backend\Admin;
 
-use App\Http\Controllers\Backend\UsersBackendController;
+use App\Http\Controllers\Backend\Admin\UsersBackendController;
 use App\Models\Institution;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

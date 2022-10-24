@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Backend\Student;
 
-use App\Http\Controllers\Backend\StudentBackendController;
+use App\Http\Controllers\Backend\Student\StudentBackendController;
 use App\Models\Guardian;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Guardian_C;
@@ -24,7 +24,6 @@ class CreateStudentViewModel extends ViewModel
 
     public function institutions()
     {
-
     }
 
     public function guardians(): array|Collection|_IH_Guardian_C
