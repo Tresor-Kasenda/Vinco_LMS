@@ -28,7 +28,7 @@ final class AperyLessonType implements LessonTypeInterface
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
         $rooms = self::create(attributes: $attributes);
-        $currentTime = strtotime('' . $attributes->input('date') . ' ' . $attributes->input('start_time') . '');
+        $currentTime = strtotime(''.$attributes->input('date').' '.$attributes->input('start_time').'');
         $date = date('Y-m-d H:i:s', $currentTime);
         $pinCode = random_int(100000, 999999);
         $participant = $this->generateStringValues(0, 9999);
@@ -72,7 +72,7 @@ final class AperyLessonType implements LessonTypeInterface
         $room = self::renderRoomMetadata($date, $difference, $attributes);
 
         return EnableXService::createConnexion()
-            ->post(config('enable.url') . '/rooms', $room)
+            ->post(config('enable.url').'/rooms', $room)
             ->json();
     }
 
@@ -80,16 +80,16 @@ final class AperyLessonType implements LessonTypeInterface
     private static function renderRoomMetadata($date, $difference, $attributes): array
     {
         return [
-            'name' => '' . $attributes->input('name'),
-            'owner_ref' => '' . (new self())->generateStringValues(910, 9999999),
+            'name' => ''.$attributes->input('name'),
+            'owner_ref' => ''.(new self())->generateStringValues(910, 9999999),
             'settings' => [
-                'description' => '' . $attributes->input('name'),
+                'description' => ''.$attributes->input('name'),
                 'mode' => 'group',
                 'scheduled' => false,
                 'adhoc' => false,
                 'duration' => $difference,
                 'moderators' => $attributes->input('moderator') ?? '2',
-                'participants' => '' . $attributes->input('participant'),
+                'participants' => ''.$attributes->input('participant'),
                 'billing_code' => '',
                 'auto_recording' => false,
                 'quality' => 'SD',
@@ -98,7 +98,7 @@ final class AperyLessonType implements LessonTypeInterface
                 'abwd' => true,
                 'max_active_talkers' => $attributes->input('participant'),
                 'knock' => false,
-                'scheduled_time' => '' . $date,
+                'scheduled_time' => ''.$date,
                 'wait_for_moderator' => false,
                 'media_zone' => 'US',
                 'single_file_recording' => false,

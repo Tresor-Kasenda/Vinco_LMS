@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\RoomMessage
+ * App\Models\RoomMessage.
  *
  * @property-read \App\Models\Room|null $room
  *
