@@ -71,11 +71,14 @@ final class CalendarBackendController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
-        //
+        $calendar = Calendar::where('id', $id)->first();
+        return \view('backend.domain.communication.calendar.edit', [
+            'calendar'=>$calendar
+        ]);
     }
 
     /**
@@ -86,7 +89,12 @@ final class CalendarBackendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $calendar = Calendar::where('id', $id)->first();
+        $data = $request->except('_token');
+        $data['institution_id'] = \Auth::user()->institution->id;
+        $calendar->update($data);
+
+        return redirect()->route('admins.communication.calendar.index');
     }
 
     /**
