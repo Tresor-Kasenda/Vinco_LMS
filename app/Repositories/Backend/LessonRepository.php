@@ -69,7 +69,7 @@ final class LessonRepository implements LessonRepositoryInterface
 
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-           // $lessonType->store(attributes: $attributes, lesson: $lesson->id);
+            // $lessonType->store(attributes: $attributes, lesson: $lesson->id);
         }
 
         return $lesson;

@@ -54,6 +54,6 @@ final class LessonFiles extends Model
 
     public function getLessonFiles(): string
     {
-        return asset('storage/lesson/files/' . $this->files);
+        return asset('storage/lesson/files/'.$this->files);
     }
 }

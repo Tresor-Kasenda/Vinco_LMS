@@ -74,6 +74,7 @@ final class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = $this->showCategory(key: $key);
         $category->delete();
+
         return $category;
     }
 }
