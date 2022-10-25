@@ -82,6 +82,7 @@ final class StudentRepository implements StudentRepositoryInterface
             $role = $this->getStudentRole();
             $user->assignRole([$role->id]);
             $user->givePermissionTo($role->permissions);
+
             return $this->storeStudent($user, $attributes);
         }
 
@@ -205,6 +206,7 @@ final class StudentRepository implements StudentRepositoryInterface
             return back();
         }
         $student->delete();
+
         return $student;
     }
 }

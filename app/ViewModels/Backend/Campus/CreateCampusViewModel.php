@@ -15,6 +15,7 @@ use Spatie\ViewModels\ViewModel;
 class CreateCampusViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $storeUrl;
 
     public function __construct()

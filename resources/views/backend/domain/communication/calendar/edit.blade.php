@@ -1,7 +1,7 @@
 @extends('backend.layout.communication')
 
 @section('title')
-    Create Calendar
+    Edit Calendar
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Event Create</h3>
+                            <h3 class="nk-block-title page-title">Event Update</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -44,8 +44,9 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    <form action="{{ route('admins.communication.calendar.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ route('admins.communication.calendar.update', $calendar->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
+                                        {{method_field('put')}}
                                         <div class="row g-gs">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -56,9 +57,7 @@
                                                             class="form-control @error('title') error @enderror"
                                                             id="title"
                                                             name="title"
-                                                            value="{{ old('title') }}"
-                                                            placeholder="Enter title"
-                                                            required>
+                                                            value="{{ $calendar->title }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,9 +71,7 @@
                                                             id="start_date"
                                                             name="start_date"
                                                             data-date-format="yyyy-mm-dd"
-                                                            value="{{ old('start_date') }}"
-                                                            placeholder="Select Admission Date"
-                                                            required>
+                                                            value="{{ $calendar->start_date }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,16 +86,14 @@
                                                             id="end_date"
                                                             name="end_date"
                                                             data-date-format="yyyy-mm-dd"
-                                                            value="{{ old('end_date') }}"
-                                                            placeholder="Select Admission Date"
-                                                            required>
+                                                            value="{{ $calendar->end_date }}">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-primary">Update</button>
                                                 </div>
                                             </div>
                                         </div>

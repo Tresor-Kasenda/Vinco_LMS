@@ -49,7 +49,7 @@ final class CampusBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un campus ajouter avec success"
+            'Un campus ajouter avec success'
         );
 
         return redirect()->route('admins.academic.campus.index');
@@ -75,7 +75,7 @@ final class CampusBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un campus modifier avec success"
+            'Un campus modifier avec success'
         );
 
         return Response::redirectToRoute('admins.academic.campus.index');
@@ -87,7 +87,7 @@ final class CampusBackendController extends BackendBaseController
 
         $this->factory->success(
             'success',
-            "Un campus supprimer avec success"
+            'Un campus supprimer avec success'
         );
 
         return Response::redirectToRoute('admins.academic.campus.index');

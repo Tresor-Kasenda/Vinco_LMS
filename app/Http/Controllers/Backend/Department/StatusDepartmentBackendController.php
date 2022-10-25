@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 class StatusDepartmentBackendController extends Controller
 {
     public function __invoke(
-        DepartmentStatusRequest    $request,
+        DepartmentStatusRequest $request,
         DepartmentStatusRepository $repository
     ): JsonResponse {
         $department = $repository->handle($request);

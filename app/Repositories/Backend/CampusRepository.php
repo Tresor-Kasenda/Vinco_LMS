@@ -95,6 +95,7 @@ final class CampusRepository implements CampusRepositoryInterface
             return back();
         }
         $campus->delete();
+
         return back();
     }
 }
