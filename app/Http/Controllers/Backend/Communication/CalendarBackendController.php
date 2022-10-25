@@ -76,8 +76,9 @@ final class CalendarBackendController extends Controller
     public function edit($id)
     {
         $calendar = Calendar::where('id', $id)->first();
+
         return \view('backend.domain.communication.calendar.edit', [
-            'calendar'=>$calendar
+            'calendar'=>$calendar,
         ]);
     }
 

@@ -30,13 +30,13 @@ use Illuminate\Support\Carbon;
  * @property string|null $occupation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|\App\Models\Fee[] $fees
+ * @property-read Collection|Fee[] $fees
  * @property-read int|null $fees_count
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read Collection|\App\Models\Student[] $students
+ * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  *
  * @method static Builder|Guardian newModelQuery()
  * @method static Builder|Guardian newQuery()
@@ -55,8 +55,6 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  *
  * @property string|null $firstname_guardian
- *
- * @method static Builder|Guardian whereFirstnameGuardian($value)
  */
 final class Guardian extends Model
 {

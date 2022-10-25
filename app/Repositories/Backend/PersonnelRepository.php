@@ -105,7 +105,7 @@ final class PersonnelRepository implements PersonnelRepositoryInterface
                 'username' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
                 'phones' => $attributes->input('phones'),
-                'images_personnel' => self::uploadFiles($attributes),
+                'images' => self::uploadFiles($attributes),
                 'gender' => $attributes->input('gender'),
                 'matriculate' => $this->generateRandomTransaction(10, $attributes->input('name')),
                 'academic_year_id' => $attributes->input('academic'),

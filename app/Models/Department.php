@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\StatusEnum;
+use Database\Factories\DepartmentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,8 +31,8 @@ use Illuminate\Support\Carbon;
  * @property-read Campus $campus
  * @property-read Collection|Student[] $students
  * @property-read int|null $students_count
- * @property-read Collection|Subsidiary[] $subdsidiaries
- * @property-read int|null $subdsidiaries_count
+ * @property-read Collection|Subsidiary[] $subsidiaries
+ * @property-read int|null $subsidiaries_count
  * @property-read Collection|Professor[] $teachers
  * @property-read int|null $teachers_count
  * @property-read Collection|User[] $users
@@ -54,7 +55,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Department withoutTrashed()
  * @mixin \Eloquent
  *
- * @method static \Database\Factories\DepartmentFactory factory(...$parameters)
+ * @method static DepartmentFactory factory(...$parameters)
  */
 final class Department extends Model
 {
@@ -65,14 +66,12 @@ final class Department extends Model
 
     public function campus(): BelongsTo
     {
-        return $this->belongsTo(Campus::class, 'campus_id');
+        return $this->belongsTo(Campus::class);
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_department')
-            ->select(['name', 'email'])
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_department');
     }
 
     public function teachers(): BelongsToMany

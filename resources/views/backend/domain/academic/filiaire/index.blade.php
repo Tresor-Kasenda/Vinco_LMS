@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('filiaire-create')
+                                        @can('filiaire-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.filiaire.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.academic.filiaire.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.departments.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -41,6 +35,9 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                             <tr class="nk-tb-item nk-tb-head  text-center">
+                                <th class="nk-tb-col tb-col-sm">
+                                    <span>ID</span>
+                                </th>
                                 <th class="nk-tb-col tb-col-sm">
                                     <span>Image</span>
                                 </th>
@@ -68,6 +65,9 @@
                             @foreach($filiaires as $filiaire)
                                 <tr class="nk-tb-item text-center">
                                     <td class="nk-tb-col">
+                                        <span class="tb-lead">{{ $filiaire->id ?? ""}}</span>
+                                    </td>
+                                    <td class="nk-tb-col">
                                         <span class="tb-product">
                                             <img
                                                 src="{{ asset('storage/'. $filiaire->images) }}"
@@ -90,29 +90,15 @@
                                         </th>
                                     @endif
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex justify-content-center">
-                                                @permission('filiaire-read')
-                                                    <a href="{{ route('admins.academic.filiaire.show', $filiaire->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-eye"></em>
-                                                    </a>
-                                                @endpermission
-                                                @permission('filiaire-update')
-                                                    <a href="{{ route('admins.academic.filiaire.edit', $filiaire->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-edit"></em>
-                                                    </a>
-                                                @endpermission
-                                                @permission('filiaire-delete')
-                                                    <form action="{{ route('admins.academic.filiaire.destroy', $filiaire->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                            <em class="icon ni ni-trash"></em>
-                                                        </button>
-                                                    </form>
-                                                @endpermission
+                                        @can('filiaire-read')
+                                            <div class="tb-lead justify-content-center">
+                                                <a href="{{ route('admins.academic.filiaire.show', $filiaire->id) }}"
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail Filiaire</span>
+                                                </a>
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

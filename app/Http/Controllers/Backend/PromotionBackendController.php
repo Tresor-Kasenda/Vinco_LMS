@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\PromotionRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\PromotionRequest;
 use App\Http\Requests\PromotionUpdateRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class PromotionBackendController extends Controller
+final class PromotionBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly PromotionRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -36,6 +38,11 @@ final class PromotionBackendController extends Controller
     public function store(PromotionRequest $request): RedirectResponse
     {
         $this->repository->stored(attributes: $request);
+
+        $this->factory->success(
+            'success',
+            'Une nouvelle promotion a ete ajouter'
+        );
 
         return redirect()->route('admins.academic.promotion.index');
     }
@@ -58,6 +65,11 @@ final class PromotionBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $request);
 
+        $this->factory->success(
+            'success',
+            'Une promotion a ete modifier'
+        );
+
         return redirect()->route('admins.academic.promotion.index');
     }
 
@@ -65,6 +77,6 @@ final class PromotionBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
-        return back();
+        return to_route('admins.academic.promotion.index');
     }
 }

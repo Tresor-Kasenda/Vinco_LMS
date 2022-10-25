@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.departments.index') }}">
+                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ $viewModel->indexURL }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.academic.departments.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->storeURL }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
@@ -61,29 +61,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @php
-                                                if (auth()->user()->hasRole('Super Admin')){
-                                                    $users = \App\Models\User::query()
-                                                        ->whereHas('roles', function ($query){
-                                                            $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->with(['institution', 'teacher'])
-                                                        ->get();
-                                                    $campuses = \App\Models\Campus::query()
-                                                        ->get();
-                                                } else {
-                                                    $users = \App\Models\User::query()
-                                                        ->where('institution_id', '=', auth()->user()->institution->id)
-                                                        ->with(['teacher', 'institution'])
-                                                        ->whereHas('roles', function ($query){
-                                                            $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->get()
-                                                        ->filter(fn($query) => $query->where('status', App\Enums\StatusEnum::TRUE));
-                                                    $campuses = \App\Models\Campus::query()
-                                                        ->where('institution_id', '=', auth()->user()->institution->id)->get();
-                                                }
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -96,7 +73,7 @@
                                                         data-placeholder="Select Responsable"
                                                         required>
                                                         <option label="Select Responsable" value=""></option>
-                                                        @foreach($users as $user)
+                                                        @foreach($viewModel->users() as $user)
                                                             <option value="{{ $user->id }}">
                                                                 {{ ucfirst($user->name) }}
                                                                 @if(auth()->user()->hasRole('Super Admin'))
@@ -118,7 +95,7 @@
                                                         data-placeholder="Choisir la faculte"
                                                         required>
                                                         <option label="Choisir la faculte" value=""></option>
-                                                        @foreach($campuses as $campus)
+                                                        @foreach($viewModel->campuses() as $campus)
                                                             <option value="{{ $campus->id }}">
                                                                 {{ $campus->name }} (<small>{{ ucfirst($campus->institution->institution_name) ?? "" }}</small>)
                                                             </option>

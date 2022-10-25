@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('student-create')
+                                        @can('student-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.student.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -41,6 +35,12 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
+                            <th class="nk-tb-col">
+                                <span>ID</span>
+                            </th>
+                            <th class="nk-tb-col">
+                                <span>IMAGES</span>
+                            </th>
                             <th class="nk-tb-col">
                                 <span>MATRICULE</span>
                             </th>
@@ -53,17 +53,25 @@
                             <th class="nk-tb-col tb-col-md">
                                 <span>INSTITUTION</span>
                             </th>
-                            <th class="nk-tb-col">
-                                <span>IMAGES</span>
-                            </th>
                             <th class="nk-tb-col text-center">
                                 <span>ACTIONS</span>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($students as $student)
+                        @foreach($viewModel->students() as $student)
                             <tr class="nk-tb-item text-center">
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $student->id ?? "" }}</span>
+                                </td>
+                                <td class="nk-tb-col tb-col-sm">
+                                    <span class="tb-product justify-content-center">
+                                        <img
+                                            src="{{ $student->getImages() }}"
+                                            alt="{{ $student->name }}"
+                                            class="thumb">
+                                    </span>
+                                </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">{{ $student->matriculate ?? "" }}</span>
                                 </td>
@@ -74,40 +82,20 @@
                                     <span class="tb-lead">{{ $student->email ?? "" }}</span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">{{ \App\Models\User::where('id', $student->user_id)->first()->institution->institution_name ?? "" }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-sm">
-                                        <span class="tb-product justify-content-center">
-                                            <img
-                                                src="{{ $student->getImages() }}"
-                                                alt="{{ $student->name }}"
-                                                class="thumb">
-                                        </span>
+                                    <span class="tb-lead">
+                                        {{ ucfirst($student->user->institution->institution_name) ?? "" }}
+                                    </span>
                                 </td>
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        <div class="d-flex justify-content-center">
-                                            @permission('student-read')
-                                                <a href="{{ route('admins.users.student.show', $student->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye"></em>
-                                                </a>
-                                            @endpermission
-                                            @permission('student-update')
-                                                <a href="{{ route('admins.users.student.edit', $student->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                            @endpermission
-                                            @permission('student-delete')
-                                                <form action="{{ route('admins.users.student.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
-                                            @endpermission
+                                    @can('student-read')
+                                        <div class="tb-lead justify-content-center">
+                                            <a href="{{ route('admins.users.student.show', $student->id) }}"
+                                               class="btn btn-outline-primary btn-sm" title="">
+                                                <em class="icon ni ni-eye-alt-fill"></em>
+                                                <span>Detail etudiant</span>
+                                            </a>
                                         </div>
-                                    </span>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

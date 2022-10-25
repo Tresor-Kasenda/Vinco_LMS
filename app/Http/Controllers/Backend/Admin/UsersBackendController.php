@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use App\Contracts\UsersRepositoryInterface;
+use App\Http\Controllers\Backend\BackendBaseController;
 use App\Http\Requests\UserRequest;
 use App\Services\ToastMessageService;
 use App\ViewModels\Backend\Admin\AdminViewModel;

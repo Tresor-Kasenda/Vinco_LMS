@@ -87,6 +87,6 @@ final class PersonnelBackendController extends BackendBaseController
             'Un personnel a ete supprimer'
         );
 
-        return back();
+        return to_route('admins.users.staffs.index');
     }
 }

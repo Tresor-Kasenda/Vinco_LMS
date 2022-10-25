@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\CampusRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Campus;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,10 +16,6 @@ use Illuminate\Http\RedirectResponse;
 final class CampusRepository implements CampusRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
 
     public function getCampuses(): Collection|array
     {
@@ -50,6 +45,33 @@ final class CampusRepository implements CampusRepositoryInterface
             ->get();
     }
 
+    public function stored($attributes): Model|Builder|RedirectResponse
+    {
+        return Campus::query()
+            ->create([
+                'user_id' => $attributes->input('personnel'),
+                'name' => $attributes->input('name'),
+                'description' => $attributes->input('description'),
+                'images' => self::uploadFiles($attributes),
+                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
+            ]);
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|null
+    {
+        $campus = $this->showCampus(key: $key);
+        $this->removePathOfImages($campus);
+        $campus->update([
+            'user_id' => $attributes->input('personnel'),
+            'name' => $attributes->input('name'),
+            'description' => $attributes->input('description'),
+            'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution->id,
+            'images' => self::uploadFiles($attributes),
+        ]);
+
+        return $campus;
+    }
+
     public function showCampus(string $key): Model|Builder|null
     {
         $campus = Campus::query()
@@ -66,60 +88,14 @@ final class CampusRepository implements CampusRepositoryInterface
         return $campus->load(['user', 'institution', 'departments']);
     }
 
-    public function stored($attributes): Model|Builder|RedirectResponse
-    {
-        $faculty = Campus::query()
-            ->create([
-                'user_id' => $attributes->input('personnel'),
-                'name' => $attributes->input('name'),
-                'description' => $attributes->input('description'),
-                'images' => self::uploadFiles($attributes),
-                'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
-            ]);
-        $this->service->success('Campus add with successfully');
-
-        return $faculty;
-    }
-
-    public function updated(string $key, $attributes): Model|Builder|null
-    {
-        $campus = $this->showCampus(key: $key);
-        $this->removePathOfImages($campus);
-        $campus->update([
-            'user_id' => $attributes->input('personnel'),
-            'name' => $attributes->input('name'),
-            'description' => $attributes->input('description'),
-            'institution_id' => $attributes->input('institution') ?? \Auth::user()->institution->id,
-            'images' => self::uploadFiles($attributes),
-        ]);
-        $this->service->success('Un campus a ete modifier');
-
-        return $campus;
-    }
-
     public function deleted(string $key): RedirectResponse
     {
         $campus = $this->showCampus(key: $key);
         if ($campus->status !== StatusEnum::FALSE) {
-            $this->service->warning('Veillez desactiver le campus avant de le mettre dans la corbeille');
-
             return back();
         }
         $campus->delete();
-        $this->service->success('Un campus a ete supprimer');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $personnel = $this->showCampus(key: $attributes->input('id'));
-        if ($personnel != null) {
-            return $personnel->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
     }
 }

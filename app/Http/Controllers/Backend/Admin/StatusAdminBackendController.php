@@ -9,7 +9,7 @@ use App\Http\Requests\Backend\Admins\AdminStatusRequest;
 use App\Repositories\Backend\Admins\AdminStatusRepository;
 use Illuminate\Http\JsonResponse;
 
-class AdminStatusBackendController extends Controller
+class StatusAdminBackendController extends Controller
 {
     public function __invoke(
         AdminStatusRequest $request,

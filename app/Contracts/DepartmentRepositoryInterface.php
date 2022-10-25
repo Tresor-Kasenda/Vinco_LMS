@@ -8,13 +8,9 @@ interface DepartmentRepositoryInterface
 {
     public function getDepartments();
 
-    public function showDepartment(string $key);
-
     public function stored($attributes);
 
     public function updated(string $key, $attributes);
 
     public function deleted(string $key);
-
-    public function changeStatus($attributes);
 }

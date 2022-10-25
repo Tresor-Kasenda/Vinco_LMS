@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('parent-create')
+                                        @can('parent-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.users.guardian.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->createUrl }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.administrator.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -41,6 +35,9 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                         <tr class="nk-tb-item nk-tb-head text-center">
+                            <th class="nk-tb-col">
+                                <span>ID</span>
+                            </th>
                             <th class="nk-tb-col">
                                 <span>IMAGES</span>
                             </th>
@@ -59,8 +56,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($parents as $parent)
+                        @foreach($viewModel->parents() as $parent)
                             <tr class="nk-tb-item text-center">
+                                <td class="nk-tb-col">
+                                    <span class="tb-lead">{{ $parent->id ?? "" }}</span>
+                                </td>
                                 <td class="nk-tb-col tb-col-sm">
                                     <span class="tb-product">
                                         <img
@@ -80,30 +80,16 @@
                                         <span class="tb-lead">{{ $parent->phones ?? "" }}</span>
                                     </div>
                                 </td>
-
                                 <td class="nk-tb-col">
-                                    <span class="tb-lead">
-                                        <div class="d-flex justify-content-center">
-                                            <a href="{{ route('admins.users.guardian.show', $parent->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                <em class="icon ni ni-eye-alt"></em>
+                                    @can('parent-view')
+                                        <div class="tb-lead justify-content-center">
+                                            <a href="{{ route('admins.users.guardian.show', $parent->id) }}"
+                                               class="btn btn-outline-primary btn-sm" title="">
+                                                <em class="icon ni ni-eye-alt-fill"></em>
+                                                <span>Detail Parent</span>
                                             </a>
-                                            @permission('parent-update')
-                                                <a href="{{ route('admins.users.guardian.edit', $parent->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit-alt"></em>
-                                                </a>
-                                            @endpermission
-
-                                            @permission('parent-delete')
-                                                <form action="{{ route('admins.users.guardian.destroy', $parent->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
-                                            @endpermission
                                         </div>
-                                    </span>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

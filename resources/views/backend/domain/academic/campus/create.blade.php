@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.campus.index') }}">
+                                            <a class="btn btn-outline-primary d-none d-md-inline-flex" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.academic.campus.store') }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->storeUrl }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row g-gs">
                                             <div class="col-md-12">
@@ -61,28 +61,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @php
-                                                if(auth()->user()->hasRole('Super Admin')){
-                                                    $personnels = \App\Models\User::query()
-                                                        ->select(['id', 'name', 'institution_id'])
-                                                        ->with('institution')
-                                                        ->whereHas('roles', function ($query) {
-                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->get();
-                                                } else {
-                                                    $personnels = \App\Models\User::query()
-                                                        ->select(['id', 'name', 'institution_id'])
-                                                        ->with(['institution' => function($query){
-                                                            $query->where('id', '=', auth()->user()->institution_id);
-                                                        }])
-                                                        ->whereHas('roles', function ($query) {
-                                                            $query->whereNotIn('name', ['Super Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->get();
-                                                }
-
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -94,9 +72,10 @@
                                                         data-placeholder="Select a manager"
                                                         required>
                                                         <option label="role" value=""></option>
-                                                        @foreach($personnels as $personnel)
+                                                        @foreach($viewModel->personnels() as $personnel)
                                                             <option value="{{ $personnel->id }}">
-                                                                {{ ucfirst($personnel->name) ?? "" }} (<small>{{ ucfirst($personnel->institution->institution_name) ?? "" }}</small>)
+                                                                {{ ucfirst($personnel->name) ?? "" }}
+                                                                (<small>{{ ucfirst($personnel->institution->institution_name) ?? "" }}</small>)
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -113,10 +92,10 @@
                                                             data-placeholder="Select Institution"
                                                             required>
                                                             <option label="role" value=""></option>
-                                                            @foreach(\App\Models\Institution::get() as $personnel)
+                                                            @foreach($viewModel->institutions() as $institution)
                                                                 <option
-                                                                    value="{{ $personnel->id }}">
-                                                                    {{ ucfirst($personnel->institution_name) ?? "" }}
+                                                                    value="{{ $institution->id }}">
+                                                                    {{ ucfirst($institution->institution_name) ?? "" }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -153,8 +132,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                <div class="form-group text-center">
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>
