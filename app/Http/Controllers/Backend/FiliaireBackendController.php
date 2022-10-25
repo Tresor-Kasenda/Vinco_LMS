@@ -74,6 +74,7 @@ final class FiliaireBackendController extends BackendBaseController
             'success',
             'Un filiaire a ete supprimer'
         );
+
         return to_route('admins.academic.filiaire.index');
     }
 
@@ -85,7 +86,7 @@ final class FiliaireBackendController extends BackendBaseController
             'success',
             'Un filiaire a ete modifier'
         );
-        
+
         return to_route('admins.academic.filiaire.index');
     }
 }
