@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\CourseRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Course;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,10 +17,6 @@ use LaravelIdea\Helper\App\Models\_IH_Course_QB;
 final class CourseRepository implements CourseRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
 
     public function getCourses(): array|Collection
     {
@@ -64,7 +59,7 @@ final class CourseRepository implements CourseRepositoryInterface
         $course = Course::query()
             ->create([
                 'name' => $attributes->input('name'),
-                'weighting' => $attributes->input('weighting'),
+                'annual_rating' => $attributes->input('weighting'),
                 'category_id' => $attributes->input('category'),
                 'professor_id' => $attributes->input('professor'),
                 'description' => $attributes->input('description'),
@@ -74,7 +69,6 @@ final class CourseRepository implements CourseRepositoryInterface
             ]);
 
         $course->professors()->sync($attributes->input('professor'));
-        $this->service->success('Un nouveau cours a ete ajouter');
 
         return $course;
     }
@@ -86,14 +80,13 @@ final class CourseRepository implements CourseRepositoryInterface
         $course->professors()->detach();
         $course->update([
             'name' => $attributes->input('name'),
-            'weighting' => $attributes->input('weighting'),
+            'annual_rating' => $attributes->input('weighting'),
             'category_id' => $attributes->input('category'),
             'professor_id' => $attributes->input('professor'),
             'description' => $attributes->input('description'),
             'images' => self::uploadFiles($attributes),
         ]);
         $course->professors()->sync($attributes->input('professor'));
-        $this->service->success('Un nouveau cours a ete ajouter');
 
         return $course;
     }
@@ -108,7 +101,7 @@ final class CourseRepository implements CourseRepositoryInterface
                 'description',
                 'category_id',
                 'images',
-                'weighting',
+                'annual_rating',
                 'description',
                 'institution_id',
             ])
@@ -122,25 +115,11 @@ final class CourseRepository implements CourseRepositoryInterface
     {
         $professor = $this->showCourse(key: $key);
         if ($professor->status !== StatusEnum::FALSE) {
-            $this->service->error('Veillez desactiver le cours avant de le mettre dans la corbeille');
 
             return back();
         }
         $professor->delete();
-        $this->service->success('Une modification a ete effectuer sur ce cours');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $professor = $this->showCourse(key: $attributes->input('key'));
-        if ($professor != null) {
-            return $professor->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
     }
 }

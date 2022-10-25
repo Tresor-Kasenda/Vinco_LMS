@@ -19,6 +19,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @can('institution-status')
                                         <li class="preview-item">
                                             <div class="custom-control custom-control-md custom-switch">
                                                 <input
@@ -32,6 +33,7 @@
                                                 <label class="custom-control-label" for="activated"></label>
                                             </div>
                                         </li>
+                                        @endcan
                                         <li class="preview-item">
                                             <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.institution.index') }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
@@ -217,7 +219,6 @@
 
 @section('scripts')
     <script>
-
         let changeRoomStatus = async (_this, id) => {
             const status = $(_this).prop('checked') === true ? 1 : 0;
             let _token = $('meta[name="csrf-token"]').attr('content');

@@ -82,12 +82,6 @@ final class PromotionRepository implements PromotionRepositoryInterface
     public function showPromotion(string $key): Model|Builder|Promotion
     {
         $promotion = Promotion::query()
-            ->select([
-                'id',
-                'name',
-                'academic_year_id',
-                'subsidiary_id',
-            ])
             ->where('id', '=', $key)
             ->firstOrFail();
 

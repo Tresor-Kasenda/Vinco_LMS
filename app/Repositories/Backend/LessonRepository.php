@@ -8,7 +8,6 @@ use App\Contracts\LessonRepositoryInterface;
 use App\Factory\LessonFactory;
 use App\Models\Lesson;
 use App\Models\LessonType;
-use App\Services\ToastMessageService;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +16,6 @@ use Illuminate\Http\RedirectResponse;
 final class LessonRepository implements LessonRepositoryInterface
 {
     public function __construct(
-        protected ToastMessageService $service,
         protected LessonFactory $lessonFactory
     ) {
     }
@@ -71,9 +69,8 @@ final class LessonRepository implements LessonRepositoryInterface
 
         if (\App\Enums\LessonType::TYPE_TEXT !== $lesson->id) {
             $lessonType = $this->lessonFactory->storageLessonType(type: $type->id);
-            $lessonType->store(attributes: $attributes, lesson: $lesson->id);
+           // $lessonType->store(attributes: $attributes, lesson: $lesson->id);
         }
-        $this->service->success('Une nouvelle lecon a ete ajouter');
 
         return $lesson;
     }
@@ -119,21 +116,12 @@ final class LessonRepository implements LessonRepositoryInterface
             $lessonType->update(request: $attributes, lesson: $lesson->id);
         }
 
-        $this->service->success('Une lecon a ete mise a jours avec success');
-
         return $lesson;
     }
 
     public function showLesson(string $key): Model|Lesson|Builder|null
     {
         $lesson = Lesson::query()
-            ->select([
-                'id',
-                'name',
-                'chapter_id',
-                'content',
-                'lesson_type_id',
-            ])
             ->where('id', '=', $key)
             ->first();
 
@@ -150,7 +138,6 @@ final class LessonRepository implements LessonRepositoryInterface
     {
         $lesson = $this->showLesson(key: $key);
         $lesson->delete();
-        $this->service->success('La lesson a ete supprimer avec success');
 
         return $lesson;
     }

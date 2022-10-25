@@ -65,7 +65,6 @@ final class ResourceRepository implements ResourceRepositoryInterface
                 'files' => $attributes->file('files'),
                 'path' => self::uploadPDFFile($attributes),
             ]);
-        $this->messageService->success('Une nouvelle resource ajouter a la lecon');
 
         return $lesson;
     }
@@ -81,7 +80,6 @@ final class ResourceRepository implements ResourceRepositoryInterface
             'files' => $attributes->file('files')->getClientOriginalName(),
             'path' => self::uploadPDFFile($attributes),
         ]);
-        $this->messageService->success('Une lecon a ete mise a jours avec success');
 
         return $lesson;
     }
@@ -89,14 +87,6 @@ final class ResourceRepository implements ResourceRepositoryInterface
     public function showResource(string $key): Model|Resource|Builder
     {
         $resource = Resource::query()
-            ->select([
-                'id',
-                'name',
-                'lesson_id',
-                'chapter_id',
-                'files',
-                'path',
-            ])
             ->where('id', '=', $key)
             ->first();
 
@@ -111,7 +101,6 @@ final class ResourceRepository implements ResourceRepositoryInterface
     {
         $lesson = $this->showResource(key: $key);
         $lesson->delete();
-        $this->messageService->success('La lesson a ete supprimer avec success');
 
         return $lesson;
     }

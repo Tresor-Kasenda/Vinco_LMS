@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\LessonRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonRequest;
 use App\Http\Requests\LessonUpdateRequest;
 use App\Models\LessonType;
@@ -18,13 +17,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class LessonBackendController extends Controller
+final class LessonBackendController extends BackendBaseController
 {
     public function __construct(
         protected readonly LessonRepositoryInterface $repository,
         public CreateRoomRepositoryInterface $repositories,
-        protected ToastMessageService $service,
+        public ToastMessageService $factory,
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -51,7 +51,6 @@ final class LessonBackendController extends Controller
         if ($type->id == \App\Enums\LessonType::TYPE_APERI->value) {
             $promotion = $attributes->promotion;
             if ($promotion === null) {
-                $this->service->warning('Veuillez choisir une promotion');
 
                 return back();
             }
@@ -88,7 +87,6 @@ final class LessonBackendController extends Controller
 
             return to_route('admins.academic.lessons.index');
         } else {
-            $this->service->warning('La publication a échouée.');
 
             $this->repository->stored(attributes: $attributes);
 

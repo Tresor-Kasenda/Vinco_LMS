@@ -74,7 +74,7 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        @can('promotion-read')
+                                        @can('promotion-view')
                                             <div class="tb-lead justify-content-center">
                                                 <a href="{{ route('admins.academic.promotion.show', $promotion->id) }}"
                                                    class="btn btn-outline-primary btn-sm" title="">
