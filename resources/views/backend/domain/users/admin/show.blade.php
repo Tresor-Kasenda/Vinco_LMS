@@ -19,26 +19,28 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="preview-item">
-                                            <div class="custom-control custom-control-md custom-switch">
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input"
-                                                    name="activated"
-                                                    data-id="{{ $admin->id }}"
-                                                    {{ $admin->status ? "checked" : "" }}
-                                                    onclick="changeAdminStatus(event.target, {{ $admin->id }});"
-                                                    id="activated">
-                                                <label class="custom-control-label" for="activated"></label>
-                                            </div>
-                                        </li>
+                                        @can('user-status')
+                                            <li class="preview-item">
+                                                <div class="custom-control custom-control-md custom-switch">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="custom-control-input"
+                                                        name="activated"
+                                                        data-id="{{ $admin->id }}"
+                                                        {{ $admin->status ? "checked" : "" }}
+                                                        onclick="changeAdminStatus(event.target, {{ $admin->id }});"
+                                                        id="activated">
+                                                    <label class="custom-control-label" for="activated"></label>
+                                                </div>
+                                            </li>
+                                        @endcan
                                         <li class="preview-item">
                                             <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.users.admin.index') }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
                                                 <span>Touts les admins</span>
                                             </a>
                                         </li>
-                                        @can('admin-update')
+                                        @can('user-update')
                                             <li class="preview-item">
                                                 <a
                                                     href="{{ route('admins.users.admin.edit', $admin->id) }}"
@@ -48,7 +50,7 @@
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('admin-delete')
+                                        @can('user-delete')
                                             <li class="preview-item">
                                                 <form
                                                     action="{{ route('admins.users.admin.destroy', $admin->id) }}"

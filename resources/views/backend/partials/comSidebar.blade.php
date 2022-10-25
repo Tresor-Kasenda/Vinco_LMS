@@ -57,7 +57,7 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    @role('Student')
+                    @hasrole('Etudiant')
                         @include('backend.components._link', [
                             'route' => route('admins.rooms.aperi.index'),
                             'name' => "Aperi",
@@ -88,9 +88,9 @@
                             'name' => "Journal de classe",
                             'icon' => "ni-bag"
                         ])
-                    @endrole
+                    @endhasrole
 
-                    @role('Super Admin')
+                    @hasrole('Super Admin')
                         @include('backend.components._link', [
                             'route' => route('admins.rooms.aperi.index'),
                             'name' => "Aperi",
@@ -183,9 +183,9 @@
                                 ])
                             </ul>
                         </li>
-                    @endrole
+                    @endhasrole
 
-                    @role('Gestionnaire')
+                    @hasrole('Gestionnaire')
                         @include('backend.components._link', [
                             'route' => route('admins.rooms.aperi.index'),
                             'name' => "Aperi",
@@ -273,9 +273,9 @@
                                 ])
                             </ul>
                         </li>
-                    @endrole
+                    @endhasrole
 
-                    @role('Admin')
+                    @hasrole('Admin')
                         @include('backend.components._link', [
                             'route' => route('admins.rooms.aperi.index'),
                             'name' => "Aperi",
@@ -368,7 +368,7 @@
                             'name' => "Aperi",
                             'icon' => "ni-building"
                         ])
-                    @endrole
+                    @endhasrole
                     @include('backend.components._link', [
                         'route' => route('admins.backend.home'),
                         'name' => "Go To LMS",

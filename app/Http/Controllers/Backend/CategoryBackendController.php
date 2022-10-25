@@ -5,19 +5,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\CategoryRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class CategoryBackendController extends Controller
+final class CategoryBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         public CategoryRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -36,6 +38,11 @@ final class CategoryBackendController extends Controller
     {
         $this->repository->stored(attributes:  $attributes);
 
+        $this->factory->success(
+            'success',
+            'Une nouvelle categorie a ete ajouter'
+        );
+
         return to_route('admins.academic.categories.index');
     }
 
@@ -50,6 +57,11 @@ final class CategoryBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
+        $this->factory->success(
+            'succes',
+            'Une categorie a ete modifier'
+        );
+
         return to_route('admins.academic.categories.index');
     }
 
@@ -57,6 +69,11 @@ final class CategoryBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
-        return back();
+        $this->factory->success(
+            'success',
+            'Une categorie a ete supprimer'
+        );
+
+        return to_route('admins.academic.categories.index');
     }
 }

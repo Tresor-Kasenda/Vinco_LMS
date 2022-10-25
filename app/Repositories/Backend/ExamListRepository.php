@@ -6,7 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ExamListRepositoryInterface;
 use App\Enums\StatusEnum;
-use App\Http\Requests\ActivateExamRequest;
 use App\Models\Exam;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +20,6 @@ final class ExamListRepository implements ExamListRepositoryInterface
             ->select([
                 'id',
                 'course_id',
-                'rating',
                 'date',
                 'duration',
                 'exam_session_id',
@@ -31,25 +29,7 @@ final class ExamListRepository implements ExamListRepositoryInterface
             ->get();
     }
 
-    public function showExam(string $key): Model|Exam|Builder|\Illuminate\Database\Query\Builder
-    {
-        $exam = Exam::query()
-            ->select([
-                'id',
-                'course_id',
-                'rating',
-                'date',
-                'duration',
-                'status',
-                'exam_session_id',
-            ])
-            ->where('id', '=', $key)
-            ->firstOrFail();
-
-        return $exam->load('course:id,name,professor_id,images', 'examSession:id,name');
-    }
-
-    public function stored($attributes, $factory): Model|Exam|_IH_Exam_QB|Builder
+    public function stored($attributes): Model|Exam|_IH_Exam_QB|Builder
     {
         $exam = Exam::query()
             ->create([
@@ -61,12 +41,11 @@ final class ExamListRepository implements ExamListRepositoryInterface
                 'exam_session_id' => $attributes->input('exam_session'),
                 'status' => StatusEnum::FALSE,
             ]);
-        $factory->addSuccess('New exam list as added with successfully');
 
         return $exam;
     }
 
-    public function updated(string $key, $attributes, $factory): Model|Exam|Builder|\Illuminate\Database\Query\Builder
+    public function updated(string $key, $attributes): Model|Exam|Builder|\Illuminate\Database\Query\Builder
     {
         $exam = $this->showExam(key: $key);
         $exam->update([
@@ -78,29 +57,31 @@ final class ExamListRepository implements ExamListRepositoryInterface
             'start_time' => $attributes->input('start_time'),
         ]);
 
-        $factory->addSuccess('New exam list as updated with successfully');
-
         return $exam;
     }
 
-    public function deleted(string $key, $factory): Model|Exam|Builder|\Illuminate\Database\Query\Builder
+    public function showExam(string $key): Model|Exam|Builder|\Illuminate\Database\Query\Builder
+    {
+        $exam = Exam::query()
+            ->select([
+                'id',
+                'course_id',
+                'date',
+                'duration',
+                'status',
+                'exam_session_id',
+            ])
+            ->where('id', '=', $key)
+            ->firstOrFail();
+
+        return $exam->load('course:id,name,professor_id,images', 'examSession:id,name');
+    }
+
+    public function deleted(string $key): Model|Exam|Builder|\Illuminate\Database\Query\Builder
     {
         $exam = $this->showExam(key: $key);
 
         $exam->delete();
-
-        $factory->addSuccess('New exam list as deleted with successfully');
-
-        return $exam;
-    }
-
-    public function activate(ActivateExamRequest $request): Model|Exam|Builder|\Illuminate\Database\Query\Builder
-    {
-        $exam = $this->showExam($request->input('key'));
-
-        $exam->update([
-            'status' => $request->input('status'),
-        ]);
 
         return $exam;
     }

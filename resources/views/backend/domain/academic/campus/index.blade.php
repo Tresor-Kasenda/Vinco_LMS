@@ -79,7 +79,7 @@
                                         <span class="tb-lead">{{ ucfirst($campus->institution->institution_name) ?? "-" }}</span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        @can('campus-read')
+                                        @can('campus-view')
                                             <div class="tb-lead justify-content-center">
                                                 <a href="{{ route('admins.academic.campus.show', $campus->id) }}"
                                                    class="btn btn-outline-primary btn-sm" title="">

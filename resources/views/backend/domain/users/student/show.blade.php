@@ -19,6 +19,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @can('student-status')
                                         <li class="preview-item">
                                             <div class="custom-control custom-control-md custom-switch">
                                                 <input
@@ -29,9 +30,10 @@
                                                     {{ $viewModel->user()->status ? "checked" : "" }}
                                                     onclick="changeStudentStatus(event.target, {{ $viewModel->student()->user_id }});"
                                                     id="activated">
-                                                <label class="custom-control-label" for="activated"></label>>
+                                                <label class="custom-control-label" for="activated"></label>
                                             </div>
                                         </li>
+                                        @endcan
                                         <li class="preview-item">
                                             <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
@@ -54,8 +56,7 @@
                                                     action="{{ $viewModel->deleteUrl }}"
                                                     method="POST"
                                                     class="d-inline-block"
-                                                    onsubmit="return confirm('Are you sure you want to delete this item?');"
-                                                >
+                                                    onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                     @method('DELETE')
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button type="submit" class="btn btn-outline-danger btn-sm">

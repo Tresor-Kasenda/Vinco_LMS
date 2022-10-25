@@ -32,16 +32,6 @@
                         src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
                         srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
                         alt="logo">
-                    <img
-                        class="logo-dark logo-img h-100 w-100"
-                        src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
-                        srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
-                        alt="logo-dark">
-                    <img
-                        class="logo-small logo-img h-100 w-100"
-                        src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
-                        srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
-                        alt="logo-small">
                 @endif
             </a>
         </div>
@@ -64,7 +54,7 @@
                         'icon' => "ni-home-alt"
                     ])
 
-                    @role('Parent')
+                    @hasrole('Parent')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon">
@@ -124,9 +114,10 @@
                             'name' => "Teacher",
                             'icon' => "ni-user"
                         ])
-                    @endrole
+                    @endhasrole
 
-                    @role('Student')
+                    @hasrole('Etudiant')
+
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon">
@@ -195,9 +186,9 @@
                             'name' => "Teachers",
                             'icon' => "ni-user"
                         ])
-                    @endrole
+                    @endhasrole
 
-                    @role('Gestionnaire')
+                    @hasrole('Gestionnaire')
                         @include('backend.components._link', [
                             'route' => route('admins.academic.session.index'),
                             'name' => "Annee academique",
@@ -341,9 +332,9 @@
                                 ])
                             </ul>
                         </li>
-                    @endrole
+                    @endhasrole
 
-                    @role('Admin')
+                    @hasrole('Admin')
                         @include('backend.components._link', [
                             'route' => route('admins.academic.session.index'),
                             'name' => "Annee academique",
@@ -487,9 +478,9 @@
                                 ])
                             </ul>
                         </li>
-                    @endrole
+                    @endhasrole
 
-                    @role('Professeur')
+                    @hasrole('Professeur')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                             <span class="nk-menu-icon">
@@ -628,9 +619,9 @@
                                 ])
                             </ul>
                         </li>
-                    @endrole
+                    @endhasrole
 
-                    @role('Super Admin')
+                    @hasrole('Super Admin')
                         @include('backend.components._link', [
                             'route' => route('admins.academic.session.index'),
                             'name' => "Annee academique",
@@ -793,7 +784,7 @@
                             'name' => "Go To Communication",
                             'icon' => "ni-book"
                         ])
-                    @endrole
+                    @endhasrole
 
                     <li class="nk-menu-item">
                         <a class="nk-menu-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

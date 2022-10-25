@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ExamSessionRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamSessionRequest;
 use App\Http\Requests\ExamSessionUpdateRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use App\Services\ToastMessageService;
 use Illuminate\Support\Facades\View;
 
-final class ExamSessionController extends Controller
+final class ExamSessionController extends BackendBaseController
 {
     public function __construct(
         protected readonly ExamSessionRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
+        public ToastMessageService $factory
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index()
@@ -33,7 +33,7 @@ final class ExamSessionController extends Controller
 
     public function store(ExamSessionRequest $attributes)
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.exam.session-exams.index');
     }
@@ -47,14 +47,14 @@ final class ExamSessionController extends Controller
 
     public function update(string $key, ExamSessionUpdateRequest $attributes)
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.exam.session-exams.index');
     }
 
     public function destroy(string $key)
     {
-        $this->repository->deleted($key, $this->factory);
+        $this->repository->deleted($key);
 
         return back();
     }

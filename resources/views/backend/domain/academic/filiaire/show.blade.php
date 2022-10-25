@@ -21,25 +21,12 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="preview-item">
-                                            <div class="custom-control custom-control-md custom-switch">
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input"
-                                                    name="activated"
-                                                    data-id="{{ $viewModel->filiaire()->id }}"
-                                                    {{ $viewModel->filiaire()->status ? "checked" : "" }}
-                                                    onclick="changeFiliaireStatus(event.target, {{ $viewModel->filiaire()->id }});"
-                                                    id="activated">
-                                                <label class="custom-control-label" for="activated"></label>
-                                            </div>
-                                        </li>
-                                        <li class="preview-item">
                                             <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
                                                 <span>Touts les campus</span>
                                             </a>
                                         </li>
-                                        @can('admin-update')
+                                        @can('filiaire-update')
                                             <li class="preview-item">
                                                 <a
                                                     href="{{ $viewModel->editUrl }}"
@@ -49,7 +36,7 @@
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('admin-delete')
+                                        @can('filiaire-delete')
                                             <li class="preview-item">
                                                 <form
                                                     action="{{ $viewModel->deleteUrl }}"
@@ -153,38 +140,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-
-
-@section('scripts')
-    <script>
-
-        let changeFiliaireStatus = async (_this, id) => {
-            const status = $(_this).prop('checked') === true ? 1 : 0;
-            let _token = $('meta[name="csrf-token"]').attr('content');
-            let data = {
-                status: status,
-                filiaire: id
-            }
-            let headers = {
-                'Content-type': 'application/json; charset=UTF-8',
-                'x-csrf-token': _token,
-            }
-
-            await fetch('/admins/filiaire-status', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: headers
-            })
-                .then(response => response.json())
-                .then((data) => {
-                    var result = Object.values(data)
-                    Swal.fire(`Status ${result[1].name}`, `${result[0]}`, 'success')
-                })
-                .catch((error) => {
-                    Swal.fire("Bonne nouvelle", "Operation executez avec success","success")
-                })
-        }
-    </script>
 @endsection

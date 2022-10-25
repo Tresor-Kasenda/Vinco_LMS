@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('cours-create')
+                                        @can('course-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.course.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -99,29 +93,15 @@
                                         </td>
                                     @endif
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex">
-                                                @permission('cours-read')
-                                                    <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-eye"></em>
-                                                    </a>
-                                                @endpermission
-                                                @permission('cours-update')
-                                                    <a href="{{ route('admins.academic.course.edit', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-edit"></em>
-                                                    </a>
-                                                @endpermission
-                                                @permission('cours-delete')
-                                                    <form action="{{ route('admins.academic.course.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                            <em class="icon ni ni-trash"></em>
-                                                        </button>
-                                                    </form>
-                                                @endpermission
+                                        @can('course-view')
+                                            <div class="tb-lead justify-content-center">
+                                                <a href="{{ route('admins.academic.course.show', $course->id) }}"
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail cours</span>
+                                                </a>
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

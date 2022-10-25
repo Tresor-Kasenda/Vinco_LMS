@@ -9,39 +9,39 @@ namespace App\Repositories\Backend;
  use Illuminate\Database\Eloquent\Collection;
  use Illuminate\Http\RedirectResponse;
 
- final class TrashedUsersRepository implements TrashedUsersRepositoryInterface
- {
-     public function getTrashes(): array|Collection
-     {
-         return User::onlyTrashed()
-             ->orderByDesc('created_at', 'desc')
-             ->get();
-     }
+final class TrashedUsersRepository implements TrashedUsersRepositoryInterface
+{
+    public function getTrashes(): array|Collection
+    {
+        return User::onlyTrashed()
+            ->orderByDesc('created_at', 'desc')
+            ->get();
+    }
 
-     public function restore(string $key, $alert)
-     {
-         $campus = $this->getTrashedCampus($key);
-         $campus->restore();
-         $alert->addSuccess("L'utilisateur a ete restorer avec success");
+    public function restore(string $key, $alert)
+    {
+        $campus = $this->getTrashedCampus($key);
+        $campus->restore();
+        $alert->addSuccess("L'utilisateur a ete restorer avec success");
 
-         return $campus;
-     }
+        return $campus;
+    }
 
-     public function deleted(string $key, $alert): RedirectResponse
-     {
-         $campus = $this->getTrashedCampus($key);
-         $campus->forceDelete();
-         $alert->addInfo('Utilisateur supprimer definivement avec succes');
+    public function deleted(string $key, $alert): RedirectResponse
+    {
+        $campus = $this->getTrashedCampus($key);
+        $campus->forceDelete();
+        $alert->addInfo('Utilisateur supprimer definivement avec succes');
 
-         return back();
-     }
+        return back();
+    }
 
-     public function getTrashedCampus(string $key): mixed
-     {
-         return User::withTrashed()
-             ->when('key', function ($query) use ($key) {
-                 $query->where('key', $key);
-             })
-             ->first();
-     }
- }
+    public function getTrashedCampus(string $key): mixed
+    {
+        return User::withTrashed()
+            ->when('key', function ($query) use ($key) {
+                $query->where('key', $key);
+            })
+            ->first();
+    }
+}
