@@ -51,7 +51,6 @@ final class LessonBackendController extends BackendBaseController
         if ($type->id == \App\Enums\LessonType::TYPE_APERI->value) {
             $promotion = $attributes->promotion;
             if ($promotion === null) {
-
                 return back();
             }
             $student = Student::query()
@@ -87,7 +86,6 @@ final class LessonBackendController extends BackendBaseController
 
             return to_route('admins.academic.lessons.index');
         } else {
-
             $this->repository->stored(attributes: $attributes);
 
             return to_route('admins.academic.lessons.index');

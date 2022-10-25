@@ -16,7 +16,7 @@ use Illuminate\Http\RedirectResponse;
 final class ExamListBackendController extends BackendBaseController
 {
     public function __construct(
-       public ToastMessageService $factory,
+        public ToastMessageService $factory,
         protected readonly ExamListRepositoryInterface $repository
     ) {
         parent::__construct($this->factory);
