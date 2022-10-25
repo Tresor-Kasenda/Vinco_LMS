@@ -9,6 +9,7 @@ use App\Models\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 final class NotificationRepository implements NotificationRepositoryInterface
 {
@@ -26,38 +27,40 @@ final class NotificationRepository implements NotificationRepositoryInterface
             ->firstOrFail();
     }
 
-    public function stored($attributes, $factory): Model|Builder|Notification
+    public function stored($attributes): Model|Builder|Notification
     {
         $notification = Notification::query()
             ->create([
-                'title' => $attributes->input('title'),
-                'content' => $attributes->input('content'),
+//                'title' => $attributes->input('title'),
+                'id'=>Str::random(16),
+                'data' => $attributes->input('content'),
+                'type'=>'1',
+                'notifiable_id'=>0,
+                'notifiable_type'=>"oklm"
             ]);
-        $factory->addSuccess('Notification added with successfully');
 
         return $notification;
     }
 
-    public function updated(string $key, $attributes, $factory): Model|Builder|Notification
+    public function updated(string $key, $attributes): Model|Builder|Notification
     {
         $notification = $this->showNotification($key);
         $notification->update([
-            'title' => $attributes->input('title'),
-            'content' => $attributes->input('content'),
+            'data' => $attributes->input('content'),
+            'type'=>'1',
+            'notifiable_id'=>0,
+            'notifiable_type'=>"oklm"
         ]);
 
-        $factory->addSuccess('Notification updated with successfully');
 
         return $notification;
     }
 
-    public function deleted(string $key, $factory): Model|Builder|Notification
+    public function deleted(string $key): Model|Builder|Notification
     {
         $notification = $this->showNotification($key);
 
         $notification->delete();
-
-        $factory->addSuccess('Notification deleted with successfully');
 
         return $notification;
     }
