@@ -44,10 +44,10 @@ watch: vendor/autoload.php ## lance, le serve de development
 generate: vendor/autoload.php ## Generate Ide models
 	php artisan ide:models
 
-.PHONE: pints
-pints: vendor/autoload.php ##  Pints format code
+.PHONE: lint
+lint: vendor/autoload.php ##  Pints format code
 	./vendor/bin/pint
-	php artisan lint:code
+	php artisan lint:code app/ --fix
 
 vendor/autoload.php: composer.lock
 	composer install

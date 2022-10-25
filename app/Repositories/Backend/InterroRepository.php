@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class InterroRepository implements InterroRepositoryInterface
 {
-
     public function interros(): array|Collection|\Illuminate\Support\Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {

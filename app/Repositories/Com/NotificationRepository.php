@@ -31,12 +31,12 @@ final class NotificationRepository implements NotificationRepositoryInterface
     {
         $notification = Notification::query()
             ->create([
-//                'title' => $attributes->input('title'),
-                'id'=>Str::random(16),
+                //                'title' => $attributes->input('title'),
+                'id' => Str::random(16),
                 'data' => $attributes->input('content'),
-                'type'=>'1',
-                'notifiable_id'=>0,
-                'notifiable_type'=>'oklm',
+                'type' => '1',
+                'notifiable_id' => 0,
+                'notifiable_type' => 'oklm',
             ]);
 
         return $notification;
@@ -47,9 +47,9 @@ final class NotificationRepository implements NotificationRepositoryInterface
         $notification = $this->showNotification($key);
         $notification->update([
             'data' => $attributes->input('content'),
-            'type'=>'1',
-            'notifiable_id'=>0,
-            'notifiable_type'=>'oklm',
+            'type' => '1',
+            'notifiable_id' => 0,
+            'notifiable_type' => 'oklm',
         ]);
 
         return $notification;
