@@ -71,6 +71,7 @@ final class CourseBackendController extends BackendBaseController
             'succes',
             'Un cours a ete modifier'
         );
+
         return Response::redirectToRoute('admins.academic.course.index');
     }
 
@@ -82,6 +83,7 @@ final class CourseBackendController extends BackendBaseController
             'succes',
             'Un cours  a ete supprimer'
         );
+
         return Response::redirectToRoute('admins.academic.course.index');
     }
 }

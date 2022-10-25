@@ -192,7 +192,7 @@ final class PermissionSeeder extends Seeder
             'institution-update',
             'institution-delete',
             'institution-view',
-            'institution-status'
+            'institution-status',
         ];
 
         foreach ($permissions as $permission) {
