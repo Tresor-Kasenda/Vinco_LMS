@@ -6,7 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\PromotionRepositoryInterface;
 use App\Models\Promotion;
-use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +13,6 @@ use Illuminate\Http\RedirectResponse;
 
 final class PromotionRepository implements PromotionRepositoryInterface
 {
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
-
     public function getPromotions(): array|Collection|\Illuminate\Support\Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {
@@ -59,6 +54,31 @@ final class PromotionRepository implements PromotionRepositoryInterface
             ->get();
     }
 
+    public function stored($attributes): Model|Builder|Promotion|RedirectResponse
+    {
+        return Promotion::query()
+            ->create([
+                'subsidiary_id' => $attributes->input('filiaire'),
+                'name' => $attributes->input('name'),
+                'description' => $attributes->input('description'),
+                'academic_year_id' => $attributes->input('academic'),
+            ]);
+    }
+
+    public function updated(string $key, $attributes): Model|Builder|Promotion
+    {
+        $promotion = $this->showPromotion(key: $key);
+
+        $promotion->update([
+            'subsidiary_id' => $attributes->input('filiaire'),
+            'name' => $attributes->input('name'),
+            'description' => $attributes->input('description'),
+            'academic_year_id' => $attributes->input('academic'),
+        ]);
+
+        return $promotion;
+    }
+
     public function showPromotion(string $key): Model|Builder|Promotion
     {
         $promotion = Promotion::query()
@@ -74,54 +94,11 @@ final class PromotionRepository implements PromotionRepositoryInterface
         return $promotion->load(['subsidiary:id,name,department_id', 'academic:id,start_date,end_date']);
     }
 
-    public function stored($attributes): Model|Builder|Promotion|RedirectResponse
-    {
-        $faculty = Promotion::query()
-            ->create([
-                'subsidiary_id' => $attributes->input('filiaire'),
-                'name' => $attributes->input('name'),
-                'description' => $attributes->input('description'),
-                'academic_year_id' => $attributes->input('academic'),
-            ]);
-        $this->service->success('Promotion added with successfully');
-
-        return $faculty;
-    }
-
-    public function updated(string $key, $attributes): Model|Builder|Promotion
-    {
-        $promotion = $this->showPromotion(key: $key);
-
-        $promotion->update([
-            'subsidiary_id' => $attributes->input('filiaire'),
-            'name' => $attributes->input('name'),
-            'description' => $attributes->input('description'),
-            'academic_year_id' => $attributes->input('academic'),
-        ]);
-
-        $this->service->success('Promotion updated with successfully');
-
-        return $promotion;
-    }
-
-    public function deleted(string $key): RedirectResponse
+    public function deleted(string $key): Promotion|Builder|Model
     {
         $promotion = $this->showPromotion(key: $key);
         $promotion->delete();
-        $this->service->success('Promotion trashed with successfully');
 
-        return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $promotion = $this->showPromotion(key: $attributes->input('key'));
-        if ($promotion != null) {
-            return $promotion->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
+        return $promotion;
     }
 }
