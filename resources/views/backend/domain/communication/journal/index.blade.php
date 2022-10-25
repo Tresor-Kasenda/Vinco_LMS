@@ -12,12 +12,12 @@
                             <h3 class="nk-block-title page-title">Journal De Classe</h3>
                         </div>
                         <div class="nk-block-head-content">
-                            @permission('journal-create')
+                            @can('journal-create')
                             <a class="btn btn-primary" href="{{ route('admins.communication.journal.create') }}">
                                 <em class="icon ni ni-plus"></em>
                                 <span>Add</span>
                             </a>
-                            @endpermission
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -40,13 +40,13 @@
                                                 <div class="d-flex">
                                                     <a href="#">
                                                         <span>{{ ucfirst($event->title) ?? "" }}</span>
-                                                        @permission('journal-update')
+                                                        @can('journal-update')
                                                         <a href="{{ route('admins.communication.journal.edit', $event->id) }}" class="btn btn-dim btn-success">
                                                             <em class="icon ni ni-edit-alt"></em>
                                                         </a>
-                                                        @endpermission
+                                                        @endcan
 
-                                                        @permission('journal-delete')
+                                                        @can('journal-delete')
                                                         <form action="{{ route('admins.communication.journal.destroy', $event->id) }}">
                                                             @csrf
                                                             @method('DELETE')
@@ -54,7 +54,7 @@
                                                                 <em class="icon ni ni-trash-alt"></em>
                                                             </button>
                                                         </form>
-                                                        @endpermission
+                                                        @endcan
                                                     </a>
                                                 </div>
 
