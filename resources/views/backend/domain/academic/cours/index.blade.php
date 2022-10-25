@@ -17,20 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('cours-create')
+                                        @can('cours-create')
                                             <li class="nk-block-tools-opt">
                                                 <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                            <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.course.history') }}">
-                                                    <em class="icon ni ni-histroy"></em>
-                                                    <span>Corbeille</span>
-                                                </a>
-                                            </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -101,25 +95,11 @@
                                     <td class="nk-tb-col">
                                         <span class="tb-lead">
                                             <div class="d-flex">
-                                                @permission('cours-read')
+                                                @can('cours-read')
                                                     <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                         <em class="icon ni ni-eye"></em>
                                                     </a>
-                                                @endpermission
-                                                @permission('cours-update')
-                                                    <a href="{{ route('admins.academic.course.edit', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-edit"></em>
-                                                    </a>
-                                                @endpermission
-                                                @permission('cours-delete')
-                                                    <form action="{{ route('admins.academic.course.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                            <em class="icon ni ni-trash"></em>
-                                                        </button>
-                                                    </form>
-                                                @endpermission
+                                                @endcan
                                             </div>
                                         </span>
                                     </td>

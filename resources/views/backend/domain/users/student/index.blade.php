@@ -83,7 +83,7 @@
                                 </td>
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
-                                        {{ ucfirst($student->user->institution->institution_name) ?? "" }}
+                                        {{ ucfirst($student->user->institution) ?? "" }}
                                     </span>
                                 </td>
                                 <td class="nk-tb-col">

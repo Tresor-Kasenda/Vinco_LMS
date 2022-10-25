@@ -32,16 +32,6 @@
                         src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
                         srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
                         alt="logo">
-                    <img
-                        class="logo-dark logo-img h-100 w-100"
-                        src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
-                        srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
-                        alt="logo-dark">
-                    <img
-                        class="logo-small logo-img h-100 w-100"
-                        src="{{ asset('storage/'. auth()->user()->institution->institution_images) }}"
-                        srcset="{{ asset('storage/'. auth()->user()->institution->institution_images) }} 3x"
-                        alt="logo-small">
                 @endif
             </a>
         </div>
@@ -126,7 +116,7 @@
                         ])
                     @endrole
 
-                    @role('Student')
+                    @role('Etudiant')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon">

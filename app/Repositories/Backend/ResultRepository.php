@@ -18,17 +18,17 @@ final class ResultRepository implements ResultRepositoryInterface
         // TODO: Implement showResult() method.
     }
 
-    public function stored($attributes, $factory)
+    public function stored($attributes)
     {
         // TODO: Implement stored() method.
     }
 
-    public function updated(string $key, $attributes, $factory)
+    public function updated(string $key, $attributes)
     {
         // TODO: Implement updated() method.
     }
 
-    public function deleted(string $key, $factory)
+    public function deleted(string $key)
     {
         // TODO: Implement deleted() method.
     }
