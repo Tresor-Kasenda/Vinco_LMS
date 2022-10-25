@@ -61,7 +61,7 @@ final class CreateTokenRepository implements CreateTokenRepositoryInterface
 
         return $enable
             ->createConnexion()
-            ->post(config('enableX.url').'rooms/'.$room['room_id'].'/tokens', $room)
+            ->post(config('enableX.url') . 'rooms/' . $room['room_id'] . '/tokens', $room)
             ->json();
     }
 }

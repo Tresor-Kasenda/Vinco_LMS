@@ -78,7 +78,7 @@ final class CalendarBackendController extends Controller
         $calendar = Calendar::where('id', $id)->first();
 
         return \view('backend.domain.communication.calendar.edit', [
-            'calendar'=>$calendar,
+            'calendar' => $calendar,
         ]);
     }
 

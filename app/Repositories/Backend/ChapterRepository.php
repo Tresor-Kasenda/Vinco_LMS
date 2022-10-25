@@ -15,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 final class ChapterRepository implements ChapterRepositoryInterface
 {
     use ImageUploader;
+
     public function getChapters(): array|Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {

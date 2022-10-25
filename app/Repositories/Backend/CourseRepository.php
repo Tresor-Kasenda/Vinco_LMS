@@ -115,7 +115,6 @@ final class CourseRepository implements CourseRepositoryInterface
     {
         $professor = $this->showCourse(key: $key);
         if ($professor->status !== StatusEnum::FALSE) {
-
             return back();
         }
         $professor->delete();
