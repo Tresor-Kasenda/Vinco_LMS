@@ -17,14 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('fee-type-create')
+                                        @can('fee-type-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.announce.feesTypes.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.announce.feesTypes.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -36,10 +36,6 @@
                         @forelse($feesTypes as $feesType)
                             <div class="col-sm-6 col-lg-3 col-xxl-3">
                                 <div class="gallery card">
-                                    <img
-                                        class="w-100 rounded-top"
-                                        src="{{ asset('storage/'.$feesType->images) }}"
-                                        alt="{{ $feesType->name }}">
                                     <div class="gallery-body card-inner">
                                         <h6 class="justify-content-center">
                                             {{ ucfirst($feesType->institution->institution_name) ?? "" }}
@@ -49,14 +45,14 @@
                                         </h6>
                                         <div class="row justify-content-center">
                                             <div class="col-md-6">
-                                                @permission('fee-type-update')
+                                                @can('fee-type-update')
                                                 <a href="{{ route('admins.announce.feesTypes.edit', $feesType->id) }}" class="btn btn-outline-primary btn-dim">
                                                     <em class="icon ni ni-edit"></em>
                                                 </a>
-                                                @endpermission
+                                                @endcan
                                             </div>
                                             <div class="col-md-6">
-                                                @permission('fee-type-delete')
+                                                @can('fee-type-delete')
                                                 <form method="post" action="{{ route('admins.announce.feesTypes.destroy', $feesType->id) }}">
                                                     @csrf
                                                     @method('DELETE')
@@ -64,7 +60,7 @@
                                                         <em class="icon ni ni-trash"></em>
                                                     </button>
                                                 </form>
-                                                @endpermission
+                                                @endcan
                                             </div>
                                         </div>
                                     </div>

@@ -17,26 +17,55 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li>
-                                            <div class="drodown">
-                                                <div class="form-control-wrap">
-                                                    <select name="status" id="status" class="form-select form-control form-control-sm">
-                                                        <option value="default_option">Select Status</option>
-                                                        @if($homework->status == \App\Enums\StatusEnum::FALSE)
-                                                            <option value="{{ \App\Enums\StatusEnum::TRUE }}">Activated</option>
-                                                        @else
-                                                            <option value="{{ \App\Enums\StatusEnum::FALSE }}">Deactivated</option>
-                                                        @endif
-                                                    </select>
+                                        @can('homework-status')
+                                            <li class="preview-item">
+                                                <div class="custom-control custom-control-md custom-switch">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="custom-control-input"
+                                                        name="activated"
+                                                        data-id="{{ $homework->id }}"
+                                                        {{ $homework->status ? "checked" : "" }}
+                                                        onclick="changeCampusStatus(event.target, {{ $homework->id }});"
+                                                        id="activated">
+                                                    <label class="custom-control-label" for="activated"></label>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.homework.index') }}">
-                                                <em class="icon ni ni-arrow-left"></em>
-                                                <span>Back</span>
+                                            </li>
+                                        @endcan
+                                        <li class="preview-item">
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.academic.homework.index') }}">
+                                                <em class="icon ni ni-arrow-long-left"></em>
+                                                <span>Touts les campus</span>
                                             </a>
                                         </li>
+                                        @can('homework-update')
+                                            <li class="preview-item">
+                                                <a
+                                                    href="{{ route('admins.academic.homework.edit', $homework->id) }}"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                    <em class="icon ni ni-edit mr-1"></em>
+                                                    Editer
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('homework-delete')
+                                            <li class="preview-item">
+                                                <form
+                                                    action="{{ route('admins.academic.homework.destroy', $homework->id) }}"
+                                                    method="POST"
+                                                    class="d-inline-block"
+                                                    onsubmit="return confirm('Are you sure you want to delete this item?');"
+                                                >
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                        <em class="icon ni ni-trash-empty-fill"></em>
+                                                        Delete le campus
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endcan
+                                    </ul>
                                     </ul>
                                 </div>
                             </div>
@@ -46,13 +75,6 @@
                 <div class="nk-block">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            @if($homework->status == \App\Enums\StatusEnum::FALSE)
-                                <div class="alert alert-danger alert-icon">
-                                    <em class="icon ni ni-cross-circle"></em>
-                                    <strong>Course activation</strong>!
-                                    The course does not yet active.
-                                </div>
-                            @endif
                             <div class="card">
                                 <div class="card-body border-bottom py-3">
                                     <div class="text-center">
@@ -107,30 +129,3 @@
         </div>
     </div>
 @endsection
-
-
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            $('#status').on('change', function(){
-                const status = $("#status option:selected").val()
-                $.ajax({
-                    type: "put",
-                    url: `{{ route('admins.course.active', $homework->id) }}`,
-                    data: {
-                        status: status,
-                        key: `{{ $homework->key }}`,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    dataType : 'json',
-                    success: function(response){
-                        if (response){
-                            Swal.fire(`${response.message}`, "update", "success");
-                        }
-                    }
-                })
-            })
-        })
-    </script>
-@endsection
-

@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="card-title mt-2">Creation Fees Type</h6>
-                            <a class="btn btn-dim btn-primary btn-sm  active-link mt-2" href="{{ route('admins.announce.feesTypes.index') }}">
+                            <a class="btn btn-outline-primary btn-sm  active-link mt-2" href="{{ route('admins.announce.feesTypes.index') }}">
                                 <em class="icon ni ni-arrow-left"></em>
                                 <span>Back</span>
                             </a>
@@ -67,22 +67,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="images">Images</label>
-                                                    <input
-                                                        type="file"
-                                                        class="form-control @error('images') error @enderror"
-                                                        id="images"
-                                                        name="images"
-                                                        value="{{ old('images') ?? $feesType->images }}"
-                                                        placeholder="Selectionnez l'image"
-                                                        required>
-                                                </div>
-                                            </div>
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

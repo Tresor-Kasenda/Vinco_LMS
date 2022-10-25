@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\ExerciseRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Exercice;
-use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,10 +14,6 @@ use Illuminate\Http\RedirectResponse;
 
 final class ExerciseRepository implements ExerciseRepositoryInterface
 {
-    public function __construct(protected ToastMessageService $messageService)
-    {
-    }
-
     public function exercises(): array|Collection|\Illuminate\Support\Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {
@@ -59,7 +54,7 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
 
     public function stored($attributes): Model|Builder|Exercice|RedirectResponse
     {
-        $lesson = Exercice::query()
+        return Exercice::query()
             ->create([
                 'lesson_id' => $attributes->input('lesson'),
                 'chapter_id' => $attributes->input('chapter'),
@@ -69,9 +64,6 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
                 'filling_date' => $attributes->input('date'),
                 'status' => StatusEnum::FALSE,
             ]);
-        $this->messageService->success("L'exercice a ete ajouter a une lecon");
-
-        return $lesson;
     }
 
     public function updated(string $key, $attributes): Model|Builder|Exercice
@@ -85,7 +77,6 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
             'rating' => $attributes->input('rating'),
             'filling_date' => $attributes->input('date'),
         ]);
-        $this->messageService->success("L'exercice a ete mise a jours avec success");
 
         return $lesson;
     }
@@ -93,16 +84,6 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
     public function showExercise(string $key): Model|Builder|Exercice
     {
         $exercise = Exercice::query()
-            ->select([
-                'id',
-                'name',
-                'lesson_id',
-                'chapter_id',
-                'course_id',
-                'status',
-                'rating',
-                'filling_date',
-            ])
             ->where('id', '=', $key)
             ->first();
 
@@ -117,7 +98,6 @@ final class ExerciseRepository implements ExerciseRepositoryInterface
     {
         $lesson = $this->showExercise(key: $key);
         $lesson->delete();
-        $this->messageService->success("L'exercice a ete supprimer avec success");
 
         return $lesson;
     }

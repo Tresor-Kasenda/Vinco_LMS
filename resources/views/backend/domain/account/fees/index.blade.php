@@ -17,14 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('fee-create')
+                                        @can('fee-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.accounting.fees.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.accounting.fees.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
                                             </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -36,6 +36,9 @@
                         <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                             <thead>
                             <tr class="nk-tb-item nk-tb-head text-center">
+                                <th class="nk-tb-col">
+                                    <span>ID</span>
+                                </th>
                                 @if(auth()->user()->hasRole('Super Admin'))
                                 <th class="nk-tb-col">
                                     <span>INSTITUTION</span>
@@ -58,6 +61,9 @@
                             <tbody>
                                 @foreach($fees as $fee)
                                     <tr class="nk-tb-item text-center">
+                                        <td class="nk-tb-col">
+                                            <span class="tb-lead">{{ $fee->id ?? "" }}</span>
+                                        </td>
                                         @if(auth()->user()->hasRole('Super Admin'))
                                             <td class="nk-tb-col">
                                                 <span class="tb-lead">{{ ucfirst($fee->institution->institution_name) ?? "" }}</span>
@@ -73,26 +79,15 @@
                                             <span class="tb-lead">{{ $fee->pay_date ?? "" }} </span>
                                         </td>
                                         <td class="nk-tb-col">
-                                            <span class="tb-lead">
-                                                <div class="d-flex justify-content-center">
-                                                    @permission('fee-update')
-                                                    <a href="{{ route('admins.accounting.fees.edit', $fee->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-edit"></em>
-                                                        Edit
+                                            @can('fee-view')
+                                                <div class="tb-lead justify-content-center">
+                                                    <a href="{{ route('admins.accounting.fees.show', $fee->id) }}"
+                                                       class="btn btn-outline-primary btn-sm" title="">
+                                                        <em class="icon ni ni-eye-alt-fill"></em>
+                                                        <span>Detail frais</span>
                                                     </a>
-                                                    @endpermission
-                                                    @permission('fee-delete')
-                                                    <form action="{{ route('admins.accounting.fees.destroy', $fee->id) }}" method="POST" class="ml-3" onsubmit="return confirm('Voulez vous supprimer');">
-                                                        @method('DELETE')
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                            <em class="icon ni ni-trash"></em>
-                                                            Delete
-                                                        </button>
-                                                    </form>
-                                                    @endpermission
                                                 </div>
-                                            </span>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

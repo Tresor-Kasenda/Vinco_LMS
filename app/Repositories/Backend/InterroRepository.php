@@ -7,16 +7,12 @@ namespace App\Repositories\Backend;
 use App\Contracts\InterroRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Question;
-use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class InterroRepository implements InterroRepositoryInterface
 {
-    public function __construct(protected ToastMessageService $messageService)
-    {
-    }
 
     public function interros(): array|Collection|\Illuminate\Support\Collection
     {
@@ -54,7 +50,7 @@ final class InterroRepository implements InterroRepositoryInterface
 
     public function stored($attributes): Model|Builder|Question
     {
-        $interro = Question::query()
+        return Question::query()
             ->create([
                 'rating' => $attributes->input('rating'),
                 'date' => $attributes->input('date'),
@@ -63,9 +59,6 @@ final class InterroRepository implements InterroRepositoryInterface
                 'course_id' => $attributes->input('course'),
                 'chapter_id' => $attributes->input('chapter'),
             ]);
-        $this->messageService->success('Une nouvelle Interrogation a ete ajouter');
-
-        return $interro;
     }
 
     public function updated(string $key, $attributes): Model|Builder|Question|null
@@ -78,7 +71,6 @@ final class InterroRepository implements InterroRepositoryInterface
             'course_id' => $attributes->input('course'),
             'chapter_id' => $attributes->input('chapter'),
         ]);
-        $this->messageService->success("L'Interrogation de {$interro->course->name} a ete modifier");
 
         return $interro;
     }
@@ -105,7 +97,6 @@ final class InterroRepository implements InterroRepositoryInterface
     {
         $interro = $this->showInterro($key);
         $interro->delete();
-        $this->messageService->success('Une nouvelle Interrogation a ete supprimer');
 
         return $interro;
     }

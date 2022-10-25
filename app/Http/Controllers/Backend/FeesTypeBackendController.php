@@ -5,19 +5,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\FeesTypeRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\FeeTypeRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class FeesTypeBackendController extends Controller
+final class FeesTypeBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly FeesTypeRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -36,6 +38,11 @@ final class FeesTypeBackendController extends Controller
     {
         $this->repository->stored(attributes: $feeTypeRequest);
 
+        $this->factory->success(
+            'success',
+            'Un nouveau type de frais ajouter'
+        );
+
         return redirect()->route('admins.announce.feesTypes.index');
     }
 
@@ -50,12 +57,22 @@ final class FeesTypeBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $feeTypeRequest);
 
+        $this->factory->success(
+            'success',
+            'Un type de frais modifier'
+        );
+
         return redirect()->route('admins.announce.feesTypes.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key);
+
+        $this->factory->success(
+            'success',
+            'Un type de frais supprimer'
+        );
 
         return back();
     }
