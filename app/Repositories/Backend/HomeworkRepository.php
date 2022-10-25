@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class HomeworkRepository implements HomeworkRepositoryInterface
 {
-
     public function homeworks(): array|Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {

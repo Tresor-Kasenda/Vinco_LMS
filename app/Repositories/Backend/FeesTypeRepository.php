@@ -73,6 +73,7 @@ final class FeesTypeRepository implements FeesTypeRepositoryInterface
     {
         $feeType = $this->showFeeType(key: $key);
         $feeType->delete();
+
         return $feeType;
     }
 }
