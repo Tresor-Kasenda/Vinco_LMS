@@ -7,7 +7,6 @@ namespace App\Repositories\Backend;
 use App\Contracts\DepartmentRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Department;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,10 +16,6 @@ use Illuminate\Http\RedirectResponse;
 final class DepartmentRepository implements DepartmentRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
 
     public function getDepartments(): Collection|array
     {
@@ -66,7 +61,6 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
                 'campus_id' => $attributes->input('campus'),
             ]);
         $department->users()->sync($attributes->input('user'));
-        $this->service->success('Un nouvaux departement a ete ajouter');
 
         return $department;
     }
@@ -81,7 +75,6 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
             'campus_id' => $attributes->input('campus'),
         ]);
         $department->users()->sync($attributes->input('user'));
-        $this->service->success('Un departement a ete modifier');
 
         return $department;
     }
@@ -106,26 +99,10 @@ final class DepartmentRepository implements DepartmentRepositoryInterface
     {
         $department = $this->showDepartment(key: $key);
         if ($department->status !== StatusEnum::FALSE) {
-            $this->service->warning('Veillez desactiver le departement avant de le mettre dans la corbeille');
-
             return back();
         }
         $department->delete();
-        $this->service->success('Un department a ete supprimer');
 
         return back();
-    }
-
-    public function changeStatus($attributes): bool|int
-    {
-        $department = $this->showDepartment(key: $attributes->input('id'));
-
-        if ($department != null) {
-            return $department->update([
-                'status' => $attributes->input('status'),
-            ]);
-        }
-
-        return false;
     }
 }

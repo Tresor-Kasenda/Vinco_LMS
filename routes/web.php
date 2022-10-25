@@ -26,7 +26,8 @@ use App\Http\Controllers\Backend\Communication\LibraryBackendController;
 use App\Http\Controllers\Backend\Communication\MessageBackendController;
 use App\Http\Controllers\Backend\Communication\NotificationBackendController;
 use App\Http\Controllers\Backend\CourseBackendController;
-use App\Http\Controllers\Backend\DepartmentBackendController;
+use App\Http\Controllers\Backend\Department\DepartmentBackendController;
+use App\Http\Controllers\Backend\Department\StatusDepartmentBackendController;
 use App\Http\Controllers\Backend\EnableX\EnableBackendController;
 use App\Http\Controllers\Backend\ExamListBackendController;
 use App\Http\Controllers\Backend\ExamSessionController;
@@ -219,6 +220,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('institution-status', StatusInstitutionBackendController::class);
         Route::post('student-status', StatusStudentBackendController::class);
         Route::post('campus-status', StatusCampusBackendController::class);
+        Route::post('department-status', StatusDepartmentBackendController::class);
+
     });
 });
 

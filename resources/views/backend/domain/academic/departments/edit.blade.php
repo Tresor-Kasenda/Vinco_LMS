@@ -18,7 +18,7 @@
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a class="btn btn-outline-light d-none d-md-inline-flex" href="{{ route('admins.academic.departments.index') }}">
+                                            <a class="btn btn-outline-primary d-none d-md-inline-flex" href="{{ $viewModel->indexUrl ?? "" }}">
                                                 <em class="icon ni ni-arrow-left"></em>
                                                 <span>Back</span>
                                             </a>
@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form action="{{ route('admins.academic.departments.update', $department->id) }}" method="post" class="form-validate" enctype="multipart/form-data">
+                                    <form action="{{ $viewModel->updateUrl }}" method="post" class="form-validate" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="row g-gs">
@@ -56,34 +56,12 @@
                                                             class="form-control @error('name') error @enderror"
                                                             id="name"
                                                             name="name"
-                                                            value="{{ old('name') ?? $department->name }}"
+                                                            value="{{ old('name') ?? $viewModel->department()->name }}"
                                                             placeholder="Enter Name"
                                                             required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @php
-                                                if (auth()->user()->hasRole('Super Admin')){
-                                                    $users = \App\Models\User::query()
-                                                        ->whereHas('roles', function ($query){
-                                                            $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->with(['institution', 'teacher'])
-                                                        ->get();
-                                                    $campuses = \App\Models\Campus::query()
-                                                        ->get();
-                                                } else {
-                                                    $users = \App\Models\User::query()
-                                                        ->where('institution_id', '=', auth()->user()->institution->id)
-                                                        ->with(['teacher', 'institution'])
-                                                        ->whereHas('roles', function ($query){
-                                                            $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
-                                                        })
-                                                        ->get();
-                                                    $campuses = \App\Models\Campus::query()
-                                                        ->where('institution_id', '=', auth()->user()->institution->id)->get();
-                                                }
-                                            @endphp
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -96,7 +74,7 @@
                                                         data-placeholder="Select Responsable"
                                                         required>
                                                         <option value=""></option>
-                                                        @foreach($users as $user)
+                                                        @foreach($viewModel->users() as $user)
                                                             <option value="{{ $user->id }}">
                                                                 {{ ucfirst($user->name) }}
                                                                 @if(auth()->user()->hasRole('Super Admin'))
@@ -118,7 +96,7 @@
                                                         data-placeholder="Choisir la faculte"
                                                         required>
                                                         <option label="Choisir la faculte" value=""></option>
-                                                        @foreach($campuses as $campus)
+                                                        @foreach($viewModel->campuses() as $campus)
                                                             <option value="{{ $campus->id }}">
                                                                 {{ $campus->name }} (<small>{{ ucfirst($campus->institution->institution_name) ?? "" }}</small>)
                                                             </option>
@@ -135,13 +113,13 @@
                                                             id="description"
                                                             name="description"
                                                             placeholder="Write the description"
-                                                        >{{ old('description') }}</textarea>
+                                                        >{{ old('description') ?? $viewModel->department()->description }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-md btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
                                                 </div>
                                             </div>
                                         </div>

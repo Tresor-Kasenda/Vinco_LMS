@@ -159,8 +159,7 @@ final class User extends Authenticatable
     public function departments(): BelongsToMany
     {
         return $this
-            ->belongsToMany(Department::class, 'user_department')
-            ->withTimestamps();
+            ->belongsToMany(Department::class, 'user_department');
     }
 
     public function parents(): HasMany

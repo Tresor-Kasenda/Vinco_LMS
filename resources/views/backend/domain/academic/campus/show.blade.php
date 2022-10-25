@@ -154,7 +154,6 @@
     </div>
 @endsection
 
-
 @section('scripts')
     <script>
 
