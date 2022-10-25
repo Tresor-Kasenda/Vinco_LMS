@@ -12,7 +12,6 @@ use LaravelIdea\Helper\App\Models\_IH_Subsidiary_QB;
 
 class FiliaireStatusRepository
 {
-
     public function handle(FiliaireStatusRequest $request): Model|Builder|Subsidiary|_IH_Subsidiary_QB|null
     {
         $filiaire = Subsidiary::query()
