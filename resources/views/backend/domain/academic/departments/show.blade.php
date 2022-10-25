@@ -20,6 +20,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @can('department-status')
                                         <li class="preview-item">
                                             <div class="custom-control custom-control-md custom-switch">
                                                 <input
@@ -33,13 +34,14 @@
                                                 <label class="custom-control-label" for="activated"></label>
                                             </div>
                                         </li>
+                                        @endcan
                                         <li class="preview-item">
                                             <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->indexUrl }}">
                                                 <em class="icon ni ni-arrow-long-left"></em>
                                                 <span>Touts les campus</span>
                                             </a>
                                         </li>
-                                        @can('admin-update')
+                                        @can('department-update')
                                             <li class="preview-item">
                                                 <a
                                                     href="{{ $viewModel->editUrl }}"
@@ -49,7 +51,7 @@
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('admin-delete')
+                                        @can('department-delete')
                                             <li class="preview-item">
                                                 <form
                                                     action="{{ $viewModel->deleteUrl }}"

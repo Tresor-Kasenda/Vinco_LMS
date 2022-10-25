@@ -99,14 +99,14 @@
                                     </td>
                                 @endif
                                 <td class="nk-tb-col">
-                                    @can('institution-read')
-                                    <div class="tb-lead justify-content-center">
-                                        <a href="{{ route('admins.institution.show', $institution->id) }}"
-                                           class="btn btn-dim btn-primary btn-sm" title="">
-                                            <em class="icon ni ni-eye-alt-fill"></em>
-                                            <span>Detail institution</span>
-                                        </a>
-                                    </div>
+                                    @can('institution-view')
+                                        <div class="tb-lead justify-content-center">
+                                            <a href="{{ route('admins.institution.show', $institution->id) }}"
+                                               class="btn btn-dim btn-primary btn-sm" title="">
+                                                <em class="icon ni ni-eye-alt-fill"></em>
+                                                <span>Detail institution</span>
+                                            </a>
+                                        </div>
                                     @endcan
                                 </td>
                             </tr>

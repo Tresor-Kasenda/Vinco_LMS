@@ -97,7 +97,7 @@
                                         </th>
                                     @endif
                                     <td class="nk-tb-col">
-                                        @can('department-read')
+                                        @can('department-view')
                                             <div class="tb-lead justify-content-center">
                                                 <a href="{{ route('admins.academic.departments.show', $department->id) }}"
                                                    class="btn btn-outline-primary btn-sm" title="">

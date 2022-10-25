@@ -32,6 +32,7 @@
         "yajra/laravel-datatables-oracle": "^9.21.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^v1.19.0",
         "laravel-fans/lint": "^1.0",
         "laravel/pint": "^1.1",

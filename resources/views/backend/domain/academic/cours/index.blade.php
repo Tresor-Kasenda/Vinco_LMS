@@ -17,9 +17,9 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @can('cours-create')
+                                        @can('course-create')
                                             <li class="nk-block-tools-opt">
-                                                <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ route('admins.academic.course.create') }}">
                                                     <em class="icon ni ni-plus"></em>
                                                     <span>Create</span>
                                                 </a>
@@ -93,15 +93,15 @@
                                         </td>
                                     @endif
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex">
-                                                @can('cours-read')
-                                                    <a href="{{ route('admins.academic.course.show', $course->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                        <em class="icon ni ni-eye"></em>
-                                                    </a>
-                                                @endcan
+                                        @can('course-view')
+                                            <div class="tb-lead justify-content-center">
+                                                <a href="{{ route('admins.academic.course.show', $course->id) }}"
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail cours</span>
+                                                </a>
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

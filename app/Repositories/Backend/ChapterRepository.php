@@ -6,7 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\ChapterRepositoryInterface;
 use App\Models\Chapter;
-use App\Services\ToastMessageService;
 use App\Traits\ImageUploader;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,11 +15,6 @@ use Illuminate\Http\RedirectResponse;
 final class ChapterRepository implements ChapterRepositoryInterface
 {
     use ImageUploader;
-
-    public function __construct(protected ToastMessageService $service)
-    {
-    }
-
     public function getChapters(): array|Collection
     {
         if (auth()->user()->hasRole('Super Admin')) {
@@ -50,37 +44,14 @@ final class ChapterRepository implements ChapterRepositoryInterface
             ->get();
     }
 
-    public function showChapter(string $key): Model|Builder|Chapter|null|array
-    {
-        $chapter = Chapter::query()
-            ->select([
-                'id',
-                'name',
-                'course_id',
-                'content',
-            ])
-            ->where('id', '=', $key)
-            ->first();
-
-        return $chapter->load([
-            'lessons:id,name',
-            'course:id,name,professor_id,images',
-            'course.professors:id,username,email,lastname',
-            'resources:id,name,path',
-        ]);
-    }
-
     public function stored($attributes): Model|Builder|Chapter|RedirectResponse|array
     {
-        $chapter = Chapter::query()
+        return Chapter::query()
             ->create([
                 'course_id' => $attributes->input('course'),
                 'name' => $attributes->input('name'),
                 'content' => $attributes->input('content'),
             ]);
-        $this->service->success('Un nouveau cours a ete ajouter');
-
-        return $chapter;
     }
 
     public function updated(string $key, $attributes): Model|Builder|array|Chapter|null
@@ -92,16 +63,28 @@ final class ChapterRepository implements ChapterRepositoryInterface
             'name' => $attributes->input('name'),
             'content' => $attributes->input('content'),
         ]);
-        $this->service->success('Un cours a ete mise a jours avec success');
 
         return $chapter;
+    }
+
+    public function showChapter(string $key): Model|Builder|Chapter|null|array
+    {
+        $chapter = Chapter::query()
+            ->where('id', '=', $key)
+            ->first();
+
+        return $chapter->load([
+            'lessons:id,name',
+            'course:id,name,professor_id,images',
+            'course.professors:id,username,email,lastname',
+            'resources:id,name,path',
+        ]);
     }
 
     public function deleted(string $key): Model|Builder|array|Chapter|null
     {
         $chapter = $this->showChapter(key: $key);
         $chapter->delete();
-        $this->service->success('Le chapitre a ete supprimer avec success');
 
         return $chapter;
     }

@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\CourseRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
-use App\Http\Requests\StatusCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-final class CourseBackendController extends Controller
+final class CourseBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         private readonly CourseRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -40,6 +40,11 @@ final class CourseBackendController extends Controller
     public function store(CourseRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes);
+
+        $this->factory->success(
+            'succes',
+            'Un nouveau cours ajouter'
+        );
 
         return to_route('admins.academic.course.index');
     }
@@ -62,6 +67,10 @@ final class CourseBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
+        $this->factory->success(
+            'succes',
+            'Un cours a ete modifier'
+        );
         return Response::redirectToRoute('admins.academic.course.index');
     }
 
@@ -69,20 +78,10 @@ final class CourseBackendController extends Controller
     {
         $this->repository->deleted(key: $key);
 
+        $this->factory->success(
+            'succes',
+            'Un cours  a ete supprimer'
+        );
         return Response::redirectToRoute('admins.academic.course.index');
-    }
-
-    public function activate(StatusCourseRequest $request): JsonResponse
-    {
-        $employee = $this->repository->changeStatus(attributes: $request);
-        if ($employee) {
-            return response()->json([
-                'message' => 'The status has been successfully updated',
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Desoler',
-        ]);
     }
 }
