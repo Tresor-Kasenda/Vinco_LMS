@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Institution;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 final class FeeTypeRequest extends FormRequest
 {
@@ -25,7 +27,10 @@ final class FeeTypeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3'],
-            'images' => ['required', 'image', 'mimes:jpg,png,svg,gif,jpeg'],
+            'institution' => [
+                'required',
+                Rule::exists(Institution::class, 'id')
+            ]
         ];
     }
 }

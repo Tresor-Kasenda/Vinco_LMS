@@ -6,7 +6,6 @@ namespace App\Repositories\Backend;
 
 use App\Contracts\FeesRepositoryInterface;
 use App\Models\Fee;
-use App\Services\ToastMessageService;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,10 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 final class FeesRepository implements FeesRepositoryInterface
 {
     use RandomValue;
-
-    public function __construct(protected ToastMessageService $toastMessage)
-    {
-    }
 
     public function getFees(): Collection|array
     {
@@ -47,7 +42,7 @@ final class FeesRepository implements FeesRepositoryInterface
                 'promotion_id',
             ])
             ->where('institution_id', '=', auth()->user()->institution->id)
-            ->with('feeType')
+            ->with(['feeType'])
             ->orderByDesc('created_at')
             ->get();
     }
@@ -63,7 +58,6 @@ final class FeesRepository implements FeesRepositoryInterface
                 'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
                 'promotion_id' => $attributes->input('promotion'),
             ]);
-        $this->toastMessage->success('Fee added with successfully');
 
         return $fee;
     }
@@ -79,7 +73,6 @@ final class FeesRepository implements FeesRepositoryInterface
             'institution_id' => $attributes->input('institution') ?? auth()->user()->institution->id,
             'promotion_id' => $attributes->input('promotion'),
         ]);
-        $this->toastMessage->success('Fee updated with successfully');
 
         return $fee;
     }
@@ -87,19 +80,10 @@ final class FeesRepository implements FeesRepositoryInterface
     public function showFee(int $key)
     {
         $fee = Fee::query()
-            ->select([
-                'id',
-                'amount',
-                'pay_date',
-                'description',
-                'description',
-                'promotion_id',
-                'institution_id',
-            ])
             ->find($key)
             ->first();
 
-        return $fee->load(['feeType:id,name,images', 'institution:id,institution_name', 'promotion:id,name']);
+        return $fee->load(['feeType:id,name', 'institution:id,institution_name', 'promotion:id,name']);
     }
 
     public function deleted(int $key)

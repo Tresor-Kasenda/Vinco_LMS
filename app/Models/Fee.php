@@ -69,6 +69,11 @@ final class Fee extends Model
         return $this->belongsTo(Student::class, 'student_id');
     }
 
+    public function promotion(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class);
+    }
+
     public function feeType(): BelongsTo
     {
         return $this->belongsTo(FeeType::class, 'fee_type_id');

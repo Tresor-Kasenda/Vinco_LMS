@@ -7,16 +7,12 @@ namespace App\Repositories\Backend;
 use App\Contracts\HomeworkRepositoryInterface;
 use App\Enums\StatusEnum;
 use App\Models\Homework;
-use App\Services\ToastMessageService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 final class HomeworkRepository implements HomeworkRepositoryInterface
 {
-    public function __construct(protected ToastMessageService $messageService)
-    {
-    }
 
     public function homeworks(): array|Collection
     {
@@ -64,7 +60,7 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
 
     public function stored($attributes): Model|Builder|Homework
     {
-        $homework = Homework::query()
+        return Homework::query()
             ->create([
                 'name' => $attributes->input('name'),
                 'rating_homework' => $attributes->input('rating'),
@@ -74,9 +70,6 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
                 'chapter_id' => $attributes->input('chapter'),
                 'lesson_id' => $attributes->input('lesson'),
             ]);
-        $this->messageService->success('Un Travail pratique a ete ajouter');
-
-        return $homework;
     }
 
     public function updated(string $key, $attributes): Model|Builder|Homework|null
@@ -90,7 +83,6 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
             'chapter_id' => $attributes->input('chapter'),
             'lesson_id' => $attributes->input('lesson'),
         ]);
-        $this->messageService->success("le Travail ({$homework->name}) pratique a ete modifier");
 
         return $homework;
     }
@@ -122,7 +114,6 @@ final class HomeworkRepository implements HomeworkRepositoryInterface
     {
         $homework = $this->showHomework($key);
         $homework->delete();
-        $this->messageService->success('Le travail pratique a ete supprimer');
 
         return $homework;
     }

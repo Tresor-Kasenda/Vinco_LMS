@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ExerciseRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ExerciceUpdateRequest;
 use App\Http\Requests\ExerciseRequest;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
@@ -16,11 +16,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
-final class ExerciseBackendController extends Controller
+final class ExerciseBackendController extends BackendBaseController
 {
     public function __construct(
+        public ToastMessageService $factory,
         protected readonly ExerciseRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -38,6 +40,11 @@ final class ExerciseBackendController extends Controller
     public function store(ExerciseRequest $attributes): RedirectResponse
     {
         $this->repository->stored(attributes: $attributes);
+
+        $this->factory->success(
+            'success',
+            'Un exercice a ete ajouter'
+        );
 
         return redirect()->route('admins.academic.exercice.index');
     }
@@ -60,12 +67,22 @@ final class ExerciseBackendController extends Controller
     {
         $this->repository->updated(key: $key, attributes: $attributes);
 
+        $this->factory->success(
+            'success',
+            'Un exercice a ete modifier'
+        );
+
         return redirect()->route('admins.academic.exercice.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->repository->deleted(key: $key);
+
+        $this->factory->success(
+            'success',
+            'Un exercice a ete supprimer'
+        );
 
         return back();
     }

@@ -77,16 +77,16 @@
                                         {{ $interro->date ?? "" }}
                                     </span>
                                 </td>
-                                <td class="nk-tb-col nk-tb-col-tools">
-                                    <span class="tb-lead">
-                                            <div class="d-flex justify-content-center">
-                                                @can('interro-read')
-                                                <a href="{{ route('admins.academic.interro.show', $interro->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye"></em>
-                                                </a>
-                                                @endcan
-                                            </div>
-                                        </span>
+                                <td class="nk-tb-col">
+                                    @can('interro-view')
+                                        <div class="tb-lead justify-content-center">
+                                            <a href="{{ route('admins.academic.interro.show', $interro->id) }}"
+                                               class="btn btn-outline-primary btn-sm" title="">
+                                                <em class="icon ni ni-eye-alt-fill"></em>
+                                                <span>Detail Interrogation</span>
+                                            </a>
+                                        </div>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
