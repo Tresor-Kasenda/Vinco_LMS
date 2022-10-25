@@ -15,12 +15,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
+                                        @can('result-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.exam.exam-result.create') }}">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Create</span>
                                             </a>
                                         </li>
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>

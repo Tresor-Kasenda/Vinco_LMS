@@ -33,7 +33,7 @@ final class CourseRepository implements CourseRepositoryInterface
                     'status',
                     'category_id',
                     'images',
-                    'weighting',
+                    'annual_rating',
                     'professor_id',
                     'institution_id',
                 ])
@@ -50,33 +50,13 @@ final class CourseRepository implements CourseRepositoryInterface
                 'status',
                 'category_id',
                 'images',
-                'weighting',
+                'annual_rating',
             ])
             ->with(['category:id,name', 'professors:id,username,email'])
             ->where('institution_id', '=', auth()->user()->institution->id)
             ->withCount('chapters')
             ->orderByDesc('created_at')
             ->get();
-    }
-
-    public function showCourse(string $key): Model|_IH_Course_QB|Builder|Course|\Illuminate\Database\Query\Builder|null
-    {
-        $course = Course::query()
-            ->select([
-                'id',
-                'name',
-                'status',
-                'description',
-                'category_id',
-                'images',
-                'weighting',
-                'description',
-                'institution_id',
-            ])
-            ->where('id', '=', $key)
-            ->first();
-
-        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters', 'institution']);
     }
 
     public function stored($attributes): Model|Builder|Course
@@ -116,6 +96,26 @@ final class CourseRepository implements CourseRepositoryInterface
         $this->service->success('Un nouveau cours a ete ajouter');
 
         return $course;
+    }
+
+    public function showCourse(string $key): Model|_IH_Course_QB|Builder|Course|\Illuminate\Database\Query\Builder|null
+    {
+        $course = Course::query()
+            ->select([
+                'id',
+                'name',
+                'status',
+                'description',
+                'category_id',
+                'images',
+                'weighting',
+                'description',
+                'institution_id',
+            ])
+            ->where('id', '=', $key)
+            ->first();
+
+        return $course->load(['category:id,name', 'professors:id,username,lastname,email', 'chapters', 'institution']);
     }
 
     public function deleted(string $key): RedirectResponse

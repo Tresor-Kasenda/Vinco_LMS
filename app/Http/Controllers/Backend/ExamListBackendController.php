@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ExamListRepositoryInterface;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ActivateExamRequest;
 use App\Http\Requests\ExamListRequest;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
+use App\Services\ToastMessageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-final class ExamListBackendController extends Controller
+final class ExamListBackendController extends BackendBaseController
 {
     public function __construct(
-        protected readonly SweetAlertFactory $factory,
+       public ToastMessageService $factory,
         protected readonly ExamListRepositoryInterface $repository
     ) {
+        parent::__construct($this->factory);
     }
 
     public function index(): Renderable
@@ -37,7 +36,7 @@ final class ExamListBackendController extends Controller
 
     public function store(ExamListRequest $attributes): RedirectResponse
     {
-        $this->repository->stored(attributes: $attributes, factory: $this->factory);
+        $this->repository->stored(attributes: $attributes);
 
         return to_route('admins.exam.exam.index');
     }
@@ -58,21 +57,14 @@ final class ExamListBackendController extends Controller
 
     public function update(ExamListRequest $attributes, string $key): RedirectResponse
     {
-        $this->repository->updated(key: $key, attributes: $attributes, factory: $this->factory);
+        $this->repository->updated(key: $key, attributes: $attributes);
 
         return to_route('admins.exam.exam.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->repository->deleted(key: $key, factory: $this->factory);
-
-        return back();
-    }
-
-    public function active(ActivateExamRequest $request)
-    {
-        $this->repository->activate($request);
+        $this->repository->deleted(key: $key);
 
         return back();
     }

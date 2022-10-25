@@ -14,9 +14,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Laratrust\Models\LaratrustRole;
 use LaravelIdea\Helper\App\Models\_IH_Student_QB;
 use LaravelIdea\Helper\App\Models\_IH_User_QB;
+use LaravelIdea\Helper\Spatie\Permission\Models\_IH_Role_QB;
 use Spatie\Permission\Models\Role;
 
 final class StudentRepository implements StudentRepositoryInterface
@@ -102,13 +102,13 @@ final class StudentRepository implements StudentRepositoryInterface
             ->create([
                 'name' => $attributes->input('name'),
                 'email' => $attributes->input('email'),
-                'institution_id' => $attributes->input('institution_id'),
+                'institution_id' => $attributes->input('institution'),
                 'avatar' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
                 'password' => \Hash::make($attributes->input('password')),
             ]);
     }
 
-    private function getStudentRole(): LaratrustRole|null|Builder|Model
+    private function getStudentRole(): Model|_IH_Role_QB|Builder|Role|null
     {
         return Role::query()
             ->where('name', '=', 'Etudiant')
@@ -130,7 +130,6 @@ final class StudentRepository implements StudentRepositoryInterface
                 'location' => $attributes->input('location'),
                 'email' => $attributes->input('email'),
                 'images' => $attributes->file('images') === null ? '' : self::uploadFiles($attributes),
-                'status' => StatusEnum::TRUE,
                 'gender' => $attributes->input('gender'),
                 'guardian_id' => $attributes->input('parent'),
                 'admission_date' => $attributes->input('admission'),

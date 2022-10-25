@@ -10,9 +10,9 @@ interface ResultRepositoryInterface
 
     public function showResult(string $key);
 
-    public function stored($attributes, $factory);
+    public function stored($attributes);
 
-    public function updated(string $key, $attributes, $factory);
+    public function updated(string $key, $attributes);
 
-    public function deleted(string $key, $factory);
+    public function deleted(string $key);
 }

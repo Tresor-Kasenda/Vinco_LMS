@@ -17,7 +17,7 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        @permission('lesson-create')
+                                        @can('lesson-create')
                                         <li class="nk-block-tools-opt">
                                             <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.lessons.create') }}">
                                                 <em class="icon ni ni-plus"></em>
@@ -30,7 +30,7 @@
                                                 <span>Corbeille</span>
                                             </a>
                                         </li>
-                                        @endpermission
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -88,25 +88,11 @@
                                 <td class="nk-tb-col">
                                     <span class="tb-lead">
                                         <div class="d-flex justify-content-center">
-                                            @permission('lesson-read')
+                                            @can('lesson-read')
                                                 <a href="{{ route('admins.academic.lessons.show', $lesson->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
                                                     <em class="icon ni ni-eye"></em>
                                                 </a>
-                                            @endpermission
-                                            @permission('lesson-update')
-                                                <a href="{{ route('admins.academic.lessons.edit', $lesson->id) }}" class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit"></em>
-                                                </a>
-                                            @endpermission
-                                            @permission('lesson-delete')
-                                                <form action="{{ route('admins.academic.lessons.destroy', $lesson->id) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
-                                            @endpermission
+                                            @endcan
                                         </div>
                                     </span>
                                 </td>
