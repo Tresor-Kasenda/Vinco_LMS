@@ -17,7 +17,9 @@ use Spatie\ViewModels\ViewModel;
 class EditDepartmentViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $updateUrl;
+
     public function __construct(public string|int $id)
     {
         $this->indexUrl = action([DepartmentBackendController::class, 'index']);
@@ -33,9 +35,9 @@ class EditDepartmentViewModel extends ViewModel
 
     public function users(): Collection|array|_IH_User_C
     {
-        if (auth()->user()->hasRole('Super Admin')){
+        if (auth()->user()->hasRole('Super Admin')) {
             return User::query()
-                ->whereHas('roles', function ($query){
+                ->whereHas('roles', function ($query) {
                     $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
                 })
                 ->with(['institution', 'teacher'])
@@ -44,20 +46,21 @@ class EditDepartmentViewModel extends ViewModel
             return User::query()
                 ->where('institution_id', '=', auth()->user()->institution->id)
                 ->with(['teacher', 'institution'])
-                ->whereHas('roles', function ($query){
+                ->whereHas('roles', function ($query) {
                     $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
                 })
                 ->get()
-                ->filter(fn($query) => $query->where('status', App\Enums\StatusEnum::TRUE));
+                ->filter(fn ($query) => $query->where('status', App\Enums\StatusEnum::TRUE));
         }
     }
 
     public function campuses(): _IH_Campus_C|Collection|array
     {
-        if (auth()->user()->hasRole('Super Admin')){
+        if (auth()->user()->hasRole('Super Admin')) {
             return Campus::query()
                 ->get();
         }
+
         return Campus::query()
             ->where('institution_id', '=', auth()->user()->institution->id)->get();
     }

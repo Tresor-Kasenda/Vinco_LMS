@@ -12,7 +12,9 @@ use Spatie\ViewModels\ViewModel;
 class ShowCampusViewModel extends ViewModel
 {
     public string $indexUrl;
+
     public string $editUrl;
+
     public string $deleteUrl;
 
     public function __construct(public string|int $id)

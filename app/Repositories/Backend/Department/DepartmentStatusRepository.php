@@ -12,7 +12,6 @@ use LaravelIdea\Helper\App\Models\_IH_Department_QB;
 
 class DepartmentStatusRepository
 {
-
     public function handle(DepartmentStatusRequest $request): Model|Department|Builder|_IH_Department_QB|null
     {
         $admin = Department::query()

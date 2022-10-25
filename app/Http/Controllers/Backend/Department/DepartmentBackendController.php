@@ -48,8 +48,8 @@ final class DepartmentBackendController extends BackendBaseController
         $this->repository->stored(attributes: $attributes);
 
         $this->factory->success(
-            "success",
-            "un nouveau departement ajouter"
+            'success',
+            'un nouveau departement ajouter'
         );
 
         return to_route('admins.academic.departments.index');
@@ -74,8 +74,8 @@ final class DepartmentBackendController extends BackendBaseController
         $this->repository->updated(key: $key, attributes: $attributes);
 
         $this->factory->success(
-            "success",
-            "un departement modifier"
+            'success',
+            'un departement modifier'
         );
 
         return Response::redirectToRoute('admins.academic.departments.index');
@@ -86,8 +86,8 @@ final class DepartmentBackendController extends BackendBaseController
         $this->repository->deleted(key: $key);
 
         $this->factory->success(
-            "success",
-            "un departement supprimer"
+            'success',
+            'un departement supprimer'
         );
 
         return Response::redirectToRoute('admins.academic.departments.index');

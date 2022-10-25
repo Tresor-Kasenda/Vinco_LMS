@@ -46,8 +46,8 @@ final class StudentBackendController extends BackendBaseController
         $this->repository->stored(attributes: $attributes);
 
         $this->factory->success(
-            "success",
-            "Un nouveau etudiant a ete ajouter"
+            'success',
+            'Un nouveau etudiant a ete ajouter'
         );
 
         return to_route('admins.users.student.index');
@@ -72,8 +72,8 @@ final class StudentBackendController extends BackendBaseController
         $this->repository->updated(key: $key, attributes: $attributes);
 
         $this->factory->success(
-            "success",
-            "Un etudiant a ete modifier"
+            'success',
+            'Un etudiant a ete modifier'
         );
 
         return to_route('admins.users.student.index');
@@ -84,8 +84,8 @@ final class StudentBackendController extends BackendBaseController
         $this->repository->deleted(key: $key);
 
         $this->factory->success(
-            "success",
-            "Un etudiant a ete supprimer"
+            'success',
+            'Un etudiant a ete supprimer'
         );
 
         return to_route('admins.users.student.index');
