@@ -29,8 +29,8 @@ final class FeeTypeRequest extends FormRequest
             'name' => ['required', 'string', 'min:3'],
             'institution' => [
                 'required',
-                Rule::exists(Institution::class, 'id')
-            ]
+                Rule::exists(Institution::class, 'id'),
+            ],
         ];
     }
 }
