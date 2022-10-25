@@ -36,7 +36,7 @@ final class NotificationRepository implements NotificationRepositoryInterface
                 'data' => $attributes->input('content'),
                 'type'=>'1',
                 'notifiable_id'=>0,
-                'notifiable_type'=>"oklm"
+                'notifiable_type'=>'oklm',
             ]);
 
         return $notification;
@@ -49,9 +49,8 @@ final class NotificationRepository implements NotificationRepositoryInterface
             'data' => $attributes->input('content'),
             'type'=>'1',
             'notifiable_id'=>0,
-            'notifiable_type'=>"oklm"
+            'notifiable_type'=>'oklm',
         ]);
-
 
         return $notification;
     }
