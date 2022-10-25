@@ -28,7 +28,9 @@ final class AperyLessonType implements LessonTypeInterface
     public function store(LessonRequest $attributes, $lesson): Model|Live|Builder
     {
         $rooms = self::create(attributes: $attributes);
-        $currentTime = strtotime(''.$attributes->input('date').' '.$attributes->input('start_time').'');
+        $currentTime = strtotime(''
+            . $attributes->input('date') . ' '
+            . $attributes->input('start_time'));
         $date = date('Y-m-d H:i:s', $currentTime);
         $pinCode = random_int(100000, 999999);
         $participant = $this->generateStringValues(0, 9999);

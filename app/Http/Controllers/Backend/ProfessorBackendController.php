@@ -87,7 +87,6 @@ final class ProfessorBackendController extends BackendBaseController
             'success',
             'Un  professeur a ete supprimer'
         );
-
-        return back();
+        return to_route('admins.users.teacher.index');
     }
 }

@@ -17,18 +17,14 @@
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <div class="toggle-expand-content" data-content="more-options">
                                     <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-primary btn-sm" href="{{ route('admins.academic.departments.create') }}">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Create</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-block-tools-opt">
-                                            <a class="btn btn-dim btn-secondary btn-sm" href="{{ route('admins.departments.history') }}">
-                                                <em class="icon ni ni-histroy"></em>
-                                                <span>Corbeille</span>
-                                            </a>
-                                        </li>
+                                        @can('department-create')
+                                            <li class="nk-block-tools-opt">
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ $viewModel->createUrl }}">
+                                                    <em class="icon ni ni-plus"></em>
+                                                    <span>Create</span>
+                                                </a>
+                                            </li>
+                                        @endcan
                                     </ul>
                                 </div>
                             </div>
@@ -39,6 +35,9 @@
                     <table class="datatable-init nowrap nk-tb-list is-separate" data-auto-responsive="false">
                         <thead>
                             <tr class="nk-tb-item nk-tb-head  text-center">
+                                <th class="nk-tb-col">
+                                    <span>ID</span>
+                                </th>
                                 <th class="nk-tb-col tb-col-sm">
                                     <span>IMAGES</span>
                                 </th>
@@ -62,8 +61,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($departments as $department)
+                            @foreach($viewModel->departments() as $department)
                                 <tr class="nk-tb-item text-center">
+                                    <td class="nk-tb-col">
+                                        <span class="tb-lead">
+                                            {{ $department->id ?? "" }}
+                                        </span>
+                                    </td>
                                     <td class="nk-tb-col">
                                         <span class="tb-product">
                                             <img
@@ -73,10 +77,14 @@
                                         </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ ucfirst($department->name) ?? "" }}</span>
+                                        <span class="tb-lead">
+                                            {{ ucfirst($department->name) ?? "" }}
+                                        </span>
                                     </td>
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">{{ ucfirst($department->campus->name) ?? "" }}</span>
+                                        <span class="tb-lead">
+                                            {{ ucfirst($department->campus->name) ?? "" }}
+                                        </span>
                                     </td>
                                     <td class="nk-tb-col">
                                         @foreach($department->users as $user)
@@ -89,26 +97,15 @@
                                         </th>
                                     @endif
                                     <td class="nk-tb-col">
-                                        <span class="tb-lead">
-                                            <div class="d-flex justify-content-center">
+                                        @can('department-read')
+                                            <div class="tb-lead justify-content-center">
                                                 <a href="{{ route('admins.academic.departments.show', $department->id) }}"
-                                                   class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-eye-alt"></em>
+                                                   class="btn btn-outline-primary btn-sm" title="">
+                                                    <em class="icon ni ni-eye-alt-fill"></em>
+                                                    <span>Detail Departement</span>
                                                 </a>
-                                                <a href="{{ route('admins.academic.departments.edit', $department->id) }}"
-                                                   class="btn btn-dim btn-primary btn-sm ml-1">
-                                                    <em class="icon ni ni-edit-alt"></em>
-                                                </a>
-                                                <form action="{{ route('admins.academic.departments.destroy', $department->id) }}"
-                                                      method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button type="submit" class="btn btn-dim btn-danger btn-sm">
-                                                        <em class="icon ni ni-trash"></em>
-                                                    </button>
-                                                </form>
                                             </div>
-                                        </span>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
