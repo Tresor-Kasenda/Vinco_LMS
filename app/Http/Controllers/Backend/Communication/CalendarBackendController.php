@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Backend\Communication;
 use App\Contracts\AcademicYearRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
-use Flasher\SweetAlert\Prime\SweetAlertFactory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,7 +17,6 @@ final class CalendarBackendController extends Controller
 {
     public function __construct(
         protected readonly AcademicYearRepositoryInterface $repository,
-        protected readonly SweetAlertFactory $factory
     ) {
     }
 
@@ -51,12 +49,9 @@ final class CalendarBackendController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Calendar::create([
-            'title' => $request->title,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'institution_id' => \Auth::user()->institution->id,
-        ]);
+        $data = $request->except('_token');
+        $data['institution_id'] = \Auth::user()->institution->id;
+        Calendar::create($data);
 
         return redirect()->route('admins.communication.calendar.index');
     }
@@ -76,11 +71,15 @@ final class CalendarBackendController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
-        //
+        $calendar = Calendar::where('id', $id)->first();
+
+        return \view('backend.domain.communication.calendar.edit', [
+            'calendar'=>$calendar,
+        ]);
     }
 
     /**
@@ -91,7 +90,12 @@ final class CalendarBackendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $calendar = Calendar::where('id', $id)->first();
+        $data = $request->except('_token');
+        $data['institution_id'] = \Auth::user()->institution->id;
+        $calendar->update($data);
+
+        return redirect()->route('admins.communication.calendar.index');
     }
 
     /**

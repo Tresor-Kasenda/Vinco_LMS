@@ -20,7 +20,7 @@ final class CalendarService
             ->get();
 
         foreach ($timeRange as $time) {
-            $timeText = $time['start'] . ' - ' . $time['end'];
+            $timeText = $time['start'].' - '.$time['end'];
             $calendarData[$timeText] = [];
 
             foreach ($weekDays as $index => $day) {
