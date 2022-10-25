@@ -221,6 +221,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('student-status', StatusStudentBackendController::class);
         Route::post('campus-status', StatusCampusBackendController::class);
         Route::post('department-status', StatusDepartmentBackendController::class);
+       // Route::post('filiaire-status', StatusFiliaireBackendController::class);
     });
 });
 
