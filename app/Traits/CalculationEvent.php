@@ -10,7 +10,7 @@ trait CalculationEvent
     {
         $dateOld = $attributes->date;
         $time = $attributes->startTime;
-        $currentTime = strtotime(''.$dateOld.' '.$time.'');
+        $currentTime = strtotime('' . $dateOld . ' ' . $time . '');
         $hoursToAdd = -2;
         $secondsToAdd = $hoursToAdd * (60 * 60);
         $newTime = $currentTime + $secondsToAdd;
