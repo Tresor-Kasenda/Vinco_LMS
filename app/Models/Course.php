@@ -143,11 +143,11 @@ final class Course extends Model
 
     public function ponderation(): string
     {
-        return $this->weighting . ' points ';
+        return $this->weighting.' points ';
     }
 
     public function getImages(): string
     {
-        return asset('storage/' . $this->images);
+        return asset('storage/'.$this->images);
     }
 }
