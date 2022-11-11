@@ -185,7 +185,7 @@
                         </li>
                     @endhasrole
 
-                    @hasrole('Gestionnaire')
+                    @hasrole('Manager')
                         @include('backend.components._link', [
                             'route' => route('admins.rooms.aperi.index'),
                             'name' => "Aperi",
