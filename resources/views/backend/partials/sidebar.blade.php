@@ -188,7 +188,7 @@
                         ])
                     @endhasrole
 
-                    @hasrole('Gestionnaire')
+                    @hasrole('Manager')
                         @include('backend.components._link', [
                             'route' => route('admins.academic.session.index'),
                             'name' => "Annee academique",
