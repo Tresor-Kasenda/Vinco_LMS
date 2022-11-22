@@ -37,16 +37,22 @@
                                     <ul class="link-list-plain">
                                         @foreach($eloquentEvent as $event)
                                             <li>
-                                                <div class="d-flex">
-                                                    <a href="#">
+                                                <div class="container">
+                                                    <h4>
                                                         <span>{{ ucfirst($event->title) ?? "" }}</span>
-                                                        @permission('event-update')
+                                                    </h4>
+
+                                                    <p>
+                                                        {{$event->description}}
+                                                    </p>
+
+                                                    @can('event-update')
                                                         <a href="{{ route('admins.communication.events.edit', $event->id) }}" class="btn btn-dim btn-success">
                                                             <em class="icon ni ni-edit-alt"></em>
                                                         </a>
-                                                        @endpermission
+                                                    @endcan
 
-                                                        @permission('event-delete')
+                                                    @can('event-delete')
                                                         <form action="{{ route('admins.communication.events.destroy', $event->id) }}">
                                                             @csrf
                                                             @method('DELETE')
@@ -54,8 +60,7 @@
                                                                 <em class="icon ni ni-trash-alt"></em>
                                                             </button>
                                                         </form>
-                                                        @endpermission
-                                                    </a>
+                                                    @endcan
                                                 </div>
                                             </li>
                                         @endforeach
