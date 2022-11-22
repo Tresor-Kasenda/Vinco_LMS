@@ -91,9 +91,9 @@ final class CampusRepository implements CampusRepositoryInterface
     public function deleted(string $key): RedirectResponse
     {
         $campus = $this->showCampus(key: $key);
-        if ($campus->status !== StatusEnum::FALSE) {
-            return back();
-        }
+//        if ($campus->status !== StatusEnum::FALSE) {
+//            return back();
+//        }
         $campus->delete();
 
         return back();
