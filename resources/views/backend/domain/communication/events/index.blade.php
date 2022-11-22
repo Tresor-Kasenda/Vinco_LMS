@@ -42,6 +42,10 @@
                                                         <span>{{ ucfirst($event->title) ?? "" }}</span>
                                                     </h4>
 
+                                                    <h6>
+                                                        {{\Carbon\Carbon::parse($event->start_date)->format('d F Y')}}
+                                                    </h6>
+
                                                     <p>
                                                         {{$event->description}}
                                                     </p>
