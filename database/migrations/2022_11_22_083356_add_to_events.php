@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->string('description')->nullable();
-            $table->string('image')->nullable();
+            $table->string('images')->nullable();
         });
     }
 

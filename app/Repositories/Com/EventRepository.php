@@ -6,6 +6,7 @@ namespace App\Repositories\Com;
 
 use App\Contracts\EventRepositoryInterface;
 use App\Models\Event as EventModel;
+use App\Traits\ImageUploader;
 use Auth;
 use Calendar;
 use Exception;
@@ -14,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
 
 final class EventRepository implements EventRepositoryInterface
 {
+
+    use ImageUploader;
+
     /**
      * @throws Exception
      */
@@ -65,6 +69,8 @@ final class EventRepository implements EventRepositoryInterface
                 'title' => $attributes->input('title'),
                 'start_date' => $attributes->input('start_date'),
                 'end_date' => $attributes->input('end_date'),
+                'description' => $attributes->input('description'),
+                'images' => self::uploadFiles($attributes),
                 'institution_id' => Auth::user()->institution_id,
             ]);
 
