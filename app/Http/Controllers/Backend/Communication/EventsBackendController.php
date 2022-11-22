@@ -50,7 +50,7 @@ final class EventsBackendController extends Controller
      */
     public function store(EventRequest $request): RedirectResponse
     {
-        $this->repository->stored(attributes: $request, factory: $this->factory);
+        $this->repository->stored(attributes: $request);
 
         return redirect()->route('admins.communication.events.index');
     }
@@ -81,7 +81,7 @@ final class EventsBackendController extends Controller
      */
     public function update(EventRequest $request, string $id): RedirectResponse
     {
-        $this->repository->updated(key: $id, attributes: $request, factory: $this->factory);
+        $this->repository->updated(key: $id, attributes: $request);
 
         return redirect()->route('admins.communication.events.index');
     }
@@ -93,7 +93,7 @@ final class EventsBackendController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $this->repository->deleted(key: $id, factory: $this->factory);
+        $this->repository->deleted(key: $id);
 
         return  back();
     }

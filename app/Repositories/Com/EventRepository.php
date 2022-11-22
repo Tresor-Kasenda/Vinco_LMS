@@ -62,7 +62,7 @@ final class EventRepository implements EventRepositoryInterface
             ->firstOrFail();
     }
 
-    public function stored($attributes, $factory): Model|EventModel|Builder
+    public function stored($attributes): Model|EventModel|Builder
     {
         $event = EventModel::query()
             ->create([
@@ -74,12 +74,10 @@ final class EventRepository implements EventRepositoryInterface
                 'institution_id' => Auth::user()->institution_id,
             ]);
 
-        $factory->addSuccess('Event added with successfully');
-
         return $event;
     }
 
-    public function updated(string $key, $attributes, $factory): Model|EventModel|Builder
+    public function updated(string $key, $attributes): Model|EventModel|Builder
     {
         $event = $this->showEvent($key);
         $event->update([
@@ -89,12 +87,10 @@ final class EventRepository implements EventRepositoryInterface
             'institution_id' => Auth::user()->institution_id,
         ]);
 
-        $factory->addSuccess('Event modified with successfully');
-
         return $event;
     }
 
-    public function deleted(string $key, $factory): Model|EventModel|Builder
+    public function deleted(string $key): Model|EventModel|Builder
     {
         $event = $this->showEvent($key);
 
