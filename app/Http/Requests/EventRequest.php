@@ -28,7 +28,7 @@ final class EventRequest extends FormRequest
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
             'description' => ['required', 'string'],
-            'images' => ['required', 'file'],
+            'images' => ['required'],
         ];
     }
 }
