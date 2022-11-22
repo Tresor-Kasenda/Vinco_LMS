@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class EventRepository implements EventRepositoryInterface
 {
-
     use ImageUploader;
 
     /**
