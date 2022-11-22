@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\ViewModels\Backend\Department;
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Backend\Department\DepartmentBackendController;
 use App\Models\Campus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Campus_C;
 use LaravelIdea\Helper\App\Models\_IH_User_C;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\ViewModels\ViewModel;
 
 class CreateDepartmentViewModel extends ViewModel
@@ -41,7 +43,7 @@ class CreateDepartmentViewModel extends ViewModel
                     $query->whereNotIn('name', ['Super Admin', 'Admin', 'Etudiant', 'Parent', 'Comptable']);
                 })
                 ->get()
-                ->filter(fn ($query) => $query->where('status', App\Enums\StatusEnum::TRUE));
+                ->filter(fn ($query) => $query->where('status', StatusEnum::TRUE));
         }
     }
 
