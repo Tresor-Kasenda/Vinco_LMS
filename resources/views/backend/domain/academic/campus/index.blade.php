@@ -84,7 +84,7 @@
                                                 <a href="{{ route('admins.academic.campus.show', $campus->id) }}"
                                                    class="btn btn-outline-primary btn-sm" title="">
                                                     <em class="icon ni ni-eye-alt-fill"></em>
-                                                    <span>Detail Professeur</span>
+                                                    <span>Detail Campus</span>
                                                 </a>
                                             </div>
                                         @endcan
