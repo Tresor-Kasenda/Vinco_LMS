@@ -16,7 +16,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // register a single rule
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-    $rectorConfig->import(Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_81);
+    $rectorConfig->import(Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_82);
     $rectorConfig->import(SymfonySetList::SYMFONY_STRICT);
     $rectorConfig->import(SymfonySetList::SYMFONY_60);
     $rectorConfig->import(SymfonySetList::SYMFONY_CODE_QUALITY);

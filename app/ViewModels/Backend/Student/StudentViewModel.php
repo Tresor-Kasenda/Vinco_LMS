@@ -6,6 +6,7 @@ namespace App\ViewModels\Backend\Student;
 
 use App\Http\Controllers\Backend\Student\StudentBackendController;
 use App\Models\Student;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\ViewModels\ViewModel;
 
@@ -35,13 +36,11 @@ class StudentViewModel extends ViewModel
                     'images',
                 ])
                 ->with(['subsidiary:id,name', 'user'])
-                ->whereHas('department', function ($builder) {
-                    $builder->with([
-                        'campus:id,name,institution_id' => [
-                            'institution:id,institution_name',
-                        ],
-                    ]);
-                })
+                ->whereHas('department', fn (Builder $builder) => $builder->with([
+                    'campus:id,name,institution_id' => [
+                        'institution:id,institution_name',
+                    ]
+                ]))
                 ->orderByDesc('created_at')
                 ->get();
         } else {
