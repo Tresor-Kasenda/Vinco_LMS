@@ -39,7 +39,7 @@ class StudentViewModel extends ViewModel
                 ->whereHas('department', fn (Builder $builder) => $builder->with([
                     'campus:id,name,institution_id' => [
                         'institution:id,institution_name',
-                    ]
+                    ],
                 ]))
                 ->orderByDesc('created_at')
                 ->get();
